@@ -1,0 +1,122 @@
+.app-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.25rem 1rem;
+    width: calc(100vw - 2rem);
+    background-color: $color-bg-fourth;
+
+    @include respond(sm) {
+        flex-wrap: initial;
+    }
+
+    .app-navigation-toggle {
+        cursor: pointer;
+
+        @include respond(sm) {
+            display: none;
+        }
+
+        .bar {
+            display: block;
+            margin: 0.25rem 0;
+            width: 1.5rem;
+            height: 0.25rem;
+            background-color: $color-bg-secondary;
+            transition: all 0.3s ease-in-out;
+        }
+
+        &:hover {
+            & + .app-navigation {
+                max-height: calc(100vh - 3rem);
+            }
+        }
+    }
+
+    .app-navigation {
+        position: relative;
+        display: flex;
+        flex: 0 0 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+
+        @include respond(sm) {
+            display: block;
+            flex: 0 0 auto;
+            max-height: none;
+            overflow: visible;
+        }
+
+        ul {
+            width: 100%;
+
+            @include respond(sm) {
+                display: flex;
+                align-items: center;
+                width: auto;
+            }
+
+            li {
+                a {
+                    display: block;
+                    padding: 1rem 0;
+                    margin: 0 1rem;
+                    font-weight: 600;
+                    color: $color-bg-secondary;
+                    text-decoration: none;
+                    transition: color 0.3s ease-in-out;
+                }
+
+                &:hover {
+                    a {
+                        color: $color-fg-third;
+                    }
+
+                    .app-navigation-dropdown {
+                        transform: scaleY(1);
+                    }
+                }
+            }
+
+            &.app-navigation-dropdown {
+                padding-left: 1.5rem;
+                margin-bottom: 1rem;
+                font-size: 0.9rem;
+                background-color: $color-bg-fifth;
+                box-shadow: inset 1px 1px 2px rgba($color-fg-primary, 0.5);
+
+                @include respond(sm) {
+                    position: absolute;
+                    right: -1rem;
+                    top: 3rem;
+                    display: block;
+                    margin: 0;
+                    padding: 0;
+                    font-size: 1rem;
+                    transform: scaleY(0);
+                    transform-origin: top;
+                    background-color: $color-bg-secondary;
+                    border: 1px solid $color-bg-fourth;
+                    border-right: none;
+                    border-bottom-left-radius: 0.5rem;
+                    transition: transform 0.3s ease-in-out;
+
+                    li {
+                        a {
+                            margin: 0.5rem 0;
+                            padding: 0.5rem 1rem;
+                            color: $color-fg-primary;
+                            transition: color 0.3s ease-in-out;
+
+                            &:hover {
+                                color: $color-fg-third;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

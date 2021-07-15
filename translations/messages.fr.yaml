@@ -1,0 +1,30 @@
+default:
+  welcome: "bienvenue"
+pages:
+  home:
+    menu: "accueil"
+    title: "retour à l'accueil"
+  login:
+    menu: "connexion"
+    title: "connectez-vous pour jouer"
+  logout:
+    menu: "déconnexion"
+    title: "déconnectez-vous"
+  about:
+    menu: "l'association"
+    title: "qui sommes-nous ?"
+  contact:
+    menu: "contact"
+    title: "contactez-nous"
+  user:
+    menu: "mon profil"
+    title: "mon profil joueur"
+    characters:
+      menu: "mes personnages"
+      title: "gérer mes personnages"
+    games:
+      menu: "mes aventures"
+      title: "gérer mes aventures"
+    tables:
+      menu: "mes tables de jeu"
+      title: "gérer mes tables de jeu"

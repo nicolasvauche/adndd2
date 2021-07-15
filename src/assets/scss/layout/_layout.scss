@@ -1,0 +1,15 @@
+html {
+    font-size: $font-size-default;
+
+    body {
+        font-family: $font-family-primary;
+        font-size: 1rem;
+
+        h1 {
+            font-family: $font-family-secondary;
+            font-size: 2rem;
+        }
+
+        @import "header";
+    }
+}

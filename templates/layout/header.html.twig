@@ -1,0 +1,57 @@
+<header class="app-header">
+    <a href="{{ path('home') }}" class="app-logo" title="{{ 'pages.home.title' | trans | capitalize }}">
+        <img src="{{ asset('assets/images/logo-adndd.png') }}" alt="{{ appConfig.getAppName() }}">
+    </a>
+
+    <div class="app-navigation-toggle">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+
+    <nav class="app-navigation">
+        <ul>
+            <li>
+                <a href="{{ path('home') }}" title="{{ 'pages.home.title' | trans | capitalize }}">{{ 'pages.home.menu' | trans | capitalize }}</a>
+            </li>
+
+            <li>
+                <a href="{{ path('home') }}" title="{{ 'pages.about.title' | trans | capitalize }}">{{ 'pages.about.menu' | trans | capitalize }}</a>
+            </li>
+
+            <li>
+                <a href="{{ path('home') }}" title="{{ 'pages.contact.title' | trans | capitalize }}">{{ 'pages.contact.menu' | trans | capitalize }}</a>
+            </li>
+
+            <li>
+                <a href="{{ path('home') }}" title="{{ 'pages.login.title' | trans | capitalize }}">{{ 'pages.login.menu' | trans | capitalize }}</a>
+            </li>
+
+            <li>
+                <a href="#" title="{{ 'your name here…' | trans | capitalize }}">{{ '[your name]' | trans | capitalize }}</a>
+
+                <ul class="app-navigation-dropdown">
+                    <li>
+                        <a href="{{ path('home') }}" title="{{ 'pages.user.title' | trans | capitalize }}">{{ 'pages.user.menu' | trans | capitalize }}</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('home') }}" title="{{ 'pages.user.characters.title' | trans | capitalize }}">{{ 'pages.user.characters.menu' | trans | capitalize }}</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('home') }}" title="{{ 'pages.user.games.title' | trans | capitalize }}">{{ 'pages.user.games.menu' | trans | capitalize }}</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('home') }}" title="{{ 'pages.user.tables.title' | trans | capitalize }}">{{ 'pages.user.tables.menu' | trans | capitalize }}</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('home') }}" title="{{ 'pages.logout.title' | trans | capitalize }}">{{ 'pages.logout.menu' | trans | capitalize }}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
