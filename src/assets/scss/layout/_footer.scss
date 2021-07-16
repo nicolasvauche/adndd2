@@ -1,0 +1,83 @@
+.app-footer {
+    padding: 2rem 1.5rem 1rem;
+    color: $color-bg-primary;
+    background-color: $color-fg-primary;
+
+    .app-footer-navigation {
+        text-align: center;
+
+        @include respond(sm) {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .app-footer-navigation-item {
+            margin-bottom: 1.5rem;
+
+            .app-footer-navigation-item-title {
+                margin-bottom: 0.5rem;
+                font-family: $font-family-secondary;
+                font-size: 1.5rem;
+            }
+
+            nav {
+                ul {
+                    li {
+                        a {
+                            display: block;
+                            margin: 0.5rem 0;
+                            padding: 0.25rem 0;
+                            color: $color-bg-primary;
+                            text-decoration: none;
+                            transition: color 0.3s ease-in-out;
+
+                            &:hover {
+                                color: $color-fg-third;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .app-footer-legals {
+        padding-top: 1.5rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        justify-content: center;
+        border-top: 1px solid $color-bg-third;
+
+        a {
+            display: block;
+            margin: 0 0 1rem;
+            font-size: 0.8rem;
+            color: $color-bg-secondary;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+
+            &:hover {
+                color: $color-fg-third;
+            }
+        }
+
+        @include respond(sm) {
+            display: flex;
+            align-items: center;
+
+            a {
+                margin: 0 0.5rem 0;
+            }
+        }
+    }
+
+    .app-logo {
+        display: block;
+        text-align: center;
+    }
+
+    .app-footer-copyrights {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+}

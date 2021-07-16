@@ -3,11 +3,10 @@
         <img src="{{ asset('assets/images/logo-adndd.png') }}" alt="{{ appConfig.getAppName() }}">
     </a>
 
-    <div class="app-navigation-toggle">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </div>
+    <input class="app-navigation-toggle" type="checkbox" id="menu-btn" />
+    <label class="app-navigation-toggle-icon" for="menu-btn">
+        <span class="navicon"></span>
+    </label>
 
     <nav class="app-navigation">
         <ul>
@@ -23,35 +22,37 @@
                 <a href="{{ path('home') }}" title="{{ 'pages.contact.title' | trans | capitalize }}">{{ 'pages.contact.menu' | trans | capitalize }}</a>
             </li>
 
-            <li>
-                <a href="{{ path('home') }}" title="{{ 'pages.login.title' | trans | capitalize }}">{{ 'pages.login.menu' | trans | capitalize }}</a>
-            </li>
+            {#{% if app.user %}#}
+                <li>
+                    <a href="#" title="{{ 'your name here…' | trans | capitalize }}">{{ '[your name]' | trans | capitalize }}</a>
 
-            <li>
-                <a href="#" title="{{ 'your name here…' | trans | capitalize }}">{{ '[your name]' | trans | capitalize }}</a>
+                    <ul class="app-navigation-dropdown">
+                        <li>
+                            <a href="{{ path('home') }}" title="{{ 'pages.user.title' | trans | capitalize }}">{{ 'pages.user.menu' | trans | capitalize }}</a>
+                        </li>
 
-                <ul class="app-navigation-dropdown">
-                    <li>
-                        <a href="{{ path('home') }}" title="{{ 'pages.user.title' | trans | capitalize }}">{{ 'pages.user.menu' | trans | capitalize }}</a>
-                    </li>
+                        <li>
+                            <a href="{{ path('home') }}" title="{{ 'pages.user.characters.title' | trans | capitalize }}">{{ 'pages.user.characters.menu' | trans | capitalize }}</a>
+                        </li>
 
-                    <li>
-                        <a href="{{ path('home') }}" title="{{ 'pages.user.characters.title' | trans | capitalize }}">{{ 'pages.user.characters.menu' | trans | capitalize }}</a>
-                    </li>
+                        <li>
+                            <a href="{{ path('home') }}" title="{{ 'pages.user.games.title' | trans | capitalize }}">{{ 'pages.user.games.menu' | trans | capitalize }}</a>
+                        </li>
 
-                    <li>
-                        <a href="{{ path('home') }}" title="{{ 'pages.user.games.title' | trans | capitalize }}">{{ 'pages.user.games.menu' | trans | capitalize }}</a>
-                    </li>
+                        <li>
+                            <a href="{{ path('home') }}" title="{{ 'pages.user.tables.title' | trans | capitalize }}">{{ 'pages.user.tables.menu' | trans | capitalize }}</a>
+                        </li>
 
-                    <li>
-                        <a href="{{ path('home') }}" title="{{ 'pages.user.tables.title' | trans | capitalize }}">{{ 'pages.user.tables.menu' | trans | capitalize }}</a>
-                    </li>
-
-                    <li>
-                        <a href="{{ path('home') }}" title="{{ 'pages.logout.title' | trans | capitalize }}">{{ 'pages.logout.menu' | trans | capitalize }}</a>
-                    </li>
-                </ul>
-            </li>
+                        <li>
+                            <a href="{{ path('home') }}" title="{{ 'pages.logout.title' | trans | capitalize }}">{{ 'pages.logout.menu' | trans | capitalize }}</a>
+                        </li>
+                    </ul>
+                </li>
+            {#{% else %}#}
+                <li>
+                    <a href="{{ path('home') }}" title="{{ 'pages.login.title' | trans | capitalize }}">{{ 'pages.login.menu' | trans | capitalize }}</a>
+                </li>
+            {#{% endif %}#}
         </ul>
     </nav>
 </header>

@@ -1,5 +1,14 @@
 default:
   welcome: "bienvenue"
+  copyrights: "tous droits réservés"
+footer:
+  navigation:
+    help:
+      title: "aide"
+    games:
+      title: "jeux de rôles"
+    follow:
+      title: "suivez-nous"
 pages:
   home:
     menu: "accueil"
@@ -28,3 +37,22 @@ pages:
     tables:
       menu: "mes tables de jeu"
       title: "gérer mes tables de jeu"
+  games:
+    title: "tous nos jeux"
+    menu: "les jeux"
+  play:
+    title: "jouer en ligne"
+    menu: "jouer"
+  faq:
+    title: "F.A.Q."
+    menu: "F.A.Q."
+  legals:
+    mentions:
+      menu: "mentions légales"
+      title: "mentions légales"
+    ugc:
+      menu: "conditions générales d'utilisation"
+      title: "conditions générales d'utilisation"
+    privacy:
+      menu: "confidentialité et cookies"
+      title: "confidentialité et cookies"
