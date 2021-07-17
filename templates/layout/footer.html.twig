@@ -11,8 +11,8 @@
                     </li>
 
                     <li>
-                        <a href="{{ path('home') }}" title="{{ 'pages.faq.menu' | trans | capitalize }}">
-                            {{ 'pages.faq.title' | trans }}
+                        <a href="{{ path('faq') }}" {% if app.request.get('_route') == 'faq' %}class="active"{% endif %} title="{{ 'pages.faq.title' | trans | capitalize }}">
+                            {{ 'pages.faq.menu' | trans }}
                         </a>
                     </li>
 

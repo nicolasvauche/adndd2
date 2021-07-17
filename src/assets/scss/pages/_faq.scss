@@ -1,0 +1,23 @@
+&.faq {
+    .app-main {
+        section {
+            &.faq {
+                dl {
+                    dt {
+                        margin-bottom: 0.5rem;
+                        font-family: $font-family-secondary;
+                        font-size: 1.5rem;
+                        text-transform: uppercase;
+                        line-height: 2rem;
+                        color: $color-bg-fifth;
+                        text-shadow: 1px 1px 1px rgba($color-fg-primary, 0.25);
+                    }
+
+                    dd {
+                        margin-bottom: 2rem;
+                    }
+                }
+            }
+        }
+    }
+}
