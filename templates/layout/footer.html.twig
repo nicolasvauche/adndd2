@@ -65,11 +65,11 @@
     </div>
 
     <div class="app-footer-legals">
-        <a href="{{ path('home') }}" title="{{ 'pages.legals.mentions.title' | trans | capitalize }}">{{ 'pages.legals.mentions.menu' | trans | capitalize }}</a>
+        <a href="{{ path('legal', {'slug': 'mentions-legales'}) }}" title="{{ 'pages.legals.mentions.title' | trans | capitalize }}">{{ 'pages.legals.mentions.menu' | trans | capitalize }}</a>
 
-        <a href="{{ path('home') }}" title="{{ 'pages.legals.ugc.title' | trans | capitalize }}">{{ 'pages.legals.ugc.menu' | trans | capitalize }}</a>
+        <a href="{{ path('legal', {'slug': 'conditions-generales-dutilisation'}) }}" title="{{ 'pages.legals.ugc.title' | trans | capitalize }}">{{ 'pages.legals.ugc.menu' | trans | capitalize }}</a>
 
-        <a href="{{ path('home') }}" title="{{ 'pages.legals.privacy.title' | trans | capitalize }}">{{ 'pages.legals.privacy.menu' | trans | capitalize }}</a>
+        <a href="{{ path('legal', {'slug': 'confidentialite-et-cookies'}) }}" title="{{ 'pages.legals.privacy.title' | trans | capitalize }}">{{ 'pages.legals.privacy.menu' | trans | capitalize }}</a>
     </div>
 
     <a href="{{ path('home') }}" class="app-logo" title="{{ 'pages.home.title' | trans | capitalize }}">

@@ -1,6 +1,15 @@
 &.home {
     .app-main {
         section {
+            h1 {
+                color: $color-fg-primary;
+                text-shadow: 2px 2px 4px rgba($color-bg-primary, 0.5);
+            }
+
+            h2 {
+                margin-bottom: 1rem;
+            }
+
             @include respond(sm) {
                 margin: 0;
                 width: auto;
@@ -26,11 +35,6 @@
 
                 @include respond(sm) {
                     height: 30vh;
-                }
-
-                h1 {
-                    color: $color-fg-primary;
-                    text-shadow: 2px 2px 4px rgba($color-bg-primary, 0.5);
                 }
             }
 

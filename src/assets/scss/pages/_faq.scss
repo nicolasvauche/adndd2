@@ -8,9 +8,15 @@
                         font-family: $font-family-secondary;
                         font-size: 1.5rem;
                         text-transform: uppercase;
+                        font-weight: bold;
                         line-height: 2rem;
+                        text-align: center;
                         color: $color-bg-fifth;
                         text-shadow: 1px 1px 1px rgba($color-fg-primary, 0.25);
+
+                        @include respond(sm) {
+                            text-align: left;
+                        }
                     }
 
                     dd {
