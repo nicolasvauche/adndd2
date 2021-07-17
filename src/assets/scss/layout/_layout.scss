@@ -27,8 +27,8 @@ html {
 
         @import "header", "main", "footer";
 
-        @import "../pages/home";
+        @import "../pages/home", "../pages/about";
 
-        @import "../components/buttons", "../components/grids";
+        @import "../components/buttons", "../components/images", "../components/grids";
     }
 }

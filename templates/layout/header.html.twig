@@ -15,14 +15,14 @@
             </li>
 
             <li>
-                <a href="{{ path('home') }}" title="{{ 'pages.about.title' | trans | capitalize }}">{{ 'pages.about.menu' | trans | capitalize }}</a>
+                <a href="{{ path('about') }}" {% if app.request.get('_route') == 'about' %}class="active"{% endif %} title="{{ 'pages.about.title' | trans | capitalize }}">{{ 'pages.about.menu' | trans | capitalize }}</a>
             </li>
 
             <li>
                 <a href="{{ path('home') }}" title="{{ 'pages.contact.title' | trans | capitalize }}">{{ 'pages.contact.menu' | trans | capitalize }}</a>
             </li>
 
-            {#{% if app.user %}#}
+            {% if app.user %}
                 <li>
                     <a href="#" title="{{ 'your name here…' | trans | capitalize }}">{{ '[your name]' | trans | capitalize }}</a>
 
@@ -48,11 +48,11 @@
                         </li>
                     </ul>
                 </li>
-            {#{% else %}#}
+            {% else %}
                 <li>
                     <a href="{{ path('home') }}" title="{{ 'pages.login.title' | trans | capitalize }}">{{ 'pages.login.menu' | trans | capitalize }}</a>
                 </li>
-            {#{% endif %}#}
+            {% endif %}
         </ul>
     </nav>
 </header>

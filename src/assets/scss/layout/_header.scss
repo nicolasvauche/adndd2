@@ -135,6 +135,10 @@
                     @include respond(md) {
                         margin: 0 1.5rem;
                     }
+
+                    &.active{
+                        color: $color-fg-third;
+                    }
                 }
 
                 &:hover {

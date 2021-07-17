@@ -5,7 +5,7 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="{{ path('home') }}" title="{{ 'pages.about.menu' | trans | capitalize }}">
+                        <a href="{{ path('about') }}" {% if app.request.get('_route') == 'about' %}class="active"{% endif%} title="{{ 'pages.about.menu' | trans | capitalize }}">
                             {{ 'pages.about.title' | trans | capitalize }}
                         </a>
                     </li>

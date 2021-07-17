@@ -1,5 +1,5 @@
 .app-button {
-    padding: 1rem 1.5rem;
+    padding: 0.5rem 1.5rem;
     font-family: $font-family-secondary;
     font-size: 1.25rem;
     font-weight: 600;
@@ -13,6 +13,7 @@
     transition: all 0.3s ease-in-out;
 
     @include respond(sm) {
+        padding: 1rem 1.5rem;
         font-size: 1.5rem;
     }
 
