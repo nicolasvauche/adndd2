@@ -72,3 +72,6 @@ contact:
     placeholder: "bonjour,"
   submit:
     label: "envoyez !"
+play:
+  submit:
+    label: "créer la table"

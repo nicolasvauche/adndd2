@@ -16,26 +16,38 @@
     .app-modal-box {
         position: relative;
         margin-top: 2rem;
-        padding: 4.5rem 2rem 1rem;
+        padding: 2rem 1rem;
+        width: calc(100% - 4rem);
         background-color: $color-bg-primary;
         border: 2px solid $color-fg-primary;
         border-radius: 0.5rem;
         box-shadow: 4px 4px 8px rgba($color-fg-primary, 0.5);
 
         @include respond(sm) {
+            padding: 2rem;
+            width: calc(75% - 6rem);
+        }
+
+        @include respond(md) {
             padding: 2rem 3rem;
+            width: calc(50% - 6rem);
+        }
+
+        .app-form {
+            padding: 0;
         }
     }
 
     .app-modal-close {
         position: absolute;
-        top: 1.5rem;
+        top: 2rem;
         right: 0.5rem;
         padding: 0.5rem 1rem;
         border-radius: 50%;
 
         @include respond(sm) {
-            top: 0.5rem;
+            top: 1.5rem;
+            right: 1rem;
         }
     }
 
@@ -45,7 +57,8 @@
         .app-modal-title {
             padding-bottom: 1rem;
             margin-bottom: 1.5rem;
-            text-align: center;
+            margin-right: 2.5rem;
+            text-align: left;
             border-bottom: 3px solid $color-fg-third;
         }
 
