@@ -1,7 +1,45 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ 'default.welcome' | trans | capitalize }}{% endblock %}
+{% block body_class %}home{% endblock %}
 
 {% block body %}
-    <h1>{{ 'default.welcome' | trans | capitalize }}</h1>
+    <section class="cover">
+        <h1>{{ appConfig.getAppTitle() }}</h1>
+
+        <a href="{{ path('home') }}" class="app-button cta">
+            {{ 'pages.about.alt' | trans | capitalize }}
+        </a>
+    </section>
+
+    <section class="games">
+        <div class="app-grid three">
+            <div class="app-grid-item">
+                <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="AD&D" />
+            </div>
+
+            <div class="app-grid-item">
+                <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" />
+            </div>
+
+            <div class="app-grid-item">
+                <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" />
+            </div>
+        </div>
+
+        <h2>3 jeux disponibles !</h2>
+
+        <a href="{{ path('home') }}" class="app-button cta">
+            {{ 'pages.games.title' | trans | capitalize }}
+        </a>
+    </section>
+
+    <section class="play">
+        <img src="{{ asset('assets/images/home_dices.png') }}" alt="{{ 'pages.play.title' | trans | capitalize }}" />
+        <img src="{{ asset('assets/images/home_games.png') }}" alt="{{ 'pages.play.title' | trans | capitalize }}" />
+
+        <a href="{{ path('home') }}" class="app-button">
+            {{ 'pages.play.title' | trans | capitalize }}
+        </a>
+    </section>
 {% endblock %}

@@ -1,0 +1,86 @@
+&.home {
+    .app-main {
+        section {
+            &.cover {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1.5rem 4rem;
+                height: 50vh;
+                background-color: rgba($color-bg-fourth, 0.5);
+                background-image: url('../images/cover_about.jpg');
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+
+                @include respond(sm) {
+                    height: 30vh;
+                }
+
+                h1 {
+                    color: $color-fg-primary;
+                    text-shadow: 2px 2px 4px rgba($color-bg-primary, 0.5);
+                }
+            }
+
+            &.games {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1.5rem 1rem;
+                background-color: $color-bg-primary;
+
+                @include respond(sm) {
+                    padding: 1.5rem 1.5rem;
+                }
+            }
+
+            &.play {
+                position: relative;
+                padding: 1.5rem 0 3rem;
+                text-align: center;
+                background-color: $color-fg-third;
+
+                img {
+                    &:first-child {
+                        position: absolute;
+                        top: 20%;
+                        left: 50%;
+                        width: 50%;
+                        transform: translateX(-50%);
+
+                        @include respond(sm) {
+                            width: 30%;
+                        }
+
+                        @include respond(md) {
+                            width: 15%;
+                        }
+                    }
+
+                    &:last-of-type {
+                        margin: 0 1rem;
+                        width: calc(100% - 2rem);
+
+                        @include respond(sm) {
+                            width: auto;
+                            height: 50vh
+                        }
+                    }
+                }
+
+                .app-button {
+                    display: block;
+                    margin-top: 3rem;
+                    padding: 1.5rem 2rem;
+                    font-size: 1.75rem;
+                    border: none;
+                    border-radius: 0;
+                }
+            }
+        }
+    }
+}

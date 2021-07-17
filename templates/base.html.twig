@@ -28,7 +28,7 @@
 
         {% block javascripts %}{% endblock %}
     </head>
-    <body>
+    <body class="{% block body_class %}{% endblock %}">
         {% include 'layout/header.html.twig' %}
 
         <main class="app-main">

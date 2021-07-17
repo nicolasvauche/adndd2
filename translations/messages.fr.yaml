@@ -22,6 +22,7 @@ pages:
   about:
     menu: "l'association"
     title: "qui sommes-nous ?"
+    alt: "en savoir plus"
   contact:
     menu: "contact"
     title: "contactez-nous"
