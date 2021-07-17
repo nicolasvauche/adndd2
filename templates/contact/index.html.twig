@@ -9,12 +9,10 @@
 
 {% block body %}
     <section class="contact">
-        <header>
-            <h1>{{ 'pages.contact.title' | trans | capitalize }}</h1>
-        </header>
-
         <div class="app-grid">
             <main class="app-grid-item">
+                <h1>{{ 'pages.contact.title' | trans | capitalize }}</h1>
+
                 <form class="app-form">
                     <div class="app-form-group">
                         <input type="text" id="contact_name" class="app-form-control" placeholder="{{ 'contact.name.placeholder' | trans | capitalize }}" required />

@@ -9,13 +9,21 @@ html {
         background-color: $color-bg-secondary;
 
         h1 {
+            margin: 0 0 2rem;
+            padding: 1.5rem 0.5rem;
             font-family: $font-family-secondary;
             font-size: 2rem;
             text-transform: uppercase;
             line-height: 2.5rem;
             text-align: center;
             color: $color-bg-fifth;
+            background-color: $color-bg-secondary;
             text-shadow: 1px 1px 1px rgba($color-fg-primary, 0.25);
+
+            @include respond(sm) {
+                border-radius: 0.5rem;
+                box-shadow: 2px 2px 4px rgba($color-fg-primary, 0.25);
+            }
         }
 
         h2 {
@@ -54,17 +62,25 @@ html {
 
         .app-main {
             section {
-                & > header {
-                    padding: 1.5rem 0.5rem;
-
-                    @include respond(sm) {
-                        padding: 1.5rem 1.5rem;
-                    }
+                @include respond(sm) {
+                    margin-top: -0.5rem !important;
                 }
 
                 main {
-                    padding: 1.5rem 0.5rem;
+                    padding: 0 0 1.5rem;
                     background-color: $color-bg-primary;
+
+                    p,
+                    li,
+                    dd {
+                        margin: 0 1rem 1.5rem;
+                    }
+
+                    ol,
+                    ul,
+                    dl {
+                        margin: 0 0.5rem 1.5rem;
+                    }
 
                     @include respond(sm) {
                         padding: 1.5rem 1.5rem;
