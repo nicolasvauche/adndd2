@@ -15,21 +15,21 @@
     <section class="games">
         <div class="app-grid three">
             <div class="app-grid-item">
-                <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="AD&D" />
+                <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="AD&D" class="app-grid-item-image" />
             </div>
 
             <div class="app-grid-item">
-                <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" />
+                <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" class="app-grid-item-image" />
             </div>
 
             <div class="app-grid-item">
-                <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" />
+                <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app-grid-item-image" />
             </div>
         </div>
 
         <h2>3 jeux disponibles !</h2>
 
-        <a href="{{ path('home') }}" class="app-button cta">
+        <a href="{{ path('games') }}" class="app-button cta">
             {{ 'pages.games.title' | trans | capitalize }}
         </a>
     </section>

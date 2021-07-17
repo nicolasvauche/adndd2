@@ -2,7 +2,13 @@
     .app-main {
         section {
             &.about {
-
+                main {
+                    p {
+                        img {
+                            max-width: calc(100% - 0.5rem)
+                        }
+                    }
+                }
             }
         }
     }

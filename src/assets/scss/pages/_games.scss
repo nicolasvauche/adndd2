@@ -1,0 +1,14 @@
+&.games {
+    .app-main {
+        section {
+            &.games {
+                main {
+                    .app-grid {
+                        padding-bottom: 0;
+                        margin: 1.5rem 0.5rem 0;
+                    }
+                }
+            }
+        }
+    }
+}

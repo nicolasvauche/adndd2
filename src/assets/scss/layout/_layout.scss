@@ -39,6 +39,11 @@ html {
             @include respond(sm) {
                 text-align: left;
             }
+
+            small {
+                display: block;
+                font-size: 0.8em;
+            }
         }
 
         h3 {
@@ -58,6 +63,16 @@ html {
 
         a {
             color: $color-fg-secondary;
+
+            &[href$=".pdf"] {
+                &:after {
+                    content: "pdf";
+                    margin-left: 0.5rem;
+                    vertical-align: super;
+                    font-size: 0.8rem;
+                    text-decoration: none;
+                }
+            }
         }
 
         .app-main {
@@ -103,7 +118,7 @@ html {
                     background-color: $color-bg-primary;
 
                     @include respond(sm) {
-                        padding: 1.5rem 1.5rem;
+                        padding: 2rem 1.5rem 1.5rem;
                         border-radius: 0.5rem;
                         box-shadow: 4px 4px 8px rgba($color-fg-primary, 0.5);
                     }
@@ -122,8 +137,8 @@ html {
 
         @import "header", "main", "footer";
 
-        @import "../pages/home", "../pages/about", "../pages/contact", "../pages/faq";
+        @import "../pages/home", "../pages/about", "../pages/contact", "../pages/faq", "../pages/games";
 
-        @import "../components/forms", "../components/images", "../components/grids";
+        @import "../components/forms", "../components/images", "../components/grids", "../components/modals";
     }
 }

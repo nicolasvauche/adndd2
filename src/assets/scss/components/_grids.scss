@@ -1,10 +1,10 @@
 .app-grid {
     display: flex;
-    align-items: center;
     overflow-x: scroll;
-    padding: 0;
+    padding: 0 0 0.5rem;
     margin: 0;
     scroll-snap-type: x mandatory;
+    border-radius: 0.5rem;
 
     &::-webkit-scrollbar-track {
         background-color: transparent;
@@ -23,20 +23,81 @@
         grid-gap: 1.5rem;
         overflow: initial;
         margin-bottom: 1rem;
+    }
 
-        &.three {
+    &.three {
+        @include respond(sm) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include respond(md) {
             grid-template-columns: repeat(3, 1fr);
         }
     }
 
     .app-grid-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         margin: 0 0.25rem;
         flex: 0 0 90%;
         scroll-snap-align: start;
+        background-color: $color-bg-secondary;
+        border-radius: 0.5rem;
+        box-shadow: 2px 2px 4px rgba($color-fg-primary, 0.5);
 
         @include respond(sm) {
             margin: 0;
             flex: 0 0 100%;
+        }
+
+        .app-grid-item-image {
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+
+        .app-grid-item-title {
+            margin-bottom: 0;
+            padding: 0.5rem 0.5rem 0;
+            text-align: center;
+        }
+
+        .app-grid-item-category {
+            margin-bottom: 0.5rem;
+            font-family: $font-family-secondary;
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-align: center;
+            color: $color-fg-secondary;
+        }
+
+        .app-grid-excerpt {
+            font-size: 0.9rem;
+        }
+
+        .app-grid-footer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            align-items: flex-end;
+
+            .app-button {
+                padding: 1rem 0.5rem;
+                font-size: 1rem;
+                border-radius: 0;
+
+                &.cta {
+                    border: none;
+                    box-shadow: none;
+                }
+
+                &:first-child {
+                    border-bottom-left-radius: 0.5rem;
+                }
+
+                &:last-child {
+                    border-bottom-right-radius: 0.5rem;
+                }
+            }
         }
     }
 }

@@ -30,7 +30,7 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="{{ path('home') }}" title="{{ 'pages.games.menu' | trans | capitalize }}">
+                        <a href="{{ path('games') }}" {% if app.request.get('_route') == 'games' %}class="active"{% endif %} title="{{ 'pages.games.menu' | trans | capitalize }}">
                             {{ 'pages.games.title' | trans | capitalize }}
                         </a>
                     </li>

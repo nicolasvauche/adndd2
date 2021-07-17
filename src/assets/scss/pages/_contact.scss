@@ -12,6 +12,7 @@
                     .app-grid-item {
                         margin: 0 0 1.5rem;
                         text-align: center;
+                        background-color: $color-bg-primary;
 
                         &:last-child {
                             margin-bottom: 0;
@@ -35,10 +36,16 @@
                 }
 
                 aside {
-                    background-color: $color-bg-secondary;
+                    &.app-grid-item {
+                        background-color: $color-bg-secondary !important;
+                        box-shadow: none !important;
+                    }
 
                     @include respond(sm) {
-                        background-color: $color-bg-primary;
+                        &.app-grid-item {
+                            background-color: $color-bg-primary !important;
+                            box-shadow: 2px 2px 4px rgba($color-fg-primary, 0.5) !important;
+                        }
                     }
                 }
             }
