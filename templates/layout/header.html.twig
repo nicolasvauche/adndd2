@@ -11,15 +11,11 @@
     <nav class="app-navigation">
         <ul>
             <li>
-                <a href="{{ path('home') }}" title="{{ 'pages.home.title' | trans | capitalize }}">{{ 'pages.home.menu' | trans | capitalize }}</a>
-            </li>
-
-            <li>
                 <a href="{{ path('about') }}" {% if app.request.get('_route') == 'about' %}class="active"{% endif %} title="{{ 'pages.about.title' | trans | capitalize }}">{{ 'pages.about.menu' | trans | capitalize }}</a>
             </li>
 
             <li>
-                <a href="{{ path('home') }}" title="{{ 'pages.contact.title' | trans | capitalize }}">{{ 'pages.contact.menu' | trans | capitalize }}</a>
+                <a href="{{ path('contact') }}" {% if app.request.get('_route') == 'contact' %}class="active"{% endif %} title="{{ 'pages.contact.title' | trans | capitalize }}">{{ 'pages.contact.menu' | trans | capitalize }}</a>
             </li>
 
             {% if app.user %}

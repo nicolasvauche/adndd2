@@ -1,0 +1,50 @@
+.app-form {
+    padding: 0 1rem;
+
+    .app-form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .app-form-control {
+            order: 2;
+            padding: 0.5rem 1rem;
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            font-family: $font-family-primary;
+            font-size: 1rem;
+            text-align: center;
+            color: $color-fg-primary;
+            border: 1px solid $color-fg-primary;
+            background-color: $color-bg-secondary;
+            border-radius: 0.5rem;
+
+            &[required] + label:after {
+                content: "*";
+                color: red;
+            }
+        }
+
+        label {
+            order: 1;
+            margin-bottom: 0.5rem;
+            font-family: $font-family-secondary;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        textarea {
+            &.app-form-control {
+                text-align: left;
+            }
+        }
+    }
+
+}
+
+@import "buttons";

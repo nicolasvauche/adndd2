@@ -105,6 +105,7 @@
         }
 
         ul {
+            margin: 0;
             width: 100%;
 
             @include respond(sm) {
@@ -115,6 +116,7 @@
 
             li {
                 position: relative;
+                margin: 0;
 
                 a {
                     display: block;

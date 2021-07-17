@@ -57,3 +57,18 @@ pages:
     privacy:
       menu: "confidentialité et cookies"
       title: "confidentialité et cookies"
+contact:
+  name:
+    label: "votre nom"
+    placeholder: "ex: Sophie Dupont"
+  email:
+    label: "votre adresse e-mail"
+    placeholder: "ex: sophie@dupont.com"
+  subject:
+    label: "sujet de votre message"
+    placeholder: "ex: devenir adhérent"
+  message:
+    label: "votre message"
+    placeholder: "bonjour,"
+  submit:
+    label: "envoyez !"

@@ -1,6 +1,15 @@
 &.home {
     .app-main {
         section {
+            @include respond(sm) {
+                margin: 0;
+                width: auto;
+            }
+
+            @include respond(md) {
+                width: auto;
+            }
+
             &.cover {
                 position: relative;
                 display: flex;

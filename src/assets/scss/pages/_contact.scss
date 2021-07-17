@@ -1,0 +1,55 @@
+&.contact {
+    .app-main {
+        section {
+            &.contact {
+                margin-bottom: 0;
+
+                .app-grid {
+                    display: block;
+                    overflow: initial;
+                    margin-bottom: 0;
+
+                    .app-grid-item {
+                        margin: 0 0 1.5rem;
+                        text-align: center;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    @include respond(sm) {
+                        display: grid;
+                        grid-template-columns: 6fr 4fr;
+                        align-items: flex-start;
+
+                        .app-grid-item {
+                            width: auto;
+                            text-align: left;
+                        }
+                    }
+
+                    @include respond(md) {
+                        grid-template-columns: 7fr 3fr;
+                    }
+                }
+
+                aside {
+                    background-color: $color-bg-secondary;
+
+                    @include respond(sm) {
+                        background-color: $color-bg-primary;
+                    }
+                }
+            }
+        }
+
+        #map {
+            height: 50vh;
+
+            @include respond(md) {
+                height: 60vh;
+            }
+        }
+    }
+}

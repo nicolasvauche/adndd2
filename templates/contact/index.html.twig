@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'pages.contact.title' | trans | capitalize }}{% endblock %}
+{% block body_class %}contact{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+{% endblock %}
+
+{% block body %}
+    <section class="contact">
+        <header>
+            <h1>{{ 'pages.contact.title' | trans | capitalize }}</h1>
+        </header>
+
+        <div class="app-grid">
+            <main class="app-grid-item">
+                <form class="app-form">
+                    <div class="app-form-group">
+                        <input type="text" id="contact_name" class="app-form-control" placeholder="{{ 'contact.name.placeholder' | trans | capitalize }}" required />
+                        <label for="contact_name">{{ 'contact.name.label' | trans | capitalize }}</label>
+                    </div>
+
+                    <div class="app-form-group">
+                        <input type="email" id="contact_email" class="app-form-control" placeholder="{{ 'contact.email.placeholder' | trans | capitalize }}" required />
+                        <label for="contact_email">{{ 'contact.email.label' | trans | capitalize }}</label>
+                    </div>
+
+                    <div class="app-form-group">
+                        <input type="text" id="contact_subject" class="app-form-control" placeholder="{{ 'contact.subject.placeholder' | trans | capitalize }}" required />
+                        <label for="contact_subject">{{ 'contact.subject.label' | trans | capitalize }}</label>
+                    </div>
+
+                    <div class="app-form-group">
+                        <textarea id="contact_message" class="app-form-control" placeholder="{{ 'contact.message.placeholder' | trans | capitalize }}" rows="5" required></textarea>
+                        <label for="contact_message">{{ 'contact.message.label' | trans | capitalize }}</label>
+                    </div>
+
+                    <div class="app-form-group">
+                        <button type="submit" class="app-button cta">{{ 'contact.submit.label' | trans | capitalize }}</button>
+                    </div>
+                </form>
+            </main>
+
+            <aside class="app-grid-item">
+
+                <div class="contact-info">
+                    <h3>Notre adresse</h3>
+                    <address>
+                        22 rue de la Sénatorerie
+                        <br />
+                        23000 Guéret, FRANCE
+                    </address>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Horaires d'ouverture</h3>
+                    <dl>
+                        <dt>Du Lundi au Vendredi</dt>
+                        <dd>18h00 - 00h00</dd>
+
+                        <dt>Samedi et Dimanche</dt>
+                        <dd>14h00 - 00h00</dd>
+                    </dl>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <div id="map"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="" defer></script>
+    <script defer>
+        window.addEventListener("DOMContentLoaded", () => {
+            const mymap = L.map('map').setView([46.1655469, 1.8708914], 15)
+            const marker = L.marker([46.1655469, 1.8708914],).addTo(mymap)
+            marker.bindPopup("<strong>Ah! D & Dédé</strong><br />22 Avenue de la Sénatorerie<br />23000 Guéret, France").openPopup()
+            marker.addEventListener('click', () => {
+                marker.openPopup()
+            })
+
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                attribution: '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox/streets-v11',
+                tileSize: 512,
+                zoomOffset: -1,
+                scrollWheelZoom: false,
+                accessToken: 'pk.eyJ1Ijoibmljb2xhc3ZhdWNoZSIsImEiOiJja2YybDFleDcwdnNvMnNtajIweHhiMnkyIn0.XY8fFHFVAqUF2OiKpnH9-g'
+            }).addTo(mymap)
+
+            mymap.addEventListener('focus', () => {
+                mymap.scrollWheelZoom.enable()
+            })
+            mymap.addEventListener('blur', () => {
+                mymap.scrollWheelZoom.disable()
+            })
+            mymap.scrollWheelZoom.disable()
+        })
+    </script>
+{% endblock %}
