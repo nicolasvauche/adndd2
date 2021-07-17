@@ -23,6 +23,7 @@
             font-family: $font-family-primary;
             font-size: 1rem;
             text-align: center;
+            text-align-last: center;
             color: $color-fg-primary;
             border: 1px solid $color-fg-primary;
             background-color: $color-bg-secondary;
@@ -31,6 +32,10 @@
             &[required] + label:after {
                 content: "*";
                 color: red;
+            }
+
+            option {
+                text-align: center;
             }
         }
 
