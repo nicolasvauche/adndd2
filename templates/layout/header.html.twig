@@ -32,7 +32,7 @@
 
             {% if app.user %}
                 <li>
-                    <a href="#" title="{{ 'your name here…' | trans | capitalize }}">{{ '[your name]' | trans | capitalize }}</a>
+                    <a href="#">{{ app.user.pseudo is not null ? app.user.pseudo : app.user.fullname }}</a>
 
                     <ul class="app-navigation-dropdown">
                         <li>
@@ -52,13 +52,13 @@
                         </li>
 
                         <li>
-                            <a href="{{ path('home') }}" title="{{ 'pages.logout.title' | trans | capitalize }}">{{ 'pages.logout.menu' | trans | capitalize }}</a>
+                            <a href="{{ path('app_logout') }}" title="{{ 'pages.logout.title' | trans | capitalize }}">{{ 'pages.logout.menu' | trans | capitalize }}</a>
                         </li>
                     </ul>
                 </li>
             {% else %}
                 <li>
-                    <a href="{{ path('home') }}" title="{{ 'pages.login.title' | trans | capitalize }}">{{ 'pages.login.menu' | trans | capitalize }}</a>
+                    <a href="{{ path('app_login') }}" title="{{ 'pages.login.title' | trans | capitalize }}">{{ 'pages.login.menu' | trans | capitalize }}</a>
                 </li>
             {% endif %}
         </ul>

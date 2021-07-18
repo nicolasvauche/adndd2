@@ -15,8 +15,12 @@ class PlayController extends AbstractController
     /**
      * @Route("/creer-une-table/{gameId}", name="play.create")
      */
-    public function create($gameId): Response
+    public function create($gameId = null): Response
     {
+        if (!$gameId) {
+            return $this->redirectToRoute('home');
+        }
+
         switch ($gameId) {
             case 1:
                 $gameName = 'Donjons & Dragons';

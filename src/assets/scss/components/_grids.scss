@@ -32,7 +32,7 @@
     &.two {
         overflow: initial;
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
 
         .app-grid-item {
             width: 100%;

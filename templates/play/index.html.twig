@@ -36,7 +36,13 @@
                     </div>
                     <div class="app-grid-footer">
                         <a class="app-button disabled" title="Partie publique">Publique</a>
-                        <a href="#" class="app-button cta" title="Rejoindre la partie">Rejoindre</a>
+                        {% if app.user %}
+                            <a href="#" class="app-button cta" title="Rejoindre la partie">Rejoindre</a>
+                        {% else %}
+                            <a class="app-button disabled" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                <i class="fas fa-lock"></i>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -54,7 +60,15 @@
                     </div>
                     <div class="app-grid-footer">
                         <a class="app-button disabled" title="Partie publique">Privée</a>
-                        <a class="app-button disabled" title="Partie privée"><i class="fas fa-lock"></i></a>
+                        {% if app.user %}
+                            <a class="app-button disabled" title="Partie privée">
+                                <i class="fas fa-lock"></i>
+                            </a>
+                        {% else %}
+                            <a class="app-button disabled" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                <i class="fas fa-lock"></i>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -69,7 +83,13 @@
                     </div>
                     <div class="app-grid-footer">
                         <a class="app-button disabled" title="Partie publique">Publique</a>
-                        <a href="#" class="app-button cta" title="Rejoindre la partie">Rejoindre</a>
+                        {% if app.user %}
+                            <a href="#" class="app-button cta" title="Rejoindre la partie">Rejoindre</a>
+                        {% else %}
+                            <a class="app-button disabled" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                <i class="fas fa-lock"></i>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

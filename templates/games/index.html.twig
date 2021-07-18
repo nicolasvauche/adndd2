@@ -22,7 +22,13 @@
                     </div>
                     <div class="app-grid-footer">
                         <a href="#" class="app-button modal" title="Règles du jeu" data-modal="app-grid-gamerules-1">Règles du jeu</a>
-                        <a href="{{ path('play.create', { 'gameId': 1 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
+                        {% if app.user %}
+                            <a href="{{ path('play.create', { 'gameId': 1 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
+                        {% else %}
+                            <a class="app-button disabled" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                <i class="fas fa-lock"></i>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="app-modal" id="app-grid-gamerules-1">
@@ -60,7 +66,13 @@
                     </div>
                     <div class="app-grid-footer">
                         <a href="#" class="app-button modal" title="Règles du jeu" data-modal="app-grid-gamerules-2">Règles du jeu</a>
-                        <a href="{{ path('play.create', { 'gameId': 2 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
+                        {% if app.user %}
+                            <a href="{{ path('play.create', { 'gameId': 2 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
+                        {% else %}
+                            <a class="app-button disabled" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                <i class="fas fa-lock"></i>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="app-modal" id="app-grid-gamerules-2">
@@ -98,7 +110,13 @@
                     </div>
                     <div class="app-grid-footer">
                         <a href="#" class="app-button modal" title="Règles du jeu" data-modal="app-grid-gamerules-3">Règles du jeu</a>
-                        <a href="{{ path('play.create', { 'gameId': 3 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
+                        {% if app.user %}
+                            <a href="{{ path('play.create', { 'gameId': 3 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
+                        {% else %}
+                            <a class="app-button disabled" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                <i class="fas fa-lock"></i>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="app-modal" id="app-grid-gamerules-3">

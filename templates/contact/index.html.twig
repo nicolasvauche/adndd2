@@ -15,12 +15,12 @@
 
                 <form class="app-form">
                     <div class="app-form-group">
-                        <input type="text" id="contact_name" class="app-form-control" placeholder="{{ 'contact.name.placeholder' | trans }}" required />
+                        <input type="text" id="contact_name" class="app-form-control" placeholder="{{ 'contact.name.placeholder' | trans }}" value="{{ app.user ? app.user.fullname : '' }}" required />
                         <label for="contact_name">{{ 'contact.name.label' | trans | capitalize }}</label>
                     </div>
 
                     <div class="app-form-group">
-                        <input type="email" id="contact_email" class="app-form-control" placeholder="{{ 'contact.email.placeholder' | trans }}" required />
+                        <input type="email" id="contact_email" class="app-form-control" placeholder="{{ 'contact.email.placeholder' | trans }}" value="{{ app.user ? app.user.email : '' }}" required />
                         <label for="contact_email">{{ 'contact.email.label' | trans | capitalize }}</label>
                     </div>
 
@@ -67,7 +67,9 @@
 
     <div id="map"></div>
     <p class="map-info">
-        Cliquez sur la carte pour activer le zoom.<br />Cliquez ailleurs pour désactiver le zoom et faire défiler la page tranquillement :)
+        Cliquez sur la carte pour activer le zoom.
+        <br />
+        Cliquez ailleurs pour désactiver le zoom et faire défiler la page tranquillement :)
     </p>
 {% endblock %}
 

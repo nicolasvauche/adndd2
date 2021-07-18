@@ -91,3 +91,10 @@ invite:
 filter:
   submit:
     label: "filtrer"
+login:
+  email:
+    label: "votre adresse e-mail"
+  password:
+    label: "votre mot de passe"
+  submit:
+    label: "connexion"
