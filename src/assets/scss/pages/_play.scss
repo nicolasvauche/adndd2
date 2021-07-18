@@ -2,8 +2,6 @@
     .app-main {
         section {
             &.play {
-                margin-bottom: 0;
-
                 main {
                     .app-form {
                         @include respond(sm) {
@@ -11,8 +9,12 @@
                         }
 
                         .app-grid {
+                            margin-bottom: 0;
+
                             .app-grid-item {
-                                margin: 0;
+                                @include respond(sm) {
+                                    margin: 0;
+                                }
 
                                 a {
                                     text-align: center;
@@ -80,6 +82,13 @@
                         border: 2px dashed rgba($color-bg-primary, 0.5);
                         border-radius: 0.5rem;
                         box-shadow: none;
+                    }
+
+                    .info {
+                        margin: 0 1rem 0.5rem;
+                        font-size: 0.8rem;
+                        font-style: italic;
+                        text-align: center;
                     }
                 }
 

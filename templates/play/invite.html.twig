@@ -14,8 +14,10 @@
 
                 <form class="app-form" method="post" action="{{ path('play.invite') }}">
                     <div class="app-form-group button">
-                        <input type="text" id="invite_playername" name="invite_playername" class="app-form-control" required />
-                        <button><i class="fas fa-plus"></i></button>
+                        <input type="text" id="invite_playername" name="invite_playername" class="app-form-control" />
+                        <button id="invite_playeradd">
+                            <i class="fas fa-plus"></i>
+                        </button>
                         <label for="invite_playername">Rechercher un joueur</label>
                     </div>
 
@@ -30,21 +32,21 @@
                         <div class="app-grid-item">
                             <a href="#" title="Enlever cette invitation">
                                 <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app-grid-item-image" />
-                                <span class="app-grid-item-title">Un Invité</span>
+                                <span class="app-grid-item-title">Un Autre</span>
                             </a>
                         </div>
 
                         <div class="app-grid-item">
                             <a href="#" title="Enlever cette invitation">
                                 <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app-grid-item-image" />
-                                <span class="app-grid-item-title">Un Invité</span>
+                                <span class="app-grid-item-title">Encore Un</span>
                             </a>
                         </div>
 
                         <div class="app-grid-item">
                             <a href="#" title="Enlever cette invitation">
                                 <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app-grid-item-image" />
-                                <span class="app-grid-item-title">Un Invité</span>
+                                <span class="app-grid-item-title">Un Dernier</span>
                             </a>
                         </div>
 
@@ -55,6 +57,7 @@
                             </p>
                         </div>
                     </div>
+                    <p class="info">Cliquez sur une invitation pour l'enlever ;)</p>
 
                     <div class="app-form-group">
                         <input type="hidden" name="invite_game_id" value="{{ gameId }}" />
@@ -89,4 +92,20 @@
             </aside>
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script defer>
+        window.addEventListener("DOMContentLoaded", () => {
+            const playerAddInput = document.getElementById('invite_playername')
+            const playerAddBtn = document.getElementById('invite_playeradd')
+
+            playerAddBtn.addEventListener('click', event => {
+                event.preventDefault()
+                if (playerAddInput.value !== '') {
+                    alert('Ajouter ' + playerAddInput.value)
+                }
+            })
+        })
+    </script>
 {% endblock %}

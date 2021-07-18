@@ -39,6 +39,10 @@
                 @include respond(sm) {
                     height: 30vh;
                 }
+
+                @include respond(md) {
+                    height: 40vh;
+                }
             }
 
             &.games {
