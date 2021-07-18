@@ -24,6 +24,11 @@ html {
                 border-radius: 0.5rem;
                 box-shadow: 2px 2px 4px rgba($color-fg-primary, 0.25);
             }
+
+            small {
+                display: block;
+                font-size: 0.8em;
+            }
         }
 
         h2 {
@@ -77,6 +82,22 @@ html {
 
         .app-main {
             section {
+                p,
+                li,
+                dd {
+                    margin: 0 1rem 1.5rem;
+                }
+
+                ol,
+                ul,
+                dl {
+                    margin: 0 0.5rem 1.5rem;
+                }
+
+                dt {
+                    font-weight: bold;
+                }
+
                 @include respond(sm) {
                     margin-top: -0.5rem !important;
                 }
@@ -84,18 +105,6 @@ html {
                 main {
                     padding: 0 0 1.5rem;
                     background-color: $color-bg-primary;
-
-                    p,
-                    li,
-                    dd {
-                        margin: 0 1rem 1.5rem;
-                    }
-
-                    ol,
-                    ul,
-                    dl {
-                        margin: 0 0.5rem 1.5rem;
-                    }
 
                     @include respond(sm) {
                         padding: 1.5rem 1.5rem;
@@ -137,7 +146,7 @@ html {
 
         @import "header", "main", "footer";
 
-        @import "../pages/home", "../pages/about", "../pages/contact", "../pages/faq", "../pages/games";
+        @import "../pages/home", "../pages/about", "../pages/contact", "../pages/faq", "../pages/games", "../pages/play";
 
         @import "../components/forms", "../components/images", "../components/grids", "../components/modals";
     }

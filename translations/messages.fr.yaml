@@ -41,9 +41,15 @@ pages:
   games:
     title: "tous nos jeux"
     menu: "les jeux"
+    create:
+      title: "créer une table"
   play:
     title: "jouer en ligne"
     menu: "jouer"
+    create:
+      title: "créer une table"
+    invite:
+      title: "inviter des joueurs"
   faq:
     title: "questions fréquemment posées"
     menu: "F.A.Q."
@@ -66,7 +72,7 @@ contact:
     placeholder: "ex: sophie@dupont.com"
   subject:
     label: "sujet de votre message"
-    placeholder: "ex: devenir adhérent"
+    placeholder: "ex: Devenir adhérent"
   message:
     label: "votre message"
     placeholder: "bonjour,"
@@ -75,3 +81,10 @@ contact:
 play:
   submit:
     label: "créer la table"
+  cancel:
+    label: "retour"
+invite:
+  submit:
+    label: "créer la table"
+  cancel:
+    label: "retour"

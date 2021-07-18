@@ -22,7 +22,7 @@
                     </div>
                     <div class="app-grid-footer">
                         <a href="#" class="app-button modal" title="Règles du jeu" data-modal="app-grid-gamerules-1">Règles du jeu</a>
-                        <a href="#" class="app-button cta modal" title="Jouer en ligne" data-modal="app-grid-play-1">Créer une table</a>
+                        <a href="{{ path('play.create', { 'gameId': 1 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
                     </div>
                 </div>
                 <div class="app-modal" id="app-grid-gamerules-1">
@@ -46,41 +46,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="app-modal" id="app-grid-play-1">
-                    <div class="app-modal-box">
-                        <button class="app-button app-modal-close">
-                            <i class="fas fa-times"></i>
-                        </button>
-                        <div class="app-modal-body">
-                            <h2 class="app-modal-title">Donjons & Dragons
-                                <small>Créer une table</small>
-                            </h2>
-                            <form class="app-form">
-                                <div class="app-form-group">
-                                    <input type="text" id="play_tablename_1" class="app-form-control" required />
-                                    <label for="play_tablename_1">Nom du scénario</label>
-                                </div>
-
-                                <div class="app-form-group">
-                                    <input type="datetime-local" id="play_date_1" class="app-form-control" required />
-                                    <label for="play_date_1">Date de début</label>
-                                </div>
-
-                                <div class="app-form-group">
-                                    <select id="play_private_1" class="app-form-control" required>
-                                        <option value="false">Publique</option>
-                                        <option value="true">Privée</option>
-                                    </select>
-                                    <label for="play_private_1">Visibilité</label>
-                                </div>
-
-                                <div class="app-form-group">
-                                    <button type="submit" class="app-button cta">{{ 'play.submit.label' | trans | capitalize }}</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="app-grid-item">
                     <div class="app-grid-header">
@@ -95,7 +60,7 @@
                     </div>
                     <div class="app-grid-footer">
                         <a href="#" class="app-button modal" title="Règles du jeu" data-modal="app-grid-gamerules-2">Règles du jeu</a>
-                        <a href="#" class="app-button cta modal" title="Jouer en ligne" data-modal="app-grid-play-2">Créer une table</a>
+                        <a href="{{ path('play.create', { 'gameId': 2 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
                     </div>
                 </div>
                 <div class="app-modal" id="app-grid-gamerules-2">
@@ -119,41 +84,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="app-modal" id="app-grid-play-2">
-                    <div class="app-modal-box">
-                        <button class="app-button app-modal-close">
-                            <i class="fas fa-times"></i>
-                        </button>
-                        <div class="app-modal-body">
-                            <h2 class="app-modal-title">Chroniques Oubliées
-                                <small>Créer une table</small>
-                            </h2>
-                            <form class="app-form">
-                                <div class="app-form-group">
-                                    <input type="text" id="play_tablename_2" class="app-form-control" required />
-                                    <label for="play_tablename_2">Nom du scénario</label>
-                                </div>
-
-                                <div class="app-form-group">
-                                    <input type="datetime-local" id="play_date_2" class="app-form-control" required />
-                                    <label for="play_date_2">Date de début</label>
-                                </div>
-
-                                <div class="app-form-group">
-                                    <select id="play_private_2" class="app-form-control" required>
-                                        <option value="false">Publique</option>
-                                        <option value="true">Privée</option>
-                                    </select>
-                                    <label for="play_private_2">Visibilité</label>
-                                </div>
-
-                                <div class="app-form-group">
-                                    <button type="submit" class="app-button cta">{{ 'play.submit.label' | trans | capitalize }}</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="app-grid-item">
                     <div class="app-grid-header">
@@ -168,7 +98,7 @@
                     </div>
                     <div class="app-grid-footer">
                         <a href="#" class="app-button modal" title="Règles du jeu" data-modal="app-grid-gamerules-3">Règles du jeu</a>
-                        <a href="#" class="app-button cta modal" title="Jouer en ligne" data-modal="app-grid-play-3">Créer une table</a>
+                        <a href="{{ path('play.create', { 'gameId': 3 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
                     </div>
                 </div>
                 <div class="app-modal" id="app-grid-gamerules-3">
@@ -189,41 +119,6 @@
                             <p>
                                 <a href="test.pdf" class="app-button" target="_blank" rel="noopener noreferrer" title="Livre des Créatures">Le livre des Créatures</a>
                             </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="app-modal" id="app-grid-play-3">
-                    <div class="app-modal-box">
-                        <button class="app-button app-modal-close">
-                            <i class="fas fa-times"></i>
-                        </button>
-                        <div class="app-modal-body">
-                            <h2 class="app-modal-title">L'appel de Cthulhu
-                                <small>Créer une table</small>
-                            </h2>
-                            <form class="app-form">
-                                <div class="app-form-group">
-                                    <input type="text" id="play_tablename_3" class="app-form-control" required />
-                                    <label for="play_tablename_3">Nom du scénario</label>
-                                </div>
-
-                                <div class="app-form-group">
-                                    <input type="datetime-local" id="play_date_3" class="app-form-control" required />
-                                    <label for="play_date_3">Date de début</label>
-                                </div>
-
-                                <div class="app-form-group">
-                                    <select id="play_private_3" class="app-form-control" required>
-                                        <option value="false">Publique</option>
-                                        <option value="true">Privée</option>
-                                    </select>
-                                    <label for="play_private_3">Visibilité</label>
-                                </div>
-
-                                <div class="app-form-group">
-                                    <button type="submit" class="app-button cta">{{ 'play.submit.label' | trans | capitalize }}</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>

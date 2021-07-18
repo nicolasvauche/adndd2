@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'pages.play.create.title' | trans | capitalize }}{% endblock %}
+{% block body_class %}play{% endblock %}
+
+{% block body %}
+    <section class="play">
+        <main>
+            <h1>
+                {{ gameName }}&nbsp;
+                <small>{{ 'pages.play.create.title' | trans | capitalize }}</small>
+            </h1>
+
+            <form class="app-form" method="post" action="{{ path('play.invite') }}">
+                <div class="app-form-group">
+                    <input type="text" id="play_tablename" name="play_tablename" class="app-form-control" required />
+                    <label for="play_tablename">Nom du scénario</label>
+                </div>
+
+                <div class="app-grid two">
+                    <div class="app-form-group app-grid-item">
+                        <input type="datetime-local" name="play_date" id="play_date" class="app-form-control" required />
+                        <label for="play_date">Date de début</label>
+                    </div>
+
+                    <div class="app-form-group app-grid-item">
+                        <select name="play_private" id="play_private" class="app-form-control" required>
+                            <option value="false">Publique</option>
+                            <option value="true">Privée</option>
+                        </select>
+                        <label for="play_private">Visibilité</label>
+                    </div>
+                </div>
+
+                <div class="app-form-group">
+                    <input type="hidden" name="play_game_id" value="{{ gameId }}" />
+                </div>
+
+                <div class="app-grid two">
+                    <div class="app-form-group app-grid-item">
+                        <a href="{{ path('games') }}" class="app-button">{{ 'play.cancel.label' | trans | capitalize }}</a>
+                    </div>
+
+                    <div class="app-form-group app-grid-item">
+                        <button type="submit" class="app-button cta">{{ 'play.submit.label' | trans | capitalize }}</button>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </section>
+{% endblock %}

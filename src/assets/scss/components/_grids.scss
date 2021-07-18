@@ -25,6 +25,26 @@
         margin-bottom: 1rem;
     }
 
+    &.two {
+        overflow: initial;
+        display: flex;
+        flex-direction: column-reverse;
+
+        .app-grid-item {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        @include respond(sm) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            .app-grid-item {
+                margin-bottom: 0 !important;
+            }
+        }
+    }
+
     &.three {
         @include respond(sm) {
             grid-template-columns: repeat(2, 1fr);
@@ -32,6 +52,20 @@
 
         @include respond(md) {
             grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    &.five {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 0.5rem;
+
+        @include respond(sm) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include respond(md) {
+            grid-template-columns: repeat(5, 1fr);
         }
     }
 
@@ -49,6 +83,11 @@
         @include respond(sm) {
             margin: 0;
             flex: 0 0 100%;
+        }
+
+        &.app-form-group {
+            background-color: transparent;
+            box-shadow: none;
         }
 
         .app-grid-item-image {
