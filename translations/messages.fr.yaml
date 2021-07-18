@@ -88,3 +88,6 @@ invite:
     label: "créer la table"
   cancel:
     label: "retour"
+filter:
+  submit:
+    label: "filtrer"

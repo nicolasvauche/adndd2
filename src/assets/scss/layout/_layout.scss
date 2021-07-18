@@ -80,6 +80,18 @@ html {
             }
         }
 
+        .text-center {
+            text-align: center;
+        }
+
+        .action_title {
+            @include respond(sm) {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
         .app-main {
             section {
                 p,
@@ -127,9 +139,13 @@ html {
                     background-color: $color-bg-primary;
 
                     @include respond(sm) {
-                        padding: 2rem 1.5rem 1.5rem;
+                        padding: 2rem 0.5rem 1.5rem;
                         border-radius: 0.5rem;
                         box-shadow: 4px 4px 8px rgba($color-fg-primary, 0.5);
+                    }
+
+                    @include respond(md) {
+                        padding: 2rem 1.5rem 1.5rem;
                     }
                 }
 

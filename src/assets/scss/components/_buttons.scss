@@ -34,4 +34,10 @@
         color: $color-bg-primary;
         background-color: $color-fg-secondary;
     }
+
+    &.disabled {
+        color: $color-fg-primary;
+        background-color: inherit !important;
+        cursor: default;
+    }
 }

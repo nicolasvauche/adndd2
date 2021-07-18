@@ -72,4 +72,12 @@ class PlayController extends AbstractController
                 'formData' => $_POST,
             ]);
     }
+
+    /**
+     * @Route("/", name="play")
+     */
+    public function index(): Response
+    {
+        return $this->render('play/index.html.twig');
+    }
 }

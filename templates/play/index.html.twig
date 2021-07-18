@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'pages.play.title' | trans | capitalize }}{% endblock %}
+{% block body_class %}play{% endblock %}
+
+{% block body %}
+    <section class="play">
+        <main>
+            <h1>{{ 'pages.play.title' | trans | capitalize }}</h1>
+
+            <div class="action_title">
+                <h2>Les tables de jeux</h2>
+                <form action="" method="post" class="app-form">
+                    <div class="app-form-group">
+                        <select name="tables_game" id="tables_game" class="app-form-control">
+                            <option>Tous les jeux</option>
+                            <option value="add">Donjons & Dragons</option>
+                            <option value="cob">Chroniques Oubliées</option>
+                            <option value="cth">L'appel de Cthulhu</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+            <div class="games app-grid four">
+                <div class="app-grid-item">
+                    <div class="app-grid-item-header">
+                        <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app-grid-item-image" />
+                        <h3 class="app-grid-item-title">Donjons & Dragons</h3>
+                        <p class="app-grid-item-category">Nom du scénario</p>
+                        <ul class="players">
+                            <li>Un Joueur</li>
+                            <li>Un Autre</li>
+                            <li>Encore Un</li>
+                        </ul>
+                    </div>
+                    <div class="app-grid-footer">
+                        <a class="app-button disabled" title="Partie publique">Publique</a>
+                        <a href="#" class="app-button cta" title="Rejoindre">Rejoindre</a>
+                    </div>
+                </div>
+
+                <div class="app-grid-item">
+                    <div class="app-grid-item-header">
+                        <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app-grid-item-image" />
+                        <h3 class="app-grid-item-title">L'appel de Cthulhu</h3>
+                        <p class="app-grid-item-category">Nom du scénario</p>
+                        <ul class="players">
+                            <li>Un Joueur</li>
+                            <li>Un Autre</li>
+                            <li>Encore Un</li>
+                            <li>Un Dernier</li>
+                        </ul>
+                    </div>
+                    <div class="app-grid-footer">
+                        <a class="app-button disabled" title="Partie publique">Privée</a>
+                        <a class="app-button disabled" title="Partie privée">&nbsp;</a>
+                    </div>
+                </div>
+
+                <div class="app-grid-item">
+                    <div class="app-grid-item-header">
+                        <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" class="app-grid-item-image" />
+                        <h3 class="app-grid-item-title">Chroniques Oubliées</h3>
+                        <p class="app-grid-item-category">Nom du scénario</p>
+                        <ul class="players">
+                            <li>Personne</li>
+                        </ul>
+                    </div>
+                    <div class="app-grid-footer">
+                        <a class="app-button disabled" title="Partie publique">Publique</a>
+                        <a href="#" class="app-button cta" title="Rejoindre">Rejoindre</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
+{% endblock %}
