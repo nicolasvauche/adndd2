@@ -1,0 +1,13 @@
+<h1>Salut à Toi !</h1>
+
+<p>
+    Pour régénérer ton mot d epasse, clique sur le lien ci-dessous :<br />
+    <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+</p>
+
+<p>Mais fais vite !! Ce lien expirera {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }} après son envoi.</p>
+
+<p>Bon jeu !</p>
+
+<hr />
+<strong>L'équipe d'Ah ! D & Dédé</strong>

@@ -92,6 +92,11 @@ html {
             }
         }
 
+        .info {
+            margin: 0.5rem 1rem;
+            text-align: center;
+        }
+
         .app-main {
             section {
                 p,
@@ -162,7 +167,7 @@ html {
 
         @import "header", "main", "footer";
 
-        @import "../pages/home", "../pages/about", "../pages/contact", "../pages/faq", "../pages/games", "../pages/play";
+        @import "../pages/home", "../pages/about", "../pages/contact", "../pages/faq", "../pages/games", "../pages/play", "../pages/login";
 
         @import "../components/forms", "../components/images", "../components/grids", "../components/modals", "../components/alerts";
     }
