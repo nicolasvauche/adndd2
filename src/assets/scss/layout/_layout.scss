@@ -171,8 +171,10 @@ html {
 
         @import "header", "main", "footer";
 
-        @import "../pages/home", "../pages/about", "../pages/contact", "../pages/faq", "../pages/games", "../pages/play", "../pages/login", "../pages/user";
+        @import "../pages/home", "../pages/about", "../pages/contact", "../pages/faq", "../pages/games",
+        "../pages/play", "../pages/login", "../pages/user", "../pages/characters";
 
-        @import "../components/forms", "../components/images", "../components/grids", "../components/modals", "../components/alerts";
+        @import "../components/forms", "../components/images", "../components/grids", "../components/modals",
+        "../components/alerts";
     }
 }

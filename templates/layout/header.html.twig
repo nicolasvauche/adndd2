@@ -40,7 +40,7 @@
                         </li>
 
                         <li>
-                            <a href="{{ path('home') }}" title="{{ 'pages.user.characters.title' | trans | capitalize }}">{{ 'pages.user.characters.menu' | trans | capitalize }}</a>
+                            <a href="{{ path('characters') }}" {% if app.request.get('_route') == 'characters' %}class="active"{% endif %} title="{{ 'pages.user.characters.title' | trans | capitalize }}">{{ 'pages.user.characters.menu' | trans | capitalize }}</a>
                         </li>
 
                         <li>
