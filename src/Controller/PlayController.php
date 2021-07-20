@@ -21,15 +21,30 @@ class PlayController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
+        $games = [
+            0 => [
+                'id' => 1,
+                'name' => 'Donjons & Dragons',
+            ],
+            1 => [
+                'id' => 2,
+                'name' => 'Chroniques Oubliées',
+            ],
+            2 => [
+                'id' => 3,
+                'name' => "L'appel de Cthulhu",
+            ],
+        ];
+
         switch ($gameId) {
             case 1:
-                $gameName = 'Donjons & Dragons';
+                $gameName = $games[0]['name'];
                 break;
             case 2:
-                $gameName = 'Chroniques Oubliées';
+                $gameName = $games[1]['name'];
                 break;
             case 3:
-                $gameName = "L'appel de Cthulhu";
+                $gameName = $games[2]['name'];
                 break;
             default:
                 $gameName = $gameId;
@@ -40,6 +55,7 @@ class PlayController extends AbstractController
             [
                 'gameId' => $gameId,
                 'gameName' => $gameName,
+                'games' => $games,
             ]);
     }
 
@@ -82,6 +98,24 @@ class PlayController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('play/index.html.twig');
+        $games = [
+            0 => [
+                'id' => 1,
+                'name' => 'Donjons & Dragons',
+            ],
+            1 => [
+                'id' => 2,
+                'name' => 'Chroniques Oubliées',
+            ],
+            2 => [
+                'id' => 3,
+                'name' => "L'appel de Cthulhu",
+            ],
+        ];
+
+        return $this->render('play/index.html.twig',
+            [
+                'games' => $games,
+            ]);
     }
 }
