@@ -58,7 +58,10 @@ class UserController extends AbstractController
             $manager->persist($user);
 
             $manager->flush();
+
             $this->addFlash('success', 'votre profil a été sauvegardé');
+
+            return $this->redirect($request->getUri());
         } else {
             $errors = $validator->validate($user);
             if (count($errors) > 0) {
@@ -87,6 +90,7 @@ class UserController extends AbstractController
             $manager->persist($user);
 
             $manager->flush();
+
             $this->addFlash('success', 'votre mot de passe a été modifié');
 
             return $this->render('user/profile.html.twig',

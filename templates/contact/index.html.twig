@@ -13,31 +13,42 @@
             <main class="app-grid-item">
                 <h1>{{ 'pages.contact.title' | trans | capitalize }}</h1>
 
-                <form class="app-form">
-                    <div class="app-form-group">
-                        <input type="text" id="contact_name" class="app-form-control" placeholder="{{ 'contact.name.placeholder' | trans }}" value="{{ app.user ? app.user.fullname : '' }}" required />
-                        <label for="contact_name">{{ 'contact.name.label' | trans | capitalize }}</label>
-                    </div>
+                <!-- Flash messages -->
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        {% if loop.first %}
+                            <div class="app-alert {{ label }}">
+                                {{ message | trans | capitalize }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
 
-                    <div class="app-form-group">
-                        <input type="email" id="contact_email" class="app-form-control" placeholder="{{ 'contact.email.placeholder' | trans }}" value="{{ app.user ? app.user.email : '' }}" required />
-                        <label for="contact_email">{{ 'contact.email.label' | trans | capitalize }}</label>
-                    </div>
+                {{ form_start(form, { attr: { 'class': 'app-form'}}) }}
+                <div class="app-form-group">
+                    {{ form_widget(form.contact_name, {'value' : app.user ? app.user.fullname : ''}) }}
+                    <label for="{{ form.contact_name.vars.id }}">{{ form.contact_name.vars.label | trans | capitalize }}</label>
+                </div>
 
-                    <div class="app-form-group">
-                        <input type="text" id="contact_subject" class="app-form-control" placeholder="{{ 'contact.subject.placeholder' | trans }}" required />
-                        <label for="contact_subject">{{ 'contact.subject.label' | trans | capitalize }}</label>
-                    </div>
+                <div class="app-form-group">
+                    {{ form_widget(form.contact_email, {'value' : app.user ? app.user.email : ''}) }}
+                    <label for="{{ form.contact_email.vars.id }}">{{ form.contact_email.vars.label | trans | capitalize }}</label>
+                </div>
 
-                    <div class="app-form-group">
-                        <textarea id="contact_message" class="app-form-control" placeholder="{{ 'contact.message.placeholder' | trans | capitalize }}" rows="5" required></textarea>
-                        <label for="contact_message">{{ 'contact.message.label' | trans | capitalize }}</label>
-                    </div>
+                <div class="app-form-group">
+                    {{ form_widget(form.contact_subject) }}
+                    <label for="{{ form.contact_subject.vars.id }}">{{ form.contact_subject.vars.label | trans | capitalize }}</label>
+                </div>
 
-                    <div class="app-form-group">
-                        <button type="submit" class="app-button cta">{{ 'contact.submit.label' | trans | capitalize }}</button>
-                    </div>
-                </form>
+                <div class="app-form-group">
+                    {{ form_widget(form.contact_message) }}
+                    <label for="{{ form.contact_message.vars.id }}">{{ form.contact_message.vars.label | trans | capitalize }}</label>
+                </div>
+
+                <div class="app-form-group mb-0">
+                    {{ form_widget(form.submit) }}
+                </div>
+                {{ form_end(form) }}
             </main>
 
             <aside class="app-grid-item">
