@@ -132,7 +132,7 @@
         .app-grid-footer {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            align-items: flex-end;
+            align-items: center;
 
             .app-button {
                 padding: 1rem 0.25rem;

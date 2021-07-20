@@ -20,12 +20,17 @@
                             Donjons et Dragons (en anglais Dungeons & Dragons), souvent abrégé en D&D, DnD ou AD&D, est l'un des tout premiers jeux de rôle sur table de genre médiéval-fantastique.
                         </p>
                     </div>
-                    {% if app.user %}
-                        <div class="app-grid-footer">
+                    <div class="app-grid-footer">
+                        {% if app.user %}
                             <a href="#" class="app-button modal" title="Règles du jeu" data-modal="app-grid-gamerules-1">Règles du jeu</a>
                             <a href="{{ path('play.create', { 'gameId': 1 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
-                        </div>
-                    {% endif %}
+                        {% else %}
+                            <a class="app-button disabled" title="{{ 'pages.login.title' | trans | capitalize }}">Règles du jeu</a>
+                            <a href="{{ path('app_login') }}" class="app-button" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                <i class="fas fa-lock"></i>
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
                 {% if app.user %}
                     <div class="app-modal" id="app-grid-gamerules-1">
@@ -62,12 +67,17 @@
                             Chroniques Oubliées peut être considéré comme un jeu de rôle d'initiation. D'heroic fantasy pour ses premières versions, il a été édité en premier lieu en 2009 par Black Book sous forme de boîte.
                         </p>
                     </div>
-                    {% if app.user %}
-                        <div class="app-grid-footer">
+                    <div class="app-grid-footer">
+                        {% if app.user %}
                             <a href="#" class="app-button modal" title="Règles du jeu" data-modal="app-grid-gamerules-2">Règles du jeu</a>
                             <a href="{{ path('play.create', { 'gameId': 2 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
-                        </div>
-                    {% endif %}
+                        {% else %}
+                            <a class="app-button disabled" title="{{ 'pages.login.title' | trans | capitalize }}">Règles du jeu</a>
+                            <a href="{{ path('app_login') }}" class="app-button" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                <i class="fas fa-lock"></i>
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
                 {% if app.user %}
                     <div class="app-modal" id="app-grid-gamerules-2">
@@ -104,12 +114,17 @@
                             L'Appel de Cthulhu (Call of Cthulhu) est un jeu de rôle créé aux États-Unis en 1981 par Sandy Petersen. Le titre vient de la nouvelle du même nom écrite par l'écrivain fantastique américain H. P. Lovecraft.
                         </p>
                     </div>
-                    {% if app.user %}
-                        <div class="app-grid-footer">
+                    <div class="app-grid-footer">
+                        {% if app.user %}
                             <a href="#" class="app-button modal" title="Règles du jeu" data-modal="app-grid-gamerules-3">Règles du jeu</a>
                             <a href="{{ path('play.create', { 'gameId': 3 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
-                        </div>
-                    {% endif %}
+                        {% else %}
+                            <a class="app-button disabled" title="{{ 'pages.login.title' | trans | capitalize }}">Règles du jeu</a>
+                            <a href="{{ path('app_login') }}" class="app-button" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                <i class="fas fa-lock"></i>
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
                 {% if app.user %}
                     <div class="app-modal" id="app-grid-gamerules-3">

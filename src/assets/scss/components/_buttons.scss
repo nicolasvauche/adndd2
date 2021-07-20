@@ -36,7 +36,7 @@
     }
 
     &.disabled {
-        color: $color-fg-primary;
+        color: rgba($color-fg-primary, 0.5);
         background-color: inherit !important;
         cursor: default;
     }
