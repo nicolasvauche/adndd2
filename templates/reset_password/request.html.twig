@@ -25,6 +25,10 @@
                 <button class="app-button cta">{{ 'resetpassword.submit.label' | trans | capitalize }}</button>
             </div>
             {{ form_end(requestForm) }}
+
+            <p class="text-center">
+                <a href="{{ path('app_login') }}" title="{{ 'pages.login.title' | trans | capitalize }}">{{ 'pages.login.menu' | trans | capitalize }}</a>
+            </p>
         </main>
     </section>
 {% endblock %}

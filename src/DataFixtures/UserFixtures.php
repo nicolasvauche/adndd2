@@ -49,8 +49,7 @@ class UserFixtures
 
         // Guest account
         $dom = new User();
-        $dom->setRegisterId('2523446789')
-            ->setFirstName('Dominique')
+        $dom->setFirstName('Dominique')
             ->setLastName('')
             ->setPseudo('Dom')
             ->setEmail('dom@hotmail.com')

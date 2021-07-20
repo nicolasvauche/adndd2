@@ -36,3 +36,5 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/jouer-en-ligne/[a-z]+, roles: ROLE_USER }
+        - { path: ^/mon-profil, roles: ROLE_USER }
+        - { path: ^/modifier-mon-mot-de-passe, roles: ROLE_USER }

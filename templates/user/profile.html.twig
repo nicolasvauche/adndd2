@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'pages.user.title' | trans | capitalize }}{% endblock %}
+{% block body_class %}user{% endblock %}
+
+{% block body %}
+    <section class="user">
+        <div class="app-grid two">
+            <main class="app-grid-item">
+                <h1>{{ 'pages.user.title' | trans | capitalize }}</h1>
+
+                <!-- Flash messages -->
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        {% if loop.first %}
+                            <div class="app-alert {{ label }}">
+                                {{ message | trans | capitalize }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+
+                {{ form_start(form, { attr: { 'class': 'app-form'}}) }}
+                <div class="app-grid two">
+                    <div class="app-form-group app-grid-item">
+                        {{ form_widget(form.email) }}
+                        <label for="{{ form.email.vars.id }}">{{ form.email.vars.label | trans | capitalize }}</label>
+                    </div>
+
+                    <div class="app-form-group app-grid-item">
+                        {{ form_widget(form.pseudo) }}
+                        <label for="{{ form.pseudo.vars.id }}">{{ form.pseudo.vars.label | trans | capitalize }}</label>
+                    </div>
+                </div>
+
+                <div class="app-grid three">
+                    <div class="app-form-group app-grid-item">
+                        {{ form_widget(form.gender) }}
+                        <label for="{{ form.gender.vars.id }}">{{ form.gender.vars.label | trans | capitalize }}</label>
+                    </div>
+
+                    <div class="app-form-group app-grid-item">
+                        {{ form_widget(form.firstname) }}
+                        <label for="{{ form.firstname.vars.id }}">{{ form.firstname.vars.label | trans | capitalize }}</label>
+                    </div>
+
+                    <div class="app-form-group app-grid-item">
+                        {{ form_widget(form.lastname) }}
+                        <label for="{{ form.lastname.vars.id }}">{{ form.lastname.vars.label | trans | capitalize }}</label>
+                    </div>
+                </div>
+
+                <div class="app-form-group mb-0">
+                    {{ form_widget(form.submit) }}
+                </div>
+                {{ form_end(form) }}
+            </main>
+
+            <aside class="app-grid-item">
+                <h2>Mon compte</h2>
+
+                {% if app.user.registerId is not null %}
+                    <p>
+                        <strong>N° adhérent :</strong> {{ app.user.registerId }}
+                    </p>
+                {% endif %}
+
+                <p>
+                    <a href="{{ path('user.password') }}" title="{{ 'pages.user.password.title' | trans | capitalize }}">
+                        {{ 'pages.user.password.menu' | trans | capitalize }}
+                    </a>
+                </p>
+
+                <p>
+                    <a href="{{ path('app_logout') }}" title="{{ 'pages.logout.title' | trans | capitalize }}">
+                        {{ 'pages.logout.menu' | trans | capitalize }}
+                    </a>
+                </p>
+            </aside>
+        </div>
+    </section>
+{% endblock %}

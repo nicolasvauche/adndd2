@@ -11,6 +11,28 @@
 
     .app-grid {
         align-items: center;
+
+        &.three {
+            overflow: initial;
+            display: block;
+
+            @include respond(sm) {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @include respond(md) {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .app-grid-item {
+                margin-bottom: 1rem;
+
+                @include respond(sm) {
+                    margin-bottom: 0;
+                }
+            }
+        }
     }
 
     .app-form-group {
@@ -28,10 +50,6 @@
                 align-items: center;
                 justify-content: flex-start;
             }
-        }
-
-        &:last-child {
-            margin-bottom: 0;
         }
 
         .app-form-control {

@@ -29,4 +29,14 @@
         color: darkorange;
         border-color: darkorange;
     }
+
+    &.success {
+        color: green;
+        border-color: green;
+    }
+
+    &.info {
+        color: royalblue;
+        border-color: royalblue;
+    }
 }

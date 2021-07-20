@@ -36,6 +36,9 @@ pages:
   user:
     menu: "mon profil"
     title: "mon profil joueur"
+    password:
+      menu: "modifier mon mot de passe"
+      title: "modifier mon mot de passe"
     characters:
       menu: "mes personnages"
       title: "gérer mes personnages"
@@ -110,14 +113,30 @@ resetpassword:
     label: "votre adresse e-mail"
     info: "entrez votre adresse e-mail et nous vous enverrons un mail contenant un lien pour régénérer votre mot de passe."
   submit:
-    label: "Envoyez le mail"
+    label: "envoyez le mail"
   reset:
     first:
       label: "nouveau mot de passe"
     second:
       label: "confirmation"
     submit:
-      label: "Régénérer mon mot de passe"
+      label: "régénérer mon mot de passe"
     errors:
       length: "votre mot de passe doit contenir au moins 6 caractères"
       mismatch: "les deux mots de passe ne sont pas identiques"
+user:
+  profile:
+    email:
+      label: "votre adresse e-mail"
+    pseudo:
+      label: "votre pseudo"
+    gender:
+      label: "votre civilité"
+    firstname:
+      label: "votre prénom"
+    lastname:
+      label: "votre nom"
+    submit:
+      label: "sauvegarder mon profil"
+    errors:
+      unique: "cette adresse e-mail existe déjà !"

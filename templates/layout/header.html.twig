@@ -36,7 +36,7 @@
 
                     <ul class="app-navigation-dropdown">
                         <li>
-                            <a href="{{ path('home') }}" title="{{ 'pages.user.title' | trans | capitalize }}">{{ 'pages.user.menu' | trans | capitalize }}</a>
+                            <a href="{{ path('user.profile') }}" {% if app.request.get('_route') == 'user.profile' %}class="active"{% endif %} title="{{ 'pages.user.title' | trans | capitalize }}">{{ 'pages.user.menu' | trans | capitalize }}</a>
                         </li>
 
                         <li>

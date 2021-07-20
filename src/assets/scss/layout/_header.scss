@@ -144,7 +144,7 @@
                 }
 
                 &:hover {
-                    a {
+                    & > a {
                         color: $color-fg-third;
                     }
 
@@ -194,6 +194,10 @@
                             }
 
                             &:hover {
+                                color: $color-fg-third;
+                            }
+
+                            &.active{
                                 color: $color-fg-third;
                             }
                         }
