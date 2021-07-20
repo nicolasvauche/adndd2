@@ -8,48 +8,48 @@ footer:
     games:
       title: "jeux de rôles"
     follow:
-      title: "suivez-nous"
+      title: "suis-nous"
 pages:
   home:
     menu: "accueil"
     title: "retour à l'accueil"
   login:
     menu: "connexion"
-    title: "connectez-vous pour jouer"
+    title: "connecte-toi pour jouer"
   resetpassword:
-    title: "récupération de mot de passe"
+    title: "récupération de ton mot de passe"
     menu: "mot de passe perdu"
     checkemail:
       info: "Si un compte existe avec cette adresse e-mail, un message vient d'être envoyé !<br />Ce lien expirera dans %time%."
-      info2: "Si vous ne recevez pas de mail, vérifiez vos spams ou"
-      info2link: "essayez à nouveau"
+      info2: "Si tu ne reçois pas de mail, vérifie tes spams ou"
+      info2link: "essaie encore"
   logout:
     menu: "déconnexion"
-    title: "déconnectez-vous"
+    title: "déconnecte-toi"
   about:
     menu: "l'association"
     title: "qui sommes-nous ?"
     alt: "en savoir plus"
   contact:
     menu: "contact"
-    title: "contactez-nous"
+    title: "contacte-nous"
   user:
-    menu: "mon profil"
-    title: "mon profil joueur"
+    menu: "ton profil"
+    title: "ton profil joueur"
     password:
-      menu: "modifier mon mot de passe"
-      title: "modifier mon mot de passe"
+      menu: "modifier ton mot de passe"
+      title: "modifier ton mot de passe"
     characters:
-      menu: "mes personnages"
-      title: "gérer mes personnages"
+      menu: "tes personnages"
+      title: "gérer tes personnages"
     games:
-      menu: "mes aventures"
-      title: "gérer mes aventures"
+      menu: "tes aventures"
+      title: "gérer tes aventures"
     tables:
-      menu: "mes tables de jeu"
-      title: "gérer mes tables de jeu"
+      menu: "tes tables de jeu"
+      title: "gérer tes tables de jeu"
   games:
-    title: "tous nos jeux"
+    title: "les jeux en ligne"
     menu: "les jeux"
     create:
       title: "créer une table"
@@ -75,19 +75,19 @@ pages:
       title: "confidentialité et cookies"
 contact:
   name:
-    label: "votre nom"
+    label: "ton nom"
     placeholder: "ex: Sophie Dupont"
   email:
-    label: "votre adresse e-mail"
+    label: "ton adresse e-mail"
     placeholder: "ex: sophie@dupont.com"
   subject:
-    label: "sujet de votre message"
+    label: "sujet de ton message"
     placeholder: "ex: Devenir adhérent"
   message:
-    label: "votre message"
+    label: "ton message"
     placeholder: "bonjour,"
   submit:
-    label: "envoyez !"
+    label: "envoyez-ça !"
 play:
   submit:
     label: "créer la table"
@@ -103,40 +103,40 @@ filter:
     label: "filtrer"
 login:
   email:
-    label: "votre adresse e-mail"
+    label: "ton adresse e-mail"
   password:
-    label: "votre mot de passe"
+    label: "ton mot de passe"
   submit:
     label: "connexion"
 resetpassword:
   email:
-    label: "votre adresse e-mail"
-    info: "entrez votre adresse e-mail et nous vous enverrons un mail contenant un lien pour régénérer votre mot de passe."
+    label: "ton adresse e-mail"
+    info: "entre ton adresse e-mail et nous t'enverrons un mail contenant un lien pour régénérer ton mot de passe."
   submit:
-    label: "envoyez le mail"
+    label: "envoyez le mail !"
   reset:
     first:
       label: "nouveau mot de passe"
     second:
       label: "confirmation"
     submit:
-      label: "régénérer mon mot de passe"
+      label: "régénérer ton mot de passe"
     errors:
-      length: "votre mot de passe doit contenir au moins 6 caractères"
+      length: "ton mot de passe doit contenir au moins 6 caractères"
       mismatch: "les deux mots de passe ne sont pas identiques"
 user:
   profile:
     email:
-      label: "votre adresse e-mail"
+      label: "ton adresse e-mail"
     pseudo:
-      label: "votre pseudo"
+      label: "ton pseudo"
     gender:
-      label: "votre civilité"
+      label: "ta civilité"
     firstname:
-      label: "votre prénom"
+      label: "ton prénom"
     lastname:
-      label: "votre nom"
+      label: "ton nom"
     submit:
-      label: "sauvegarder mon profil"
+      label: "sauvegarder ton profil"
     errors:
       unique: "cette adresse e-mail existe déjà !"

@@ -22,25 +22,23 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            try {
-                $mailerService->send(
-                    [
-                        'email' => $form->get('contact_email')->getData(),
-                        'subject' => $form->get('contact_subject')->getData(),
-                        'message' => $form->get('contact_message')->getData(),
-                    ],
-                    'user');
+            $mailerService->send(
+                [
+                    'name' => $form->get('contact_name')->getData(),
+                    'email' => $form->get('contact_email')->getData(),
+                    'subject' => $form->get('contact_subject')->getData(),
+                    'message' => $form->get('contact_message')->getData(),
+                ],
+                'user');
 
-                $mailerService->send(
-                    [
-                        'email' => $form->get('contact_email')->getData(),
-                        'subject' => $form->get('contact_subject')->getData(),
-                        'message' => $form->get('contact_message')->getData(),
-                    ],
-                    'admin');
-            } catch (ExceptionInterface $e) {
-                $this->addFlash('danger', $e->getMessage());
-            }
+            $mailerService->send(
+                [
+                    'name' => $form->get('contact_name')->getData(),
+                    'email' => $form->get('contact_email')->getData(),
+                    'subject' => $form->get('contact_subject')->getData(),
+                    'message' => $form->get('contact_message')->getData(),
+                ],
+                'admin');
 
             $this->addFlash('success', 'votre message a été envoyé !');
 

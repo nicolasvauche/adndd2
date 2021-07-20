@@ -44,7 +44,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/mon-profil", name="user.profile")
+     * @Route("/ton-profil", name="user.profile")
      */
     public function profile(Request $request, EntityManagerInterface $manager, ValidatorInterface $validator): Response
     {
@@ -76,7 +76,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/modifier-mon-mot-de-passe", name="user.password")
+     * @Route("/modifier-ton-mot-de-passe", name="user.password")
      */
     public function password(Request $request, EntityManagerInterface $manager, ValidatorInterface $validator, UserPasswordEncoderInterface $encoder): Response
     {

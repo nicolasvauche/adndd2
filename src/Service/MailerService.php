@@ -2,9 +2,10 @@
 
 namespace App\Service;
 
-use App\Service\ConfigService;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Message;
 
 class MailerService
@@ -21,35 +22,41 @@ class MailerService
     public function send($mailData, $recipient)
     {
         if ($recipient === 'user') {
-            $email = (new Email())
-                ->from($this->globals->getAppEmail())
-                ->to($mailData['email'])
+            $email = (new TemplatedEmail())
+                ->from(new Address($this->globals->getAppEmail(), $this->globals->getAppAuthor()))
+                ->to(new Address($mailData['email'], $mailData['name']))
                 //->cc('cc@example.com')
                 //->bcc('bcc@example.com')
                 //->replyTo('fabien@example.com')
                 //->priority(Email::PRIORITY_HIGH)
-                ->subject('Nouveau message : ' . $mailData['subject'])
-                ->text($mailData['message'])
-                ->html('<p>Bonjour, toi qui ne vis pas dans un grotte !</p><p>Voici ton message mon ami :</p><p>' . $mailData['message'] . '</p><hr /><p>À tout de suite en ligne !</p>');
+                ->subject('Ton message : ' . $mailData['subject'])
+                //->textTemplate('emails/contact/user.txt.twig')
+                ->htmlTemplate('emails/contact/user.html.twig')
+                ->context([
+                    'mailData' => $mailData,
+                ]);
 
         } else {
-            $email = (new Email())
-                ->from($this->globals->getAppEmail())
-                ->to($this->globals->getAppEmail())
+            $email = (new TemplatedEmail())
+                ->from(new Address($this->globals->getAppEmail(), $this->globals->getAppAuthor()))
+                ->to(new Address($this->globals->getAppEmail(), $this->globals->getAppAuthor()))
                 //->cc('cc@example.com')
                 //->bcc('bcc@example.com')
-                ->replyTo($mailData['email'])
+                ->replyTo(new Address($mailData['email'], $mailData['name']))
                 //->priority(Email::PRIORITY_HIGH)
                 ->subject('Nouveau message : ' . $mailData['subject'])
-                ->text($mailData['message'])
-                ->html("<p>Bonjour, toi qui es Admin !</p><p>Voici le message d'un ami :</p><p>" . $mailData['message'] . "</p><hr /><p>Ave !</p>");
+                //->textTemplate('emails/contact/user.txt.twig')
+                ->htmlTemplate('emails/contact/admin.html.twig')
+                ->context([
+                    'mailData' => $mailData,
+                ]);
+            //->html("<p>Bonjour, toi qui es Admin !</p><p>Voici le message d'un ami :</p><p>" . $mailData['message'] . "</p><hr /><p>Ave !</p>");
 
         }
         try {
             $this->mailer->send($email);
         } catch (\Exception $e) {
-            var_dump($e);
-            exit;
+            dd($e);
         }
     }
 }
