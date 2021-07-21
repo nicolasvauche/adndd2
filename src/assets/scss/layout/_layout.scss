@@ -13,7 +13,7 @@ html {
         }
 
         @import "../base/typography";
-        @import "../components/buttons";
+        @import "../components/buttons", "../components/sliders", "../components/grids";
 
         @import "header";
 

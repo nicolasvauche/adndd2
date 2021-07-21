@@ -1,0 +1,32 @@
+.app_grid {
+    @include respond(sm) {
+        display: grid !important;
+        grid-gap: 1rem;
+        margin: 0 0.5rem 1.5rem;
+    }
+
+    @include respond(md) {
+        grid-gap: 1.5rem;
+        margin: 0 1rem 1.5rem;
+    }
+
+    &.three {
+        @include respond(sm) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .app_grid_item {
+        @include respond(sm) {
+            border-radius: $border-radius-default;
+            box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
+
+            img {
+                display: block;
+                width: 100%;
+                object-fit: cover;
+                border-radius: inherit;
+            }
+        }
+    }
+}

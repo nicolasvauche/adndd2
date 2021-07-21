@@ -37,8 +37,35 @@
                 }
             }
 
+            &.games {
+
+            }
+
             &.play {
+                position: relative;
                 background-color: $color-orange;
+
+                img {
+                    &:first-of-type {
+                        margin-bottom: 2rem;
+                    }
+
+                    &:last-of-type {
+                        position: absolute;
+                        top: 20%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 50%;
+
+                        @include respond(sm) {
+                            width: 25%;
+                        }
+
+                        @include respond(md) {
+                            width: 12%;
+                        }
+                    }
+                }
 
                 .app_button {
                     &.cta {
