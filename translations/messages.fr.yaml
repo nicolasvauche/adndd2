@@ -7,6 +7,12 @@ pages:
   about:
     menu: "présentation"
     title: "qui sommes-nous ?"
+  games:
+    menu: "les jeux"
+    title: "les jeux en ligne"
+  play:
+    menu: "jouer"
+    title: "jouer en ligne"
   contact:
     menu: "contact"
     title: "contactons-nous"

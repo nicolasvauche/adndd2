@@ -15,11 +15,13 @@
         </section>
 
         <section class="games">
-            Les jeux
+            <h2>3 jeux disponibles !</h2>
+
+            <a href="{{ path('games') }}" class="app_button cta" title="{{ 'pages.games.menu' | trans | capitalize }}">{{ 'pages.games.title' | trans | capitalize }}</a>
         </section>
 
         <section class="play">
-            Jouer en ligne
+            <a href="{{ path('play') }}" class="app_button cta" title="{{ 'pages.play.menu' | trans | capitalize }}">{{ 'pages.play.title' | trans | capitalize }}</a>
         </section>
     </article>
 {% endblock %}

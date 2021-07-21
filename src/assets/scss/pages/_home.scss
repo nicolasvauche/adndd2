@@ -2,7 +2,7 @@
 
     h1 {
         text-align: center;
-        background-color: rgba($color-bg-primary, 0.5);
+        background-color: rgba($color-bg-secondary, 0.4);
         text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color-alt;
     }
 
@@ -34,6 +34,26 @@
                 .app_logo {
                     margin: 3rem 0;
                     filter: drop-shadow($box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color);
+                }
+            }
+
+            &.play {
+                background-color: $color-orange;
+
+                .app_button {
+                    &.cta {
+                        padding-left: 0;
+                        padding-right: 0;
+                        width: 100vw;
+                        font-size: 1.5rem;
+                        color: $color-bg-primary;
+                        background-color: $color-bg-alt;
+                        border-color: $color-bg-alt;
+                        border-left: none;
+                        border-right: none;
+                        border-radius: 0;
+                        box-shadow: none;
+                    }
                 }
             }
         }

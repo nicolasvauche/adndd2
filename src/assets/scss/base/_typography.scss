@@ -20,9 +20,15 @@ h1 {
 }
 
 h2 {
+    margin-bottom: 1rem;
     font-family: $font-family-secondary;
     font-size: 1.5rem;
     text-transform: uppercase;
     color: $color-bg-alt;
     text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color-alt;
+}
+
+a,
+button {
+    transition: all 0.3s ease-in-out;
 }
