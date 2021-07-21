@@ -1,209 +1,29 @@
-.app-header {
+.app_header {
     position: sticky;
     top: 0;
     z-index: 9999;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.25rem 1rem;
-    width: calc(100vw - 2rem);
-    background-color: $color-bg-fourth;
-    box-shadow: 0px 2px 0.5rem $color-fg-primary;
+    padding: 0.5rem 0.5rem;
+    color: $color-bg-secondary;
+    background-color: $color-bg-alt;
+    box-shadow: 0 $box-shadow-y $box-shadow-radius $box-shadow-color;
 
     @include respond(sm) {
-        flex-wrap: initial;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 
-    .app-navigation-toggle {
-        cursor: pointer;
-        display: none;
-        position: relative;
-        user-select: none;
-
-        @include respond(sm) {
-            display: none;
-        }
-
-        &:checked {
-            & ~ .app-navigation-toggle-icon {
-                background: transparent;
-
-                &:before {
-                    transform: rotate(-45deg);
-                }
-
-                &:after {
-                    transform: rotate(45deg);
-                }
-            }
-
-            &:not(.steps) {
-                & ~ .app-navigation-toggle-icon {
-                    &:before,
-                    &:after {
-                        top: 0;
-                    }
-                }
-            }
-
-            & ~ .app-navigation {
-                max-height: calc(100vh - 3rem);
-            }
-        }
+    @include respond(md) {
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
 
-    .app-navigation-toggle-icon {
-        position: relative;
+    .app_logo {
         display: block;
-        height: 0.25rem;
-        width: 1.25rem;
-        background-color: $color-bg-primary;
-        transition: background .2s ease-out;
+        text-decoration: none;
 
-        @include respond(sm) {
-            display: none;
-        }
-
-        &:before,
-        &:after {
-            background-color: $color-bg-primary;
-            content: '';
+        img {
             display: block;
-            height: 100%;
-            position: absolute;
-            transition: all .2s ease-out;
-            width: 100%;
-        }
-
-        &:before {
-            top: 0.5rem;
-        }
-
-        &:after {
-            top: -0.5rem;
-        }
-    }
-
-    .app-navigation {
-        position: fixed;
-        top: 3rem;
-        left: 0;
-        display: flex;
-        width: 100%;
-        max-height: 0;
-        overflow: hidden;
-        background-color: $color-bg-fourth;
-        transition: max-height 0.3s ease-in-out;
-
-        @include respond(sm) {
-            position: initial;
-            display: block;
-            width: auto;
-            max-height: none;
-            overflow: visible;
-        }
-
-        ul {
-            margin: 0;
-            width: 100%;
-
-            @include respond(sm) {
-                display: flex;
-                align-items: center;
-                width: auto;
-            }
-
-            li {
-                position: relative;
-                margin: 0;
-
-                a {
-                    display: block;
-                    padding: 0.75rem 0;
-                    margin: 0 1rem;
-                    font-family: $font-family-secondary;
-                    font-size: 1.25rem;
-                    font-weight: 600;
-                    letter-spacing: 1px;
-                    color: $color-bg-secondary;
-                    text-decoration: none;
-                    transition: color 0.3s ease-in-out;
-
-                    @include respond(sm) {
-                        margin: 0 0.5rem;
-                    }
-
-                    @include respond(md) {
-                        margin: 0 1.5rem;
-                    }
-
-                    &.active{
-                        color: $color-fg-third;
-                    }
-                }
-
-                &:hover {
-                    & > a {
-                        color: $color-fg-third;
-                    }
-
-                    .app-navigation-dropdown {
-                        transform: scaleY(1);
-                    }
-                }
-            }
-
-            &.app-navigation-dropdown {
-                padding-left: 1.5rem;
-                font-size: 0.9rem;
-                white-space: nowrap;
-                background-color: $color-bg-fifth;
-                box-shadow: inset 1px 1px 2px rgba($color-fg-primary, 0.5), 0px 2px 0.5rem $color-fg-primary;
-
-                li {
-                    a {
-                        font-size: 1rem;
-                    }
-                }
-
-                @include respond(sm) {
-                    position: absolute;
-                    right: -1rem;
-                    top: 2.75rem;
-                    display: block;
-                    padding: 0;
-                    font-size: 1rem;
-                    transform: scaleY(0);
-                    transform-origin: top;
-                    background-color: $color-bg-secondary;
-                    border: 1px solid $color-bg-fourth;
-                    border-right: none;
-                    border-bottom-left-radius: 0.5rem;
-                    transition: transform 0.3s ease-in-out;
-
-                    li {
-                        a {
-                            margin: 0.5rem 0;
-                            padding: 0.5rem 1rem;
-                            color: $color-bg-primary;
-                            transition: color 0.3s ease-in-out;
-
-                            @include respond(sm) {
-                                color: $color-fg-primary;
-                            }
-
-                            &:hover {
-                                color: $color-fg-third;
-                            }
-
-                            &.active{
-                                color: $color-fg-third;
-                            }
-                        }
-                    }
-                }
-            }
+            height: 2.5rem;
         }
     }
 }

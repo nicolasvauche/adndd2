@@ -1,180 +1,83 @@
 html {
     font-size: $font-size-default;
-    scroll-behavior: smooth;
 
     body {
         font-family: $font-family-primary;
         font-size: 1rem;
         color: $color-fg-primary;
-        background-color: $color-bg-secondary;
+        background-color: $color-bg-primary;
 
-        h1 {
-            margin: 0 0 2rem;
-            padding: 1.5rem 0.5rem;
-            font-family: $font-family-secondary;
-            font-size: 2rem;
-            text-transform: uppercase;
-            line-height: 2.5rem;
-            text-align: center;
-            color: $color-bg-fifth;
-            background-color: $color-bg-secondary;
-            text-shadow: 1px 1px 1px rgba($color-fg-primary, 0.25);
+        @import "header";
 
-            @include respond(sm) {
-                border-radius: 0.5rem;
-                box-shadow: 2px 2px 4px rgba($color-fg-primary, 0.25);
-            }
-
-            small {
-                display: block;
-                font-size: 0.8em;
-            }
-        }
-
-        h2 {
-            margin-bottom: 0.5rem;
-            font-family: $font-family-secondary;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            line-height: 2rem;
-            text-align: center;
-            color: $color-bg-fifth;
-            text-shadow: 1px 1px 1px rgba($color-fg-primary, 0.25);
-
-            @include respond(sm) {
-                text-align: left;
-            }
-
-            small {
-                display: block;
-                font-size: 0.8em;
-            }
-        }
-
-        h3 {
-            margin-bottom: 0.5rem;
-            font-family: $font-family-secondary;
-            font-size: 1.25rem;
-            text-transform: uppercase;
-            line-height: 1.75rem;
-            text-align: center;
-            color: $color-bg-fifth;
-            text-shadow: 1px 1px 1px rgba($color-fg-primary, 0.25);
-
-            @include respond(sm) {
-                text-align: left;
-            }
-        }
-
-        a {
-            color: $color-fg-secondary;
-
-            &[href$=".pdf"] {
-                &:after {
-                    content: "pdf";
-                    margin-left: 0.5rem;
-                    vertical-align: super;
-                    font-size: 0.8rem;
-                    text-decoration: none;
-                }
-            }
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .mb-0 {
-            margin-bottom: 0 !important;
-        }
-
-        .action_title {
-            @include respond(sm) {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-        }
-
-        .info {
-            margin: 0.5rem 1rem;
-            text-align: center;
-        }
-
-        .app-main {
-            section {
-                p,
-                li,
-                dd {
-                    margin: 0 1rem 1.5rem;
-                }
-
-                ol,
-                ul,
-                dl {
-                    margin: 0 0.5rem 1.5rem;
-                }
-
-                dt {
-                    font-weight: bold;
-                }
+        article {
+            & > section,
+            & > aside {
+                padding: 1.5rem 0.5rem;
+                background-color: $color-bg-secondary;
 
                 @include respond(sm) {
-                    margin-top: -0.5rem !important;
-                }
-
-                main {
-                    padding: 0 0 1.5rem;
-                    background-color: $color-bg-primary;
-
-                    @include respond(sm) {
-                        padding: 1.5rem 1.5rem;
-                        border-radius: 0.5rem;
-                        box-shadow: 4px 4px 8px rgba($color-fg-primary, 0.5);
-                    }
-                }
-
-                @include respond(sm) {
-                    margin: 0 auto 2rem;
-                    width: 96vw;
+                    margin: -0.5rem 1rem 1.5rem;
+                    padding-top: 2rem;
+                    border-bottom-left-radius: $border-radius-default;
+                    border-bottom-right-radius: $border-radius-default;
+                    box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
                 }
 
                 @include respond(md) {
-                    width: 70vw;
+                    margin-left: 1.5rem;
+                    margin-right: 1.5rem;
                 }
+            }
 
-                aside {
-                    padding: 1.5rem 0.5rem;
-                    background-color: $color-bg-primary;
-
-                    @include respond(sm) {
-                        padding: 2rem 0.5rem 1.5rem;
-                        border-radius: 0.5rem;
-                        box-shadow: 4px 4px 8px rgba($color-fg-primary, 0.5);
-                    }
-
-                    @include respond(md) {
-                        padding: 2rem 1.5rem 1.5rem;
-                    }
-                }
+            & > aside {
+                background-color: transparent;
 
                 @include respond(sm) {
-                    margin: 0 auto 2rem;
-                    width: 96vw;
+                    background-color: $color-bg-secondary;
+                }
+            }
+
+            &.aside {
+                @include respond(sm) {
+                    display: grid;
+                    grid-template-columns: 6fr 4fr;
+                    grid-gap: 1.5rem;
+                    align-items: flex-start;
+                    padding: 0 1rem;
+
+                    & > section,
+                    & > aside {
+                        margin-left: 0;
+                        margin-right: 0;
+                    }
                 }
 
                 @include respond(md) {
-                    width: 70vw;
+                    grid-template-columns: 7fr 3fr;
+                    padding: 0 1.5rem;
                 }
+            }
+
+            h1 {
+                padding: 0.5rem;
+                font-family: $font-family-secondary;
+                font-size: 1.75rem;
+                text-transform: uppercase;
+                color: $color-bg-alt;
+                background-color: $color-bg-primary;
+                border-radius: $border-radius-default;
+                box-shadow: inset calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) $box-shadow-radius $box-shadow-color;
+            }
+
+            h2 {
+                font-family: $font-family-secondary;
+                font-size: 1.5rem;
+                text-transform: uppercase;
+                color: $color-bg-alt;
+                text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color-alt;
             }
         }
 
-        @import "header", "main", "footer";
-
-        @import "../pages/home", "../pages/about", "../pages/contact", "../pages/faq", "../pages/games",
-        "../pages/play", "../pages/login", "../pages/user", "../pages/characters";
-
-        @import "../components/forms", "../components/images", "../components/grids", "../components/modals",
-        "../components/alerts";
+        @import "footer";
     }
 }

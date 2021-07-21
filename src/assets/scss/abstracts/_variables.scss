@@ -1,15 +1,22 @@
-/** Colors **/
-$color-bg-primary: #ffeaae;
-$color-bg-secondary: #fffaeb;
-$color-bg-third: #d4560c;
-$color-bg-fourth: #6b2b06;
-$color-bg-fifth: #873608;
-
-$color-fg-primary: #271002;
-$color-fg-secondary: #155166;
-$color-fg-third: #ed771d;
-
 /** Fonts **/
 $font-size-default: 16px;
 $font-family-primary: 'Open Sans', sans-serif;
 $font-family-secondary: 'PT Sans', sans-serif;
+
+/** Colors **/
+$color-bg-primary: #fffaeb;
+$color-bg-secondary: #ffeaae;
+$color-bg-alt: #6b2b06;
+
+$color-fg-primary: #271002;
+
+$color-blue: #155166;
+$color-orange: #ed771d;
+
+/** Decorations **/
+$border-radius-default: 0.5rem;
+$box-shadow-x: 2px;
+$box-shadow-y: 2px;
+$box-shadow-radius: 4px;
+$box-shadow-color: rgba($color-fg-primary, 0.75);
+$box-shadow-color-alt: rgba($color-bg-primary, 0.75);

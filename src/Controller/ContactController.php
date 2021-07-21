@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ContactController extends AbstractController
 {
     /**
-     * @Route("/contactez-nous", name="contact")
+     * @Route("/contacte-nous", name="contact")
      */
     public function index(Request $request, ValidatorInterface $validator, MailerService $mailerService): Response
     {
