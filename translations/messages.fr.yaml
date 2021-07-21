@@ -4,6 +4,9 @@ pages:
   home:
     menu: "accueil"
     title: "page d'accueil"
+  about:
+    menu: "présentation"
+    title: "qui sommes-nous ?"
   contact:
     menu: "contact"
     title: "contactons-nous"

@@ -1,0 +1,28 @@
+h1 {
+    padding: 0.5rem;
+    font-family: $font-family-secondary;
+    font-size: 1.75rem;
+    text-transform: uppercase;
+    color: $color-bg-alt;
+    background-color: $color-bg-primary;
+    border-radius: $border-radius-default;
+    box-shadow: inset calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) $box-shadow-radius $box-shadow-color;
+
+    @include respond(sm) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        font-size: 2rem;
+    }
+
+    @include respond(md) {
+        padding: 1rem 1.5rem;
+    }
+}
+
+h2 {
+    font-family: $font-family-secondary;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: $color-bg-alt;
+    text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color-alt;
+}
