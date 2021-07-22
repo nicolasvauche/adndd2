@@ -1,10 +1,16 @@
 default:
   welcome: "bienvenue"
+  more: "Toujours plus…"
   copyrights: "tous droits réservés"
 pages:
   login:
     menu: "connexion"
     title: "connecte-toi pour jouer"
+    aside:
+      join: "deviens adhérent"
+  forgot:
+    menu: "mot de passe perdu"
+    title: "tu as perdu otn mot de passe ?"
   home:
     menu: "accueil"
     title: "page d'accueil"
@@ -36,3 +42,11 @@ pages:
     privacy:
       menu: "confidentialité & cookies"
       title: "confidentialité & cookies"
+login:
+  email:
+    label: "ton adresse e-mail"
+    placeholder: "ex: sophie@dupont.com"
+  password:
+    label: "ton mot de passe"
+  submit:
+    label: "connecte-toi !"

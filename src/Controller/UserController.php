@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\LoginType;
 use App\Form\UserPasswordType;
 use App\Form\UserProfileType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,7 +31,7 @@ class UserController extends AbstractController
         return $this->render('user/login.html.twig',
             [
                 'last_username' => $lastUsername,
-                'error' => $error
+                'error' => $error,
             ]
         );
     }

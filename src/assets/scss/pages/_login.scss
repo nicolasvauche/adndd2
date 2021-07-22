@@ -1,0 +1,11 @@
+&.login {
+    article {
+        @include respond(sm) {
+            min-height: 32.5625rem;
+        }
+
+        @include respond(md) {
+            min-height: initial;
+        }
+    }
+}
