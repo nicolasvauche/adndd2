@@ -4,7 +4,7 @@
     text-align: center;
     color: $color-fg-primary;
 
-    @include respond(sm){
+    @include respond(sm) {
         padding-left: 1rem;
         padding-right: 1rem;
     }
@@ -20,6 +20,12 @@
         font-weight: bold;
         color: $color-bg-secondary;
         background-color: darkred;
+    }
+
+    &.success {
+        font-weight: bold;
+        color: $color-bg-secondary;
+        background-color: forestgreen;
     }
 
     &.info {

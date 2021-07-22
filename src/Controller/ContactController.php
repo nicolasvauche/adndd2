@@ -28,6 +28,7 @@ class ContactController extends AbstractController
                     'email' => $form->get('contact_email')->getData(),
                     'subject' => $form->get('contact_subject')->getData(),
                     'message' => $form->get('contact_message')->getData(),
+                    'htmlTemplate' => 'emails/contact/user.html.twig',
                 ],
                 'user');
 
@@ -37,10 +38,11 @@ class ContactController extends AbstractController
                     'email' => $form->get('contact_email')->getData(),
                     'subject' => $form->get('contact_subject')->getData(),
                     'message' => $form->get('contact_message')->getData(),
+                    'htmlTemplate' => 'emails/contact/admin.html.twig',
                 ],
                 'admin');
 
-            $this->addFlash('success', 'votre message a été envoyé !');
+            $this->addFlash('success', 'ton message a été envoyé !');
 
             return $this->redirect($request->getUri());
         } else {
