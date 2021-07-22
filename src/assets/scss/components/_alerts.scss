@@ -1,4 +1,28 @@
 .app_alert {
-    margin: 0.5rem 0 1rem;
-    padding: 0.25rem 0.5rem;
+    margin: 1rem -0.5rem;
+    padding: 0.5rem;
+    text-align: center;
+    color: $color-fg-primary;
+
+    @include respond(sm){
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    @include respond(md) {
+        margin-left: -1.5rem;
+        margin-right: -1.5rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    &.danger {
+        font-weight: bold;
+        color: $color-bg-secondary;
+        background-color: darkred;
+    }
+
+    &.info {
+        background-color: $color-bg-primary;
+    }
 }

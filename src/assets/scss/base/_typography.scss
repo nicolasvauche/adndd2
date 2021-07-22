@@ -8,7 +8,7 @@ h1 {
     color: $color-bg-alt;
     background-color: $color-bg-primary;
     border-radius: $border-radius-default;
-    box-shadow: inset calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) $box-shadow-radius $box-shadow-color;
+    box-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) $box-shadow-radius $box-shadow-color;
 
     @include respond(sm) {
         padding-left: 1rem;

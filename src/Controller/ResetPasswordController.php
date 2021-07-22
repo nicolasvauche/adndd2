@@ -49,7 +49,7 @@ class ResetPasswordController extends AbstractController
             );
         }
 
-        return $this->render('reset_password/request.html.twig', [
+        return $this->render('user/reset_password/request.html.twig', [
             'requestForm' => $form->createView(),
         ]);
     }
@@ -67,7 +67,7 @@ class ResetPasswordController extends AbstractController
             $resetToken = $this->resetPasswordHelper->generateFakeResetToken();
         }
 
-        return $this->render('reset_password/check_email.html.twig', [
+        return $this->render('user/reset_password/check_email.html.twig', [
             'resetToken' => $resetToken,
         ]);
     }
@@ -126,7 +126,7 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('reset_password/reset.html.twig', [
+        return $this->render('user/reset_password/reset.html.twig', [
             'resetForm' => $form->createView(),
         ]);
     }
@@ -149,21 +149,22 @@ class ResetPasswordController extends AbstractController
             // the lines below and change the redirect to 'app_forgot_password_request'.
             // Caution: This may reveal if a user is registered or not.
             //
-            // $this->addFlash('reset_password_error', sprintf(
-            //     'There was a problem handling your password reset request - %s',
-            //     $e->getReason()
-            // ));
+            $this->addFlash('reset_password_error', sprintf(
+                'There was a problem handling your password reset request - %s',
+                $e->getReason()
+            ));
 
-            return $this->redirectToRoute('app_check_email');
+            return $this->redirectToRoute('app_forgot_password_request');
         }
 
         $email = (new TemplatedEmail())
             ->from(new Address('bonjour@dynaidev.com', '"Ah ! D & dédé"'))
             ->to($user->getEmail())
-            ->subject('Vous avez perdu votre mot de passe ?')
-            ->htmlTemplate('reset_password/email.html.twig')
+            ->subject('Tu as perdu ton mot de passe ?')
+            ->htmlTemplate('emails/reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
+                'name' => $user->getFullname(),
             ]);
 
         $mailer->send($email);
