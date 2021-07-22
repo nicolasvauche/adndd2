@@ -13,7 +13,8 @@ html {
         }
 
         @import "../base/typography";
-        @import "../components/forms", "../components/sliders", "../components/grids", "../components/alerts";
+        @import "../components/forms", "../components/sliders", "../components/grids", "../components/alerts",
+        "../components/images";
 
         @import "header";
 
@@ -26,19 +27,16 @@ html {
                 @include respond(sm) {
                     margin: -0.5rem 1rem 1.5rem;
                     padding-top: 2rem;
+                    padding-left: 1rem;
+                    padding-right: 1rem;
                     border-bottom-left-radius: $border-radius-default;
                     border-bottom-right-radius: $border-radius-default;
                     box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
                 }
 
                 @include respond(md) {
-                    margin-left: 1.5rem;
-                    margin-right: 1.5rem;
-                    padding-left: 1rem;
-                    padding-right: 1rem;
-                }
-
-                @include respond(md) {
+                    margin-left: 15vw;
+                    margin-right: 15vw;
                     padding-left: 1.5rem;
                     padding-right: 1.5rem;
                 }
