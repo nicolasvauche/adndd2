@@ -5,3 +5,4 @@ twig:
   exception_controller: null
   globals:
     appConfig: '@App\Service\ConfigService'
+    appOrganization: '@App\Service\OrganizationService'

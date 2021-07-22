@@ -9,13 +9,54 @@
         <section>
             <h1>{{ 'pages.contact.title' | trans | capitalize }}</h1>
 
-
         </section>
 
         <aside>
             <h2>{{ 'pages.contact.aside.ouraddress' | trans | capitalize }}</h2>
 
-            <h2>{{ 'pages.contact.aside.openhours' | trans | capitalize }}</h2>
+            <address>
+                {% if appOrganization.getAddress1() %}
+                    {{ appOrganization.getAddress1() }}
+                {% endif %}
+                {% if appOrganization.getAddress2() %}
+                    <br />{{ appOrganization.getAddress2() }}
+                {% endif %}
+                {% if appOrganization.getAddress3() %}
+                    <br />{{ appOrganization.getAddress3() }}
+                {% endif %}
+                {% if appOrganization.getZipcode() %}
+                    <br />{{ appOrganization.getZipcode() }}
+                {% endif %}
+                {% if appOrganization.getCity() %}
+                    {{ appOrganization.getCity() }}
+                {% endif %}
+                {% if appOrganization.getCountry() %}
+                    ({{ appOrganization.getCountry() }})
+                {% endif %}
+            </address>
+
+            <address>
+                <h2>{{ 'pages.contact.aside.ourtelephone' | trans | capitalize }}</h2>
+                {% if appOrganization.getTelephone() %}
+                    {{ appOrganization.getTelephone() }}
+                {% endif %}
+            </address>
+
+            {% if(appOrganization.getHoursWeek() or appOrganization.getHoursWeekend()) %}
+                <h2>{{ 'pages.contact.aside.openhours' | trans | capitalize }}</h2>
+                <dl>
+                    {% if(appOrganization.getHoursWeek()) %}
+                        <dt>{{ 'pages.contact.aside.weekhours' | trans }}</dt>
+                        <dd>{{ appOrganization.getHoursWeek() }}</dd>
+                    {% endif %}
+
+                    {% if(appOrganization.getHoursWeekend()) %}
+                        <dt>{{ 'pages.contact.aside.weekendhours' | trans }}</dt>
+                        <dd>{{ appOrganization.getHoursWeekend() }}</dd>
+                    {% endif %}
+                </dl>
+            {% endif %}
+
         </aside>
     </article>
 {% endblock %}
