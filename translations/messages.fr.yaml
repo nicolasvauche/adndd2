@@ -28,7 +28,10 @@ pages:
     title: "contactons-nous"
     aside:
       ouraddress: "notre adresse"
-      openhours: "horaires d'ouverture"
+      ourtelephone: 'appelez-nous'
+      openhours: "nos horaires"
+      weekhours: "Du Lundi au Vendredi"
+      weekendhours: "Samedi et Dimanche"
   faq:
     menu: "F.A.Q."
     title: "questions fréquentes"
