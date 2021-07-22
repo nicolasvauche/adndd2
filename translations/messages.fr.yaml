@@ -91,4 +91,18 @@ resetpassword:
     errors:
       length: "ton mot de passe doit contenir au moins 6 caractères"
       mismatch: "les deux mots de passe ne sont pas identiques"
-
+contact:
+  name:
+    label: "ton nom"
+    placeholder: "ex: Sophie Dupont"
+  email:
+    label: "ton adresse e-mail"
+    placeholder: "ex: sophie@dupont.com"
+  subject:
+    label: "C'est à quel sujet ?"
+    placeholder: "ex: Devenir adhérent"
+  message:
+    label: "ton message"
+    placeholder: "Bonjour,"
+  submit:
+    label: "envoie ton message"
