@@ -8,9 +8,24 @@ pages:
     title: "connecte-toi pour jouer"
     aside:
       join: "deviens adhérent"
+  logout:
+    menu: "déconnexion"
+    title: "déconnecte-toi"
   forgot:
     menu: "mot de passe perdu"
-    title: "tu as perdu otn mot de passe ?"
+    title: "perdu ton mot de passe ?"
+  user:
+    menu: "ton compte"
+    title: "ton profil joueur"
+    characters:
+      menu: "tes personnages"
+      title: "gère tes personnages"
+    games:
+      menu: "tes aventures"
+      title: "gère tes aventures"
+    plays:
+      menu: "tes tables de jeu"
+      title: "gère tes tables de jeu"
   home:
     menu: "accueil"
     title: "page d'accueil"
@@ -28,7 +43,7 @@ pages:
     title: "contactons-nous"
     aside:
       ouraddress: "notre adresse"
-      ourtelephone: 'appelez-nous'
+      ourtelephone: "notre téléphone"
       openhours: "nos horaires"
       weekhours: "Du Lundi au Vendredi"
       weekendhours: "Samedi et Dimanche"
