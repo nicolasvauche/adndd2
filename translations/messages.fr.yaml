@@ -2,6 +2,9 @@ default:
   welcome: "bienvenue"
   copyrights: "tous droits réservés"
 pages:
+  login:
+    menu: "connexion"
+    title: "connecte-toi pour jouer"
   home:
     menu: "accueil"
     title: "page d'accueil"

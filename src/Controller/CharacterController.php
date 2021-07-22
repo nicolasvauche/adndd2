@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CharacterController extends AbstractController
 {
     /**
-     * @Route("/", name="characters")
+     * @Route("/", name="user.characters")
      */
     public function index(): Response
     {

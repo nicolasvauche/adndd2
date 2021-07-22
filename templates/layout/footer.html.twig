@@ -4,17 +4,17 @@
             <h3>Aide</h3>
             <ul>
                 <li>
-                    <a href="{{ path('about') }}" title="{{ 'pages.about.title' | trans | capitalize }}">
+                    <a href="{{ path('about') }}" {% if app.request.get('_route') == 'about' %}class="active"{% endif %} title="{{ 'pages.about.title' | trans | capitalize }}">
                         {{ 'pages.about.menu' | trans | capitalize }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path('faq') }}" title="{{ 'pages.faq.title' | trans | capitalize }}">
+                    <a href="{{ path('faq') }}" {% if app.request.get('_route') == 'faq' %}class="active"{% endif %} title="{{ 'pages.faq.title' | trans | capitalize }}">
                         {{ 'pages.faq.menu' | trans }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path('contact') }}" title="{{ 'pages.contact.title' | trans | capitalize }}">
+                    <a href="{{ path('contact') }}" {% if app.request.get('_route') == 'contact' %}class="active"{% endif %} title="{{ 'pages.contact.title' | trans | capitalize }}">
                         {{ 'pages.contact.menu' | trans | capitalize }}
                     </a>
                 </li>
@@ -25,12 +25,12 @@
             <h3>Jeux de rôles</h3>
             <ul>
                 <li>
-                    <a href="{{ path('games') }}" title="{{ 'pages.games.title' | trans | capitalize }}">
+                    <a href="{{ path('games') }}" {% if app.request.get('_route') == 'games' %}class="active"{% endif %} title="{{ 'pages.games.title' | trans | capitalize }}">
                         {{ 'pages.games.menu' | trans | capitalize }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path('play') }}" title="{{ 'pages.play.title' | trans | capitalize }}">
+                    <a href="{{ path('play') }}" {% if app.request.get('_route') == 'play' %}class="active"{% endif %} title="{{ 'pages.play.title' | trans | capitalize }}">
                         {{ 'pages.play.menu' | trans | capitalize }}
                     </a>
                 </li>
