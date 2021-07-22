@@ -31,8 +31,12 @@
                     min-height: 30vh;
                 }
 
+                h1 {
+                    margin-bottom: 0;
+                }
+
                 .app_logo {
-                    margin: 3rem 0;
+                    margin: 2rem 0;
                     filter: drop-shadow($box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color);
                 }
             }
