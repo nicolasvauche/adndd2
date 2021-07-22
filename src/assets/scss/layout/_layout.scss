@@ -50,6 +50,21 @@ html {
                 @include respond(sm) {
                     background-color: $color-bg-secondary;
                 }
+
+                h2 {
+                    margin-bottom: 0.5rem;
+                }
+
+                p,
+                a {
+                    display: block;
+                    margin-bottom: 1rem;
+                    line-height: normal;
+
+                    &:last-of-type {
+                        margin-bottom: 0;
+                    }
+                }
             }
 
             &.aside {
@@ -71,21 +86,6 @@ html {
                     grid-template-columns: 7fr 3fr;
                     grid-gap: 1.5rem;
                     padding: 0 15vw;
-                }
-
-                h2 {
-                    margin-bottom: 0.5rem;
-                }
-
-                p,
-                a {
-                    display: block;
-                    margin-bottom: 1rem;
-                    line-height: normal;
-
-                    &:last-of-type {
-                        margin-bottom: 0;
-                    }
                 }
             }
         }

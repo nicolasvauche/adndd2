@@ -14,6 +14,13 @@ pages:
   forgot:
     menu: "mot de passe perdu"
     title: "perdu ton mot de passe ?"
+  resetpassword:
+    title: "régénère ton mot de passe"
+    menu: "mot de passe perdu"
+    checkemail:
+      info: "Si un compte existe avec cette adresse e-mail, un message vient d'être envoyé !<br />Ce lien expirera dans %time%."
+      info2: "Si tu ne reçois pas de mail, vérifie tes spams ou"
+      info2link: "essaie encore"
   user:
     menu: "ton compte"
     title: "ton profil joueur"
@@ -68,3 +75,20 @@ login:
     label: "ton mot de passe"
   submit:
     label: "connecte-toi !"
+resetpassword:
+  email:
+    label: "ton adresse e-mail"
+    info: "entre ton adresse e-mail et nous t'enverrons un mail contenant un lien pour régénérer ton mot de passe."
+  submit:
+    label: "envoyez-moi ce mail !"
+  reset:
+    first:
+      label: "nouveau mot de passe"
+    second:
+      label: "confirmation"
+    submit:
+      label: "régénère ton mot de passe"
+    errors:
+      length: "ton mot de passe doit contenir au moins 6 caractères"
+      mismatch: "les deux mots de passe ne sont pas identiques"
+
