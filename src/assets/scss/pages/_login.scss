@@ -1,11 +1,15 @@
 &.login {
-    article {
+    .app_footer {
         @include respond(sm) {
-            min-height: 32.5625rem;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
         }
 
         @include respond(md) {
-            min-height: initial;
+            position: static;
+            width: auto;
         }
     }
 }

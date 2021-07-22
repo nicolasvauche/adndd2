@@ -70,7 +70,7 @@
                 </li>
             {% else %}
                 <li>
-                    <a href="{{ path('app_login') }}" title="{{ 'pages.login.title' | trans | capitalize }}">
+                    <a href="{{ path('app_login') }}" {% if app.request.get('_route') == 'app_login' %}class="active"{% endif %} title="{{ 'pages.login.title' | trans | capitalize }}">
                         {{ 'pages.login.menu' | trans | capitalize }}
                     </a>
                 </li>

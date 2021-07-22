@@ -152,7 +152,8 @@
                         margin: 0 1.5rem;
                     }
 
-                    &:hover {
+                    &:hover,
+                    &.active {
                         color: $color-orange;
                     }
                 }
@@ -193,7 +194,8 @@
                                 margin-bottom: 1.5rem;
                             }
 
-                            &:hover {
+                            &:hover,
+                            &.active {
                                 color: $color-orange;
                             }
                         }
