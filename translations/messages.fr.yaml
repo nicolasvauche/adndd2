@@ -1,5 +1,6 @@
 default:
   welcome: "bienvenue"
+  copyrights: "tous droits réservés"
 pages:
   home:
     menu: "accueil"
@@ -19,3 +20,16 @@ pages:
     aside:
       ouraddress: "notre adresse"
       openhours: "horaires d'ouverture"
+  faq:
+    menu: "F.A.Q."
+    title: "questions fréquentes"
+  legals:
+    mentions:
+      menu: "mentions légales"
+      title: "mentions légales"
+    ugc:
+      menu: "conditions générales d'utilisation"
+      title: "conditions générales d'utilisation"
+    privacy:
+      menu: "confidentialité & cookies"
+      title: "confidentialité & cookies"

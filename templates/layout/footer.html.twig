@@ -1,3 +1,81 @@
 <footer class="app_footer">
-    Footer
+    <div class="app_footer_links">
+        <nav>
+            <h3>Aide</h3>
+            <ul>
+                <li>
+                    <a href="{{ path('about') }}" title="{{ 'pages.about.title' | trans | capitalize }}">
+                        {{ 'pages.about.menu' | trans | capitalize }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('faq') }}" title="{{ 'pages.faq.title' | trans | capitalize }}">
+                        {{ 'pages.faq.menu' | trans }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('contact') }}" title="{{ 'pages.contact.title' | trans | capitalize }}">
+                        {{ 'pages.contact.menu' | trans | capitalize }}
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav>
+            <h3>Jeux de rôles</h3>
+            <ul>
+                <li>
+                    <a href="{{ path('games') }}" title="{{ 'pages.games.title' | trans | capitalize }}">
+                        {{ 'pages.games.menu' | trans | capitalize }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('play') }}" title="{{ 'pages.play.title' | trans | capitalize }}">
+                        {{ 'pages.play.menu' | trans | capitalize }}
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav>
+            <h3>Suis-nous</h3>
+            <ul>
+                <li>
+                    <a href="{{ path('home') }}" title="">
+                        …
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('home') }}" title="">
+                        …
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('home') }}" title="">
+                        …
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="app_footer_links legals">
+        <a href="{{ path('legal', {'slug': 'mentions-legales'}) }}" title="{{ 'pages.legals.mentions.title' | trans | capitalize }}">
+            {{ 'pages.legals.mentions.menu' | trans | capitalize }}
+        </a>
+        <a href="{{ path('legal', {'slug': 'conditions-generales-dutilisation'}) }}" title="{{ 'pages.legals.ugc.title' | trans | capitalize }}">
+            {{ 'pages.legals.ugc.menu' | trans | capitalize }}
+        </a>
+        <a href="{{ path('legal', {'slug': 'confidentialite-et-cookies'}) }}" title="{{ 'pages.legals.privacy.title' | trans | capitalize }}">
+            {{ 'pages.legals.privacy.menu' | trans | capitalize }}
+        </a>
+    </div>
+
+    <a href="{{ path('home') }}" class="app_logo" title="{{ 'pages.home.title' | trans | capitalize }}">
+        <img src="{{ asset('assets/images/logo_adndd_full.png') }}" alt="{{ appConfig.getAppName() }}" />
+    </a>
+
+    <p class="copyrights">
+        © {{ appConfig.getAppAuthor() }} {{ 'now' | date('Y') }}. {{ 'default.copyrights' | trans | capitalize }}.
+    </p>
 </footer>
