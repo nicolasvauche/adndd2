@@ -25,17 +25,17 @@ class Organization
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $adress1;
+    private $address1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $adress2;
+    private $address2;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $adress3;
+    private $address3;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -67,6 +67,16 @@ class Organization
      */
     private $youtube;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $hoursWeek;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $hoursWeekend;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,38 +94,38 @@ class Organization
         return $this;
     }
 
-    public function getAdress1(): ?string
+    public function getAddress1(): ?string
     {
-        return $this->adress1;
+        return $this->address1;
     }
 
-    public function setAdress1(?string $adress1): self
+    public function setAddress1(?string $address1): self
     {
-        $this->adress1 = $adress1;
+        $this->address1 = $address1;
 
         return $this;
     }
 
-    public function getAdress2(): ?string
+    public function getAddress2(): ?string
     {
-        return $this->adress2;
+        return $this->address2;
     }
 
-    public function setAdress2(?string $adress2): self
+    public function setAddress2(?string $address2): self
     {
-        $this->adress2 = $adress2;
+        $this->address2 = $address2;
 
         return $this;
     }
 
-    public function getAdress3(): ?string
+    public function getAddress3(): ?string
     {
-        return $this->adress3;
+        return $this->address3;
     }
 
-    public function setAdress3(?string $adress3): self
+    public function setAddress3(?string $address3): self
     {
-        $this->adress3 = $adress3;
+        $this->address3 = $address3;
 
         return $this;
     }
@@ -188,6 +198,30 @@ class Organization
     public function setYoutube(?string $youtube): self
     {
         $this->youtube = $youtube;
+
+        return $this;
+    }
+
+    public function getHoursWeek(): ?string
+    {
+        return $this->hoursWeek;
+    }
+
+    public function setHoursWeek(?string $hoursWeek): self
+    {
+        $this->hoursWeek = $hoursWeek;
+
+        return $this;
+    }
+
+    public function getHoursWeekend(): ?string
+    {
+        return $this->hoursWeekend;
+    }
+
+    public function setHoursWeekend(?string $hoursWeekend): self
+    {
+        $this->hoursWeekend = $hoursWeekend;
 
         return $this;
     }

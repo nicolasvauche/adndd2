@@ -14,13 +14,15 @@ class OrganizationFixtures extends Fixture implements OrderedFixtureInterface
 
         $org = new Organization();
         $org->setTelephone('+33 1 23 45 67 89')
-            ->setAdress1('22 avenue de la Sénatorerie')
+            ->setAddress1('22 avenue de la Sénatorerie')
             ->setCity('Guéret')
             ->setCountry('France')
             ->setFacebook('https://www.facebook.com')
             ->setTwitter('https://www.twitter.com')
             ->setInstagram('https://www.instagram.com')
-            ->setYoutube('https://www.youtube.com');
+            ->setYoutube('https://www.youtube.com')
+            ->setHoursWeek('18h00 - 00h00')
+            ->setHoursWeekend('14h00 - 00h00');
         $manager->persist($org);
 
         $manager->flush();
