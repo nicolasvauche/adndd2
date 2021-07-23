@@ -31,7 +31,8 @@
                 text-decoration: none;
                 color: $color-bg-primary;
 
-                &:hover {
+                &:hover,
+                &.active {
                     color: $color-orange;
                 }
             }
@@ -54,7 +55,8 @@
                         text-align: center;
                         color: $color-bg-secondary;
 
-                        &:hover {
+                        &:hover,
+                        &.active {
                             color: $color-orange;
                         }
                     }
