@@ -10,6 +10,7 @@
     border: 2px solid $color-fg-primary;
     border-radius: $border-radius-default;
     box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
+    cursor: pointer;
 
     &.cta {
         padding: 0.75rem 1rem;

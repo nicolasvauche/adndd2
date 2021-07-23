@@ -16,16 +16,99 @@
         }
     }
 
-    .app_grid_item {
+    &.four {
         @include respond(sm) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include respond(md) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    .app_grid_item {
+        background-color: $color-bg-primary;
+
+        @include respond(sm) {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             border-radius: $border-radius-default;
             box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
+        }
 
-            img {
+        .app_grid_item_header {
+            .app_grid_item_image {
+                margin-bottom: 0.5rem;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+
+        .app_grid_item_title {
+            margin: 0 0.25rem;
+            text-align: center;
+        }
+
+        .app_grid_item_subtitle {
+            margin: 0 0.25rem 0.5rem;
+            text-align: center;
+        }
+
+        .app_grid_item_image {
+            border-radius: $border-radius-default;
+
+            @include respond(sm) {
                 display: block;
                 width: 100%;
                 object-fit: cover;
-                border-radius: inherit;
+            }
+        }
+
+        .app_grid_item_info {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            line-height: normal;
+            text-align: center;
+
+            &:last-of-type {
+                margin: 1.5rem 0;
+            }
+        }
+
+        .app_grid_item_footer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            align-items: center;
+            margin: 1rem 0 0;
+
+            .app_grid_item_footer_action {
+                display: block;
+                padding: 0.5rem;
+                font-family: $font-family-secondary;
+                font-weight: bold;
+                text-align: center;
+                border: none;
+                box-shadow: none;
+                border-radius: 0;
+
+                &.button {
+                    color: $color-bg-primary;
+                    background-color: $color-bg-alt;
+                    text-decoration: none;
+
+                    &:first-child {
+                        border-bottom-left-radius: $border-radius-default;
+                    }
+
+                    &:last-child {
+                        border-bottom-right-radius: $border-radius-default;
+                    }
+
+                    &:hover {
+                        background-color: $color-blue;
+                    }
+                }
             }
         }
     }

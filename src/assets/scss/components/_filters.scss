@@ -1,0 +1,45 @@
+.app_filters {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding: 0 1.5rem;
+
+    @include respond(sm) {
+        padding: 0;
+        margin-bottom: 2rem;
+    }
+
+    h2 {
+        @include respond(sm) {
+            padding-top: 0.5rem;
+        }
+    }
+
+    .app_filters_controls {
+        @include respond(sm) {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .app_filter_select {
+            padding: 0.5rem 1rem;
+            width: 100%;
+            font-family: $font-family-primary;
+            font-size: 1rem;
+            text-align: center;
+            text-align-last: center;
+            color: $color-fg-primary;
+            background-color: $color-bg-primary;
+            border: 2px solid $color-fg-primary;
+            border-radius: $border-radius-default;
+            box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
+            cursor: pointer;
+
+            @include respond(sm) {
+                width: auto;
+                text-align: left;
+                text-align-last: left;
+            }
+        }
+    }
+}
