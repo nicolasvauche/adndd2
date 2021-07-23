@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'pages.faq.title' | trans | capitalize }}{% endblock %}
+
+{% block body_class %}faq{% endblock %}
+
+{% block body %}
+    <article class="aside">
+        <section>
+            <h1>{{ 'pages.faq.title' | trans | capitalize }}</h1>
+
+            <dl>
+                <dt>Puis-je jouer gratuitement ?</dt>
+                <dd>Oui, vous pouvez <a href="{{ path('contact') }}" title="{{ 'pages.contact.title' }}">contacter l'administrateur</a> pour qu'il vous crée un compte temporaire vous permettant de participer à une partie de jeu de rôles sur le site ! À la suite de cet essai, vous pourrez décider de rejoindre l'association (payant) et débloquer un accès permanent aux parties avec les membres.</dd>
+
+                <dt>Si je suis adhérent, puis-je ajouter un jeu sur le site ?</dt>
+                <dd>Oui, en proposant votre jeu à l'administrateur, celui-ci pourra, ou non, décider d'ajouter votre jeu à la liste des jeux du site.</dd>
+
+                <dt>Je n'ai pas de caméra, est-ce que je peux quand même participer ?</dt>
+                <dd>Bien sûr, dans ce cas, c'est votre avatar de personnage qui s'affichera à la place.</dd>
+
+                <dt>Je n'ai pas encore 18 ans, est-ce que je peux vous rejoindre ?</dt>
+                <dd>Oui, cependant il se peut que certains jeux ne vous soient pas accessibles, c'est le Maître de jeu qui en décidera.</dd>
+
+                <dt>J'ai constaté une erreur sur le site, comment vous la communiquer ?</dt>
+                <dd>Pour cela, utilisez le formulaire de la page <a href="{{ path('contact') }}" title="{{ 'pages.contact.title' }}">Contact</a> en précisant au mieux où vous l'avez repérée et sa nature.</dd>
+
+                <dt>J'ai perdu mon mot de passe :(</dt>
+                <dd>Ne vous inquiétez pas, vous pouvez tout simplement faire une récupération de mot de passe depuis le menu de connexion et un nouveau mot de passe vous sera envoyé sur votre adresse email.</dd>
+
+                <dt>J'aimerais beaucoup vous rendre visite, comment faire ?</dt>
+                <dd>Cliquez sur le lien
+                    <a href="{{ path('contact') }}" title="{{ 'pages.contact.title' }}">Contactez-nous</a>
+                    en bas de n'importe quelle page du site, vous trouverez notre adresse, nos horaires, ainsi qu'un plan indiquant nos locaux.
+                </dd>
+
+                <dt>Je souhaite me désabonner, puis-je le faire depuis le site ?</dt>
+                <dd>Oui. Cliquez sur le lien <a href="{{ path('contact') }}" title="{{ 'pages.contact.title' }}">Contactez-nous</a>, l'administrateur du site et président de l'association sera alors informé de votre demande et vous recevrez rapidement une confirmation de sa part que votre abonnement a bien été résilié.</dd>
+            </dl>
+        </section>
+
+        <aside>
+            <h2>{{ 'default.more' | trans | capitalize }}</h2>
+
+            <a href="{{ path('contact') }}" class="app_button cta" title="{{ 'pages.contact.title' | trans | capitalize }}">
+                {{ 'pages.login.aside.join' | trans | capitalize }}
+            </a>
+
+            <a href="{{ path('app_login') }}" class="app_button" title="{{ 'pages.login.title' | trans | capitalize }}">
+                {{ 'pages.login.menu' | trans | capitalize }}
+            </a>
+
+            <a href="{{ path('contact') }}" class="app_button" title="{{ 'pages.contact.menu' | trans | capitalize }}">
+                {{ 'pages.contact.title' | trans | capitalize }}
+            </a>
+        </aside>
+    </article>
+{% endblock %}
