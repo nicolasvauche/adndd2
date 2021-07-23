@@ -45,6 +45,7 @@ pages:
   play:
     menu: "jouer"
     title: "jouer en ligne"
+    title2: "les tables de jeu"
   contact:
     menu: "contact"
     title: "contactons-nous"
