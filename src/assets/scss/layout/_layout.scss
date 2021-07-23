@@ -4,7 +4,6 @@ html {
     body {
         font-family: $font-family-primary;
         font-size: 1rem;
-        text-align: center;
         color: $color-fg-primary;
         background-color: $color-bg-primary;
 
@@ -43,9 +42,11 @@ html {
             }
 
             & > aside {
+                text-align: center;
                 background-color: transparent;
 
                 @include respond(sm) {
+                    text-align: left;
                     background-color: $color-bg-secondary;
                 }
 
@@ -90,6 +91,6 @@ html {
 
         @import "footer";
 
-        @import "../pages/home", "../pages/login";
+        @import "../pages/home", "../pages/login", "../pages/faq";
     }
 }

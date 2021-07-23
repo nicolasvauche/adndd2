@@ -6,6 +6,7 @@ h1 {
     font-family: $font-family-secondary;
     font-size: 1.75rem;
     text-transform: uppercase;
+    text-align: center;
     color: $color-bg-alt;
     background-color: $color-bg-primary;
     border-radius: $border-radius-default;
@@ -27,8 +28,13 @@ h2 {
     font-family: $font-family-secondary;
     font-size: 1.5rem;
     text-transform: uppercase;
+    text-align: center;
     color: $color-bg-alt;
     text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color-alt;
+
+    @include respond(sm) {
+        text-align: left;
+    }
 }
 
 h3 {
@@ -36,13 +42,26 @@ h3 {
     font-family: $font-family-secondary;
     font-size: 1.25rem;
     text-transform: uppercase;
+    text-align: center;
     color: $color-bg-alt;
     text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color-alt;
+
+    @include respond(sm) {
+        text-align: left;
+    }
 }
 
 a,
 button {
     transition: all 0.3s ease-in-out;
+}
+
+a {
+    color: $color-blue;
+
+    &:hover {
+        color: $color-orange;
+    }
 }
 
 dl {
