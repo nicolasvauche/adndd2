@@ -29,29 +29,29 @@
                         <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app_grid_item_image" />
                         <h3 class="app_grid_item_title">Donjons & Dragons</h3>
                         <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
-                        <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
+                        <p class="app_grid_item_info">
                             <strong>24/07/2021 19:00</strong>
                         </p>
                         {% if app.user %}
                             <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
                                 <i class="fas fa-users"></i>
-                                4/5
-                            </p>
-                        {% else %}
-                            <p class="app_grid_item_info">
-                                <a href="{{ path('app_login') }}" class="app_button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                    {{ 'pages.login.menu' | trans | capitalize }}
-                                </a>
+                                <strong>4/5</strong>
                             </p>
                         {% endif %}
                     </div>
-                    {% if app.user %}
-                        <div class="app_grid_item_footer">
+                    <div class="app_grid_item_footer">
+                        {% if app.user %}
                             <span class="app_grid_item_footer_action">Publique</span>
 
-                            <a href="#" class="app_grid_item_footer_action button" title="Rejoindre la partie">Rejoindre</a>
-                        </div>
-                    {% endif %}
+                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                        {% else %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                {{ 'pages.login.menu' | trans | capitalize }}
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
 
                 <div class="game app_grid_item app_slider_item" data-gameid="3">
@@ -59,29 +59,27 @@
                         <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app_grid_item_image" />
                         <h3 class="app_grid_item_title">L'appel de Cthulhu</h3>
                         <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
-                        <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
+                        <p class="app_grid_item_info">
                             <strong>25/07/2021 19:23</strong>
                         </p>
                         {% if app.user %}
                             <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
                                 <i class="fas fa-users"></i>
-                                3/5
-                            </p>
-                        {% else %}
-                            <p class="app_grid_item_info">
-                                <a href="{{ path('app_login') }}" class="app_button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                    {{ 'pages.login.menu' | trans | capitalize }}
-                                </a>
+                                <strong>3/5</strong>
                             </p>
                         {% endif %}
                     </div>
-                    {% if app.user %}
-                        <div class="app_grid_item_footer">
+                    <div class="app_grid_item_footer">
+                        {% if app.user %}
                             <span class="app_grid_item_footer_action">Privée</span>
 
                             <span class="app_grid_item_footer_action"><i class="fas fa-lock"></i></span>
-                        </div>
-                    {% endif %}
+                        {% else %}
+                            <span class="app_grid_item_footer_action">Privée</span>
+
+                            <span class="app_grid_item_footer_action"><i class="fas fa-lock"></i></span>
+                        {% endif %}
+                    </div>
                 </div>
 
                 <div class="game app_grid_item app_slider_item" data-gameid="2">
@@ -89,29 +87,29 @@
                         <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" class="app_grid_item_image" />
                         <h3 class="app_grid_item_title">Chroniques Oubliées</h3>
                         <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
-                        <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
+                        <p class="app_grid_item_info">
                             <strong>26/07/2021 13:42</strong>
                         </p>
                         {% if app.user %}
                             <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
                                 <i class="fas fa-users"></i>
-                                1/5
-                            </p>
-                        {% else %}
-                            <p class="app_grid_item_info">
-                                <a href="{{ path('app_login') }}" class="app_button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                    {{ 'pages.login.menu' | trans | capitalize }}
-                                </a>
+                                <strong>1/5</strong>
                             </p>
                         {% endif %}
                     </div>
-                    {% if app.user %}
-                        <div class="app_grid_item_footer">
+                    <div class="app_grid_item_footer">
+                        {% if app.user %}
                             <span class="app_grid_item_footer_action">Publique</span>
 
-                            <a href="#" class="app_grid_item_footer_action button" title="Rejoindre la partie">Rejoindre</a>
-                        </div>
-                    {% endif %}
+                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                        {% else %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                {{ 'pages.login.menu' | trans | capitalize }}
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
 
                 <div class="game app_grid_item app_slider_item" data-gameid="3">
@@ -119,29 +117,27 @@
                         <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app_grid_item_image" />
                         <h3 class="app_grid_item_title">L'appel de Cthulhu</h3>
                         <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
-                        <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
+                        <p class="app_grid_item_info">
                             <strong>27/07/2021 08:00</strong>
                         </p>
                         {% if app.user %}
                             <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
                                 <i class="fas fa-users"></i>
-                                5/5
-                            </p>
-                        {% else %}
-                            <p class="app_grid_item_info">
-                                <a href="{{ path('app_login') }}" class="app_button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                    {{ 'pages.login.menu' | trans | capitalize }}
-                                </a>
+                                <strong>5/5</strong>
                             </p>
                         {% endif %}
                     </div>
-                    {% if app.user %}
-                        <div class="app_grid_item_footer">
+                    <div class="app_grid_item_footer">
+                        {% if app.user %}
                             <span class="app_grid_item_footer_action">Publique</span>
 
                             <span class="app_grid_item_footer_action"><i class="fas fa-lock"></i></span>
-                        </div>
-                    {% endif %}
+                        {% else %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <span class="app_grid_item_footer_action"><i class="fas fa-lock"></i></span>
+                        {% endif %}
+                    </div>
                 </div>
 
                 <div class="game app_grid_item app_slider_item" data-gameid="1">
@@ -153,25 +149,25 @@
                             <strong>28/07/2021 22:00</strong>
                         </p>
                         {% if app.user %}
-                            <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
-                                <i class="fas fa-users"></i>
-                                2/5
-                            </p>
-                        {% else %}
                             <p class="app_grid_item_info">
-                                <a href="{{ path('app_login') }}" class="app_button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                    {{ 'pages.login.menu' | trans | capitalize }}
-                                </a>
+                                <i class="fas fa-users"></i>
+                                <strong>2/5</strong>
                             </p>
                         {% endif %}
                     </div>
-                    {% if app.user %}
-                        <div class="app_grid_item_footer">
+                    <div class="app_grid_item_footer">
+                        {% if app.user %}
                             <span class="app_grid_item_footer_action">Publique</span>
 
-                            <a href="#" class="app_grid_item_footer_action button" title="Rejoindre la partie">Rejoindre</a>
-                        </div>
-                    {% endif %}
+                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                        {% else %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                {{ 'pages.login.menu' | trans | capitalize }}
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
 
                 <div class="game app_grid_item app_slider_item" data-gameid="2">
@@ -183,25 +179,25 @@
                             <strong>30/07/2021 20:30</strong>
                         </p>
                         {% if app.user %}
-                            <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
-                                <i class="fas fa-users"></i>
-                                2/5
-                            </p>
-                        {% else %}
                             <p class="app_grid_item_info">
-                                <a href="{{ path('app_login') }}" class="app_button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                    {{ 'pages.login.menu' | trans | capitalize }}
-                                </a>
+                                <i class="fas fa-users"></i>
+                                <strong>2/5</strong>
                             </p>
                         {% endif %}
                     </div>
-                    {% if app.user %}
-                        <div class="app_grid_item_footer">
+                    <div class="app_grid_item_footer">
+                        {% if app.user %}
                             <span class="app_grid_item_footer_action">Publique</span>
 
-                            <a href="#" class="app_grid_item_footer_action button" title="Rejoindre la partie">Rejoindre</a>
-                        </div>
-                    {% endif %}
+                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                        {% else %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                {{ 'pages.login.menu' | trans | capitalize }}
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
 
             </div>
