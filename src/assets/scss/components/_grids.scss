@@ -67,12 +67,16 @@
 
         .app_grid_item_info {
             margin-bottom: 0.5rem;
-            font-weight: bold;
             line-height: normal;
             text-align: center;
 
+            &.excerpt {
+                padding: 0 0.5rem;
+                text-align: left;
+            }
+
             &:last-of-type {
-                margin: 1.5rem 0;
+                /*margin: 1.5rem 0;*/
             }
         }
 
@@ -105,7 +109,13 @@
                         border-bottom-right-radius: $border-radius-default;
                     }
 
+                    &.cta {
+                        color: $color-fg-primary;
+                        background-color: $color-orange;
+                    }
+
                     &:hover {
+                        color: $color-bg-primary;
                         background-color: $color-blue;
                     }
                 }

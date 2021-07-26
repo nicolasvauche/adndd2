@@ -75,6 +75,14 @@ a {
     &:hover {
         color: $color-orange;
     }
+
+    &[href$=".pdf"]:after {
+        content: "pdf";
+        margin-left: 0.5rem;
+        vertical-align: super;
+        font-size: 0.8rem;
+        text-decoration: none;
+    }
 }
 
 dl {

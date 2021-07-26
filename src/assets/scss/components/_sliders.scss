@@ -27,6 +27,9 @@
     }
 
     .app_slider_item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         margin: 0 0.5rem;
         flex: 0 0 calc(100% - 2rem);
         scroll-snap-align: start;
