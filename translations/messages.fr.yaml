@@ -2,6 +2,7 @@ default:
   welcome: "bienvenue"
   more: "Toujours plus…"
   copyrights: "tous droits réservés"
+  cancel: "annuler"
 pages:
   login:
     menu: "connexion"
@@ -46,6 +47,12 @@ pages:
     menu: "jouer"
     title: "jouer en ligne"
     title2: "les tables de jeu"
+    create:
+      title: "créer une table de jeu"
+      menu: "nouvelle table"
+    invite:
+      title: "inviter des joueurs à la table"
+      menu: "inviter des joueurs"
   contact:
     menu: "contact"
     title: "contactons-nous"
@@ -107,3 +114,15 @@ contact:
     placeholder: "Bonjour,"
   submit:
     label: "envoie ton message"
+play:
+  game:
+    name:
+      label: "nom du scénario"
+      placeholder: "ex: La grosse aventure"
+    start: "date de début"
+    visibility:
+      title: "visibilité"
+      public: "publique"
+      private: "privée"
+    submit:
+      label: "créer la table"
