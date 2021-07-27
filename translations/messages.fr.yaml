@@ -26,6 +26,9 @@ pages:
   user:
     menu: "ton compte"
     title: "ton profil joueur"
+    password:
+      title: "modifie ton mot de passe"
+      menu: "modifie ton mot de passe"
     characters:
       menu: "tes personnages"
       title: "gère tes personnages"
@@ -76,6 +79,24 @@ pages:
     privacy:
       menu: "confidentialité & cookies"
       title: "confidentialité & cookies"
+user:
+  profile:
+    email:
+      label: "ton adresse e-mail"
+      placeholder: "ex: sophie@dupont.com"
+    pseudo:
+      label: "ton pseudo"
+      placeholder: "ex: groslulu"
+    gender:
+      label: "ta civilité"
+    firstname:
+      label: "ton prénom"
+      placeholder: "ex: Sophie"
+    lastname:
+      label: "ton nom"
+      placeholder: "ex: Dupont"
+    submit:
+      label: "Enregistre ton profil"
 login:
   email:
     label: "ton adresse e-mail"

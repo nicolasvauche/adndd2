@@ -13,12 +13,16 @@
     }
 
     .app_grid {
+        margin-bottom: 1.5rem;
+
         @include respond(sm) {
             align-items: center;
         }
 
         .app_form_group {
             margin-bottom: 1.5rem !important;
+            background-color: transparent;
+            box-shadow: none;
 
             &:last-of-type {
                 margin-bottom: 0 !important;
