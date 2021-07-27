@@ -7,9 +7,11 @@
 {% block body %}
     <article>
         <section>
-            <h1>{{ about.title }}</h1>
+            {% if about | length > 0 %}
+                <h1>{{ about.title }}</h1>
 
-            {{ about.content | raw }}
+                {{ about.content | raw }}
+            {% endif %}
         </section>
     </article>
 {% endblock %}
