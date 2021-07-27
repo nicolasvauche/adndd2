@@ -32,6 +32,9 @@ pages:
     characters:
       menu: "tes personnages"
       title: "gère tes personnages"
+      create:
+        menu: "nouveau personnage"
+        title: "crée un nouveau personage"
     games:
       menu: "tes aventures"
       title: "gère tes aventures"

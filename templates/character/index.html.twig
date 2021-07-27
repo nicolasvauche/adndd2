@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'pages.user.characters.title' | trans | capitalize }}{% endblock %}
+
+{% block body_class %}character{% endblock %}
+
+{% block body %}
+    <article class="aside">
+        <section>
+            <h1>{{ 'pages.user.characters.title' | trans | capitalize }}</h1>
+
+            <div class="app_grid three app_slider xs">
+
+                {% for character in characters %}
+                    <div class="app_grid_item app_slider_item">
+                        <div class="app_grid_item_header">
+                            <img src="{{ asset('assets/images/characters/' ~ character.id ~ '.jpg') }}" class="app_grid_item_image" alt="{{ character.name }}" />
+                            <h3 class="app_grid_item_title">{{ character.name }}</h3>
+                            <h4 class="app_grid_item_subtitle">{{ character.gameName }}</h4>
+                        </div>
+                        <div class="app_grid_item_body">
+                            <p class="app_grid_item_info excerpt">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            </p>
+                        </div>
+                        <div class="app_grid_item_footer">
+                            <a href="#" class="app_grid_item_footer_action button" title="">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="app_grid_item_footer_action button" title="">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </section>
+
+        <aside>
+            <h2>{{ 'pages.user.characters.menu' | trans | capitalize }}</h2>
+
+            <a href="#" class="app_button cta" title="{{ 'pages.user.characters.create.title' | trans | capitalize }}">
+                {{ 'pages.user.characters.create.menu' | trans | capitalize }}
+            </a>
+        </aside>
+    </article>
+{% endblock %}
