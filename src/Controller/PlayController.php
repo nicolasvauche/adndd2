@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\GameRepository;
 use App\Repository\ScenarioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,47 +46,20 @@ class PlayController extends AbstractController
     /**
      * @Route("/creer-une-table/{gameId}", name="play.create")
      */
-    public function create($gameId = null): Response
+    public function create(GameRepository $gameRepository, $gameId = null): Response
     {
         if (!$gameId) {
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('games');
         }
 
-        $games = [
-            0 => [
-                'id' => 1,
-                'name' => 'Donjons & Dragons',
-            ],
-            1 => [
-                'id' => 2,
-                'name' => 'Chroniques Oubliées',
-            ],
-            2 => [
-                'id' => 3,
-                'name' => "L'appel de Cthulhu",
-            ],
-        ];
-
-        switch ($gameId) {
-            case 1:
-                $gameName = $games[0]['name'];
-                break;
-            case 2:
-                $gameName = $games[1]['name'];
-                break;
-            case 3:
-                $gameName = $games[2]['name'];
-                break;
-            default:
-                $gameName = $gameId;
-                break;
+        $game = $gameRepository->find($gameId);
+        if (!$game) {
+            return $this->redirectToRoute('games');
         }
 
         return $this->render('play/create.html.twig',
             [
-                'gameId' => $gameId,
-                'gameName' => $gameName,
-                'games' => $games,
+                'game' => $game,
             ]);
     }
 

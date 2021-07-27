@@ -99,6 +99,10 @@
         .app_grid_item_subtitle {
             margin: 0 0.25rem 0.5rem;
             text-align: center;
+
+            &.sub {
+                font-style: italic;
+            }
         }
 
         .app_grid_item_image {
@@ -120,7 +124,7 @@
             &.excerpt {
                 padding: 0 0.5rem;
                 text-align: left;
-                font-size: 0.9rem;
+                font-size: 0.8rem;
             }
 
             &:last-of-type {

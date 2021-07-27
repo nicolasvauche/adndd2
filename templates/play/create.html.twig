@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="app_form_group">
-                    <input type="hidden" name="play_game_id" value="{{ gameId }}" />
+                    <input type="hidden" name="play_game_id" value="{{ game.id }}" />
                 </div>
 
                 <div class="app_grid two">
@@ -47,7 +47,7 @@
         <aside>
             <h2>{{ 'pages.play.create.menu' | trans | capitalize }}</h2>
 
-            <span><i class="fas fa-scroll"></i> {{ gameName }}</span>
+            <span><i class="fas fa-scroll"></i> {{ game.name }}</span>
         </aside>
     </article>
 {% endblock %}
