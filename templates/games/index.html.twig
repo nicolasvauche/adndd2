@@ -1,157 +1,160 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ 'pages.games.title' | trans | capitalize }}{% endblock %}
+
 {% block body_class %}games{% endblock %}
 
 {% block body %}
-    <section class="games">
-        <main>
+    <article>
+        <section>
             <h1>{{ 'pages.games.title' | trans | capitalize }}</h1>
 
-            <div class="app-grid three">
-                <div class="app-grid-item">
-                    <div class="app-grid-header">
-                        <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app-grid-item-image" />
-                        <h2 class="app-grid-item-title">Donjons & Dragons</h2>
-                        <p class="app-grid-item-category">Heroïc Fantasy</p>
-                    </div>
-                    <div class="app-grid-body">
-                        <p class="app-grid-excerpt">
+            <div class="app_grid three app_slider xs">
+
+                <div class="game app_grid_item app_slider_item">
+                    <div class="app_grid_item_header">
+                        <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app_grid_item_image" />
+                        <h3 class="app_grid_item_title">Donjons & Dragons</h3>
+                        <h4 class="app_grid_item_subtitle">Heroïc Fantasy</h4>
+                        <p class="app_grid_item_info excerpt {% if app.user %}mb_0{% endif %}">
                             Donjons et Dragons (en anglais Dungeons & Dragons), souvent abrégé en D&D, DnD ou AD&D, est l'un des tout premiers jeux de rôle sur table de genre médiéval-fantastique.
                         </p>
                     </div>
-                    <div class="app-grid-item-footer">
+                    <div class="app_grid_item_footer">
                         {% if app.user %}
-                            <a href="#" class="app-button modal" title="Règles du jeu" data-modal="app-grid-gamerules-1">Règles du jeu</a>
-                            <a href="{{ path('play.create', { 'gameId': 1 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
+                            <a href="#" class="app_grid_item_footer_action button modal" title="Règles du jeu (pdf)" data-modal="gamerules-1">Les règles</a>
+
+                            <a href="{{ path('play.create', { 'gameId': 1 }) }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.play.create.title' | trans | capitalize }}">{{ 'pages.play.create.menu' | trans | capitalize }}</a>
                         {% else %}
-                            <a class="app-button disabled" title="{{ 'pages.login.title' | trans | capitalize }}">Règles du jeu</a>
-                            <a href="{{ path('app_login') }}" class="app-button" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                <i class="fas fa-lock"></i>
+                            <span class="app_grid_item_footer_action">Les règles</span>
+
+                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                {{ 'pages.login.menu' | trans | capitalize }}
                             </a>
                         {% endif %}
                     </div>
                 </div>
                 {% if app.user %}
-                    <div class="app-modal" id="app-grid-gamerules-1">
-                        <div class="app-modal-box">
-                            <button class="app-button app-modal-close">
+                    <div class="app_modal" id="gamerules-1">
+                        <div class="app_modal_box">
+                            <button class="app_button app_modal_close">
                                 <i class="fas fa-times"></i>
                             </button>
-                            <div class="app-modal-body">
-                                <h2 class="app-modal-title">Donjons & Dragons
+                            <div class="app_modal_body">
+                                <h2 class="app_modal_title">Donjons & Dragons
                                     <small>Règles du jeu</small>
                                 </h2>
                                 <p>
-                                    <a href="test.pdf" class="app-button" target="_blank" rel="noopener noreferrer" title="Livre des Règles">Le livre des Règles</a>
+                                    <a href="test.pdf" class="app_button" target="_blank" rel="noopener noreferrer" title="Livre des Règles">Le livre des Règles</a>
                                 </p>
                                 <p>
-                                    <a href="test.pdf" class="app-button" target="_blank" rel="noopener noreferrer" title="Livre du Joueur">Le livre du Joueur</a>
+                                    <a href="test.pdf" class="app_button" target="_blank" rel="noopener noreferrer" title="Livre du Joueur">Le livre du Joueur</a>
                                 </p>
                                 <p>
-                                    <a href="test.pdf" class="app-button" target="_blank" rel="noopener noreferrer" title="Livre des Créatures">Le livre des Créatures</a>
+                                    <a href="test.pdf" class="app_button" target="_blank" rel="noopener noreferrer" title="Livre des Créatures">Le livre des Créatures</a>
                                 </p>
                             </div>
                         </div>
                     </div>
                 {% endif %}
 
-                <div class="app-grid-item">
-                    <div class="app-grid-header">
-                        <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" class="app-grid-item-image" />
-                        <h2 class="app-grid-item-title">Chroniques Oubliées</h2>
-                        <p class="app-grid-item-category">Fantasy, Contemporain</p>
-                    </div>
-                    <div class="app-grid-body">
-                        <p class="app-grid-excerpt">
+                <div class="game app_grid_item app_slider_item">
+                    <div class="app_grid_item_header">
+                        <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" class="app_grid_item_image" />
+                        <h3 class="app_grid_item_title">Chroniques Oubliées</h3>
+                        <h4 class="app_grid_item_subtitle">Fantasy, Contemporain</h4>
+                        <p class="app_grid_item_info excerpt {% if app.user %}mb_0{% endif %}">
                             Chroniques Oubliées peut être considéré comme un jeu de rôle d'initiation. D'heroic fantasy pour ses premières versions, il a été édité en premier lieu en 2009 par Black Book sous forme de boîte.
                         </p>
                     </div>
-                    <div class="app-grid-item-footer">
+                    <div class="app_grid_item_footer">
                         {% if app.user %}
-                            <a href="#" class="app-button modal" title="Règles du jeu" data-modal="app-grid-gamerules-2">Règles du jeu</a>
-                            <a href="{{ path('play.create', { 'gameId': 2 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
+                            <a href="#" class="app_grid_item_footer_action button modal" title="Règles du jeu (pdf)" data-modal="gamerules-2">Les règles</a>
+
+                            <a href="{{ path('play.create', { 'gameId': 2 }) }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.play.create.title' | trans | capitalize }}">{{ 'pages.play.create.menu' | trans | capitalize }}</a>
                         {% else %}
-                            <a class="app-button disabled" title="{{ 'pages.login.title' | trans | capitalize }}">Règles du jeu</a>
-                            <a href="{{ path('app_login') }}" class="app-button" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                <i class="fas fa-lock"></i>
+                            <span class="app_grid_item_footer_action">Les règles</span>
+
+                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                {{ 'pages.login.menu' | trans | capitalize }}
                             </a>
                         {% endif %}
                     </div>
                 </div>
                 {% if app.user %}
-                    <div class="app-modal" id="app-grid-gamerules-2">
-                        <div class="app-modal-box">
-                            <button class="app-button app-modal-close">
+                    <div class="app_modal" id="gamerules-2">
+                        <div class="app_modal_box">
+                            <button class="app_button app_modal_close">
                                 <i class="fas fa-times"></i>
                             </button>
-                            <div class="app-modal-body">
-                                <h2 class="app-modal-title">Chroniques Oubliées
+                            <div class="app_modal_body">
+                                <h2 class="app_modal_title">Chroniques Oubliées
                                     <small>Règles du jeu</small>
                                 </h2>
                                 <p>
-                                    <a href="test.pdf" class="app-button" target="_blank" rel="noopener noreferrer" title="Livre des Règles">Le livre des Règles</a>
+                                    <a href="test.pdf" class="app_button" target="_blank" rel="noopener noreferrer" title="Livre des Règles">Le livre des Règles</a>
                                 </p>
                                 <p>
-                                    <a href="test.pdf" class="app-button" target="_blank" rel="noopener noreferrer" title="Livre du Joueur">Le livre du Joueur</a>
+                                    <a href="test.pdf" class="app_button" target="_blank" rel="noopener noreferrer" title="Livre du Joueur">Le livre du Joueur</a>
                                 </p>
                                 <p>
-                                    <a href="test.pdf" class="app-button" target="_blank" rel="noopener noreferrer" title="Livre des Créatures">Le livre des Créatures</a>
+                                    <a href="test.pdf" class="app_button" target="_blank" rel="noopener noreferrer" title="Livre des Créatures">Le livre des Créatures</a>
                                 </p>
                             </div>
                         </div>
                     </div>
                 {% endif %}
 
-                <div class="app-grid-item">
-                    <div class="app-grid-header">
-                        <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app-grid-item-image" />
-                        <h2 class="app-grid-item-title">L'appel de Cthulhu</h2>
-                        <p class="app-grid-item-category">Contemporain</p>
-                    </div>
-                    <div class="app-grid-body">
-                        <p class="app-grid-excerpt">
+                <div class="game app_grid_item app_slider_item">
+                    <div class="app_grid_item_header">
+                        <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app_grid_item_image" />
+                        <h3 class="app_grid_item_title">L'appel de Cthulhu</h3>
+                        <h4 class="app_grid_item_subtitle">Contemporain</h4>
+                        <p class="app_grid_item_info excerpt {% if app.user %}mb_0{% endif %}">
                             L'Appel de Cthulhu (Call of Cthulhu) est un jeu de rôle créé aux États-Unis en 1981 par Sandy Petersen. Le titre vient de la nouvelle du même nom écrite par l'écrivain fantastique américain H. P. Lovecraft.
                         </p>
                     </div>
-                    <div class="app-grid-item-footer">
+                    <div class="app_grid_item_footer">
                         {% if app.user %}
-                            <a href="#" class="app-button modal" title="Règles du jeu" data-modal="app-grid-gamerules-3">Règles du jeu</a>
-                            <a href="{{ path('play.create', { 'gameId': 3 }) }}" class="app-button cta" title="Jouer en ligne">Créer une table</a>
+                            <a href="#" class="app_grid_item_footer_action button modal" title="Règles du jeu (pdf)" data-modal="gamerules-3">Les règles</a>
+
+                            <a href="{{ path('play.create', { 'gameId': 3 }) }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.play.create.title' | trans | capitalize }}">{{ 'pages.play.create.menu' | trans | capitalize }}</a>
                         {% else %}
-                            <a class="app-button disabled" title="{{ 'pages.login.title' | trans | capitalize }}">Règles du jeu</a>
-                            <a href="{{ path('app_login') }}" class="app-button" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                <i class="fas fa-lock"></i>
+                            <span class="app_grid_item_footer_action">Les règles</span>
+
+                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                {{ 'pages.login.menu' | trans | capitalize }}
                             </a>
                         {% endif %}
                     </div>
                 </div>
                 {% if app.user %}
-                    <div class="app-modal" id="app-grid-gamerules-3">
-                        <div class="app-modal-box">
-                            <button class="app-button app-modal-close">
+                    <div class="app_modal" id="gamerules-3">
+                        <div class="app_modal_box">
+                            <button class="app_button app_modal_close">
                                 <i class="fas fa-times"></i>
                             </button>
-                            <div class="app-modal-body">
-                                <h2 class="app-modal-title">L'appel de Cthulhu
+                            <div class="app_modal_body">
+                                <h2 class="app_modal_title">L'appel de Cthulhu
                                     <small>Règles du jeu</small>
                                 </h2>
                                 <p>
-                                    <a href="test.pdf" class="app-button" target="_blank" rel="noopener noreferrer" title="Livre des Règles">Le livre des Règles</a>
+                                    <a href="test.pdf" class="app_button" target="_blank" rel="noopener noreferrer" title="Livre des Règles">Le livre des Règles</a>
                                 </p>
                                 <p>
-                                    <a href="test.pdf" class="app-button" target="_blank" rel="noopener noreferrer" title="Livre du Joueur">Le livre du Joueur</a>
+                                    <a href="test.pdf" class="app_button" target="_blank" rel="noopener noreferrer" title="Livre du Joueur">Le livre du Joueur</a>
                                 </p>
                                 <p>
-                                    <a href="test.pdf" class="app-button" target="_blank" rel="noopener noreferrer" title="Livre des Créatures">Le livre des Créatures</a>
+                                    <a href="test.pdf" class="app_button" target="_blank" rel="noopener noreferrer" title="Livre des Créatures">Le livre des Créatures</a>
                                 </p>
                             </div>
                         </div>
                     </div>
                 {% endif %}
+
             </div>
-        </main>
-    </section>
+        </section>
+    </article>
 {% endblock %}
 
 {% block javascripts %}
@@ -166,8 +169,7 @@
                     modal.style.display = 'flex'
                 })
             }
-
-            const modalCloseButtons = document.querySelectorAll('.app-modal-close')
+            const modalCloseButtons = document.querySelectorAll('.app_modal_close')
             for (const modalCloseButton of modalCloseButtons) {
                 modalCloseButton.addEventListener('click', () => {
                     modalCloseButton.parentNode.parentNode.style.display = 'none'

@@ -1,219 +1,208 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ 'pages.play.title' | trans | capitalize }}{% endblock %}
+
 {% block body_class %}play{% endblock %}
 
 {% block body %}
-    <section class="play">
-        <main>
+    <article>
+        <section>
             <h1>{{ 'pages.play.title' | trans | capitalize }}</h1>
 
-            <div class="action_title">
-                <h2>Les tables de jeux</h2>
-                <form action="" method="post" class="app-form">
-                    <div class="app-form-group">
-                        <select name="tables_game" id="tables_game" class="app-form-control">
-                            <option value="all">Tous les jeux</option>
-                            {% for game in games %}
-                                <option value="{{ game.id }}">{{ game.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </form>
+            <div class="app_filters">
+                <h2>{{ 'pages.play.title2' | trans | capitalize }}</h2>
+
+                <div class="app_filters_controls">
+                    <select name="tables_game" id="tables_game" class="app_filter_select">
+                        <option value="all">{{ 'pages.games.title' | trans | capitalize }}</option>
+                        {% for game in games %}
+                            <option value="{{ game.id }}">{{ game.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
 
-            <div class="games app-grid four">
-                <div class="game app-grid-item" data-gameid="1">
-                    <div class="app-grid-item-header">
-                        <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app-grid-item-image" />
-                        <h3 class="app-grid-item-title">Donjons & Dragons</h3>
-                        <p class="app-grid-item-category">Nom du scénario</p>
-                        <p class="app-grid-excerpt {% if app.user %}mb-0{% endif %}">
+            <div class="app_grid four app_slider xs">
+
+                <div class="game app_grid_item app_slider_item" data-gameid="1">
+                    <div class="app_grid_item_header">
+                        <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app_grid_item_image" />
+                        <h3 class="app_grid_item_title">Donjons & Dragons</h3>
+                        <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
+                        <p class="app_grid_item_info">
                             <strong>24/07/2021 19:00</strong>
                         </p>
                         {% if app.user %}
-                            <ul class="players mb-0">
-                                <li>Un Joueur</li>
-                                <li>Un Autre</li>
-                                <li>Encore Un</li>
-                            </ul>
-                        {% else %}
-                            <p class="app-grid-excerpt">
-                                <a class="app-button text-center" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                    <i class="fas fa-lock"></i>
-                                </a>
+                            <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
+                                <i class="fas fa-users"></i>
+                                <strong>4/5</strong>
                             </p>
                         {% endif %}
                     </div>
-                    {% if app.user %}
-                        <div class="app-grid-item-footer">
-                            <p class="text-center mb-0">
-                                <strong>Publique</strong>
-                            </p>
-                            <a href="#" class="app-button cta" title="Rejoindre la partie">Rejoindre</a>
-                        </div>
-                    {% endif %}
+                    <div class="app_grid_item_footer">
+                        {% if app.user %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                        {% else %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                {{ 'pages.login.menu' | trans | capitalize }}
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
 
-                <div class="game app-grid-item" data-gameid="3">
-                    <div class="app-grid-item-header">
-                        <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app-grid-item-image" />
-                        <h3 class="app-grid-item-title">L'appel de Cthulhu</h3>
-                        <p class="app-grid-item-category">Nom du scénario</p>
-                        <p class="app-grid-excerpt {% if app.user %}mb-0{% endif %}">
+                <div class="game app_grid_item app_slider_item" data-gameid="3">
+                    <div class="app_grid_item_header">
+                        <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app_grid_item_image" />
+                        <h3 class="app_grid_item_title">L'appel de Cthulhu</h3>
+                        <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
+                        <p class="app_grid_item_info">
                             <strong>25/07/2021 19:23</strong>
                         </p>
                         {% if app.user %}
-                            <ul class="players mb-0">
-                                <li>Un Joueur</li>
-                                <li>Un Autre</li>
-                                <li>Encore Un</li>
-                                <li>Un Dernier</li>
-                            </ul>
-                        {% else %}
-                            <p class="app-grid-excerpt">
-                                <a class="app-button text-center" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                    <i class="fas fa-lock"></i>
-                                </a>
+                            <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
+                                <i class="fas fa-users"></i>
+                                <strong>3/5</strong>
                             </p>
                         {% endif %}
                     </div>
-                    {% if app.user %}
-                        <div class="app-grid-item-footer">
-                            <p class="text-center mb-0">
-                                <strong>Privée</strong>
-                            </p>
-                            <a class="app-button disabled" title="Partie privée">
-                                <i class="fas fa-lock"></i>
-                            </a>
-                        </div>
-                    {% endif %}
+                    <div class="app_grid_item_footer">
+                        {% if app.user %}
+                            <span class="app_grid_item_footer_action">Privée</span>
+
+                            <span class="app_grid_item_footer_action"><i class="fas fa-lock"></i></span>
+                        {% else %}
+                            <span class="app_grid_item_footer_action">Privée</span>
+
+                            <span class="app_grid_item_footer_action"><i class="fas fa-lock"></i></span>
+                        {% endif %}
+                    </div>
                 </div>
 
-                <div class="game app-grid-item" data-gameid="2">
-                    <div class="app-grid-item-header">
-                        <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" class="app-grid-item-image" />
-                        <h3 class="app-grid-item-title">Chroniques Oubliées</h3>
-                        <p class="app-grid-item-category">Nom du scénario</p>
-                        <p class="app-grid-excerpt {% if app.user %}mb-0{% endif %}">
+                <div class="game app_grid_item app_slider_item" data-gameid="2">
+                    <div class="app_grid_item_header">
+                        <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" class="app_grid_item_image" />
+                        <h3 class="app_grid_item_title">Chroniques Oubliées</h3>
+                        <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
+                        <p class="app_grid_item_info">
                             <strong>26/07/2021 13:42</strong>
                         </p>
                         {% if app.user %}
-                            <ul class="players mb-0">
-                                <li>Personne</li>
-                            </ul>
-                        {% else %}
-                            <p class="app-grid-excerpt">
-                                <a class="app-button text-center" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                    <i class="fas fa-lock"></i>
-                                </a>
+                            <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
+                                <i class="fas fa-users"></i>
+                                <strong>1/5</strong>
                             </p>
                         {% endif %}
                     </div>
-                    {% if app.user %}
-                        <div class="app-grid-item-footer">
-                            <p class="text-center mb-0">
-                                <strong>Publique</strong>
-                            </p>
-                            <a href="#" class="app-button cta" title="Rejoindre la partie">Rejoindre</a>
-                        </div>
-                    {% endif %}
+                    <div class="app_grid_item_footer">
+                        {% if app.user %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                        {% else %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                {{ 'pages.login.menu' | trans | capitalize }}
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
 
-                <div class="game app-grid-item" data-gameid="3">
-                    <div class="app-grid-item-header">
-                        <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app-grid-item-image" />
-                        <h3 class="app-grid-item-title">L'appel de Cthulhu</h3>
-                        <p class="app-grid-item-category">Nom du scénario</p>
-                        <p class="app-grid-excerpt {% if app.user %}mb-0{% endif %}">
+                <div class="game app_grid_item app_slider_item" data-gameid="3">
+                    <div class="app_grid_item_header">
+                        <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app_grid_item_image" />
+                        <h3 class="app_grid_item_title">L'appel de Cthulhu</h3>
+                        <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
+                        <p class="app_grid_item_info">
                             <strong>27/07/2021 08:00</strong>
                         </p>
                         {% if app.user %}
-                            <ul class="players mb-0">
-                                <li>Personne</li>
-                            </ul>
-                        {% else %}
-                            <p class="app-grid-excerpt">
-                                <a class="app-button text-center" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                    <i class="fas fa-lock"></i>
-                                </a>
+                            <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
+                                <i class="fas fa-users"></i>
+                                <strong>5/5</strong>
                             </p>
                         {% endif %}
                     </div>
-                    {% if app.user %}
-                        <div class="app-grid-item-footer">
-                            <p class="text-center mb-0">
-                                <strong>Publique</strong>
-                            </p>
-                            <a href="#" class="app-button cta" title="Rejoindre la partie">Rejoindre</a>
-                        </div>
-                    {% endif %}
+                    <div class="app_grid_item_footer">
+                        {% if app.user %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <span class="app_grid_item_footer_action"><i class="fas fa-lock"></i></span>
+                        {% else %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <span class="app_grid_item_footer_action"><i class="fas fa-lock"></i></span>
+                        {% endif %}
+                    </div>
                 </div>
 
-                <div class="game app-grid-item" data-gameid="1">
-                    <div class="app-grid-item-header">
-                        <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app-grid-item-image" />
-                        <h3 class="app-grid-item-title">Donjons & Dragons</h3>
-                        <p class="app-grid-item-category">Nom du scénario</p>
-                        <p class="app-grid-excerpt {% if app.user %}mb-0{% endif %}">
+                <div class="game app_grid_item app_slider_item" data-gameid="1">
+                    <div class="app_grid_item_header">
+                        <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app_grid_item_image" />
+                        <h3 class="app_grid_item_title">Donjons & Dragons</h3>
+                        <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
+                        <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
                             <strong>28/07/2021 22:00</strong>
                         </p>
                         {% if app.user %}
-                            <ul class="players mb-0">
-                                <li>Un Joueur</li>
-                                <li>Un Autre</li>
-                            </ul>
-                        {% else %}
-                            <p class="app-grid-excerpt">
-                                <a class="app-button text-center" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                    <i class="fas fa-lock"></i>
-                                </a>
+                            <p class="app_grid_item_info">
+                                <i class="fas fa-users"></i>
+                                <strong>2/5</strong>
                             </p>
                         {% endif %}
                     </div>
-                    {% if app.user %}
-                        <div class="app-grid-item-footer">
-                            <p class="text-center mb-0">
-                                <strong>Publique</strong>
-                            </p>
-                            <a href="#" class="app-button cta" title="Rejoindre la partie">Rejoindre</a>
-                        </div>
-                    {% endif %}
+                    <div class="app_grid_item_footer">
+                        {% if app.user %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                        {% else %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                {{ 'pages.login.menu' | trans | capitalize }}
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
 
-                <div class="game app-grid-item" data-gameid="2">
-                    <div class="app-grid-item-header">
-                        <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" class="app-grid-item-image" />
-                        <h3 class="app-grid-item-title">Chroniques Oubliées</h3>
-                        <p class="app-grid-item-category">Nom du scénario</p>
-                        <p class="app-grid-excerpt {% if app.user %}mb-0{% endif %}">
+                <div class="game app_grid_item app_slider_item" data-gameid="2">
+                    <div class="app_grid_item_header">
+                        <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" class="app_grid_item_image" />
+                        <h3 class="app_grid_item_title">Chroniques Oubliées</h3>
+                        <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
+                        <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
                             <strong>30/07/2021 20:30</strong>
                         </p>
                         {% if app.user %}
-                            <ul class="players mb-0">
-                                <li>Un Joueur</li>
-                                <li>Un Autre</li>
-                            </ul>
-                        {% else %}
-                            <p class="app-grid-excerpt">
-                                <a class="app-button text-center" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                    <i class="fas fa-lock"></i>
-                                </a>
+                            <p class="app_grid_item_info">
+                                <i class="fas fa-users"></i>
+                                <strong>2/5</strong>
                             </p>
                         {% endif %}
                     </div>
-                    {% if app.user %}
-                        <div class="app-grid-item-footer">
-                            <p class="text-center mb-0">
-                                <strong>Publique</strong>
-                            </p>
-                            <a href="#" class="app-button cta" title="Rejoindre la partie">Rejoindre</a>
-                        </div>
-                    {% endif %}
+                    <div class="app_grid_item_footer">
+                        {% if app.user %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                        {% else %}
+                            <span class="app_grid_item_footer_action">Publique</span>
+
+                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                {{ 'pages.login.menu' | trans | capitalize }}
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
+
             </div>
-        </main>
-    </section>
+        </section>
+    </article>
 {% endblock %}
 
 {% block javascripts %}
@@ -223,17 +212,16 @@
             const filterSelect = document.getElementById('tables_game')
             filterSelect.addEventListener('change', event => {
                 const gameId = filterSelect.value
-
                 if (gameId === 'all') {
                     for (const gameThumbnail of gamesThumbnails) {
-                        gameThumbnail.style.display = 'flex'
+                        gameThumbnail.style.display = 'block'
                     }
                 } else {
                     for (const gameThumbnail of gamesThumbnails) {
                         if (parseInt(gameThumbnail.dataset.gameid) !== parseInt(gameId)) {
                             gameThumbnail.style.display = 'none'
                         } else {
-                            gameThumbnail.style.display = 'flex'
+                            gameThumbnail.style.display = 'block'
                         }
                     }
                 }

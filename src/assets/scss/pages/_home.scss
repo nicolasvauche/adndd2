@@ -1,109 +1,86 @@
 &.home {
-    .app-main {
-        section {
-            h1 {
-                padding: 1.5rem;
-                color: $color-bg-fourth;
-                border-radius: 0.5rem;
-                background-color: rgba($color-bg-secondary, 0.75);
-                text-shadow: 2px 2px 4px rgba($color-bg-primary, 0.5);
-            }
 
-            h2 {
-                margin-bottom: 1rem;
-            }
+    h1 {
+        text-align: center;
+        background-color: rgba($color-bg-secondary, 0.4);
+        text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color-alt;
+    }
+
+    article {
+        & > section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
 
             @include respond(sm) {
                 margin: 0;
-                width: auto;
-            }
-
-            @include respond(md) {
-                width: auto;
+                border-radius: 0;
+                box-shadow: none;
             }
 
             &.cover {
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-between;
-                padding: 1.5rem 3rem;
-                height: 50vh;
-                background-color: rgba($color-bg-fourth, 0.5);
-                background-image: url('../images/cover_about.jpg');
-                background-position: center center;
+                min-height: 50vh;
+                background-color: transparent;
+                background-image: url('../images/home_cover.jpg');
                 background-repeat: no-repeat;
+                background-position: center center;
                 background-size: cover;
 
                 @include respond(sm) {
-                    height: 30vh;
+                    min-height: 30vh;
                 }
 
-                @include respond(md) {
-                    height: 40vh;
-                }
-            }
-
-            &.games {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-between;
-                padding: 1.5rem 1rem;
-                background-color: $color-bg-primary;
-
-                @include respond(sm) {
-                    padding: 1.5rem 1.5rem;
+                h1 {
+                    margin-bottom: 0;
                 }
 
-                .app-grid-item-image {
-                    display: block;
-                    border-radius: 0.5rem;
+                .app_logo {
+                    margin: 2rem 0;
+                    filter: drop-shadow($box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color);
                 }
             }
 
             &.play {
                 position: relative;
-                padding: 1.5rem 0 3rem;
-                text-align: center;
-                background-color: $color-fg-third;
+                background-color: $color-orange;
 
                 img {
-                    &:first-child {
-                        position: absolute;
-                        top: 20%;
-                        left: 50%;
-                        width: 50%;
-                        transform: translateX(-50%);
-
-                        @include respond(sm) {
-                            width: 30%;
-                        }
-
-                        @include respond(md) {
-                            width: 15%;
-                        }
+                    &:first-of-type {
+                        margin-bottom: 2rem;
                     }
 
                     &:last-of-type {
-                        margin: 0 1rem;
-                        width: calc(100% - 2rem);
+                        position: absolute;
+                        top: 20%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 50%;
 
                         @include respond(sm) {
-                            width: auto;
-                            height: 50vh
+                            width: 25%;
+                        }
+
+                        @include respond(md) {
+                            width: 12%;
                         }
                     }
                 }
 
-                .app-button {
-                    display: block;
-                    margin-top: 3rem;
-                    padding: 1.25rem 2rem;
-                    font-size: 1.75rem;
-                    border: none;
-                    border-radius: 0;
+                .app_button {
+                    &.cta {
+                        padding-left: 0;
+                        padding-right: 0;
+                        width: 100vw;
+                        font-size: 1.5rem;
+                        color: $color-bg-primary;
+                        background-color: $color-bg-alt;
+                        border-color: $color-bg-alt;
+                        border-left: none;
+                        border-right: none;
+                        border-radius: 0;
+                        box-shadow: none;
+                    }
                 }
             }
         }

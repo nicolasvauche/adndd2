@@ -1,43 +1,26 @@
-.app-button {
-    padding: 0.5rem 1.5rem;
+.app_button {
+    padding: 0.5rem 1rem;
     font-family: $font-family-secondary;
-    font-size: 1.25rem;
     font-weight: 600;
     text-transform: uppercase;
     text-decoration: none;
     text-align: center;
-    color: $color-bg-primary;
-    background-color: $color-bg-fourth;
-    border: none;
-    border-radius: 0.5rem;
+    color: $color-fg-primary;
+    background-color: $color-bg-primary;
+    border: 2px solid $color-fg-primary;
+    border-radius: $border-radius-default;
+    box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    @include respond(sm) {
-        padding: 1rem 1.5rem;
-        font-size: 1.5rem;
-    }
 
     &.cta {
+        padding: 0.75rem 1rem;
         font-size: 1.25rem;
-        color: $color-fg-primary;
-        background-color: $color-fg-third;
-        border: 2px solid $color-fg-primary;
-        box-shadow: 2px 2px 0.5rem $color-fg-primary;
-
-        @include respond(sm) {
-            font-size: 1.5rem;
-        }
+        background-color: $color-orange;
     }
 
     &:hover {
-        color: $color-bg-primary;
-        background-color: $color-fg-secondary;
-    }
-
-    &.disabled {
-        color: rgba($color-fg-primary, 0.5);
-        background-color: inherit !important;
-        cursor: default;
+        color: $color-bg-primary !important;
+        background-color: $color-blue !important;
+        border: 2px solid $color-blue !important;
     }
 }

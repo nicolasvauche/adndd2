@@ -1,0 +1,58 @@
+.app_slider {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    padding: 0.5rem 0.5rem 1rem;
+    border-radius: $border-radius-default;
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    &.xs {
+        @include respond(sm) {
+            display: initial;
+            overflow: initial;
+            padding: 0;
+            border-radius: 0;
+        }
+    }
+
+    .app_slider_item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0 0.5rem;
+        flex: 0 0 calc(100% - 2rem);
+        scroll-snap-align: start;
+        border-radius: $border-radius-default;
+        box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
+
+        @include respond(sm) {
+            margin: 0;
+            flex: 0 0 auto;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+
+            @include respond(sm) {
+                width: auto;
+                border-radius: 0;
+            }
+        }
+    }
+}

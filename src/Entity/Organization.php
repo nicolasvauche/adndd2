@@ -40,6 +40,11 @@ class Organization
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $zipcode;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $city;
 
     /**
@@ -126,6 +131,18 @@ class Organization
     public function setAddress3(?string $address3): self
     {
         $this->address3 = $address3;
+
+        return $this;
+    }
+
+    public function getZipcode(): ?string
+    {
+        return $this->zipcode;
+    }
+
+    public function setZipcode(?string $zipcode): self
+    {
+        $this->zipcode = $zipcode;
 
         return $this;
     }

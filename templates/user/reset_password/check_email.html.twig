@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{{ 'pages.resetpassword.title' | trans | capitalize }}{% endblock %}
+
+{% block body_class %}login{% endblock %}
+
+{% block body %}
+    <article class="aside">
+        <section>
+            <h1>{{ 'pages.resetpassword.title' | trans | capitalize }}</h1>
+
+            <div class="app_alert">
+                <p>
+                    {{ 'pages.resetpassword.checkemail.info' | trans ({'%time%': resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }) | raw }}
+                </p>
+
+                <p>
+                    {{ 'pages.resetpassword.checkemail.info2' | trans }} <a href="{{ path('app_forgot_password_request') }}">{{ 'pages.resetpassword.checkemail.info2link' | trans }}</a>.
+                </p>
+            </div>
+        </section>
+
+        <aside>
+            <h2>{{ 'default.more' | trans | capitalize }}</h2>
+
+            <a href="{{ path('contact') }}" class="app_button cta" title="{{ 'pages.contact.title' | trans | capitalize }}">
+                {{ 'pages.login.aside.join' | trans | capitalize }}
+            </a>
+
+            <a href="{{ path('app_login') }}" class="app_button" title="{{ 'pages.login.title' | trans | capitalize }}">
+                {{ 'pages.login.menu' | trans | capitalize }}
+            </a>
+        </aside>
+    </article>
+{% endblock %}

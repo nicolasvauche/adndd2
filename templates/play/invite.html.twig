@@ -1,97 +1,86 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ 'pages.play.invite.title' | trans | capitalize }}{% endblock %}
+
 {% block body_class %}play{% endblock %}
 
 {% block body %}
-    <section class="play">
-        <div class="app-grid">
-            <main class="app-grid-item">
-                <h1>
-                    {{ gameName }}&nbsp;
-                    <small>{{ 'pages.play.invite.title' | trans | capitalize }}</small>
-                </h1>
+    <article class="aside">
+        <section>
+            <h1>{{ 'pages.play.invite.title' | trans | capitalize }}</h1>
 
-                <form class="app-form" method="post" action="{{ path('play.invite') }}">
-                    <div class="app-form-group button">
-                        <input type="text" id="invite_playername" name="invite_playername" class="app-form-control" />
-                        <button id="invite_playeradd">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                        <label for="invite_playername">Rechercher un joueur</label>
+            <form class="app_form" method="post" action="{{ path('play.invite') }}">
+                <div class="app_form_group button">
+                    <input type="text" id="invite_playername" name="invite_playername" class="app_form_control" />
+                    <button id="invite_playeradd">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <label for="invite_playername">Rechercher un joueur</label>
+                </div>
+
+                <div class="invited app_grid five">
+                    <div class="app_grid_item">
+                        <a href="#" title="Enlever cette invitation">
+                            <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
+                            <span class="app_grid_item_title">Un Invité</span>
+                        </a>
                     </div>
 
-                    <div class="invited app-grid five">
-                        <div class="app-grid-item">
-                            <a href="#" title="Enlever cette invitation">
-                                <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app-grid-item-image" />
-                                <span class="app-grid-item-title">Un Invité</span>
-                            </a>
-                        </div>
-
-                        <div class="app-grid-item">
-                            <a href="#" title="Enlever cette invitation">
-                                <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app-grid-item-image" />
-                                <span class="app-grid-item-title">Un Autre</span>
-                            </a>
-                        </div>
-
-                        <div class="app-grid-item">
-                            <a href="#" title="Enlever cette invitation">
-                                <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app-grid-item-image" />
-                                <span class="app-grid-item-title">Encore Un</span>
-                            </a>
-                        </div>
-
-                        <div class="app-grid-item">
-                            <a href="#" title="Enlever cette invitation">
-                                <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app-grid-item-image" />
-                                <span class="app-grid-item-title">Un Dernier</span>
-                            </a>
-                        </div>
-
-                        <div class="app-grid-item">
-                            <p class="placehold">
-                                <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app-grid-item-image" />
-                                <span class="app-grid-item-title">Libre</span>
-                            </p>
-                        </div>
-                    </div>
-                    <p class="info">Cliquez sur une invitation pour l'enlever ;)</p>
-
-                    <div class="app-form-group">
-                        <input type="hidden" name="invite_game_id" value="{{ gameId }}" />
+                    <div class="app_grid_item">
+                        <a href="#" title="Enlever cette invitation">
+                            <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
+                            <span class="app_grid_item_title">Un Autre</span>
+                        </a>
                     </div>
 
-                    <div class="app-grid two">
-                        <div class="app-form-group app-grid-item">
-                            <a href="{{ app.request.headers.get('referer') }}" class="app-button">{{ 'invite.cancel.label' | trans | capitalize }}</a>
-                        </div>
-
-                        <div class="app-form-group app-grid-item">
-                            <button type="submit" class="app-button cta">{{ 'invite.submit.label' | trans | capitalize }}</button>
-                        </div>
+                    <div class="app_grid_item">
+                        <a href="#" title="Enlever cette invitation">
+                            <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
+                            <span class="app_grid_item_title">Encore Un</span>
+                        </a>
                     </div>
-                </form>
-            </main>
 
-            <aside class="app-grid-item">
-                <dl>
-                    <dt>Nom du scénario</dt>
-                    <dd>{{ formData['play_tablename'] }}</dd>
+                    <div class="app_grid_item">
+                        <a href="#" title="Enlever cette invitation">
+                            <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
+                            <span class="app_grid_item_title">Un Dernier</span>
+                        </a>
+                    </div>
 
-                    <dt>Paramètres de la table</dt>
-                    <dd>
-                        <i class="fas fa-clock"></i>&nbsp;{{ formData['play_date'] | date('d/m/Y H:i') }}
-                        {% if(formData['play_private'] == "true") %}
-                            <br />
-                            <i class="fas fa-lock"></i>&nbsp;Partie privée
-                        {% endif %}
-                    </dd>
-                </dl>
-            </aside>
-        </div>
-    </section>
+                    <div class="app_grid_item placehold">
+                        <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
+                        <span class="app_grid_item_title">Libre</span>
+                    </div>
+                </div>
+
+                <p class="info">Cliquez sur une invitation pour l'enlever ;)</p>
+
+                <div class="app_form_group">
+                    <input type="hidden" name="invite_game_id" value="{{ gameId }}" />
+                </div>
+
+                <div class="app_grid two mb_0">
+                    <div class="app_form_group">
+                        <a href="javascript:history.back();" class="app_button">{{ 'default.back' | trans | capitalize }}</a>
+                    </div>
+
+                    <div class="app_form_group">
+                        <button type="submit" class="app_button cta">{{ 'play.invite.submit.label' | trans | capitalize }}</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <aside>
+            <h2>{{ 'pages.play.create.menu' | trans | capitalize }}</h2>
+
+            <span><i class="fas fa-scroll"></i> <strong>{{ gameName }}</strong></span>
+
+            <span><i class="fas fa-clock"></i> {{ formData['play_date'] | date('d/m/Y H:i') }}</span>
+
+            <span><i class="fas fa-eye"></i> {{ formData['play_visibility'] | capitalize }}</span>
+        </aside>
+    </article>
 {% endblock %}
 
 {% block javascripts %}
@@ -99,7 +88,6 @@
         window.addEventListener("DOMContentLoaded", () => {
             const playerAddInput = document.getElementById('invite_playername')
             const playerAddBtn = document.getElementById('invite_playeradd')
-
             playerAddBtn.addEventListener('click', event => {
                 event.preventDefault()
                 if (playerAddInput.value !== '') {

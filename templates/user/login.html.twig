@@ -1,57 +1,63 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ 'pages.login.title' | trans | capitalize }}{% endblock %}
+
 {% block body_class %}login{% endblock %}
 
 {% block body %}
-    <section class="login">
-        <main>
+    <article class="aside">
+        <section>
             <h1>{{ 'pages.login.title' | trans | capitalize }}</h1>
 
             {% if error %}
-                <div class="app-alert danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="app_alert danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
             {% if app.user %}
-                <div class="app-alert warning">
+                <div class="app_alert warning">
                     You are logged in as {{ app.user.username }},
                     <a href="{{ path('app_logout') }}">Logout</a>
                 </div>
             {% endif %}
 
-            <form class="app-form" method="post">
-                <div class="app-grid two">
-                    <div class="app-form-group app-grid-item">
-                        <input type="email" value="{{ last_username }}" name="login_email" id="login_email" class="app-form-control" autocomplete="email" required autofocus />
-                        <label for="login_email">{{ 'login.email.label' | trans | capitalize }}</label>
-                    </div>
+            <form class="app_form" method="post">
+                <div class="app_form_group">
+                    <input type="email" value="{{ last_username }}" name="login_email" id="login_email" class="app_form_control" placeholder="{{ 'login.email.placeholder' | trans }}" autocomplete="email" required autofocus />
+                    <label for="login_email">{{ 'login.email.label' | trans | capitalize }}</label>
+                </div>
 
-                    <div class="app-form-group app-grid-item">
-                        <input type="password" name="login_password" id="login_password" class="app-form-control" autocomplete="current-password" required />
-                        <label for="login_password">{{ 'login.password.label' | trans | capitalize }}</label>
-                    </div>
+                <div class="app_form_group">
+                    <input type="password" name="login_password" id="login_password" class="app_form_control" autocomplete="current-password" required />
+                    <label for="login_password">{{ 'login.password.label' | trans | capitalize }}</label>
                 </div>
 
                 {#
                 Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
                 See https://symfony.com/doc/current/security/remember_me.html
-
-                <div class="app-form-group">
+                <div class="app_form-group">
                     <div class="checkbox mb-3">
                         <label><input type="checkbox" name="_remember_me"> Remember me</label>
                     </div>
                 </div>
                 #}
 
-                <div class="app-form-group">
+                <div class="app_form_group mb_0">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
-                    <button class="app-button cta" type="submit">{{ 'login.submit.label' | trans | capitalize }}</button>
+                    <button class="app_button cta" type="submit">{{ 'login.submit.label' | trans | capitalize }}</button>
                 </div>
             </form>
+        </section>
 
-            <p class="text-center">
-                <a href="{{ path('app_forgot_password_request') }}" title="{{ 'pages.resetpassword.title' | trans | capitalize }}">{{ 'pages.resetpassword.menu' | trans | capitalize }}</a>
-            </p>
-        </main>
-    </section>
+        <aside>
+            <h2>{{ 'default.more' | trans | capitalize }}</h2>
+
+            <a href="{{ path('contact') }}" class="app_button cta" title="{{ 'pages.contact.title' | trans | capitalize }}">
+                {{ 'pages.login.aside.join' | trans | capitalize }}
+            </a>
+
+            <a href="{{ path('app_forgot_password_request') }}" class="app_button" title="{{ 'pages.forgot.title' | trans | capitalize }}">
+                {{ 'pages.forgot.menu' | trans | capitalize }}
+            </a>
+        </aside>
+    </article>
 {% endblock %}

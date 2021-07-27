@@ -1,11 +1,15 @@
 &.login {
-    .app-main {
-        section {
-            &.login {
-                .app-form {
-                    margin-bottom: 1.5rem;
-                }
-            }
+    .app_footer {
+        @include respond(sm) {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        @include respond(md) {
+            position: static;
+            width: auto;
         }
     }
 }

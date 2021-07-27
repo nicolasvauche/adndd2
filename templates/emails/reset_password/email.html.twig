@@ -43,12 +43,6 @@
             color: #155166;
         }
 
-        blockquote {
-            padding: 1.5rem 0.5rem;
-            color: #873608;
-            background-color: #fffaeb;
-        }
-
         footer {
             padding: 1rem 1.5rem;
             text-align: center;
@@ -64,24 +58,24 @@
     </header>
 
     <main>
-        <h1>Salut, {{ appConfig.getAppAuthor() }} !</h1>
+        <h1>Salut, {{ name }} !</h1>
 
         <p>
-            On a reçu un nouveau message !
+            Pour régénérer ton mot de passe, clique sur le lien ci-dessous :
             <br />
-            Maintenant, il faut le lire (voir ci-dessous), et y répondre vite vite !
+            <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
         </p>
 
-        <p>Voici le message de {{ mailData['name'] }} :</p>
-
-        <blockquote>
-            {{ mailData['message'] }}
-        </blockquote>
+        <p>
+            Mais fais vite !!
+            <br />
+            Ce lien expirera {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }} après son envoi.
+        </p>
     </main>
 
     <footer>
         <p>
-            Administrativement,
+            On te souhaite de belles parties :)
             <br />
             <a href="http://localhost:8080{{ path('home') }}" title="Aller sur le site">
                 <img src="http://localhost:8080{{ asset('assets/images/logo_adndd_full.png') }}" alt="{{ appConfig.getAppName() }}">

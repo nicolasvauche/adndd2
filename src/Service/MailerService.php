@@ -31,7 +31,7 @@ class MailerService
                 //->priority(Email::PRIORITY_HIGH)
                 ->subject('Ton message : ' . $mailData['subject'])
                 //->textTemplate('emails/contact/user.txt.twig')
-                ->htmlTemplate('emails/contact/user.html.twig')
+                ->htmlTemplate($mailData['htmlTemplate'])
                 ->context([
                     'mailData' => $mailData,
                 ]);
@@ -46,7 +46,7 @@ class MailerService
                 //->priority(Email::PRIORITY_HIGH)
                 ->subject('Nouveau message : ' . $mailData['subject'])
                 //->textTemplate('emails/contact/user.txt.twig')
-                ->htmlTemplate('emails/contact/admin.html.twig')
+                ->htmlTemplate($mailData['htmlTemplate'])
                 ->context([
                     'mailData' => $mailData,
                 ]);

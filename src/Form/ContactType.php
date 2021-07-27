@@ -20,7 +20,8 @@ class ContactType extends AbstractType
                     'required' => true,
                     'label' => 'contact.name.label',
                     'attr' => [
-                        'class' => 'app-form-control',
+                        'class' => 'app_form_control',
+                        'placeholder' => 'contact.name.placeholder',
                     ],
                 ])
             ->add('contact_email', EmailType::class,
@@ -28,7 +29,8 @@ class ContactType extends AbstractType
                     'required' => true,
                     'label' => 'contact.email.label',
                     'attr' => [
-                        'class' => 'app-form-control',
+                        'class' => 'app_form_control',
+                        'placeholder' => 'contact.email.placeholder',
                     ],
                 ])
             ->add('contact_subject', TextType::class,
@@ -36,7 +38,8 @@ class ContactType extends AbstractType
                     'required' => true,
                     'label' => 'contact.subject.label',
                     'attr' => [
-                        'class' => 'app-form-control',
+                        'class' => 'app_form_control',
+                        'placeholder' => 'contact.subject.placeholder',
                     ],
                 ])
             ->add('contact_message', TextareaType::class,
@@ -44,7 +47,8 @@ class ContactType extends AbstractType
                     'required' => true,
                     'label' => 'contact.message.label',
                     'attr' => [
-                        'class' => 'app-form-control',
+                        'class' => 'app_form_control',
+                        'placeholder' => 'contact.message.placeholder',
                         'rows' => 5,
                     ],
                 ])
@@ -52,7 +56,7 @@ class ContactType extends AbstractType
                 [
                     'label' => 'contact.submit.label',
                     'attr' => [
-                        'class' => 'app-button cta',
+                        'class' => 'app_button cta',
                     ],
                 ]);
     }
