@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Dice;
+use App\Entity\Diceset;
 use App\Entity\Game;
 use App\Entity\GameCategory;
 use App\Entity\GameRules;
@@ -14,6 +16,9 @@ class GameFixtures extends Fixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+        /**
+         * Default game
+         */
         $game1 = new Game();
         $game1->setName('Elric')
             ->setShortDescription("Elric! est un jeu de rôle médiéval fantastique se déroulant dans l'univers des Jeunes Royaumes (imaginé par Michael Moorcock dans sa saga éponyme), paru en 1993. Il est le successeur du jeu Stormbringer.")
@@ -40,11 +45,17 @@ EOF
             ->setIsActive(true);
         $manager->persist($game1);
 
+        /**
+         * Default game category
+         */
         $gameCategory1 = new GameCategory();
         $gameCategory1->setName('Heroïc Fantasy')
             ->addGame($game1);
         $manager->persist($gameCategory1);
 
+        /**
+         * Default game rules
+         */
         $gameRules1 = new GameRules();
         $gameRules1->setName('Le Livre des Règles')
             ->setFilename('regles_elric_fr.pdf')
@@ -57,10 +68,66 @@ EOF
             ->setGame($game1);
         $manager->persist($gameRules2);
 
+        /**
+         * Default game system
+         */
         $gameSystem1 = new GameSystem();
         $gameSystem1->setName('Chaosium')
             ->addGame($game1);
         $manager->persist($gameSystem1);
+
+        /**
+         * Default diceset
+         */
+        $diceset1 = new Diceset();
+        $diceset1->setName($gameSystem1->getName())
+            ->addGameSystem($gameSystem1);
+        $manager->persist($diceset1);
+
+        /**
+         * Default Dices
+         */
+        $dices = [
+            0 => [
+                'name' => 'D2',
+                'faces' => 2,
+            ],
+            1 => [
+                'name' => 'D4',
+                'faces' => 4,
+            ],
+            2 => [
+                'name' => 'D6',
+                'faces' => 6,
+            ],
+            3 => [
+                'name' => 'D8',
+                'faces' => 8,
+            ],
+            4 => [
+                'name' => 'D10',
+                'faces' => 10,
+            ],
+            5 => [
+                'name' => 'D12',
+                'faces' => 12,
+            ],
+            6 => [
+                'name' => 'D20',
+                'faces' => 20,
+            ],
+            7 => [
+                'name' => 'D100',
+                'faces' => 100,
+            ],
+        ];
+        foreach ($dices as $key => $dice) {
+            $newDice = new Dice();
+            $newDice->setName($dice['name'])
+                ->setFaces($dice['faces'])
+                ->addDiceset($diceset1);
+            $manager->persist($newDice);
+        }
 
         $manager->flush();
     }

@@ -29,6 +29,11 @@ class GameSystem
      */
     private $games;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Diceset::class, inversedBy="gameSystem")
+     */
+    private $diceset;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
@@ -77,6 +82,18 @@ class GameSystem
                 $game->setGameSystem(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDiceset(): ?Diceset
+    {
+        return $this->diceset;
+    }
+
+    public function setDiceset(?Diceset $diceset): self
+    {
+        $this->diceset = $diceset;
 
         return $this;
     }
