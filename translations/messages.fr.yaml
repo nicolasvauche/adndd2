@@ -3,6 +3,7 @@ default:
   more: "Toujours plus…"
   copyrights: "tous droits réservés"
   cancel: "annuler"
+  back: "retour"
 pages:
   login:
     menu: "connexion"
@@ -126,3 +127,6 @@ play:
       private: "privée"
     submit:
       label: "créer la table"
+  invite:
+    submit:
+      label: "inviter & Créer"

@@ -9,15 +9,91 @@
         <section>
             <h1>{{ 'pages.play.invite.title' | trans | capitalize }}</h1>
 
+            <form class="app_form" method="post" action="{{ path('play.invite') }}">
+                <div class="app_form_group button">
+                    <input type="text" id="invite_playername" name="invite_playername" class="app_form_control" />
+                    <button id="invite_playeradd">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <label for="invite_playername">Rechercher un joueur</label>
+                </div>
 
+                <div class="invited app_grid five">
+                    <div class="app_grid_item">
+                        <a href="#" title="Enlever cette invitation">
+                            <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
+                            <span class="app_grid_item_title">Un Invité</span>
+                        </a>
+                    </div>
+
+                    <div class="app_grid_item">
+                        <a href="#" title="Enlever cette invitation">
+                            <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
+                            <span class="app_grid_item_title">Un Autre</span>
+                        </a>
+                    </div>
+
+                    <div class="app_grid_item">
+                        <a href="#" title="Enlever cette invitation">
+                            <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
+                            <span class="app_grid_item_title">Encore Un</span>
+                        </a>
+                    </div>
+
+                    <div class="app_grid_item">
+                        <a href="#" title="Enlever cette invitation">
+                            <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
+                            <span class="app_grid_item_title">Un Dernier</span>
+                        </a>
+                    </div>
+
+                    <div class="app_grid_item placehold">
+                        <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
+                        <span class="app_grid_item_title">Libre</span>
+                    </div>
+                </div>
+
+                <p class="info">Cliquez sur une invitation pour l'enlever ;)</p>
+
+                <div class="app_form_group">
+                    <input type="hidden" name="invite_game_id" value="{{ gameId }}" />
+                </div>
+
+                <div class="app_grid two mb_0">
+                    <div class="app_form_group">
+                        <a href="javascript:history.back();" class="app_button">{{ 'default.back' | trans | capitalize }}</a>
+                    </div>
+
+                    <div class="app_form_group">
+                        <button type="submit" class="app_button cta">{{ 'play.invite.submit.label' | trans | capitalize }}</button>
+                    </div>
+                </div>
+            </form>
         </section>
 
         <aside>
             <h2>{{ 'pages.play.create.menu' | trans | capitalize }}</h2>
 
-            <span><i class="fas fa-scroll"></i> {{ gameName }}</span>
+            <span><i class="fas fa-scroll"></i> <strong>{{ gameName }}</strong></span>
 
             <span><i class="fas fa-clock"></i> {{ formData['play_date'] | date('d/m/Y H:i') }}</span>
+
+            <span><i class="fas fa-eye"></i> {{ formData['play_visibility'] | capitalize }}</span>
         </aside>
     </article>
+{% endblock %}
+
+{% block javascripts %}
+    <script defer>
+        window.addEventListener("DOMContentLoaded", () => {
+            const playerAddInput = document.getElementById('invite_playername')
+            const playerAddBtn = document.getElementById('invite_playeradd')
+            playerAddBtn.addEventListener('click', event => {
+                event.preventDefault()
+                if (playerAddInput.value !== '') {
+                    alert('Ajouter ' + playerAddInput.value)
+                }
+            })
+        })
+    </script>
 {% endblock %}

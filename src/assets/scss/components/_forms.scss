@@ -35,6 +35,31 @@
         flex-direction: column;
         margin-bottom: 1.5rem;
 
+        &.button {
+            position: relative;
+
+            button {
+                display: inline;
+                position: absolute;
+                top: 1.75rem;
+                right: 0.5rem;
+                padding: 0.5rem;
+                font-family: $font-family-secondary;
+                font-weight: 600;
+                text-decoration: none;
+                text-align: center;
+                color: $color-fg-primary;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+
+                @include respond(sm){
+                    top: 2.4rem;
+                    right: 0.5rem;
+                }
+            }
+        }
+
         .app_form_control {
             order: 2;
             display: block;
