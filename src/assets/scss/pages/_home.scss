@@ -41,6 +41,19 @@
                 }
             }
 
+            &.games {
+                .app_grid {
+                    .app_grid_item {
+                        background-color: transparent;
+                        box-shadow: none;
+
+                        .app_grid_item_image {
+                            box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
+                        }
+                    }
+                }
+            }
+
             &.play {
                 position: relative;
                 background-color: $color-orange;

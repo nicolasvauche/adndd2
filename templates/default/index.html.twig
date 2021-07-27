@@ -14,25 +14,36 @@
             <a href="{{ path('about') }}" class="app_button cta" title="{{ 'pages.about.menu' | trans | capitalize }}">{{ 'pages.about.title' | trans | capitalize }}</a>
         </section>
 
-        <section class="games">
-            <div class="app_grid three app_slider xs">
-                <div class="app_grid_item app_slider_item">
-                    <img src="{{ asset('assets/images/games/cover_add.png') }}" class="app_grid_item_image" alt="Donjons & Dragons" />
+        {% if games | length > 0 %}
+            <section class="games">
+                <div class="app_grid four app_slider xs">
+                    {% for game in games %}
+                        <div class="app_grid_item app_slider_item">
+                            <img src="{{ asset('assets/images/games/' ~ game.media) }}" class="app_grid_item_image" alt="{{ game.name }}" />
+                        </div>
+                    {% endfor %}
+
+                    <div class="app_grid_item app_slider_item">
+                        <img src="{{ asset('assets/images/games/cover_add.png') }}" class="app_grid_item_image" alt="Donjons & Dragons" />
+                    </div>
+
+                    <div class="app_grid_item app_slider_item">
+                        <img src="{{ asset('assets/images/games/cover_cob.png') }}" class="app_grid_item_image" alt="Chroniques Oubliées" />
+                    </div>
+
+                    <div class="app_grid_item app_slider_item">
+                        <img src="{{ asset('assets/images/games/cover_cth.png') }}" class="app_grid_item_image" alt="L'appel de Cthulhu" />
+                    </div>
                 </div>
 
-                <div class="app_grid_item app_slider_item">
-                    <img src="{{ asset('assets/images/games/cover_cob.png') }}" class="app_grid_item_image" alt="Chroniques Oubliées" />
-                </div>
+                <h2>
+                    {{ games | length }} jeu{{ games | length > 1 ? 'x' : ''}} disponible{{ games | length > 1 ? 'x' : ''}} !
+                    <small>(et 3 faux)</small>
+                </h2>
 
-                <div class="app_grid_item app_slider_item">
-                    <img src="{{ asset('assets/images/games/cover_cth.png') }}" class="app_grid_item_image" alt="L'appel de Cthulhu" />
-                </div>
-            </div>
-
-            <h2>3 jeux disponibles !</h2>
-
-            <a href="{{ path('games') }}" class="app_button cta" title="{{ 'pages.games.menu' | trans | capitalize }}">{{ 'pages.games.title' | trans | capitalize }}</a>
-        </section>
+                <a href="{{ path('games') }}" class="app_button cta" title="{{ 'pages.games.menu' | trans | capitalize }}">{{ 'pages.games.title' | trans | capitalize }}</a>
+            </section>
+        {% endif %}
 
         <section class="play">
             <img src="{{ asset('assets/images/home_games.png') }}" alt="{{ appConfig.getAppName() }}" />
