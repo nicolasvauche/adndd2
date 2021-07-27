@@ -345,11 +345,25 @@ EOF
         $cms4->setTitle('Qui sommes-nous ?')
             ->setContent(
                 <<<EOF
-<p> L'association “Ah ! D & Dédé !” est un club de jeu de rôles qui existe depuis septembre 2018, sous la forme d’une association loi 1901. La majorité des jeux couverts par l’association sont des jeux de rôles sur table appartenant en grande partie à ses membres. Elle propose également quelques jeux de société qu\'elle possède.</p>
-<img src="/assets/images/association/association1.jpg" alt="image de association 1" />
-<p> Située au coeur de la ville de Guéret dans la Creuse, elle réunit une vingtaine de membres réguliers qui vivent des aventures imaginaires de façon hebdomadaire, parfois lors de sessions uniques, mais aussi sous forme de grandes campagnes de jeu tel que le célèbre Donjons et Dragons.</p>
-<img src="/assets/images/association/association2.jpg" alt="image de association 2" />
-<p> Nous sommes une bande d\'amis amateurs du lancé de dés et de belles histoires, tantôt angoissantes, tantôt comiques, d\'aventures sérieuses ou farfelues qui aimont se retrouver autour d\'une table pour partager de bons moments, sans oublier pizza et sodas en tous genres !</p>
+<p>
+    L'association &laquo;Ah ! D & Dédé !&raquo; est un club de
+    <strong>jeux de rôles</strong>
+    qui existe depuis septembre 2018, sous la forme d’une association loi 1901. La majorité des jeux couverts par l’association sont des jeux de rôles sur table appartenant en grande partie à ses membres. Elle propose également quelques
+    <strong>jeux de société</strong>
+    qu'elle possède.
+</p>
+<p>
+    <img src="/assets/images/about_members.jpg" alt="Les membres de l'association" class="app_image" />
+</p>
+<p>
+    Située au cœur de la ville de <strong>Guéret</strong> dans la <strong>Creuse</strong>, elle réunit une vingtaine de membres réguliers qui vivent des <strong>aventures imaginaires</strong> de façon hebdomadaire, parfois lors de sessions uniques, mais aussi sous forme de grandes <strong>campagnes de jeux</strong> tels que le célèbre <strong>Donjons et Dragons</strong>.
+</p>
+<p>
+    <img src="/assets/images/about_gaming.jpg" alt="Les parties de jeux de rôles" class="app_image" />
+</p>
+<p>
+    Nous sommes une bande d'amis amateurs du <strong>lancer de dés</strong> et de belles <strong>histoires</strong>, tantôt angoissantes, tantôt comiques, d'aventures sérieuses ou farfelues, et qui aimons nous retrouver autour d'une table pour partager de bons moments, sans oublier pizza et sodas en tous genres !
+</p>
 EOF
             )
             ->setType("about")
