@@ -67,6 +67,12 @@ class Game
      */
     private $gameRules;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=GameSystem::class, inversedBy="games")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $gameSystem;
+
     public function __construct()
     {
         $this->gameRules = new ArrayCollection();
@@ -199,6 +205,18 @@ class Game
                 $gameRule->setGame(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGameSystem(): ?GameSystem
+    {
+        return $this->gameSystem;
+    }
+
+    public function setGameSystem(?GameSystem $gameSystem): self
+    {
+        $this->gameSystem = $gameSystem;
 
         return $this;
     }

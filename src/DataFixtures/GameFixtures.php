@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Game;
 use App\Entity\GameCategory;
 use App\Entity\GameRules;
+use App\Entity\GameSystem;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -55,6 +56,11 @@ EOF
             ->setFilename('rules_elric_en.pdf')
             ->setGame($game1);
         $manager->persist($gameRules2);
+
+        $gameSystem1 = new GameSystem();
+        $gameSystem1->setName('Chaosium')
+            ->addGame($game1);
+        $manager->persist($gameSystem1);
 
         $manager->flush();
     }

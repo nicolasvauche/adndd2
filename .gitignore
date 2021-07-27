@@ -4,6 +4,7 @@
 .sass-cache
 /public/assets/css/*
 !/public/assets/css/.gitignore
+/public/assets/gamerules/
 
 ###> symfony/framework-bundle ###
 /.env.local
