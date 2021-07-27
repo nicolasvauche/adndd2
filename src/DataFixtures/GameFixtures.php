@@ -44,6 +44,7 @@ EOF
             ->setMedia('cover_elric.jpg')
             ->setIsActive(true);
         $manager->persist($game1);
+        $this->addReference('game1', $game1);
 
         /**
          * Default game category

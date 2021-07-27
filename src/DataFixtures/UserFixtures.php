@@ -33,6 +33,7 @@ class UserFixtures
             ->setIsActive(true)
             ->setActivatedAt(new \DateTime());
         $manager->persist($user);
+        $this->addReference('user1', $user);
 
         // Player account
         $matt = new User();
