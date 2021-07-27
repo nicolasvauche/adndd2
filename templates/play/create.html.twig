@@ -21,11 +21,11 @@
                 </div>
 
                 <div class="app_form_group">
-                    <select name="play_private" id="play_private" class="app_form_control" required>
-                        <option value="false">{{ 'play.game.visibility.public' | trans | capitalize }}</option>
-                        <option value="true">{{ 'play.game.visibility.private' | trans | capitalize }}</option>
+                    <select name="play_visibility" id="play_visibility" class="app_form_control" required>
+                        <option value="{{ 'play.game.visibility.public' | trans }}">{{ 'play.game.visibility.public' | trans | capitalize }}</option>
+                        <option value="{{ 'play.game.visibility.private' | trans }}">{{ 'play.game.visibility.private' | trans | capitalize }}</option>
                     </select>
-                    <label for="play_private">{{ 'play.game.visibility.title' | trans | capitalize }}</label>
+                    <label for="play_visibility">{{ 'play.game.visibility.title' | trans | capitalize }}</label>
                 </div>
 
                 <div class="app_form_group">
