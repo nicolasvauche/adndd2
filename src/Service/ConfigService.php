@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Repository\CmsRepository;
 use App\Repository\ConfigRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
@@ -11,11 +12,13 @@ class ConfigService
 {
 
     private $configRepository;
+    private $cmsRepository;
     private $locale;
 
-    public function __construct(ConfigRepository $configRepository, TranslatorInterface $translator)
+    public function __construct(ConfigRepository $configRepository, CmsRepository $cmsRepository, TranslatorInterface $translator)
     {
         $this->configRepository = $configRepository;
+        $this->cmsRepository = $cmsRepository;
         $defaultLocale = $this->configRepository->findOneByName('app_locale');
         $this->locale = $defaultLocale;
         $translator->setLocale($this->locale);
@@ -63,5 +66,10 @@ class ConfigService
     public function getAppEmail()
     {
         return $this->configRepository->findOneByName('app_email');
+    }
+
+    public function getLegals()
+    {
+        return $this->cmsRepository->findBy(['type' => 'legal']);
     }
 }
