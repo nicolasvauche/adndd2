@@ -72,18 +72,16 @@
         </nav>
     </div>
 
-    <div class="app_footer_links legals">
+    {% if appConfig.getLegals() %}
         {% set slug = app.request.get('slug') %}
-        <a href="{{ path('legal', {'slug': 'mentions-legales'}) }}" {% if slug == 'mentions-legales' %}class="active"{% endif %} title="{{ 'pages.legals.mentions.title' | trans | capitalize }}">
-            {{ 'pages.legals.mentions.menu' | trans | capitalize }}
-        </a>
-        <a href="{{ path('legal', {'slug': 'conditions-generales-dutilisation'}) }}" {% if slug == 'conditions-generales-dutilisation' %}class="active"{% endif %} title="{{ 'pages.legals.ugc.title' | trans | capitalize }}">
-            {{ 'pages.legals.ugc.menu' | trans | capitalize }}
-        </a>
-        <a href="{{ path('legal', {'slug': 'confidentialite-et-cookies'}) }}" {% if slug == 'confidentialite-et-cookies' %}class="active"{% endif %} title="{{ 'pages.legals.privacy.title' | trans | capitalize }}">
-            {{ 'pages.legals.privacy.menu' | trans | capitalize }}
-        </a>
-    </div>
+        <div class="app_footer_links legals">
+            {% for legal in appConfig.getLegals() %}
+                <a href="{{ path('legal', {'slug': legal.slug}) }}" {% if slug == legal.slug %}class="active"{% endif %} title="{{ legal.title }}">
+                    {{ legal.title }}
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <a href="{{ path('home') }}" class="app_logo" title="{{ 'pages.home.title' | trans | capitalize }}">
         <img src="{{ asset('assets/images/logo_adndd_full.png') }}" alt="{{ appConfig.getAppName() }}" />
