@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -59,6 +61,16 @@ class Game
      * @ORM\JoinColumn(nullable=false)
      */
     private $gameCategory;
+
+    /**
+     * @ORM\OneToMany(targetEntity=GameRules::class, mappedBy="game")
+     */
+    private $gameRules;
+
+    public function __construct()
+    {
+        $this->gameRules = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -157,6 +169,36 @@ class Game
     public function setGameCategory(?GameCategory $gameCategory): self
     {
         $this->gameCategory = $gameCategory;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GameRules[]
+     */
+    public function getGameRules(): Collection
+    {
+        return $this->gameRules;
+    }
+
+    public function addGameRule(GameRules $gameRule): self
+    {
+        if (!$this->gameRules->contains($gameRule)) {
+            $this->gameRules[] = $gameRule;
+            $gameRule->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGameRule(GameRules $gameRule): self
+    {
+        if ($this->gameRules->removeElement($gameRule)) {
+            // set the owning side to null (unless already changed)
+            if ($gameRule->getGame() === $this) {
+                $gameRule->setGame(null);
+            }
+        }
 
         return $this;
     }

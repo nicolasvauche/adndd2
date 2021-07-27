@@ -35,7 +35,7 @@
                             {% endif %}
                         </div>
                     </div>
-                    {% if app.user %}
+                    {% if app.user and game.gameRules | length > 0 %}
                         <div class="app_modal" id="gamerules-{{ game.id }}">
                             <div class="app_modal_box">
                                 <button class="app_button app_modal_close">
@@ -45,15 +45,13 @@
                                     <h2 class="app_modal_title">{{ game.name }}
                                         <small>Règles du jeu</small>
                                     </h2>
-                                    <p>
-                                        <a href="test.pdf" class="app_button" target="_blank" rel="noopener noreferrer" title="Livre des Règles">Le livre des Règles</a>
-                                    </p>
-                                    <p>
-                                        <a href="test.pdf" class="app_button" target="_blank" rel="noopener noreferrer" title="Livre du Joueur">Le livre du Joueur</a>
-                                    </p>
-                                    <p>
-                                        <a href="test.pdf" class="app_button" target="_blank" rel="noopener noreferrer" title="Livre des Créatures">Le livre des Créatures</a>
-                                    </p>
+                                    {% for gameRules in game.gameRules %}
+                                        <p>
+                                            <a href="{{ asset('assets/gamerules/' ~ gameRules.filename) }}" class="app_button" target="_blank" rel="noopener noreferrer" title="{{ gameRules.name }}">
+                                                {{ gameRules.name }}
+                                            </a>
+                                        </p>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

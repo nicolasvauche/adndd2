@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Game;
 use App\Entity\GameCategory;
+use App\Entity\GameRules;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -38,10 +39,22 @@ EOF
             ->setIsActive(true);
         $manager->persist($game1);
 
-        $category1 = new GameCategory();
-        $category1->setName('Heroïc Fantasy')
+        $gameCategory1 = new GameCategory();
+        $gameCategory1->setName('Heroïc Fantasy')
             ->addGame($game1);
-        $manager->persist($category1);
+        $manager->persist($gameCategory1);
+
+        $gameRules1 = new GameRules();
+        $gameRules1->setName('Le Livre des Règles')
+            ->setFilename('regles_elric_fr.pdf')
+            ->setGame($game1);
+        $manager->persist($gameRules1);
+
+        $gameRules2 = new GameRules();
+        $gameRules2->setName('The Core Book')
+            ->setFilename('rules_elric_en.pdf')
+            ->setGame($game1);
+        $manager->persist($gameRules2);
 
         $manager->flush();
     }
