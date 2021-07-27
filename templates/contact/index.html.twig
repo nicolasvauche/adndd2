@@ -114,7 +114,7 @@
         window.addEventListener("DOMContentLoaded", () => {
             const mymap = L.map('map').setView([46.1655469, 1.8708914], 15)
             const marker = L.marker([46.1655469, 1.8708914],).addTo(mymap)
-            marker.bindPopup("<strong>Ah! D & Dédé</strong><br />22 Avenue de la Sénatorerie<br />23000 Guéret, France").openPopup()
+            marker.bindPopup("<h4 class='mb_0'>{{ appConfig.getAppName() }}</h4>{{ appOrganization.getAddress1() }}<br />{{ appOrganization.getZipcode() }} {{ appOrganization.getCity() }}, {{ appOrganization.getCountry() }}").openPopup()
             marker.addEventListener('click', () => {
                 marker.openPopup()
             })
