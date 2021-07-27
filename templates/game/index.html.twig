@@ -16,7 +16,7 @@
                         <div class="app_grid_item_header">
                             <img src="{{ asset('assets/images/games/' ~ game.media) }}" alt="{{ game.name }}" class="app_grid_item_image" />
                             <h3 class="app_grid_item_title">{{ game.name }}</h3>
-                            <h4 class="app_grid_item_subtitle">[ game.category.name ]</h4>
+                            <h4 class="app_grid_item_subtitle">{{ game.gameCategory.name }}</h4>
                             <p class="app_grid_item_info excerpt {% if app.user %}mb_0{% endif %}">
                                 {{ game.shortDescription }}
                             </p>

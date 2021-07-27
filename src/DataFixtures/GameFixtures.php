@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Game;
+use App\Entity\GameCategory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -35,8 +36,12 @@ EOF
             )
             ->setMedia('cover_elric.jpg')
             ->setIsActive(true);
-
         $manager->persist($game1);
+
+        $category1 = new GameCategory();
+        $category1->setName('Heroïc Fantasy')
+            ->addGame($game1);
+        $manager->persist($category1);
 
         $manager->flush();
     }

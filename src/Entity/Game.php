@@ -54,6 +54,12 @@ class Game
      */
     private $isActive;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=GameCategory::class, inversedBy="games")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $gameCategory;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -139,6 +145,18 @@ class Game
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getGameCategory(): ?GameCategory
+    {
+        return $this->gameCategory;
+    }
+
+    public function setGameCategory(?GameCategory $gameCategory): self
+    {
+        $this->gameCategory = $gameCategory;
 
         return $this;
     }
