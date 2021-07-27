@@ -18,19 +18,19 @@ class Faq
     private $id;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
     private $question;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
     private $answer;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
-    private $Number;
+    private $position;
 
     public function getId(): ?int
     {
@@ -51,7 +51,7 @@ class Faq
 
     public function getAnswer(): ?string
     {
-        return $this->response;
+        return $this->answer;
     }
 
     public function setAnswer(?string $response): self
@@ -61,14 +61,14 @@ class Faq
         return $this;
     }
 
-    public function getNumber(): ?int
+    public function getPosition(): ?int
     {
-        return $this->Number;
+        return $this->position;
     }
 
-    public function setNumber(?int $Number): self
+    public function setPosition(?int $position): self
     {
-        $this->Number = $Number;
+        $this->position = $position;
 
         return $this;
     }
