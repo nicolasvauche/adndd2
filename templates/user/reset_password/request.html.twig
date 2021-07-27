@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{{ 'pages.resetpassword.title' | trans | capitalize }}{% endblock %}
+
+{% block body_class %}login{% endblock %}
+
+{% block body %}
+    <article class="aside">
+        <section>
+            <h1>{{ 'pages.resetpassword.title' | trans | capitalize }}</h1>
+
+            {% for flashError in app.flashes('reset_password_error') %}
+                <div class="app_alert danger" role="alert">{{ flashError }}</div>
+            {% endfor %}
+
+            <div class="app_alert">{{ 'resetpassword.email.info' | trans | capitalize }}</div>
+
+            {{ form_start(requestForm, {'attr': {'class': 'app_form'}}) }}
+            <div class="app_form_group">
+                {{ form_widget(requestForm.email, {'attr': {'class': 'app_form_control'}}) }}
+                <label for="{{ requestForm.email.vars.id }}">{{ requestForm.email.vars.label | trans | capitalize }}</label>
+            </div>
+
+            <div class="app_form_group mb_0">
+                <button class="app_button cta">{{ 'resetpassword.submit.label' | trans | capitalize }}</button>
+            </div>
+            {{ form_end(requestForm) }}
+        </section>
+
+        <aside>
+            <h2>{{ 'default.more' | trans | capitalize }}</h2>
+
+            <a href="{{ path('contact') }}" class="app_button cta" title="{{ 'pages.contact.title' | trans | capitalize }}">
+                {{ 'pages.login.aside.join' | trans | capitalize }}
+            </a>
+
+            <a href="{{ path('app_login') }}" class="app_button" title="{{ 'pages.login.title' | trans | capitalize }}">
+                {{ 'pages.login.menu' | trans | capitalize }}
+            </a>
+        </aside>
+    </article>
+{% endblock %}

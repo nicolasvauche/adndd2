@@ -1,27 +1,18 @@
 &.faq {
-    .app-main {
+    article {
         section {
-            &.faq {
-                dl {
-                    dt {
-                        margin-bottom: 0.5rem;
-                        font-family: $font-family-secondary;
-                        font-size: 1.5rem;
-                        text-transform: uppercase;
-                        font-weight: bold;
-                        line-height: 2rem;
-                        text-align: center;
-                        color: $color-bg-fifth;
-                        text-shadow: 1px 1px 1px rgba($color-fg-primary, 0.25);
+            dl {
+                dt {
+                    margin-bottom: 0.5rem;
+                    font-family: $font-family-secondary;
+                    font-size: 1.25rem;
+                    text-transform: uppercase;
+                    color: $color-bg-alt;
+                    text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color-alt;
+                }
 
-                        @include respond(sm) {
-                            text-align: left;
-                        }
-                    }
-
-                    dd {
-                        margin-bottom: 2rem;
-                    }
+                dd {
+                    margin-bottom: 3rem;
                 }
             }
         }

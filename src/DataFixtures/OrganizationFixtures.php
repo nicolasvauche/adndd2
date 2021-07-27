@@ -15,6 +15,7 @@ class OrganizationFixtures extends Fixture implements OrderedFixtureInterface
         $org = new Organization();
         $org->setTelephone('+33 1 23 45 67 89')
             ->setAddress1('22 avenue de la Sénatorerie')
+            ->setZipcode('23000')
             ->setCity('Guéret')
             ->setCountry('France')
             ->setFacebook('https://www.facebook.com')

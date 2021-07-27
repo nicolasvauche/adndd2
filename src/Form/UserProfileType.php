@@ -22,7 +22,7 @@ class UserProfileType extends AbstractType
                     'label' => 'user.profile.email.label',
                     'attr' => [
                         'autocomplete' => 'email',
-                        'class' => 'app-form-control',
+                        'class' => 'app_form_control',
                     ],
                 ])
             ->add('gender', ChoiceType::class,
@@ -30,10 +30,9 @@ class UserProfileType extends AbstractType
                     'required' => false,
                     'label' => 'user.profile.gender.label',
                     'attr' => [
-                        'class' => 'app-form-control',
+                        'class' => 'app_form_control',
                     ],
                     'choices' => [
-                        ' ' => null,
                         'Mme' => 'mme',
                         'Mr' => 'mr',
                     ],
@@ -42,14 +41,14 @@ class UserProfileType extends AbstractType
                 [
                     'label' => 'user.profile.firstname.label',
                     'attr' => [
-                        'class' => 'app-form-control',
+                        'class' => 'app_form_control',
                     ],
                 ])
             ->add('lastname', TextType::class,
                 [
                     'label' => 'user.profile.lastname.label',
                     'attr' => [
-                        'class' => 'app-form-control',
+                        'class' => 'app_form_control',
                     ],
                 ])
             ->add('pseudo', TextType::class,
@@ -57,14 +56,14 @@ class UserProfileType extends AbstractType
                     'required' => false,
                     'label' => 'user.profile.pseudo.label',
                     'attr' => [
-                        'class' => 'app-form-control',
+                        'class' => 'app_form_control',
                     ],
                 ])
             ->add('submit', SubmitType::class,
                 [
                     'label' => 'user.profile.submit.label',
                     'attr' => [
-                        'class' => 'app-button cta',
+                        'class' => 'app_button cta',
                     ],
                 ]);
     }

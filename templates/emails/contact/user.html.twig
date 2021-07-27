@@ -39,6 +39,10 @@
             padding: 0.5rem 1.5rem;
         }
 
+        a {
+            color: #155166;
+        }
+
         blockquote {
             padding: 1.5rem 0.5rem;
             color: #873608;
@@ -55,7 +59,7 @@
 
     <header>
         <a href="http://localhost:8080{{ path('home') }}" title="Aller sur le site">
-            <img src="http://localhost:8080{{ asset('assets/images/logo-adndd.png') }}" alt="{{ appConfig.getAppName() }}">
+            <img src="http://localhost:8080{{ asset('assets/images/logo_adndd.png') }}" alt="{{ appConfig.getAppName() }}">
         </a>
     </header>
 
@@ -80,7 +84,7 @@
             On te souhaite de belles parties :)
             <br />
             <a href="http://localhost:8080{{ path('home') }}" title="Aller sur le site">
-                <img src="http://localhost:8080{{ asset('assets/images/logo_adndd_footer.png') }}" alt="{{ appConfig.getAppName() }}">
+                <img src="http://localhost:8080{{ asset('assets/images/logo_adndd_full.png') }}" alt="{{ appConfig.getAppName() }}">
             </a>
             <br />
             {{ appConfig.getAppAuthor() }}

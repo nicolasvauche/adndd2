@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\LoginType;
 use App\Form\UserPasswordType;
 use App\Form\UserProfileType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +22,7 @@ class UserController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('target_path');
+            return $this->redirectToRoute('home');
         }
 
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -30,7 +31,7 @@ class UserController extends AbstractController
         return $this->render('user/login.html.twig',
             [
                 'last_username' => $lastUsername,
-                'error' => $error
+                'error' => $error,
             ]
         );
     }
@@ -59,7 +60,7 @@ class UserController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'votre profil a été sauvegardé');
+            $this->addFlash('success', 'ton profil a été sauvegardé');
 
             return $this->redirect($request->getUri());
         } else {
@@ -76,7 +77,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/modifier-ton-mot-de-passe", name="user.password")
+     * @Route("/modifie-ton-mot-de-passe", name="user.password")
      */
     public function password(Request $request, EntityManagerInterface $manager, ValidatorInterface $validator, UserPasswordEncoderInterface $encoder): Response
     {
@@ -91,7 +92,7 @@ class UserController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash('success', 'votre mot de passe a été modifié');
+            $this->addFlash('success', 'ton mot de passe a été modifié');
 
             return $this->render('user/profile.html.twig',
                 [

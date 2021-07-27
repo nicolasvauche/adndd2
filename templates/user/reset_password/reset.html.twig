@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{{ 'pages.resetpassword.title' | trans | capitalize }}{% endblock %}
+
+{% block body_class %}login{% endblock %}
+
+{% block body %}
+    <article class="aside">
+        <section>
+            <h1>{{ 'pages.resetpassword.title' | trans | capitalize }}</h1>
+
+            {% set formErrors = resetForm.plainPassword.first.vars.errors.form.getErrors(true) %}
+
+            {% if formErrors | length %}
+                <div class="app_alert danger" role="alert">
+                    {% for error in formErrors %}
+                        {{ error.message | trans | capitalize }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {{ form_start(resetForm, {'attr': {'class': 'app_form'}}) }}
+            <div class="app_form_group">
+                {{ form_widget(resetForm.plainPassword.first, {'attr': {'class': 'app_form_control'}}) }}
+                <label for="{{ resetForm.plainPassword.first.vars.id }}">{{ resetForm.plainPassword.first.vars.label | trans | capitalize }}</label>
+            </div>
+            <div class="app_form_group">
+                {{ form_widget(resetForm.plainPassword.second, {'attr': {'class': 'app_form_control'}}) }}
+                <label for="{{ resetForm.plainPassword.second.vars.id }}">{{ resetForm.plainPassword.second.vars.label | trans | capitalize }}</label>
+            </div>
+
+            <div class="app_form_group mb_0">
+                <button class="app_button cta">{{ 'resetpassword.reset.submit.label' | trans | capitalize }}</button>
+            </div>
+            {{ form_end(resetForm) }}
+        </section>
+
+        <aside>
+            <h2>{{ 'default.more' | trans | capitalize }}</h2>
+
+            <a href="{{ path('contact') }}" class="app_button cta" title="{{ 'pages.contact.title' | trans | capitalize }}">
+                {{ 'pages.login.aside.join' | trans | capitalize }}
+            </a>
+
+            <a href="{{ path('app_login') }}" class="app_button" title="{{ 'pages.login.title' | trans | capitalize }}">
+                {{ 'pages.login.menu' | trans | capitalize }}
+            </a>
+        </aside>
+    </article>
+{% endblock %}

@@ -1,117 +1,98 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ 'pages.contact.title' | trans | capitalize }}{% endblock %}
+
 {% block body_class %}contact{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-{% endblock %}
-
 {% block body %}
-    <section class="contact">
-        <div class="app-grid">
-            <main class="app-grid-item">
-                <h1>{{ 'pages.contact.title' | trans | capitalize }}</h1>
+    <article class="aside">
+        <section>
+            <h1>{{ 'pages.contact.title' | trans | capitalize }}</h1>
 
-                <!-- Flash messages -->
-                {% for label, messages in app.flashes %}
-                    {% for message in messages %}
-                        {% if loop.first %}
-                            <div class="app-alert {{ label }}">
-                                {{ message | trans | capitalize }}
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+            <!-- Flash messages -->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    {% if loop.first %}
+                        <div class="app_alert {{ label }}">
+                            {{ message | trans | capitalize }}
+                        </div>
+                    {% endif %}
                 {% endfor %}
+            {% endfor %}
 
-                {{ form_start(form, { attr: { 'class': 'app-form'}}) }}
-                <div class="app-form-group">
-                    {{ form_widget(form.contact_name, {'value' : app.user ? app.user.fullname : ''}) }}
-                    <label for="{{ form.contact_name.vars.id }}">{{ form.contact_name.vars.label | trans | capitalize }}</label>
-                </div>
+            {{ form_start(form, { attr: { 'class': 'app_form'}}) }}
+            <div class="app_form_group">
+                {{ form_widget(form.contact_name, {'value' : app.user ? app.user.fullname : ''}) }}
+                <label for="{{ form.contact_name.vars.id }}">{{ form.contact_name.vars.label | trans | capitalize }}</label>
+            </div>
 
-                <div class="app-form-group">
-                    {{ form_widget(form.contact_email, {'value' : app.user ? app.user.email : ''}) }}
-                    <label for="{{ form.contact_email.vars.id }}">{{ form.contact_email.vars.label | trans | capitalize }}</label>
-                </div>
+            <div class="app_form_group">
+                {{ form_widget(form.contact_email, {'value' : app.user ? app.user.email : ''}) }}
+                <label for="{{ form.contact_email.vars.id }}">{{ form.contact_email.vars.label | trans | capitalize }}</label>
+            </div>
 
-                <div class="app-form-group">
-                    {{ form_widget(form.contact_subject) }}
-                    <label for="{{ form.contact_subject.vars.id }}">{{ form.contact_subject.vars.label | trans | capitalize }}</label>
-                </div>
+            <div class="app_form_group">
+                {{ form_widget(form.contact_subject) }}
+                <label for="{{ form.contact_subject.vars.id }}">{{ form.contact_subject.vars.label | trans | capitalize }}</label>
+            </div>
 
-                <div class="app-form-group">
-                    {{ form_widget(form.contact_message) }}
-                    <label for="{{ form.contact_message.vars.id }}">{{ form.contact_message.vars.label | trans | capitalize }}</label>
-                </div>
+            <div class="app_form_group">
+                {{ form_widget(form.contact_message) }}
+                <label for="{{ form.contact_message.vars.id }}">{{ form.contact_message.vars.label | trans | capitalize }}</label>
+            </div>
 
-                <div class="app-form-group mb-0">
-                    {{ form_widget(form.submit) }}
-                </div>
-                {{ form_end(form) }}
-            </main>
+            <div class="app_form_group mb_0">
+                {{ form_widget(form.submit) }}
+            </div>
+            {{ form_end(form) }}
+        </section>
 
-            <aside class="app-grid-item">
+        <aside>
+            <h2>{{ 'pages.contact.aside.ouraddress' | trans | capitalize }}</h2>
 
-                <div class="contact-info">
-                    <h3>Notre adresse</h3>
-                    <address>
-                        22 rue de la Sénatorerie
-                        <br />
-                        23000 Guéret, FRANCE
-                    </address>
-                </div>
+            <address>
+                {% if appOrganization.getAddress1() %}
+                    {{ appOrganization.getAddress1() }}
+                {% endif %}
+                {% if appOrganization.getAddress2() %}
+                    <br />{{ appOrganization.getAddress2() }}
+                {% endif %}
+                {% if appOrganization.getAddress3() %}
+                    <br />{{ appOrganization.getAddress3() }}
+                {% endif %}
+                {% if appOrganization.getZipcode() %}
+                    <br />{{ appOrganization.getZipcode() }}
+                {% endif %}
+                {% if appOrganization.getCity() %}
+                    {{ appOrganization.getCity() }}
+                {% endif %}
+                {% if appOrganization.getCountry() %}
+                    ({{ appOrganization.getCountry() }})
+                {% endif %}
+            </address>
 
-                <div class="contact-info">
-                    <h3>Horaires d'ouverture</h3>
-                    <dl>
-                        <dt>Du Lundi au Vendredi</dt>
-                        <dd>18h00 - 00h00</dd>
+            <address>
+                <h2>{{ 'pages.contact.aside.ourtelephone' | trans | capitalize }}</h2>
+                {% if appOrganization.getTelephone() %}
+                    {{ appOrganization.getTelephone() }}
+                {% endif %}
+            </address>
 
-                        <dt>Samedi et Dimanche</dt>
-                        <dd>14h00 - 00h00</dd>
-                    </dl>
-                </div>
-            </aside>
-        </div>
-    </section>
+            {% if(appOrganization.getHoursWeek() or appOrganization.getHoursWeekend()) %}
+                <h2>{{ 'pages.contact.aside.openhours' | trans | capitalize }}</h2>
+                <dl>
+                    {% if(appOrganization.getHoursWeek()) %}
+                        <dt>{{ 'pages.contact.aside.weekhours' | trans }}</dt>
+                        <dd>{{ appOrganization.getHoursWeek() }}</dd>
+                    {% endif %}
 
-    <div id="map"></div>
-    <p class="map-info">
-        Cliquez sur la carte pour activer le zoom.
-        <br />
-        Cliquez ailleurs pour désactiver le zoom et faire défiler la page tranquillement :)
-    </p>
-{% endblock %}
+                    {% if(appOrganization.getHoursWeekend()) %}
+                        <dt>{{ 'pages.contact.aside.weekendhours' | trans }}</dt>
+                        <dd>{{ appOrganization.getHoursWeekend() }}</dd>
+                    {% endif %}
+                </dl>
+            {% endif %}
 
-{% block javascripts %}
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="" defer></script>
-    <script defer>
-        window.addEventListener("DOMContentLoaded", () => {
-            const mymap = L.map('map').setView([46.1655469, 1.8708914], 15)
-            const marker = L.marker([46.1655469, 1.8708914],).addTo(mymap)
-            marker.bindPopup("<strong>Ah! D & Dédé</strong><br />22 Avenue de la Sénatorerie<br />23000 Guéret, France").openPopup()
-            marker.addEventListener('click', () => {
-                marker.openPopup()
-            })
-
-            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                attribution: '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | <a href="https://www.mapbox.com/">Mapbox</a>',
-                maxZoom: 18,
-                id: 'mapbox/streets-v11',
-                tileSize: 512,
-                zoomOffset: -1,
-                scrollWheelZoom: false,
-                accessToken: 'pk.eyJ1Ijoibmljb2xhc3ZhdWNoZSIsImEiOiJja2YybDFleDcwdnNvMnNtajIweHhiMnkyIn0.XY8fFHFVAqUF2OiKpnH9-g'
-            }).addTo(mymap)
-
-            mymap.addEventListener('focus', () => {
-                mymap.scrollWheelZoom.enable()
-            })
-            mymap.addEventListener('blur', () => {
-                mymap.scrollWheelZoom.disable()
-            })
-            mymap.scrollWheelZoom.disable()
-        })
-    </script>
+        </aside>
+    </article>
 {% endblock %}

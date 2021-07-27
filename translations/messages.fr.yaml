@@ -1,68 +1,77 @@
 default:
   welcome: "bienvenue"
+  more: "Toujours plus…"
   copyrights: "tous droits réservés"
-footer:
-  navigation:
-    help:
-      title: "aide"
-    games:
-      title: "jeux de rôles"
-    follow:
-      title: "suis-nous"
+  cancel: "annuler"
+  back: "retour"
 pages:
-  home:
-    menu: "accueil"
-    title: "retour à l'accueil"
   login:
     menu: "connexion"
     title: "connecte-toi pour jouer"
+    aside:
+      join: "deviens adhérent"
+  logout:
+    menu: "déconnexion"
+    title: "déconnecte-toi"
+  forgot:
+    menu: "mot de passe perdu"
+    title: "perdu ton mot de passe ?"
   resetpassword:
-    title: "récupération de ton mot de passe"
+    title: "régénère ton mot de passe"
     menu: "mot de passe perdu"
     checkemail:
       info: "Si un compte existe avec cette adresse e-mail, un message vient d'être envoyé !<br />Ce lien expirera dans %time%."
       info2: "Si tu ne reçois pas de mail, vérifie tes spams ou"
       info2link: "essaie encore"
-  logout:
-    menu: "déconnexion"
-    title: "déconnecte-toi"
-  about:
-    menu: "l'association"
-    title: "qui sommes-nous ?"
-    alt: "en savoir plus"
-  contact:
-    menu: "contact"
-    title: "contacte-nous"
   user:
-    menu: "ton profil"
+    menu: "ton compte"
     title: "ton profil joueur"
     password:
-      menu: "modifier ton mot de passe"
-      title: "modifier ton mot de passe"
+      title: "modifie ton mot de passe"
+      menu: "modifie ton mot de passe"
     characters:
       menu: "tes personnages"
-      title: "gérer tes personnages"
+      title: "gère tes personnages"
+      create:
+        menu: "nouveau personnage"
+        title: "crée un nouveau personage"
     games:
       menu: "tes aventures"
-      title: "gérer tes aventures"
-    tables:
+      title: "gère tes aventures"
+    plays:
       menu: "tes tables de jeu"
-      title: "gérer tes tables de jeu"
+      title: "gère tes tables de jeu"
+  home:
+    menu: "accueil"
+    title: "page d'accueil"
+  about:
+    menu: "présentation"
+    title: "qui sommes-nous ?"
   games:
-    title: "les jeux en ligne"
     menu: "les jeux"
-    create:
-      title: "créer une table"
+    title: "tous les jeux en ligne"
   play:
-    title: "jouer en ligne"
     menu: "jouer"
+    title: "jouer en ligne"
+    title2: "les tables de jeu"
     create:
-      title: "créer une table"
+      title: "créer une table de jeu"
+      menu: "nouvelle table"
     invite:
-      title: "inviter des joueurs"
+      title: "inviter des joueurs à la table"
+      menu: "inviter des joueurs"
+  contact:
+    menu: "contact"
+    title: "contactons-nous"
+    aside:
+      ouraddress: "notre adresse"
+      ourtelephone: "notre téléphone"
+      openhours: "nos horaires"
+      weekhours: "Du Lundi au Vendredi"
+      weekendhours: "Samedi et Dimanche"
   faq:
-    title: "questions fréquemment posées"
     menu: "F.A.Q."
+    title: "questions fréquentes"
   legals:
     mentions:
       menu: "mentions légales"
@@ -71,8 +80,50 @@ pages:
       menu: "conditions générales d'utilisation"
       title: "conditions générales d'utilisation"
     privacy:
-      menu: "confidentialité et cookies"
-      title: "confidentialité et cookies"
+      menu: "confidentialité & cookies"
+      title: "confidentialité & cookies"
+user:
+  profile:
+    email:
+      label: "ton adresse e-mail"
+      placeholder: "ex: sophie@dupont.com"
+    pseudo:
+      label: "ton pseudo"
+      placeholder: "ex: groslulu"
+    gender:
+      label: "ta civilité"
+    firstname:
+      label: "ton prénom"
+      placeholder: "ex: Sophie"
+    lastname:
+      label: "ton nom"
+      placeholder: "ex: Dupont"
+    submit:
+      label: "Enregistre ton profil"
+login:
+  email:
+    label: "ton adresse e-mail"
+    placeholder: "ex: sophie@dupont.com"
+  password:
+    label: "ton mot de passe"
+  submit:
+    label: "connecte-toi !"
+resetpassword:
+  email:
+    label: "ton adresse e-mail"
+    info: "entre ton adresse e-mail et nous t'enverrons un mail contenant un lien pour régénérer ton mot de passe."
+  submit:
+    label: "envoyez-moi ce mail !"
+  reset:
+    first:
+      label: "nouveau mot de passe"
+    second:
+      label: "confirmation"
+    submit:
+      label: "régénère ton mot de passe"
+    errors:
+      length: "ton mot de passe doit contenir au moins 6 caractères"
+      mismatch: "les deux mots de passe ne sont pas identiques"
 contact:
   name:
     label: "ton nom"
@@ -81,62 +132,25 @@ contact:
     label: "ton adresse e-mail"
     placeholder: "ex: sophie@dupont.com"
   subject:
-    label: "sujet de ton message"
+    label: "C'est à quel sujet ?"
     placeholder: "ex: Devenir adhérent"
   message:
     label: "ton message"
-    placeholder: "bonjour,"
+    placeholder: "Bonjour,"
   submit:
-    label: "envoyez-ça !"
+    label: "envoie ton message"
 play:
-  submit:
-    label: "créer la table"
-  cancel:
-    label: "retour"
-invite:
-  submit:
-    label: "créer la table"
-  cancel:
-    label: "retour"
-filter:
-  submit:
-    label: "filtrer"
-login:
-  email:
-    label: "ton adresse e-mail"
-  password:
-    label: "ton mot de passe"
-  submit:
-    label: "connexion"
-resetpassword:
-  email:
-    label: "ton adresse e-mail"
-    info: "entre ton adresse e-mail et nous t'enverrons un mail contenant un lien pour régénérer ton mot de passe."
-  submit:
-    label: "envoyez le mail !"
-  reset:
-    first:
-      label: "nouveau mot de passe"
-    second:
-      label: "confirmation"
+  game:
+    name:
+      label: "nom du scénario"
+      placeholder: "ex: La grosse aventure"
+    start: "date de début"
+    visibility:
+      title: "visibilité"
+      public: "publique"
+      private: "privée"
     submit:
-      label: "régénérer ton mot de passe"
-    errors:
-      length: "ton mot de passe doit contenir au moins 6 caractères"
-      mismatch: "les deux mots de passe ne sont pas identiques"
-user:
-  profile:
-    email:
-      label: "ton adresse e-mail"
-    pseudo:
-      label: "ton pseudo"
-    gender:
-      label: "ta civilité"
-    firstname:
-      label: "ton prénom"
-    lastname:
-      label: "ton nom"
+      label: "créer la table"
+  invite:
     submit:
-      label: "sauvegarder ton profil"
-    errors:
-      unique: "cette adresse e-mail existe déjà !"
+      label: "inviter & Créer"

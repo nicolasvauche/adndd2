@@ -1,0 +1,97 @@
+/** Layout elements **/
+
+h1 {
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    font-family: $font-family-secondary;
+    font-size: 1.75rem;
+    text-transform: uppercase;
+    text-align: center;
+    color: $color-bg-alt;
+    background-color: $color-bg-primary;
+    border-radius: $border-radius-default;
+    box-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) $box-shadow-radius $box-shadow-color;
+
+    @include respond(sm) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        font-size: 2rem;
+    }
+
+    @include respond(md) {
+        padding: 1rem 1.5rem;
+    }
+}
+
+h2 {
+    margin-bottom: 1rem;
+    font-family: $font-family-secondary;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    text-align: center;
+    color: $color-bg-alt;
+    text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color-alt;
+
+    @include respond(sm) {
+        text-align: left;
+    }
+}
+
+h3 {
+    margin-bottom: 0.5rem;
+    font-family: $font-family-secondary;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    text-align: center;
+    color: $color-bg-alt;
+    text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color-alt;
+
+    @include respond(sm) {
+        text-align: left;
+    }
+}
+
+h4 {
+    margin-bottom: 0.5rem;
+    font-family: $font-family-secondary;
+    font-size: 1.25rem;
+    text-align: center;
+    color: $color-blue;
+    text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color-alt;
+
+    @include respond(sm) {
+        text-align: left;
+    }
+}
+
+a,
+button {
+    transition: all 0.3s ease-in-out;
+}
+
+a {
+    color: $color-blue;
+
+    &:hover {
+        color: $color-orange;
+    }
+
+    &[href$=".pdf"]:after {
+        content: "pdf";
+        margin-left: 0.5rem;
+        vertical-align: super;
+        font-size: 0.8rem;
+        text-decoration: none;
+    }
+}
+
+dl {
+    dt {
+        font-weight: bold;
+    }
+}
+
+/** Custom classes **/
+.mb_0 {
+    margin-bottom: 0 !important;
+}
