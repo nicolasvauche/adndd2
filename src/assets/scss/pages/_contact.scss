@@ -1,0 +1,20 @@
+&.contact {
+    #map {
+        height: 70vh;
+
+        @include respond(sm) {
+            height: 40vh;
+        }
+
+        @include respond(sm) {
+            height: 50vh;
+        }
+    }
+
+    .app_alert {
+        &.map {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+}
