@@ -77,7 +77,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/modifier-ton-mot-de-passe", name="user.password")
+     * @Route("/modifie-ton-mot-de-passe", name="user.password")
      */
     public function password(Request $request, EntityManagerInterface $manager, ValidatorInterface $validator, UserPasswordEncoderInterface $encoder): Response
     {

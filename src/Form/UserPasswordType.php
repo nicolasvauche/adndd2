@@ -26,7 +26,7 @@ class UserPasswordType extends AbstractType
                     'options' => [
                         'attr' =>
                             [
-                                'class' => 'app-form-control',
+                                'class' => 'app_form_control',
                             ],
                     ],
                     'first_options' =>
@@ -54,7 +54,7 @@ class UserPasswordType extends AbstractType
                 [
                     'label' => 'resetpassword.reset.submit.label',
                     'attr' => [
-                        'class' => 'app-button cta',
+                        'class' => 'app_button cta',
                     ],
                 ]);
     }
