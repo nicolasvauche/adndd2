@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ScenarioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +13,35 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PlayController extends AbstractController
 {
+    /**
+     * @Route("/", name="play")
+     */
+    public function index(ScenarioRepository $scenarioRepository): Response
+    {
+        $scenarios = $scenarioRepository->findAll();
+
+        $games = [
+            0 => [
+                'id' => 2,
+                'name' => 'Donjons & Dragons',
+            ],
+            1 => [
+                'id' => 3,
+                'name' => 'Chroniques Oubliées',
+            ],
+            2 => [
+                'id' => 4,
+                'name' => "L'appel de Cthulhu",
+            ],
+        ];
+
+        return $this->render('play/index.html.twig',
+            [
+                'scenarios' => $scenarios,
+                'games' => $games,
+            ]);
+    }
+
     /**
      * @Route("/creer-une-table/{gameId}", name="play.create")
      */
@@ -90,32 +120,6 @@ class PlayController extends AbstractController
                 'gameId' => $gameId,
                 'gameName' => $gameName,
                 'formData' => $_POST,
-            ]);
-    }
-
-    /**
-     * @Route("/", name="play")
-     */
-    public function index(): Response
-    {
-        $games = [
-            0 => [
-                'id' => 1,
-                'name' => 'Donjons & Dragons',
-            ],
-            1 => [
-                'id' => 2,
-                'name' => 'Chroniques Oubliées',
-            ],
-            2 => [
-                'id' => 3,
-                'name' => "L'appel de Cthulhu",
-            ],
-        ];
-
-        return $this->render('play/index.html.twig',
-            [
-                'games' => $games,
             ]);
     }
 }

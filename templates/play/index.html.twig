@@ -15,6 +15,9 @@
                 <div class="app_filters_controls">
                     <select name="tables_game" id="tables_game" class="app_filter_select">
                         <option value="all">{{ 'pages.games.title' | trans | capitalize }}</option>
+                        {% for scenario in scenarios %}
+                            <option value="{{ scenario.game.id }}">{{ scenario.game.name }}</option>
+                        {% endfor %}
                         {% for game in games %}
                             <option value="{{ game.id }}">{{ game.name }}</option>
                         {% endfor %}
@@ -24,7 +27,51 @@
 
             <div class="app_grid four app_slider xs">
 
-                <div class="game app_grid_item app_slider_item" data-gameid="1">
+                {% for scenario in scenarios %}
+                    <div class="game app_grid_item app_slider_item" data-gameid="{{ scenario.game.id }}">
+                        <div class="app_grid_item_header">
+                            <img src="{{ asset('assets/images/games/' ~ scenario.game.media) }}" alt="{{ scenario.game.name }}" class="app_grid_item_image" />
+                            <h3 class="app_grid_item_title">{{ scenario.game.name }}</h3>
+                            <h4 class="app_grid_item_subtitle">{{ scenario.name }}</h4>
+                            <p class="app_grid_item_info">
+                                <strong>{{ scenario.startAt | date('d/m/Y H:i') }}</strong>
+                            </p>
+                            {% if app.user %}
+                                <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
+                                    <i class="fas fa-users"></i>
+                                    <strong>4/5</strong>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="app_grid_item_footer">
+                            {% if app.user %}
+                                <span class="app_grid_item_footer_action">
+                                    {% if scenario.isPrivate %}
+                                        {{ 'play.game.visibility.private' | trans | capitalize }}
+                                    {% else %}
+                                        {{ 'play.game.visibility.public' | trans | capitalize }}
+                                    {% endif %}
+                                </span>
+
+                                <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                            {% else %}
+                                <span class="app_grid_item_footer_action">
+                                    {% if scenario.isPrivate %}
+                                        {{ 'play.game.visibility.private' | trans | capitalize }}
+                                    {% else %}
+                                        {{ 'play.game.visibility.public' | trans | capitalize }}
+                                    {% endif %}
+                                </span>
+
+                                <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                    {{ 'pages.login.menu' | trans | capitalize }}
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="game app_grid_item app_slider_item" data-gameid="2">
                     <div class="app_grid_item_header">
                         <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app_grid_item_image" />
                         <h3 class="app_grid_item_title">Donjons & Dragons</h3>
@@ -54,7 +101,7 @@
                     </div>
                 </div>
 
-                <div class="game app_grid_item app_slider_item" data-gameid="3">
+                <div class="game app_grid_item app_slider_item" data-gameid="4">
                     <div class="app_grid_item_header">
                         <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app_grid_item_image" />
                         <h3 class="app_grid_item_title">L'appel de Cthulhu</h3>
@@ -82,7 +129,7 @@
                     </div>
                 </div>
 
-                <div class="game app_grid_item app_slider_item" data-gameid="2">
+                <div class="game app_grid_item app_slider_item" data-gameid="3">
                     <div class="app_grid_item_header">
                         <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" class="app_grid_item_image" />
                         <h3 class="app_grid_item_title">Chroniques Oubliées</h3>
@@ -112,7 +159,7 @@
                     </div>
                 </div>
 
-                <div class="game app_grid_item app_slider_item" data-gameid="3">
+                <div class="game app_grid_item app_slider_item" data-gameid="4">
                     <div class="app_grid_item_header">
                         <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app_grid_item_image" />
                         <h3 class="app_grid_item_title">L'appel de Cthulhu</h3>
@@ -140,7 +187,7 @@
                     </div>
                 </div>
 
-                <div class="game app_grid_item app_slider_item" data-gameid="1">
+                <div class="game app_grid_item app_slider_item" data-gameid="2">
                     <div class="app_grid_item_header">
                         <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app_grid_item_image" />
                         <h3 class="app_grid_item_title">Donjons & Dragons</h3>
@@ -170,7 +217,7 @@
                     </div>
                 </div>
 
-                <div class="game app_grid_item app_slider_item" data-gameid="2">
+                <div class="game app_grid_item app_slider_item" data-gameid="3">
                     <div class="app_grid_item_header">
                         <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" class="app_grid_item_image" />
                         <h3 class="app_grid_item_title">Chroniques Oubliées</h3>
