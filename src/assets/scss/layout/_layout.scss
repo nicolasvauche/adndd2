@@ -85,7 +85,7 @@ html {
                 @include respond(md) {
                     grid-template-columns: 7fr 3fr;
                     grid-gap: 1.5rem;
-                    padding: 0 15vw;
+                    padding: 0 12vw;
                 }
             }
         }
