@@ -60,4 +60,24 @@ class OrganizationService
     {
         return $this->organization ? $this->organization->getHoursWeekend() : null;
     }
+
+    public function getFacebook()
+    {
+        return $this->organization ? $this->organization->getFacebook() : null;
+    }
+
+    public function getTwitter()
+    {
+        return $this->organization ? $this->organization->getTwitter() : null;
+    }
+
+    public function getInstagram()
+    {
+        return $this->organization ? $this->organization->getInstagram() : null;
+    }
+
+    public function getYoutube()
+    {
+        return $this->organization ? $this->organization->getYoutube() : null;
+    }
 }

@@ -37,24 +37,37 @@
             </ul>
         </nav>
 
-        <nav>
+        <nav class="socials">
             <h3>Suis-nous</h3>
             <ul>
-                <li>
-                    <a href="{{ path('home') }}" title="">
-                        …
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('home') }}" title="">
-                        …
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('home') }}" title="">
-                        …
-                    </a>
-                </li>
+                {% if appOrganization.getFacebook() %}
+                    <li>
+                        <a href="{{ appOrganization.getFacebook() }}" class="facebook" target="_blank" rel="noopener noreferrer" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if appOrganization.getTwitter() %}
+                    <li>
+                        <a href="{{ appOrganization.getTwitter() }}" class="twitter" target="_blank" rel="noopener noreferrer" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if appOrganization.getInstagram() %}
+                    <li>
+                        <a href="{{ appOrganization.getInstagram() }}" class="instagram" target="_blank" rel="noopener noreferrer" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if appOrganization.getYoutube() %}
+                    <li>
+                        <a href="{{ appOrganization.getYoutube() }}" class="youtube" target="_blank" rel="noopener noreferrer" title="Youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
     </div>

@@ -63,6 +63,40 @@
                     }
                 }
             }
+
+            &.socials {
+                ul {
+                    display: flex;
+                    justify-content: center;
+
+                    li {
+                        a {
+                            margin: 0 0.5rem;
+                            font-size: 2.5rem;
+
+                            &.facebook {
+                                color: #1877f2;
+                            }
+
+                            &.twitter {
+                                color: #1da1f2;
+                            }
+
+                            &.instagram {
+                                color: #405de6;
+                            }
+
+                            &.youtube {
+                                color: #ff0000;
+                            }
+
+                            &:hover {
+                                color: $color-orange;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
