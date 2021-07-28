@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SpellRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,16 @@ class Spell
      * @ORM\ManyToOne(targetEntity=SpellType::class, inversedBy="spells")
      */
     private $SpellType;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Game::class, mappedBy="Spells")
+     */
+    private $games;
+
+    public function __construct()
+    {
+        $this->games = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +115,33 @@ class Spell
     public function setSpellType(?SpellType $SpellType): self
     {
         $this->SpellType = $SpellType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Game[]
+     */
+    public function getGames(): Collection
+    {
+        return $this->games;
+    }
+
+    public function addGame(Game $game): self
+    {
+        if (!$this->games->contains($game)) {
+            $this->games[] = $game;
+            $game->addSpell($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGame(Game $game): self
+    {
+        if ($this->games->removeElement($game)) {
+            $game->removeSpell($this);
+        }
 
         return $this;
     }

@@ -3,7 +3,9 @@ namespace App\DataFixtures;
 
 use App\Entity\Spell;
 use App\Entity\SpellType;
+use App\Entity\Game;
 
+use App\Repository\GameRepository;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -52,7 +54,7 @@ class SpellFixtures extends Fixture implements OrderedFixtureInterface
             $spell->setEffect($b);  
             $spell->setReach($c);  
             $spell->setZone($d);    
-            $spell->setSpellType($e);   
+            $spell->setSpellType($e);  
             $manager->persist( $spell );
         }
         unset($a, $b, $c, $d, $e);
