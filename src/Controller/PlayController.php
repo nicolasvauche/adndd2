@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Form\ScenarioType;
 use App\Repository\GameRepository;
 use App\Repository\ScenarioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/jouer-en-ligne")
@@ -46,7 +48,7 @@ class PlayController extends AbstractController
     /**
      * @Route("/creer-une-table/{gameId}", name="play.create")
      */
-    public function create(GameRepository $gameRepository, $gameId = null): Response
+    public function create(GameRepository $gameRepository, Request $request, ValidatorInterface $validator, $gameId = null): Response
     {
         if (!$gameId) {
             return $this->redirectToRoute('games');
@@ -57,9 +59,25 @@ class PlayController extends AbstractController
             return $this->redirectToRoute('games');
         }
 
+        $form = $this->createForm(ScenarioType::class, null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            dd($form->getData());
+
+        } else {
+            $errors = $validator->validate($form);
+
+            if (count($errors) > 0) {
+                $this->addFlash('danger', $errors[0]->getMessage());
+            }
+        }
+
         return $this->render('play/create.html.twig',
             [
                 'game' => $game,
+                'form' => $form->createView(),
             ]);
     }
 

@@ -13,7 +13,7 @@ class ScenarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('campaign')
+            //->add('campaign')
             ->add('name', TextType::class,
                 [
                     'required' => true,
