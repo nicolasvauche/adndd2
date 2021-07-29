@@ -1,4 +1,5 @@
 <?php
+
 namespace App\DataFixtures;
 
 use App\Entity\Spell;
@@ -16,51 +17,50 @@ class SpellFixtures extends Fixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
 
-        // Type de sort        
+        /**
+         * Default spell types
+         */
+        $tabSpellTypes = [];
+
         $spelltypes = [
-            ["Sorts de combat"],
-            ["Sorts d'action"],
-            ["Sorts de l'Etre"],
-            ["Sorts du Monde Invisible"],
-            ["Sorts de caractéristique"],
-            ["Sorts des élèments"],
-            ["Sorts d'intensification"],
+            "Sorts de Combat",
+            "Sorts d'Action",
+            "Sorts de l'Être",
+            "Sorts du Monde Invisible",
+            "Sorts de Caractéristique",
+            "Sorts des Éléments",
+            "Sorts d'Intensification",
         ];
 
-        $i = 0;
-        foreach ($spelltypes as list($a))
-        {
-            $i++;
+        foreach ($spelltypes as $key => $value) {
             $spelltype = new SpellType();
-            $spelltype->setName($a); 
-            $tabspelltype[$i] = $spelltype;           
-            $manager->persist( $spelltype );
+            $spelltype->setName($value);
+            $manager->persist($spelltype);
+            $tabSpellTypes[] = $spelltype;
         }
-        unset($a, $i); 
 
-        
-        // Sort        
+
+        /**
+         * Default spells
+         */
         $spells = [
-            ["Ame de Chardros", "Augmente le POU", 2, 50, $tabspelltype[5]],
-            ["Armure Infernale", "Protection +4", 0, 10, $tabspelltype[1]],
-            ["Assimiler Forme", "Prendre la forme d'un autre humain ou d'un animal naturel", 3, 20, $tabspelltype[2]],
-            ["Vue du Démon", "Permet au sorcier de voir des objets particuliers", 1, 30, $tabspelltype[2]],
-            ["Corne de Hionhurn", "CON +3 par point de magie utilisé", 2, 20, $tabspelltype[5]],
+            ["Ame de Chardros", "Augmente le POU", 2, 50, $tabSpellTypes[4]],
+            ["Armure Infernale", "Protection +4", 0, 10, $tabSpellTypes[0]],
+            ["Assimiler Forme", "Prendre la forme d'un autre humain ou d'un animal naturel", 3, 20, $tabSpellTypes[1]],
+            ["Vue du Démon", "Permet au sorcier de voir des objets particuliers", 1, 30, $tabSpellTypes[1]],
+            ["Corne de Hionhurn", "CON +3 par point de magie utilisé", 2, 20, $tabSpellTypes[4]],
         ];
 
-        foreach ($spells as list($a, $b, $c, $d, $e))
-        {
+        foreach ($spells as list($a, $b, $c, $d, $e)) {
             $spell = new Spell();
-            $spell->setName($a)  
+            $spell->setName($a)
                 ->setEffect($b)
                 ->setReach($c)
-                ->setZone($d) 
+                ->setZone($d)
                 ->setSpellType($e)
-                ->addGame($this->getReference('game1'));  
-            $manager->persist( $spell );
+                ->addGame($this->getReference('game1'));
+            $manager->persist($spell);
         }
-        unset($a, $b, $c, $d, $e);
-
 
         $manager->flush();
     }
