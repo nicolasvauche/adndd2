@@ -81,7 +81,7 @@ class Game
     /**
      * @ORM\ManyToMany(targetEntity=Spell::class, inversedBy="games")
      */
-    private $Spells;
+    private $spells;
 
     public function __construct()
     {
@@ -264,17 +264,17 @@ class Game
     }
 
     /**
-     * @return Collection|Spell[]
+     * @return Collection|spell[]
      */
     public function getSpells(): Collection
     {
-        return $this->Spells;
+        return $this->spells;
     }
 
     public function addSpell(Spell $spell): self
     {
-        if (!$this->Spells->contains($spell)) {
-            $this->Spells[] = $spell;
+        if (!$this->spells->contains($spell)) {
+            $this->spells[] = $spell;
         }
 
         return $this;
@@ -282,7 +282,7 @@ class Game
 
     public function removeSpell(Spell $spell): self
     {
-        $this->Spells->removeElement($spell);
+        $this->spells->removeElement($spell);
 
         return $this;
     }

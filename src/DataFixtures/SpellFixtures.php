@@ -38,6 +38,7 @@ class SpellFixtures extends Fixture implements OrderedFixtureInterface
         }
         unset($a, $i); 
 
+        
         // Sort        
         $spells = [
             ["Ame de Chardros", "Augmente le POU", 2, 50, $tabspelltype[5]],
@@ -50,11 +51,12 @@ class SpellFixtures extends Fixture implements OrderedFixtureInterface
         foreach ($spells as list($a, $b, $c, $d, $e))
         {
             $spell = new Spell();
-            $spell->setName($a);   
-            $spell->setEffect($b);  
-            $spell->setReach($c);  
-            $spell->setZone($d);    
-            $spell->setSpellType($e);  
+            $spell->setName($a)  
+                ->setEffect($b)
+                ->setReach($c)
+                ->setZone($d) 
+                ->setSpellType($e)
+                ->addGame($this->getReference('game1'));  
             $manager->persist( $spell );
         }
         unset($a, $b, $c, $d, $e);

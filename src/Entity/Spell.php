@@ -45,7 +45,7 @@ class Spell
     private $SpellType;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Game::class, mappedBy="Spells")
+     * @ORM\ManyToMany(targetEntity=Game::class, mappedBy="spells")
      */
     private $games;
 
