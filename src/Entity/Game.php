@@ -78,10 +78,16 @@ class Game
      */
     private $scenarios;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Spell::class, inversedBy="games")
+     */
+    private $spells;
+
     public function __construct()
     {
         $this->gameRules = new ArrayCollection();
         $this->scenarios = new ArrayCollection();
+        $this->Spells = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -253,6 +259,30 @@ class Game
                 $scenario->setGame(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|spell[]
+     */
+    public function getSpells(): Collection
+    {
+        return $this->spells;
+    }
+
+    public function addSpell(Spell $spell): self
+    {
+        if (!$this->spells->contains($spell)) {
+            $this->spells[] = $spell;
+        }
+
+        return $this;
+    }
+
+    public function removeSpell(Spell $spell): self
+    {
+        $this->spells->removeElement($spell);
 
         return $this;
     }
