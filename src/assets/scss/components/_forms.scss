@@ -57,10 +57,29 @@
                 border: none;
                 cursor: pointer;
 
-                @include respond(sm){
+                @include respond(sm) {
                     top: 2.4rem;
                     right: 0.5rem;
                 }
+            }
+        }
+
+        &.checkbox {
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            label {
+                order: 2;
+                margin: 0;
+                width: auto;
+                cursor: pointer;
+            }
+
+            .app_form_control {
+                order: 1;
+                margin-right: 0.5rem;
+                width: auto;
             }
         }
 

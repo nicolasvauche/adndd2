@@ -20,51 +20,36 @@
                 {% endfor %}
             {% endfor %}
 
-            {#{{ form_start(form, { attr: { 'class': 'app_form'}}) }}
+            {{ form_start(form, { attr: { 'class': 'app_form'}}) }}
             <div class="app_form_group">
-                {{ form_widget(form.contact_name, {'value' : app.user ? app.user.fullname : ''}) }}
-                <label for="{{ form.contact_name.vars.id }}">{{ form.contact_name.vars.label | trans | capitalize }}</label>
+                {{ form_widget(form.campaign) }}
+                <label for="{{ form.campaign.vars.id }}">{{ form.campaign.vars.label | trans | capitalize }}</label>
+            </div>
+
+            <div class="app_form_group">
+                {{ form_widget(form.name) }}
+                <label for="{{ form.name.vars.id }}">{{ form.name.vars.label | trans | capitalize }}</label>
+            </div>
+
+            <div class="app_form_group">
+                {{ form_widget(form.shortDescription) }}
+                <label for="{{ form.shortDescription.vars.id }}">{{ form.shortDescription.vars.label | trans | capitalize }}</label>
+            </div>
+
+            <div class="app_form_group">
+                {{ form_widget(form.startAt) }}
+                <label for="{{ form.startAt.vars.id }}">{{ form.startAt.vars.label | trans | capitalize }}</label>
+            </div>
+
+            <div class="app_form_group checkbox">
+                {{ form_widget(form.isPrivate) }}
+                <label for="{{ form.isPrivate.vars.id }}">{{ form.isPrivate.vars.label | trans | capitalize }}</label>
             </div>
 
             <div class="app_form_group mb_0">
                 {{ form_widget(form.submit) }}
             </div>
-            {{ form_end(form) }}#}
-
-
-            <form class="app_form" method="post" action="{{ path('play.invite') }}">
-                <div class="app_form_group">
-                    <input type="text" id="play_tablename" name="play_tablename" class="app_form_control" placeholder="{{ 'play.game.name.placeholder' | trans | capitalize }}" required />
-                    <label for="play_tablename">{{ 'play.game.name.label' | trans | capitalize }}</label>
-                </div>
-
-                <div class="app_form_group">
-                    <input type="datetime-local" name="play_date" id="play_date" class="app_form_control" required />
-                    <label for="play_date">{{ 'play.game.start' | trans | capitalize }}</label>
-                </div>
-
-                <div class="app_form_group">
-                    <select name="play_visibility" id="play_visibility" class="app_form_control" required>
-                        <option value="{{ 'play.game.visibility.public' | trans }}">{{ 'play.game.visibility.public' | trans | capitalize }}</option>
-                        <option value="{{ 'play.game.visibility.private' | trans }}">{{ 'play.game.visibility.private' | trans | capitalize }}</option>
-                    </select>
-                    <label for="play_visibility">{{ 'play.game.visibility.title' | trans | capitalize }}</label>
-                </div>
-
-                <div class="app_form_group">
-                    <input type="hidden" name="play_game_id" value="{{ game.id }}" />
-                </div>
-
-                <div class="app_grid two">
-                    <div class="app_form_group mb_0">
-                        <a href="{{ path('games') }}" class="app_button">{{ 'default.cancel' | trans | capitalize }}</a>
-                    </div>
-
-                    <div class="app_form_group mb_0">
-                        <button type="submit" class="app_button cta">{{ 'play.game.submit.label' | trans | capitalize }}</button>
-                    </div>
-                </div>
-            </form>
+            {{ form_end(form) }}
         </section>
 
         <aside>
