@@ -83,11 +83,17 @@ class Game
      */
     private $spells;
 
+    /**
+     * @ORM\OneToMany(targetEntity=GameCharacteristic::class, mappedBy="game")
+     */
+    private $gameCharacteristics;
+
     public function __construct()
     {
         $this->gameRules = new ArrayCollection();
         $this->scenarios = new ArrayCollection();
         $this->Spells = new ArrayCollection();
+        $this->gameCharacteristics = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -283,6 +289,36 @@ class Game
     public function removeSpell(Spell $spell): self
     {
         $this->spells->removeElement($spell);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GameCharacteristic[]
+     */
+    public function getGameCharacteristics(): Collection
+    {
+        return $this->gameCharacteristics;
+    }
+
+    public function addGameCharacteristic(GameCharacteristic $gameCharacteristic): self
+    {
+        if (!$this->gameCharacteristics->contains($gameCharacteristic)) {
+            $this->gameCharacteristics[] = $gameCharacteristic;
+            $gameCharacteristic->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGameCharacteristic(GameCharacteristic $gameCharacteristic): self
+    {
+        if ($this->gameCharacteristics->removeElement($gameCharacteristic)) {
+            // set the owning side to null (unless already changed)
+            if ($gameCharacteristic->getGame() === $this) {
+                $gameCharacteristic->setGame(null);
+            }
+        }
 
         return $this;
     }

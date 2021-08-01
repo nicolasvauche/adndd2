@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Characteristic;
+use App\Entity\GameCharacteristic;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -37,6 +38,12 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
                         ->setShortName($b)
                         ->setType($c);
             $manager->persist($characteristic);
+
+            $gameCharacteristic = new GameCharacteristic();
+            $gameCharacteristic->setGame($this->getReference('game1'))
+                    ->setCharacteristic($characteristic)
+                    ->setBase('50');
+            $manager->persist( $gameCharacteristic );
         }
 
         $manager->flush();
