@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Skill;
+use App\Entity\GameSkill;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -61,6 +62,12 @@ class SkillFixtures extends Fixture implements OrderedFixtureInterface
             $skill = new Skill();
             $skill->setName($value);
             $manager->persist( $skill );
+
+            $gameSkill = new GameSkill();
+            $gameSkill->setGame($this->getReference('game1'))
+                    ->setSkill($skill)
+                    ->setBase('50');
+            $manager->persist( $gameSkill );
         }
         $manager->flush();
     }
