@@ -134,4 +134,17 @@ class PlayController extends AbstractController
 
         return new JsonResponse($json);
     }
+
+    /**
+     * @Route("/tes-tables-de-jeu", name="user.play.myscenarios")
+     */
+    public function myScenarios(): Response
+    {
+        $scenarios = $this->getDoctrine()->getRepository(Scenario::class)->findBy(['user' => $this->getUser()]);
+
+        return $this->render('play/mytables.html.twig',
+            [
+                'scenarios' => $scenarios,
+            ]);
+    }
 }

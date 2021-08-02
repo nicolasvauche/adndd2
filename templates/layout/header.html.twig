@@ -34,7 +34,7 @@
 
             {% if app.user %}
                 <li>
-                    <a href="#">{{ app.user.pseudo is not null ? app.user.pseudo : app.user.fullname }}</a>
+                    <a href="#" {% if 'user' in app.request.get('_route') %}class="active"{% endif %}>{{ app.user.pseudo is not null ? app.user.pseudo : app.user.fullname }}</a>
 
                     <ul class="app_navigation_dropdown">
                         <li>
@@ -56,7 +56,7 @@
                         </li>
 
                         <li>
-                            <a href="{{ path('home') }}" {% if app.request.get('_route') == 'user.plays' %}class="active"{% endif %} title="{{ 'pages.user.plays.title' | trans | capitalize }}">
+                            <a href="{{ path('user.play.myscenarios') }}" {% if app.request.get('_route') == 'user.play.myscenarios' %}class="active"{% endif %} title="{{ 'pages.user.plays.title' | trans | capitalize }}">
                                 {{ 'pages.user.plays.menu' | trans | capitalize }}
                             </a>
                         </li>
