@@ -39,18 +39,30 @@
         margin: 0 0 1.5rem;
 
         .app_grid_item {
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
             text-align: center;
             background-color: $color-bg-altmenu;
             border-radius: $border-radius-default;
+            transition: background-color 0.3s ease-in-out;
+
+            &:hover {
+                background-color: $color-blue;
+            }
 
             .app_grid_item_title {
                 display: block;
                 margin: 0 0.5rem 0.5rem;
                 font-family: $font-family-secondary;
+                font-size: 0.9rem;
                 font-weight: bold;
                 text-align: center;
                 color: $color-bg-secondary;
                 text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color;
+                width: calc(100% - 1rem);
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             &.placehold {

@@ -2,13 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Scenario;
+use App\Entity\User;
 use App\Form\ScenarioType;
 use App\Repository\GameRepository;
 use App\Repository\ScenarioRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -48,7 +53,7 @@ class PlayController extends AbstractController
     /**
      * @Route("/creer-une-table/{gameId}", name="play.create")
      */
-    public function create(GameRepository $gameRepository, Request $request, ValidatorInterface $validator, $gameId = null): Response
+    public function create(GameRepository $gameRepository, Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, $gameId = null): Response
     {
         if (!$gameId) {
             return $this->redirectToRoute('games');
@@ -59,13 +64,21 @@ class PlayController extends AbstractController
             return $this->redirectToRoute('games');
         }
 
-        $form = $this->createForm(ScenarioType::class, null);
+        $scenario = new Scenario();
+        $form = $this->createForm(ScenarioType::class, $scenario);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $scenario->setStatus('waiting')
+                ->setDescription('<p>' . $scenario->getShortDescription() . '</p>')
+                ->setGame($game)
+                ->setUser($this->getUser());
+            $manager->persist($scenario);
+            $manager->flush();
 
-            dd($form->getData());
+            $this->addFlash('success', 'La partie a été créée ! Invitons quelques joueurs, maintenant…');
 
+            return $this->redirectToRoute('play.invite', ['id' => $scenario->getId()]);
         } else {
             $errors = $validator->validate($form);
 
@@ -82,36 +95,43 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/inviter-des-joueurs", name="play.invite")
+     * @Route("/inviter-des-joueurs/{id}", name="play.invite")
      */
-    public function invite(): Response
+    public function invite(Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, Scenario $scenario): Response
     {
-        if (isset($_POST['play_game_id'])) {
-            $gameId = $_POST['play_game_id'];
-
-            switch ($_POST['play_game_id']) {
-                case 1:
-                    $gameName = 'Donjons & Dragons';
-                    break;
-                case 2:
-                    $gameName = 'Chroniques Oubliées';
-                    break;
-                case 3:
-                    $gameName = "L'appel de Cthulhu";
-                    break;
-                default:
-                    $gameName = $gameId;
-                    break;
-            }
-        } else {
-            return $this->redirectToRoute('home');
-        }
 
         return $this->render('play/invite.html.twig',
             [
-                'gameId' => $gameId,
-                'gameName' => $gameName,
-                'formData' => $_POST,
+                'scenario' => $scenario,
             ]);
+    }
+
+    /**
+     * @Route("/rechercher-un-joueur/{playerName}", name="play.invite.player")
+     */
+    public function invitePlayer(Request $request, $playerName)
+    {
+        $player = $this->getDoctrine()->getRepository(User::class)->createQueryBuilder('u')
+            ->where('u.pseudo LIKE :playerName')
+            ->orWhere('u.firstname LIKE :playerName')
+            ->orWhere('u.lastname LIKE :playerName')
+            ->orWhere("CONCAT(u.firstname, ' ' , u.lastname) LIKE :playerName")
+            ->setParameter('playerName', '%' . $playerName . '%')
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        if ($player) {
+            $json = [
+                [
+                    'id' => $player->getId(),
+                    'fullname' => $player->getFullname(),
+                    'pseudo' => $player->getPseudo(),
+                ],
+            ];
+        } else {
+            $json = [];
+        }
+
+        return new JsonResponse($json);
     }
 }

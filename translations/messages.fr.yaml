@@ -158,4 +158,4 @@ play:
       label: "créer la table"
   invite:
     submit:
-      label: "inviter & Créer"
+      label: "inviter"
