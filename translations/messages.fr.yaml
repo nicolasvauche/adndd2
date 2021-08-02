@@ -156,6 +156,9 @@ play:
       label: "partie privée"
     submit:
       label: "créer la table"
+    visibility:
+      public: "publique"
+      private: "privée"
   invite:
     submit:
       label: "inviter"

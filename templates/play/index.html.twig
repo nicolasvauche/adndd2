@@ -15,8 +15,12 @@
                 <div class="app_filters_controls">
                     <select name="tables_game" id="tables_game" class="app_filter_select">
                         <option value="all">{{ 'pages.games.title' | trans | capitalize }}</option>
+                        {% set scenariosGames = [] %}
                         {% for scenario in scenarios %}
-                            <option value="{{ scenario.game.id }}">{{ scenario.game.name }}</option>
+                            {% if scenario.game.id not in scenariosGames %}
+                                <option value="{{ scenario.game.id }}">{{ scenario.game.name }}</option>
+                                {% set scenariosGames = scenariosGames|merge([scenario.game.id]) %}
+                            {% endif %}
                         {% endfor %}
                         {% for game in games %}
                             <option value="{{ game.id }}">{{ game.name }}</option>
@@ -285,14 +289,14 @@
                 const gameId = filterSelect.value
                 if (gameId === 'all') {
                     for (const gameThumbnail of gamesThumbnails) {
-                        gameThumbnail.style.display = 'block'
+                        gameThumbnail.style.display = 'flex'
                     }
                 } else {
                     for (const gameThumbnail of gamesThumbnails) {
                         if (parseInt(gameThumbnail.dataset.gameid) !== parseInt(gameId)) {
                             gameThumbnail.style.display = 'none'
                         } else {
-                            gameThumbnail.style.display = 'block'
+                            gameThumbnail.style.display = 'flex'
                         }
                     }
                 }
