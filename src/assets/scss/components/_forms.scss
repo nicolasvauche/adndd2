@@ -57,9 +57,54 @@
                 border: none;
                 cursor: pointer;
 
+                &:hover {
+                    color: $color-orange;
+                }
+
                 @include respond(sm) {
                     top: 2.4rem;
                     right: 0.5rem;
+                }
+            }
+
+            .app_form_control {
+                padding-right: 3.5rem;
+            }
+
+            .fa-spin {
+                display: none;
+                position: absolute;
+                top: 2.4rem;
+                left: 50%;
+                transform: translateX(-50%);
+
+                @include respond(sm) {
+                    top: 2.9rem;
+                }
+            }
+
+            #players {
+                order: 9;
+                display: none;
+                margin: 0 1rem;
+                padding: 1rem;
+                background-color: $color-bg-primary;
+                border: 1px solid $color-fg-primary;
+                border-top: none;
+                border-bottom-left-radius: $border-radius-default;
+                border-bottom-right-radius: $border-radius-default;
+
+                .player {
+                    font-weight: bold;
+                    cursor: pointer;
+
+                    span {
+                        font-weight: normal;
+                    }
+
+                    &:hover {
+                        color: $color-blue;
+                    }
                 }
             }
         }
