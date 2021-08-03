@@ -83,11 +83,17 @@ class Game
      */
     private $spells;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Tribe::class, inversedBy="games")
+     */
+    private $tribes;
+
     public function __construct()
     {
         $this->gameRules = new ArrayCollection();
         $this->scenarios = new ArrayCollection();
         $this->Spells = new ArrayCollection();
+        $this->tribes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -283,6 +289,30 @@ class Game
     public function removeSpell(Spell $spell): self
     {
         $this->spells->removeElement($spell);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tribe[]
+     */
+    public function getTribes(): Collection
+    {
+        return $this->tribes;
+    }
+
+    public function addTribe(Tribe $tribe): self
+    {
+        if (!$this->tribes->contains($tribe)) {
+            $this->tribes[] = $tribe;
+        }
+
+        return $this;
+    }
+
+    public function removeTribe(Tribe $tribe): self
+    {
+        $this->tribes->removeElement($tribe);
 
         return $this;
     }
