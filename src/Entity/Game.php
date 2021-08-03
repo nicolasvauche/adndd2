@@ -83,11 +83,17 @@ class Game
      */
     private $spells;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Specialty::class, inversedBy="games")
+     */
+    private $specialties;
+
     public function __construct()
     {
         $this->gameRules = new ArrayCollection();
         $this->scenarios = new ArrayCollection();
         $this->Spells = new ArrayCollection();
+        $this->specialties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -283,6 +289,30 @@ class Game
     public function removeSpell(Spell $spell): self
     {
         $this->spells->removeElement($spell);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Specialty[]
+     */
+    public function getSpecialties(): Collection
+    {
+        return $this->specialties;
+    }
+
+    public function addSpecialty(Specialty $specialty): self
+    {
+        if (!$this->specialties->contains($specialty)) {
+            $this->specialties[] = $specialty;
+        }
+
+        return $this;
+    }
+
+    public function removeSpecialty(Specialty $specialty): self
+    {
+        $this->specialties->removeElement($specialty);
 
         return $this;
     }
