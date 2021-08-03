@@ -83,11 +83,17 @@ class Game
      */
     private $spells;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Equipment::class, inversedBy="games")
+     */
+    private $equipments;
+
     public function __construct()
     {
         $this->gameRules = new ArrayCollection();
         $this->scenarios = new ArrayCollection();
         $this->Spells = new ArrayCollection();
+        $this->equipments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -283,6 +289,30 @@ class Game
     public function removeSpell(Spell $spell): self
     {
         $this->spells->removeElement($spell);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipment[]
+     */
+    public function getEquipments(): Collection
+    {
+        return $this->equipments;
+    }
+
+    public function addEquipment(Equipment $equipment): self
+    {
+        if (!$this->equipments->contains($equipment)) {
+            $this->equipments[] = $equipment;
+        }
+
+        return $this;
+    }
+
+    public function removeEquipment(Equipment $equipment): self
+    {
+        $this->equipments->removeElement($equipment);
 
         return $this;
     }
