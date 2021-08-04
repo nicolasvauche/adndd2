@@ -88,12 +88,18 @@ class Game
      */
     private $gameCharacteristics;
 
+    /**
+     * @ORM\OneToMany(targetEntity=GameSkill::class, mappedBy="game")
+     */
+    private $gameSkills;
+
     public function __construct()
     {
         $this->gameRules = new ArrayCollection();
         $this->scenarios = new ArrayCollection();
         $this->Spells = new ArrayCollection();
         $this->gameCharacteristics = new ArrayCollection();
+        $this->gameSkills = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -317,6 +323,36 @@ class Game
             // set the owning side to null (unless already changed)
             if ($gameCharacteristic->getGame() === $this) {
                 $gameCharacteristic->setGame(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GameSkill[]
+     */
+    public function getGameSkills(): Collection
+    {
+        return $this->gameSkills;
+    }
+
+    public function addGameSkill(GameSkill $gameSkill): self
+    {
+        if (!$this->gameSkills->contains($gameSkill)) {
+            $this->gameSkills[] = $gameSkill;
+            $gameSkill->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGameSkill(GameSkill $gameSkill): self
+    {
+        if ($this->gameSkills->removeElement($gameSkill)) {
+            // set the owning side to null (unless already changed)
+            if ($gameSkill->getGame() === $this) {
+                $gameSkill->setGame(null);
             }
         }
 
