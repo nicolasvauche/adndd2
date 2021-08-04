@@ -84,22 +84,28 @@ class Game
     private $spells;
 
     /**
+     * @ORM\OneToMany(targetEntity=GameSkill::class, mappedBy="game")
+     */
+    private $gameSkills;
+
+    /**
      * @ORM\OneToMany(targetEntity=GameCharacteristic::class, mappedBy="game")
      */
     private $gameCharacteristics;
 
     /**
-     * @ORM\OneToMany(targetEntity=GameSkill::class, mappedBy="game")
+     * @ORM\ManyToMany(targetEntity=Tribe::class, inversedBy="games")
      */
-    private $gameSkills;
+    private $tribes;
 
     public function __construct()
     {
         $this->gameRules = new ArrayCollection();
         $this->scenarios = new ArrayCollection();
         $this->Spells = new ArrayCollection();
-        $this->gameCharacteristics = new ArrayCollection();
         $this->gameSkills = new ArrayCollection();
+        $this->gameCharacteristics = new ArrayCollection();
+        $this->tribes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -300,6 +306,36 @@ class Game
     }
 
     /**
+     * @return Collection|GameSkill[]
+     */
+    public function getGameSkills(): Collection
+    {
+        return $this->gameSkills;
+    }
+
+    public function addGameSkill(GameSkill $gameSkill): self
+    {
+        if (!$this->gameSkills->contains($gameSkill)) {
+            $this->gameSkills[] = $gameSkill;
+            $gameSkill->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGameSkill(GameSkill $gameSkill): self
+    {
+        if ($this->gameSkills->removeElement($gameSkill)) {
+            // set the owning side to null (unless already changed)
+            if ($gameSkill->getGame() === $this) {
+                $gameSkill->setGame(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection|GameCharacteristic[]
      */
     public function getGameCharacteristics(): Collection
@@ -330,31 +366,25 @@ class Game
     }
 
     /**
-     * @return Collection|GameSkill[]
+     * @return Collection|Tribe[]
      */
-    public function getGameSkills(): Collection
+    public function getTribes(): Collection
     {
-        return $this->gameSkills;
+        return $this->tribes;
     }
 
-    public function addGameSkill(GameSkill $gameSkill): self
+    public function addTribe(Tribe $tribe): self
     {
-        if (!$this->gameSkills->contains($gameSkill)) {
-            $this->gameSkills[] = $gameSkill;
-            $gameSkill->setGame($this);
+        if (!$this->tribes->contains($tribe)) {
+            $this->tribes[] = $tribe;
         }
 
         return $this;
     }
 
-    public function removeGameSkill(GameSkill $gameSkill): self
+    public function removeTribe(Tribe $tribe): self
     {
-        if ($this->gameSkills->removeElement($gameSkill)) {
-            // set the owning side to null (unless already changed)
-            if ($gameSkill->getGame() === $this) {
-                $gameSkill->setGame(null);
-            }
-        }
+        $this->tribes->removeElement($tribe);
 
         return $this;
     }
