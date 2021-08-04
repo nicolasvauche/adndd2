@@ -65,6 +65,7 @@ class PlayController extends AbstractController
         }
 
         $scenario = new Scenario();
+        $scenario->setGame($game);
         $form = $this->createForm(ScenarioType::class, $scenario);
         $form->handleRequest($request);
 
@@ -92,6 +93,7 @@ class PlayController extends AbstractController
                 'mode' => 'add',
                 'game' => $game,
                 'form' => $form->createView(),
+                'scenario' => $scenario,
             ]);
     }
 
