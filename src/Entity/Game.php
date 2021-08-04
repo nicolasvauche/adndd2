@@ -98,6 +98,11 @@ class Game
      */
     private $tribes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Specialty::class, inversedBy="games")
+     */
+    private $specialties;
+
     public function __construct()
     {
         $this->gameRules = new ArrayCollection();
@@ -106,6 +111,7 @@ class Game
         $this->gameSkills = new ArrayCollection();
         $this->gameCharacteristics = new ArrayCollection();
         $this->tribes = new ArrayCollection();
+        $this->specialties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -385,6 +391,30 @@ class Game
     public function removeTribe(Tribe $tribe): self
     {
         $this->tribes->removeElement($tribe);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Specialty[]
+     */
+    public function getSpecialties(): Collection
+    {
+        return $this->specialties;
+    }
+
+    public function addSpecialty(Specialty $specialty): self
+    {
+        if (!$this->specialties->contains($specialty)) {
+            $this->specialties[] = $specialty;
+        }
+
+        return $this;
+    }
+
+    public function removeSpecialty(Specialty $specialty): self
+    {
+        $this->specialties->removeElement($specialty);
 
         return $this;
     }
