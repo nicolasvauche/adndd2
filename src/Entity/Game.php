@@ -108,6 +108,11 @@ class Game
      */
     private $equipments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="game")
+     */
+    private $characters;
+
     public function __construct()
     {
         $this->gameRules = new ArrayCollection();
@@ -118,6 +123,7 @@ class Game
         $this->tribes = new ArrayCollection();
         $this->specialties = new ArrayCollection();
         $this->equipments = new ArrayCollection();
+        $this->characters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -445,6 +451,36 @@ class Game
     public function removeEquipment(Equipment $equipment): self
     {
         $this->equipments->removeElement($equipment);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Character[]
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->removeElement($character)) {
+            // set the owning side to null (unless already changed)
+            if ($character->getGame() === $this) {
+                $character->setGame(null);
+            }
+        }
 
         return $this;
     }
