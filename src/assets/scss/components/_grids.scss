@@ -39,18 +39,30 @@
         margin: 0 0 1.5rem;
 
         .app_grid_item {
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
             text-align: center;
             background-color: $color-bg-altmenu;
             border-radius: $border-radius-default;
+            transition: background-color 0.3s ease-in-out;
+
+            &:hover {
+                background-color: $color-blue;
+            }
 
             .app_grid_item_title {
                 display: block;
                 margin: 0 0.5rem 0.5rem;
                 font-family: $font-family-secondary;
+                font-size: 0.9rem;
                 font-weight: bold;
                 text-align: center;
                 color: $color-bg-secondary;
                 text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color;
+                width: calc(100% - 1rem);
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             &.placehold {
@@ -99,9 +111,14 @@
         .app_grid_item_subtitle {
             margin: 0 0.25rem 0.5rem;
             text-align: center;
+
+            &.sub {
+                font-style: italic;
+            }
         }
 
         .app_grid_item_image {
+            max-height: 95%;
             border-radius: $border-radius-default;
 
             @include respond(sm) {
@@ -119,7 +136,7 @@
             &.excerpt {
                 padding: 0 0.5rem;
                 text-align: left;
-                font-size: 0.9rem;
+                font-size: 0.8rem;
             }
 
             &:last-of-type {
@@ -144,8 +161,8 @@
                 border-radius: 0;
 
                 &.button {
-                    color: $color-bg-primary;
-                    background-color: $color-bg-alt;
+                    color: $color-blue;
+                    background-color: transparent;
                     text-decoration: none;
 
                     &:first-child {
@@ -161,9 +178,30 @@
                         background-color: $color-orange;
                     }
 
+                    &.danger {
+                        color: $color-red;
+                    }
+
                     &:hover {
                         color: $color-bg-primary;
                         background-color: $color-blue;
+                    }
+                }
+
+                &:first-child {
+                    border-bottom-left-radius: $border-radius-default;
+                }
+
+                &:last-child {
+                    border-bottom-right-radius: $border-radius-default;
+                }
+
+                &.danger {
+                    color: $color-red;
+
+                    &:hover {
+                        color: $color-bg-primary;
+                        background-color: $color-red;
                     }
                 }
             }

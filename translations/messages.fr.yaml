@@ -57,6 +57,9 @@ pages:
     create:
       title: "créer une table de jeu"
       menu: "nouvelle table"
+    edit:
+      title: "modifier une table de jeu"
+      menu: "modifier la table de jeu"
     invite:
       title: "inviter des joueurs à la table"
       menu: "inviter des joueurs"
@@ -141,16 +144,26 @@ contact:
     label: "envoie ton message"
 play:
   game:
+    campaign:
+      label: "campagne associée"
+      emptyData: "Choisissez la campagne à associer au scénario"
     name:
       label: "nom du scénario"
       placeholder: "ex: La grosse aventure"
-    start: "date de début"
-    visibility:
-      title: "visibilité"
-      public: "publique"
-      private: "privée"
+    shortDescription:
+      label: "description (courte)"
+      placeholder: "Décrivez vite fait votre scénario"
+    startAt:
+      label: "date de début"
+    isPrivate:
+      label: "partie privée"
     submit:
       label: "créer la table"
+    edit:
+      label: "modifier la table"
+    visibility:
+      public: "publique"
+      private: "privée"
   invite:
     submit:
-      label: "inviter & Créer"
+      label: "inviter"

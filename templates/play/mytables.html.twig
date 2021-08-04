@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'pages.user.plays.title' | trans | capitalize }}{% endblock %}
+
+{% block body_class %}play{% endblock %}
+
+{% block body %}
+    <article>
+        <section>
+            <h1>{{ 'pages.user.plays.menu' | trans | capitalize }}</h1>
+
+            <!-- Flash messages -->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    {% if loop.first %}
+                        <div class="app_alert {{ label }}">
+                            {{ message | trans | capitalize }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+            <div class="app_filters">
+                <h2>{{ 'pages.user.plays.title' | trans | capitalize }}</h2>
+
+                <div class="app_filters_controls">
+                    <select name="tables_game" id="tables_game" class="app_filter_select">
+                        <option value="all">{{ 'pages.games.title' | trans | capitalize }}</option>
+                        {% set scenariosGames = [] %}
+                        {% for scenario in scenarios %}
+                            {% if scenario.game.id not in scenariosGames %}
+                                <option value="{{ scenario.game.id }}">{{ scenario.game.name }}</option>
+                                {% set scenariosGames = scenariosGames|merge([scenario.game.id]) %}
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="app_grid four app_slider xs">
+
+                {% for scenario in scenarios %}
+                    <div class="game app_grid_item app_slider_item" data-gameid="{{ scenario.game.id }}">
+                        <div class="app_grid_item_header">
+                            <img src="{{ asset('assets/images/games/' ~ scenario.game.media) }}" alt="{{ scenario.game.name }}" class="app_grid_item_image" />
+                            <h3 class="app_grid_item_title">{{ scenario.game.name }}</h3>
+                            {% if scenario.campaign %}
+                                <h5 class="app_grid_item_subtitle sub">{{ scenario.campaign.name }}</h5>
+                            {% endif %}
+                            <h4 class="app_grid_item_subtitle">{{ scenario.name }}</h4>
+                            <p class="app_grid_item_info">
+                                <strong>{{ scenario.startAt | date('d/m/Y H:i') }}</strong>
+                            </p>
+                            <p class="app_grid_item_info excerpt">
+                                {{ scenario.shortDescription }}
+                            </p>
+                        </div>
+                        <p class="app_grid_item_info mb_0">
+                            <i class="fas fa-users"></i>
+                            <strong>4/5</strong>
+                        </p>
+                        <div class="app_grid_item_footer">
+                            <a href="{{ path('play.invite', {'id': scenario.id}) }}" class="app_grid_item_footer_action button br_none">Inviter</a>
+
+                            <a href="#" class="app_grid_item_footer_action button cta br_none" title="Rejoindre la partie">Rejoindre</a>
+
+                            <a href="{{ path('play.edit', {'id': scenario.id}) }}" class="app_grid_item_footer_action">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <a href="#" class="app_grid_item_footer_action danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </section>
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const gamesThumbnails = document.querySelectorAll(('.game'))
+            const filterSelect = document.getElementById('tables_game')
+            filterSelect.addEventListener('change', event => {
+                const gameId = filterSelect.value
+                if (gameId === 'all') {
+                    for (const gameThumbnail of gamesThumbnails) {
+                        gameThumbnail.style.display = 'flex'
+                    }
+                } else {
+                    for (const gameThumbnail of gamesThumbnails) {
+                        if (parseInt(gameThumbnail.dataset.gameid) !== parseInt(gameId)) {
+                            gameThumbnail.style.display = 'none'
+                        } else {
+                            gameThumbnail.style.display = 'flex'
+                        }
+                    }
+                }
+            })
+        })
+    </script>
+{% endblock %}

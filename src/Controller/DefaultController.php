@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\GameRepository;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,10 +13,12 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(): Response
+    public function index(GameRepository $gameRepository): Response
     {
+        $games = $gameRepository->findAll();
+
         return $this->render('default/index.html.twig', [
-            'controller_name' => 'DefaultController',
+            'games' => $games,
         ]);
     }
 
