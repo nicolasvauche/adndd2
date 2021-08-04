@@ -1,13 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'pages.play.create.title' | trans | capitalize }}{% endblock %}
+{% block title %}
+    {% if mode == 'add' %}
+        {{ 'pages.play.create.title' | trans | capitalize }}
+    {% else %}
+        {{ 'pages.play.edit.title' | trans | capitalize }}
+    {% endif %}
+{% endblock %}
 
 {% block body_class %}play{% endblock %}
 
 {% block body %}
     <article class="aside">
         <section>
-            <h1>{{ 'pages.play.create.title' | trans | capitalize }}</h1>
+            <h1>
+                {% if mode == 'add' %}
+                    {{ 'pages.play.create.title' | trans | capitalize }}
+                {% else %}
+                    {{ 'pages.play.edit.title' | trans | capitalize }}
+                {% endif %}
+            </h1>
 
             <!-- Flash messages -->
             {% for label, messages in app.flashes %}
@@ -42,20 +54,41 @@
             </div>
 
             <div class="app_form_group checkbox">
-                {{ form_widget(form.isPrivate) }}
+                {% if mode == 'edit' %}
+                    {% if scenario.isPrivate %}
+                        {{ form_widget(form.isPrivate, {'attr': {'checked': 'checked'}}) }}
+                    {% else %}
+                        {{ form_widget(form.isPrivate) }}
+                    {% endif %}
+                {% else %}
+                    {{ form_widget(form.isPrivate) }}
+                {% endif %}
                 <label for="{{ form.isPrivate.vars.id }}">{{ form.isPrivate.vars.label | trans | capitalize }}</label>
             </div>
 
             <div class="app_form_group mb_0">
-                {{ form_widget(form.submit) }}
+                {{ form_widget(form.submit, {'label': mode == 'play.game.submit.label' ? 'save' : 'play.game.edit.label'}) }}
             </div>
             {{ form_end(form) }}
         </section>
 
         <aside>
-            <h2>{{ 'pages.play.create.menu' | trans | capitalize }}</h2>
+            <h2>
+                {% if mode == 'add' %}
+                    {{ 'pages.play.create.menu' | trans | capitalize }}
+                {% else %}
+                    {{ 'pages.play.edit.menu' | trans | capitalize }}
+                {% endif %}
+            </h2>
 
             <span><i class="fas fa-scroll"></i> {{ game.name }}</span>
+            {% if mode == 'edit' %}
+                <span><i class="fas fa-clock"></i> {{ scenario.startAt | date('d/m/Y H:i') }}</span>
+
+                {% if scenario.isPrivate %}
+                    <span><i class="fas fa-eye-slash"></i> {{ 'play.game.isPrivate.label' | trans | capitalize }}</span>
+                {% endif %}
+            {% endif %}
         </aside>
     </article>
 {% endblock %}

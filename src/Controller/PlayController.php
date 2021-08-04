@@ -87,10 +87,42 @@ class PlayController extends AbstractController
             }
         }
 
-        return $this->render('play/create.html.twig',
+        return $this->render('play/form.html.twig',
             [
+                'mode' => 'add',
                 'game' => $game,
                 'form' => $form->createView(),
+            ]);
+    }
+
+    /**
+     * @Route("/modifier-une-table/{id}", name="play.edit")
+     */
+    public function edit(Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, Scenario $scenario)
+    {
+        $form = $this->createForm(ScenarioType::class, $scenario);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($scenario);
+            $manager->flush();
+
+            $this->addFlash('success', 'La partie a été modifiée.');
+
+            return $this->redirectToRoute('user.play.myscenarios');
+        } else {
+            $errors = $validator->validate($form);
+
+            if (count($errors) > 0) {
+                $this->addFlash('danger', $errors[0]->getMessage());
+            }
+        }
+        return $this->render('play/form.html.twig',
+            [
+                'mode' => 'edit',
+                'game' => $scenario->getGame(),
+                'form' => $form->createView(),
+                'scenario' => $scenario,
             ]);
     }
 

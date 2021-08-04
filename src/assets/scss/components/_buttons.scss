@@ -18,6 +18,10 @@
         background-color: $color-orange;
     }
 
+    &.danger {
+        background-color: $color-red;
+    }
+
     &:hover {
         color: $color-bg-primary !important;
         background-color: $color-blue !important;

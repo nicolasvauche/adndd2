@@ -68,7 +68,7 @@ class ScenarioType extends AbstractType
                         'class' => 'app_form_control',
                     ],
                 ])
-            ->add('game', HiddenType::class)
+            //->add('game', HiddenType::class)
             ->add('submit', SubmitType::class,
                 [
                     'label' => 'play.game.submit.label',
