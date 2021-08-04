@@ -49,6 +49,11 @@
             </div>
 
             <div class="app_form_group">
+                {{ form_widget(form.description) }}
+                <label for="{{ form.description.vars.id }}">{{ form.description.vars.label | trans | capitalize }}</label>
+            </div>
+
+            <div class="app_form_group">
                 {{ form_widget(form.startAt) }}
                 <label for="{{ form.startAt.vars.id }}">{{ form.startAt.vars.label | trans | capitalize }}</label>
             </div>

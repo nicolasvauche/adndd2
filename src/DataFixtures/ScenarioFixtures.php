@@ -13,11 +13,15 @@ class ScenarioFixtures extends Fixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         /**
-         * Default campaign
+         * Default campaigns
          */
         $campaign1 = new Campaign();
         $campaign1->setName("Les navigateurs Oubliés");
         $manager->persist($campaign1);
+
+        $campaign2 = new Campaign();
+        $campaign2->setName("Mon voisin Nyarlathotep");
+        $manager->persist($campaign2);
 
         /**
          * Default scenarios
@@ -50,6 +54,24 @@ EOF
             ->setStatus('waiting')
             ->setStartAt(new \DateTime('2021-11-27 20:00:00'));
         $manager->persist($scenario1);
+
+        $scenario2 = new Scenario();
+        $scenario2->setName("Un nouveau foyer")
+            ->setCampaign($campaign2)
+            ->setShortDescription("Vous venez d'emménager dans votre nouvelle maison. Dans le quartier, plutôt calme, seule la maison à côté de la vôtre est habitée. En apparence toutefois : vous n'avez pas encore croisé ses occupants…")
+            ->setDescription(
+                <<<EOF
+<p>
+Vous venez d'emménager dans votre nouvelle maison. Tout est bien, une belle maison avec juste ce qu'il faut de pièces, pas trop grandes non plus. Dans le quartier, plutôt calme, seule la maison à côté de la vôtre est habitée. En apparence toutefois : vous n'avez pas encore croisé ses occupants.
+</p>
+EOF
+            )
+            ->setGame($this->getReference('game2'))
+            ->setUser($this->getReference('user1'))
+            ->setIsPrivate(false)
+            ->setStatus('waiting')
+            ->setStartAt(new \DateTime('2021-12-24 23:59:00'));
+        $manager->persist($scenario2);
 
         $manager->flush();
     }

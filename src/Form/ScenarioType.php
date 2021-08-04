@@ -51,6 +51,16 @@ class ScenarioType extends AbstractType
                         'rows' => 5,
                     ],
                 ])
+            ->add('description', TextareaType::class,
+                [
+                    'required' => false,
+                    'label' => 'play.game.description.label',
+                    'attr' => [
+                        'class' => 'app_form_control',
+                        'placeholder' => 'play.game.description.placeholder',
+                        'rows' => 7,
+                    ],
+                ])
             ->add('isPrivate', CheckboxType::class,
                 [
                     'required' => false,
