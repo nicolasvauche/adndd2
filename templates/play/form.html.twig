@@ -49,6 +49,11 @@
             </div>
 
             <div class="app_form_group">
+                {{ form_widget(form.description) }}
+                <label for="{{ form.description.vars.id }}">{{ form.description.vars.label | trans | capitalize }}</label>
+            </div>
+
+            <div class="app_form_group">
                 {{ form_widget(form.startAt) }}
                 <label for="{{ form.startAt.vars.id }}">{{ form.startAt.vars.label | trans | capitalize }}</label>
             </div>
@@ -91,7 +96,12 @@
                 {% endif %}
             </h2>
 
-            <span><i class="fas fa-scroll"></i> {{ game.name }}</span>
+            <span>
+                <img src="{{ asset('assets/images/games/' ~ scenario.game.media) }}" alt="{{ scenario.game.name }}">
+            </span>
+
+            <span><i class="fas fa-scroll"></i> {{ scenario.game.name }}</span>
+
             {% if mode == 'edit' %}
                 <span><i class="fas fa-clock"></i> {{ scenario.startAt | date('d/m/Y H:i') }}</span>
 

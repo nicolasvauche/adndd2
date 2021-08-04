@@ -30,10 +30,14 @@ h2 {
     text-transform: uppercase;
     text-align: center;
     color: $color-bg-alt;
-    text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color-alt;
+    text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) calc(#{$box-shadow-radius} / 2) $box-shadow-color-alt;
 
     @include respond(sm) {
         text-align: left;
+    }
+
+    &.fg_light {
+        text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) calc(#{$box-shadow-radius} / 2) $box-shadow-color;
     }
 }
 
@@ -111,4 +115,8 @@ dl {
 
 .br_none {
     border-radius: 0 !important;
+}
+
+.fg_light {
+    color: $color-bg-secondary !important;
 }

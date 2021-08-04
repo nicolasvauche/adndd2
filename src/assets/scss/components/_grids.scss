@@ -145,14 +145,15 @@
         }
 
         .app_grid_item_footer {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
             margin: 1rem 0 0;
 
             .app_grid_item_footer_action {
+                flex: 1;
                 display: block;
-                padding: 0.5rem;
+                padding: 0.5rem 1rem;
                 font-family: $font-family-secondary;
                 font-weight: bold;
                 text-align: center;
