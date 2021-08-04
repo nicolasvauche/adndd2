@@ -25,7 +25,7 @@
                             {% if app.user %}
                                 <a href="#" class="app_grid_item_footer_action button modal" title="Règles du jeu (pdf)" data-modal="gamerules-{{ game.id }}">Les règles</a>
 
-                                <a href="{{ path('play.create', { 'gameId': game.id }) }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.play.create.title' | trans | capitalize }}">{{ 'pages.play.create.menu' | trans | capitalize }}</a>
+                                <a href="{{ path('user.play.create', { 'gameId': game.id }) }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.play.create.title' | trans | capitalize }}">{{ 'pages.play.create.menu' | trans | capitalize }}</a>
                             {% else %}
                                 <span class="app_grid_item_footer_action">Les règles</span>
 

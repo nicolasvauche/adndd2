@@ -51,7 +51,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/creer-une-table/{gameId}", name="play.create")
+     * @Route("/creer-une-table/{gameId}", name="user.play.create")
      */
     public function create(GameRepository $gameRepository, Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, $gameId = null): Response
     {
@@ -79,7 +79,7 @@ class PlayController extends AbstractController
 
             $this->addFlash('success', 'La partie a été créée ! Invitons quelques joueurs, maintenant…');
 
-            return $this->redirectToRoute('play.invite', ['id' => $scenario->getId()]);
+            return $this->redirectToRoute('user.play.invite', ['id' => $scenario->getId()]);
         } else {
             $errors = $validator->validate($form);
 
@@ -98,7 +98,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/modifier-une-table/{id}", name="play.edit")
+     * @Route("/modifier-une-table/{id}", name="user.play.edit")
      */
     public function edit(Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, Scenario $scenario)
     {
@@ -129,7 +129,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/inviter-des-joueurs/{id}", name="play.invite")
+     * @Route("/inviter-des-joueurs/{id}", name="user.play.invite")
      */
     public function invite(Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, Scenario $scenario): Response
     {
@@ -141,7 +141,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/rechercher-un-joueur/{playerName}", name="play.invite.player")
+     * @Route("/rechercher-un-joueur/{playerName}", name="user.play.invite.player")
      */
     public function invitePlayer(Request $request, $playerName)
     {
