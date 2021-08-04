@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -77,6 +80,16 @@ class User implements UserInterface
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $activatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Scenario::class, mappedBy="user")
+     */
+    private $scenarios;
+
+    public function __construct()
+    {
+        $this->scenarios = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -257,6 +270,36 @@ class User implements UserInterface
     public function setActivatedAt(?\DateTimeInterface $activatedAt): self
     {
         $this->activatedAt = $activatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Scenario[]
+     */
+    public function getScenarios(): Collection
+    {
+        return $this->scenarios;
+    }
+
+    public function addScenario(Scenario $scenario): self
+    {
+        if (!$this->scenarios->contains($scenario)) {
+            $this->scenarios[] = $scenario;
+            $scenario->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeScenario(Scenario $scenario): self
+    {
+        if ($this->scenarios->removeElement($scenario)) {
+            // set the owning side to null (unless already changed)
+            if ($scenario->getUser() === $this) {
+                $scenario->setUser(null);
+            }
+        }
 
         return $this;
     }

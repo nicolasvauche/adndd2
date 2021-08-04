@@ -9,59 +9,47 @@
         <section>
             <h1>{{ 'pages.play.invite.title' | trans | capitalize }}</h1>
 
-            <form class="app_form" method="post" action="{{ path('play.invite') }}">
+            <!-- Flash messages -->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    {% if loop.first %}
+                        <div class="app_alert {{ label }}">
+                            {{ message | trans | capitalize }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+            <form class="app_form" method="post">
                 <div class="app_form_group button">
-                    <input type="text" id="invite_playername" name="invite_playername" class="app_form_control" />
-                    <button id="invite_playeradd">
-                        <i class="fas fa-plus"></i>
+                    <div id="players"></div>
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <input type="text" id="invite_playername" name="invite_playername" class="app_form_control" autofocus />
+                    <button id="invite_playersup">
+                        <i class="fas fa-trash"></i>
                     </button>
                     <label for="invite_playername">Rechercher un joueur</label>
                 </div>
 
                 <div class="invited app_grid five">
-                    <div class="app_grid_item">
-                        <a href="#" title="Enlever cette invitation">
+                    {% for i in 0..4 %}
+                        <div class="app_grid_item placehold">
                             <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
-                            <span class="app_grid_item_title">Un Invité</span>
-                        </a>
-                    </div>
-
-                    <div class="app_grid_item">
-                        <a href="#" title="Enlever cette invitation">
-                            <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
-                            <span class="app_grid_item_title">Un Autre</span>
-                        </a>
-                    </div>
-
-                    <div class="app_grid_item">
-                        <a href="#" title="Enlever cette invitation">
-                            <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
-                            <span class="app_grid_item_title">Encore Un</span>
-                        </a>
-                    </div>
-
-                    <div class="app_grid_item">
-                        <a href="#" title="Enlever cette invitation">
-                            <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
-                            <span class="app_grid_item_title">Un Dernier</span>
-                        </a>
-                    </div>
-
-                    <div class="app_grid_item placehold">
-                        <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
-                        <span class="app_grid_item_title">Libre</span>
-                    </div>
+                            <span class="app_grid_item_title">Libre</span>
+                        </div>
+                    {% endfor %}
                 </div>
 
-                <p class="info">Cliquez sur une invitation pour l'enlever ;)</p>
-
                 <div class="app_form_group">
-                    <input type="hidden" name="invite_game_id" value="{{ gameId }}" />
+                    <p class="info">
+                        <i class="far fa-hand-point-up"></i>
+                        Cliquez sur une invitation pour l'enlever
+                    </p>
                 </div>
 
                 <div class="app_grid two mb_0">
                     <div class="app_form_group">
-                        <a href="javascript:history.back();" class="app_button">{{ 'default.back' | trans | capitalize }}</a>
+                        <a href="{{ path('games') }}" class="app_button">{{ 'default.cancel' | trans | capitalize }}</a>
                     </div>
 
                     <div class="app_form_group">
@@ -74,11 +62,13 @@
         <aside>
             <h2>{{ 'pages.play.create.menu' | trans | capitalize }}</h2>
 
-            <span><i class="fas fa-scroll"></i> <strong>{{ gameName }}</strong></span>
+            <span><i class="fas fa-scroll"></i> <strong>{{ scenario.game.name }}</strong></span>
 
-            <span><i class="fas fa-clock"></i> {{ formData['play_date'] | date('d/m/Y H:i') }}</span>
+            <span><i class="fas fa-clock"></i> {{ scenario.startAt | date('d/m/Y H:i') }}</span>
 
-            <span><i class="fas fa-eye"></i> {{ formData['play_visibility'] | capitalize }}</span>
+            {% if scenario.isPrivate %}
+                <span><i class="fas fa-eye-slash"></i> {{ 'play.game.isPrivate.label' | trans | capitalize }}</span>
+            {% endif %}
         </aside>
     </article>
 {% endblock %}
@@ -87,12 +77,106 @@
     <script defer>
         window.addEventListener("DOMContentLoaded", () => {
             const playerAddInput = document.getElementById('invite_playername')
-            const playerAddBtn = document.getElementById('invite_playeradd')
-            playerAddBtn.addEventListener('click', event => {
-                event.preventDefault()
-                if (playerAddInput.value !== '') {
-                    alert('Ajouter ' + playerAddInput.value)
+            const playerSupBtn = document.getElementById('invite_playersup')
+            const loader = document.querySelector('.fa-spin')
+            const playersDiv = document.getElementById('players')
+
+            const addPlayer = player => {
+                const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
+
+                for (guestDiv of guestsDiv) {
+                    if (guestDiv.classList.contains('placehold')) {
+                        const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
+                        const guestName = guestDiv.querySelector(('.app_grid_item_title'))
+
+                        guestDiv.dataset.playerid = player.id
+                        guestDiv.classList.remove('placehold')
+                        guestDiv.innerHTML = ''
+
+                        const guestLink = document.createElement('a')
+                        guestLink.href = "#"
+                        guestLink.title = "Enlever cette invitation"
+                        guestLink.addEventListener('click', event => {
+                            event.preventDefault()
+                            deletePlayer(player)
+                        })
+
+                        guestLink.appendChild(guestImage)
+
+                        guestName.innerHTML = player.pseudo
+                        guestLink.appendChild(guestName)
+
+                        guestDiv.appendChild(guestLink)
+
+                        playerAddInput.value = ''
+                        playersDiv.innerHTML = ''
+                        playersDiv.style.display = 'none'
+
+                        return
+                    }
                 }
+            }
+
+            const deletePlayer = player => {
+                const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
+
+                for (guestDiv of guestsDiv) {
+                    if (parseInt(guestDiv.dataset.playerid) === parseInt(player.id)) {
+                        const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
+                        const guestName = guestDiv.querySelector(('.app_grid_item_title'))
+                        guestName.innerHTML = 'Libre'
+
+                        guestDiv.innerHTML = ''
+                        guestDiv.appendChild(guestImage)
+                        guestDiv.appendChild(guestName)
+                        guestDiv.classList.add('placehold')
+                    }
+                }
+            }
+
+            playerAddInput.addEventListener('input', event => {
+                const playerName = playerAddInput.value
+
+                if (playerName.length > 2) {
+                    loader.style.display = 'inline'
+
+                    const xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        playersDiv.innerHTML = ''
+                        if (this.readyState === 4 && this.status === 200) {
+                            const playerDiv = document.createElement('p')
+                            const playerData = JSON.parse(this.responseText)
+                            if (playerData.length > 0) {
+                                playerDiv.classList.add('player')
+                                playerDiv.dataset.userid = playerData[0].id
+                                playerDiv.innerHTML = playerData[0].fullname + ' <span>(' + playerData[0].pseudo + ')</span>'
+                                playerDiv.addEventListener('click', event => {
+                                    addPlayer(playerData[0])
+                                })
+                                playersDiv.appendChild(playerDiv)
+                                playersDiv.style.display = 'block'
+                                loader.style.display = 'none'
+                            } else {
+                                playerDiv.innerHTML = 'aucun résultat…'
+                                playersDiv.appendChild(playerDiv)
+                                playersDiv.style.display = 'block'
+                                loader.style.display = 'none'
+                            }
+                        }
+                    };
+
+                    xhttp.open("GET", '/jouer-en-ligne/rechercher-un-joueur/' + playerName, true);
+                    xhttp.send();
+                } else {
+                    playersDiv.style.display = 'none'
+                    loader.style.display = 'none'
+                }
+            })
+            playerSupBtn.addEventListener('click', event => {
+                event.preventDefault()
+                playerAddInput.value = ''
+                playersDiv.innerHTML = ''
+                playersDiv.style.display = 'none'
             })
         })
     </script>

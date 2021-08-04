@@ -64,6 +64,19 @@ h4 {
     }
 }
 
+h5 {
+    margin-bottom: 0.5rem;
+    font-family: $font-family-secondary;
+    font-size: 1rem;
+    text-align: center;
+    color: $color-bg-alt;
+    text-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) 0 $box-shadow-color-alt;
+
+    @include respond(sm) {
+        text-align: left;
+    }
+}
+
 a,
 button {
     transition: all 0.3s ease-in-out;
@@ -94,4 +107,8 @@ dl {
 /** Custom classes **/
 .mb_0 {
     margin-bottom: 0 !important;
+}
+
+.br_none {
+    border-radius: 0 !important;
 }
