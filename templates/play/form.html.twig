@@ -66,8 +66,18 @@
                 <label for="{{ form.isPrivate.vars.id }}">{{ form.isPrivate.vars.label | trans | capitalize }}</label>
             </div>
 
-            <div class="app_form_group mb_0">
-                {{ form_widget(form.submit, {'label': mode == 'play.game.submit.label' ? 'save' : 'play.game.edit.label'}) }}
+            <div class="app_grid two">
+                <div class="app_form_group app_grid_item mb_0">
+                    {% if mode == 'add' %}
+                        <a href="{{ path('games') }}" class="app_button">{{ 'default.cancel' | trans | capitalize }}</a>
+                    {% else %}
+                        <a href="{{ path('user.play.myscenarios') }}" class="app_button">{{ 'default.cancel' | trans | capitalize }}</a>
+                    {% endif %}
+                </div>
+
+                <div class="app_form_group app_grid_item mb_0">
+                    {{ form_widget(form.submit, {'label': mode == 'add' ? 'play.game.submit.label' : 'play.game.edit.label'}) }}
+                </div>
             </div>
             {{ form_end(form) }}
         </section>
