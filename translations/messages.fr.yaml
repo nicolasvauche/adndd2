@@ -63,6 +63,8 @@ pages:
     invite:
       title: "inviter des joueurs à la table"
       menu: "inviter des joueurs"
+    game:
+      title: "Infos de la table"
   contact:
     menu: "contact"
     title: "contactons-nous"
