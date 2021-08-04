@@ -90,10 +90,16 @@ EOF
         $manager->persist($gameRules2);
 
         $gameRules3 = new GameRules();
-        $gameRules3->setName('Le Livre des Règles')
-            ->setFilename('regles_chroniquesoubliees_fr.pdf')
+        $gameRules3->setName('Feuille de Personnage')
+            ->setFilename('personnage_chroniquesoubliees_fr.pdf')
             ->setGame($game2);
         $manager->persist($gameRules3);
+
+        $gameRules4 = new GameRules();
+        $gameRules4->setName('Personnages prétirés')
+            ->setFilename('personnages_pretires_chroniquesoubliees_fr.pdf')
+            ->setGame($game2);
+        $manager->persist($gameRules4);
 
         /**
          * Default game systems

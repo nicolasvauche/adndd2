@@ -47,6 +47,8 @@
             <img src="{{ asset('assets/images/home_games.png') }}" alt="{{ appConfig.getAppName() }}" />
             <img src="{{ asset('assets/images/home_dices.png') }}" alt="{{ appConfig.getAppName() }}" />
 
+            <h2 class="fg_light">{{ scenarios | length }} partie{{ scenarios | length > 1 ? 's' : '' }} en attente de joueurs !</h2>
+
             <a href="{{ path('play') }}" class="app_button cta" title="{{ 'pages.play.menu' | trans | capitalize }}">{{ 'pages.play.title' | trans | capitalize }}</a>
         </section>
     </article>

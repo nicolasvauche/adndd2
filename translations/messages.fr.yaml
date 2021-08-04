@@ -4,6 +4,8 @@ default:
   copyrights: "tous droits réservés"
   cancel: "annuler"
   back: "retour"
+  delete: "supprimer"
+  edit: "modifier"
 pages:
   login:
     menu: "connexion"

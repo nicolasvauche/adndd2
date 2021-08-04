@@ -16,7 +16,7 @@ class ScenarioFixtures extends Fixture implements OrderedFixtureInterface
          * Default campaigns
          */
         $campaign1 = new Campaign();
-        $campaign1->setName("Les navigateurs Oubliés");
+        $campaign1->setName("Les navigateurs oubliés");
         $manager->persist($campaign1);
 
         $campaign2 = new Campaign();
