@@ -9,6 +9,17 @@
         <section>
             <h1>{{ 'pages.user.plays.menu' | trans | capitalize }}</h1>
 
+            <!-- Flash messages -->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    {% if loop.first %}
+                        <div class="app_alert {{ label }}">
+                            {{ message | trans | capitalize }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
             <div class="app_filters">
                 <h2>{{ 'pages.user.plays.title' | trans | capitalize }}</h2>
 
@@ -49,23 +60,17 @@
                             <strong>4/5</strong>
                         </p>
                         <div class="app_grid_item_footer">
-                            <a href="#" class="app_grid_item_footer_action button br_none">
+                            <a href="{{ path('play.invite', {'id': scenario.id}) }}" class="app_grid_item_footer_action button br_none">Inviter</a>
+
+                            <a href="#" class="app_grid_item_footer_action button cta br_none" title="Rejoindre la partie">Rejoindre</a>
+
+                            <a href="{{ path('play.edit', {'id': scenario.id}) }}" class="app_grid_item_footer_action">
                                 <i class="fas fa-edit"></i>
                             </a>
 
-                            <a href="#" class="app_grid_item_footer_action button">
+                            <a href="#" class="app_grid_item_footer_action danger">
                                 <i class="fas fa-trash"></i>
                             </a>
-
-                            <span class="app_grid_item_footer_action">
-                                {% if scenario.isPrivate %}
-                                    {{ 'play.game.visibility.private' | trans | capitalize }}
-                                {% else %}
-                                    {{ 'play.game.visibility.public' | trans | capitalize }}
-                                {% endif %}
-                            </span>
-
-                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
                         </div>
                     </div>
                 {% endfor %}

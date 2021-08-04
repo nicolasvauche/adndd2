@@ -161,8 +161,8 @@
                 border-radius: 0;
 
                 &.button {
-                    color: $color-bg-primary;
-                    background-color: $color-bg-alt;
+                    color: $color-blue;
+                    background-color: transparent;
                     text-decoration: none;
 
                     &:first-child {
@@ -178,9 +178,30 @@
                         background-color: $color-orange;
                     }
 
+                    &.danger {
+                        color: $color-red;
+                    }
+
                     &:hover {
                         color: $color-bg-primary;
                         background-color: $color-blue;
+                    }
+                }
+
+                &:first-child {
+                    border-bottom-left-radius: $border-radius-default;
+                }
+
+                &:last-child {
+                    border-bottom-right-radius: $border-radius-default;
+                }
+
+                &.danger {
+                    color: $color-red;
+
+                    &:hover {
+                        color: $color-bg-primary;
+                        background-color: $color-red;
                     }
                 }
             }

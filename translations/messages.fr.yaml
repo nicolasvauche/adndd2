@@ -57,6 +57,9 @@ pages:
     create:
       title: "créer une table de jeu"
       menu: "nouvelle table"
+    edit:
+      title: "modifier une table de jeu"
+      menu: "modifier la table de jeu"
     invite:
       title: "inviter des joueurs à la table"
       menu: "inviter des joueurs"
@@ -156,6 +159,8 @@ play:
       label: "partie privée"
     submit:
       label: "créer la table"
+    edit:
+      label: "modifier la table"
     visibility:
       public: "publique"
       private: "privée"
