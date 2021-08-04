@@ -91,6 +91,6 @@ class EquipmentFixtures extends Fixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 12;
+        return 13;
     }
 }
