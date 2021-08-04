@@ -37,7 +37,7 @@
 
                 </div>
 
-                <h2>{{ games | length }} jeu{{ games | length > 1 ? 'x' : '' }} disponible{{ games | length > 1 ? 'x' : '' }} !</h2>
+                <h2>{{ games | length }} jeu{{ games | length > 1 ? 'x' : '' }} disponible{{ games | length > 1 ? 's' : '' }} !</h2>
 
                 <a href="{{ path('games') }}" class="app_button cta" title="{{ 'pages.games.menu' | trans | capitalize }}">{{ 'pages.games.title' | trans | capitalize }}</a>
             </section>

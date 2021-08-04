@@ -17,7 +17,7 @@ class GameFixtures extends Fixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         /**
-         * Default game
+         * Default games
          */
         $game1 = new Game();
         $game1->setName('Elric')
@@ -46,13 +46,33 @@ EOF
         $manager->persist($game1);
         $this->addReference('game1', $game1);
 
+        $game2 = new Game();
+        $game2->setName("Chroniques Oubliées")
+            ->setShortDescription("Chroniques Oubliées peut être considéré comme un jeu de rôle d'initiation. D'heroic fantasy pour ses premières versions, il a été édité en premier lieu en 2009 par Black Book sous forme de boîte.")
+            ->setDescription(
+                <<<EOF
+<p>
+Chroniques Oubliées peut être considéré comme un jeu de rôle d'initiation. D'heroic fantasy pour ses premières versions, il a été édité en premier lieu en 2009 par Black Book sous forme de boîte.
+</p>
+EOF
+            )
+            ->setMedia('cover_chroniquesoubliees.png')
+            ->setIsActive(true);
+        $manager->persist($game2);
+        $this->addReference('game2', $game2);
+
         /**
-         * Default game category
+         * Default game categories
          */
         $gameCategory1 = new GameCategory();
         $gameCategory1->setName('Heroïc Fantasy')
             ->addGame($game1);
         $manager->persist($gameCategory1);
+
+        $gameCategory2 = new GameCategory();
+        $gameCategory2->setName('Contemporain')
+            ->addGame($game2);
+        $manager->persist($gameCategory2);
 
         /**
          * Default game rules
@@ -69,20 +89,32 @@ EOF
             ->setGame($game1);
         $manager->persist($gameRules2);
 
+        $gameRules3 = new GameRules();
+        $gameRules3->setName('Le Livre des Règles')
+            ->setFilename('regles_chroniquesoubliees_fr.pdf')
+            ->setGame($game2);
+        $manager->persist($gameRules3);
+
         /**
-         * Default game system
+         * Default game systems
          */
         $gameSystem1 = new GameSystem();
         $gameSystem1->setName('Chaosium')
             ->addGame($game1);
         $manager->persist($gameSystem1);
 
+        $gameSystem2 = new GameSystem();
+        $gameSystem2->setName('Chroniques Oubliées')
+            ->addGame($game2);
+        $manager->persist($gameSystem2);
+
         /**
          * Default diceset
          */
         $diceset1 = new Diceset();
         $diceset1->setName($gameSystem1->getName())
-            ->addGameSystem($gameSystem1);
+            ->addGameSystem($gameSystem1)
+            ->addGameSystem($gameSystem2);
         $manager->persist($diceset1);
 
         /**
