@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'pages.user.characters.infos.title' | trans | capitalize }}{% endblock %}
+
+{% block body_class %}character{% endblock %}
+
+{% block body %}
+    <article class="aside">
+        <section>
+            <h1>{{ 'pages.user.characters.infos.title' | trans | capitalize }}</h1>
+
+            <p><img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" alt="{{ character.name }}" /></p>
+            <h2>{{ character.name }}</h2>
+            <p>{{ character.description }}</p>
+            <p>{{ character.game.name }}</p>
+            {# <p>{{ character.tribe.name }}</p> #}
+            <p>{{ character.gender == 'F' ? 'Femme' : 'Homme' }}</p>
+            <p>{{ character.guidingHand }}</p>
+            <p>{{ character.size }}</p>
+            <p>{{ character.weight }}</p>
+            <p>{{ character.age }} ans</p>
+            <p>{{ character.distinctive }}</p>
+            <p>{{ character.occupation }}</p>
+            <p>{{ character.story }}</p>
+            <p>{{ character.notes }}</p>
+            <p>{{ character.birthplace }}</p>
+            <p>{{ character.surname }}</p>
+            <p>{{ character.homeplace }}</p>
+            <p>{{ character.relatives }}</p>
+            <p>{{ character.allegiance }}</p>
+            <p>{{ character.coinpurse }} <i class="fas fa-money-bill"></i></p>
+        </section>
+
+        <aside>
+            <h2>{{ 'default.orelse' | trans | capitalize }}</h2>
+
+            <a href="{{ path('user.characters') }}" class="app_button" title="{{ 'pages.user.characters.title' | trans | capitalize }}">
+                {{ 'default.back' | trans | capitalize }}
+            </a>
+        </aside>
+    </article>
+{% endblock %}

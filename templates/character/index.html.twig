@@ -52,10 +52,19 @@
                                 </p>
                             </div>
                             <div class="app_grid_item_footer">
-                                <a href="#" class="app_grid_item_footer_action button" title="">
+                                <a href="#" class="app_grid_item_footer_action button" title="Modifie ce personnage">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{{ path('user.characters.remove', {'id': character.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprimer ce personnage">
+
+                                <a href="{{ path('user.characters.infos', {'id': character.id}) }}" class="app_grid_item_footer_action button" title="Aperçu">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+
+                                <a href="#" class="app_grid_item_footer_action button" title="Feuille de personnage">
+                                    <i class="fas fa-scroll"></i>
+                                </a>
+
+                                <a href="{{ path('user.characters.remove', {'id': character.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprime ce personnage">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>

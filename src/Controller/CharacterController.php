@@ -81,4 +81,14 @@ class CharacterController extends AbstractController
 
         return $this->redirectToRoute('user.characters');
     }
+
+    /**
+     * @Route("/infos-personnage/{id}", name="user.characters.infos")
+     */
+    public function infos(Character $character): Response
+    {
+        return $this->render('character/infos.html.twig', [
+            'character' => $character,
+        ]);
+    }
 }
