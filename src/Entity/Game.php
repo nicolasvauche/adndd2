@@ -113,6 +113,11 @@ class Game
      */
     private $characters;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Campaign::class, mappedBy="game")
+     */
+    private $campaigns;
+
     public function __construct()
     {
         $this->gameRules = new ArrayCollection();
@@ -124,6 +129,7 @@ class Game
         $this->specialties = new ArrayCollection();
         $this->equipments = new ArrayCollection();
         $this->characters = new ArrayCollection();
+        $this->campaigns = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -479,6 +485,36 @@ class Game
             // set the owning side to null (unless already changed)
             if ($character->getGame() === $this) {
                 $character->setGame(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Campaign[]
+     */
+    public function getCampaigns(): Collection
+    {
+        return $this->campaigns;
+    }
+
+    public function addCampaign(Campaign $campaign): self
+    {
+        if (!$this->campaigns->contains($campaign)) {
+            $this->campaigns[] = $campaign;
+            $campaign->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCampaign(Campaign $campaign): self
+    {
+        if ($this->campaigns->removeElement($campaign)) {
+            // set the owning side to null (unless already changed)
+            if ($campaign->getGame() === $this) {
+                $campaign->setGame(null);
             }
         }
 

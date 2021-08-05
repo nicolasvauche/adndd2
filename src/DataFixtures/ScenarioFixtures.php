@@ -16,11 +16,13 @@ class ScenarioFixtures extends Fixture implements OrderedFixtureInterface
          * Default campaigns
          */
         $campaign1 = new Campaign();
-        $campaign1->setName("Les navigateurs oubliés");
+        $campaign1->setName("Les navigateurs oubliés")
+            ->setGame($this->getReference('game1'));
         $manager->persist($campaign1);
 
         $campaign2 = new Campaign();
-        $campaign2->setName("Mon voisin Nyarlathotep");
+        $campaign2->setName("Mon voisin Nyarlathotep")
+            ->setGame($this->getReference('game2'));
         $manager->persist($campaign2);
 
         /**

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Campaign;
 use App\Entity\Scenario;
+use App\Repository\CampaignRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -25,6 +26,11 @@ class ScenarioType extends AbstractType
                 [
                     'required' => false,
                     'class' => Campaign::class,
+                    'query_builder' => function (CampaignRepository $er) use ($options) {
+                        return $er->createQueryBuilder('c')
+                            ->where('c.game = :val')
+                            ->setParameter('val', $options['data']->getGame()->getId());
+                    },
                     'choice_label' => 'name',
                     'label' => 'play.game.campaign.label',
                     'placeholder' => 'play.game.campaign.emptyData',
