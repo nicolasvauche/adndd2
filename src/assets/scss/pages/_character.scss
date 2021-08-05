@@ -10,6 +10,61 @@
                     }
                 }
             }
+
+            .character_infos {
+                @include respond(sm) {
+                    display: grid;
+                    grid-template-columns: 4fr 6fr;
+                    grid-gap: 1rem;
+                    align-items: flex-start;
+                }
+
+                .image {
+                    text-align: center;
+                }
+
+                .details {
+                    display: grid;
+                    grid-template-columns: 9fr 1fr;
+                    grid-gap: 0.5rem;
+
+                    .content {
+                        p {
+                            margin-bottom: 1rem;
+                            font-family: $font-family-secondary;
+
+                            &:last-child {
+                                margin: 0;
+                            }
+                        }
+
+                        span {
+                            display: block;
+                            margin-bottom: 0.25rem;
+                            font-family: $font-family-secondary;
+                            font-weight: 600;
+                        }
+
+                        blockquote {
+                            margin-bottom: 1rem;
+                            padding: 0.5rem;
+                            background-color: $box-shadow-color-alt;
+                            border-radius: $border-radius-default;
+                            box-shadow: inset calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) $box-shadow-radius $box-shadow-color;
+                        }
+                    }
+
+                    .icons {
+                        text-align: center;
+
+                        i {
+                            display: block;
+                            margin-bottom: 0.5rem;
+                            font-size: 2rem;
+                        }
+                    }
+                }
+            }
         }
     }
 }

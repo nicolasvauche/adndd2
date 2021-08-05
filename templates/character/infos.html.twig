@@ -5,38 +5,73 @@
 {% block body_class %}character{% endblock %}
 
 {% block body %}
-    <article class="aside">
+    <article>
         <section>
             <h1>{{ 'pages.user.characters.infos.title' | trans | capitalize }}</h1>
 
-            <p><img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" alt="{{ character.name }}" /></p>
-            <h2>{{ character.name }}</h2>
-            <p>{{ character.description }}</p>
-            <p>{{ character.game.name }}</p>
+            <div class="character_infos">
+                <div class="image">
+                    <p>
+                        <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" class="app_image" alt="{{ character.name }}" />
+                    </p>
+
+                    <p>
+                        <a href="{{ path('user.characters') }}" class="app_button" title="{{ 'pages.user.characters.title' | trans | capitalize }}">
+                            {{ 'default.back' | trans | capitalize }}
+                        </a>
+                    </p>
+                </div>
+                <div class="details">
+                    <div class="content">
+                        <h2 class="character_name">{{ character.name }}</h2>
+
+                        <p>{{ character.surname }}</p>
+
+                        <p>{{ character.allegiance }}</p>
+
+                        <p>
+                           <span>
+                               {{ character.size }} | {{ character.weight }} | {{ character.age }} ans | {{ character.coinpurse }} <i class="fas fa-money-bill"></i>
+                           </span>
+                        </p>
+
+                        <p>
+                            <strong>Origine :</strong> {{ character.birthplace }}
+                        </p>
+
+                        <p>
+                            <strong>Habitat :</strong> {{ character.homeplace }}
+                        </p>
+
+                        <p>
+                            <strong>Occupation :</strong> {{ character.occupation }}
+                        </p>
+
+                        <p>{{ character.relatives }}</p>
+
+                        <span>Description</span>
+                        <blockquote>{{ character.description }}</blockquote>
+
+                        <span>Histoire</span>
+                        <blockquote>{{ character.story }}</blockquote>
+
+                        <span>Signes distinctifs</span>
+                        <blockquote>{{ character.distinctive }}</blockquote>
+
+                        <span>Notes</span>
+                        <blockquote>{{ character.notes }}</blockquote>
+
+                    </div>
+                    <div class="icons">
+                        <i class="fas fa-{% if character.gender == 'F' %}venus{% else %}mars{% endif %}"></i>
+
+                        <i class="fas fa-hand-point-{% if character.guidingHand == 'droitier' %}right{% else %}left{% endif %}"></i>
+                    </div>
+                </div>
+            </div>
+
             {# <p>{{ character.tribe.name }}</p> #}
-            <p>{{ character.gender == 'F' ? 'Femme' : 'Homme' }}</p>
-            <p>{{ character.guidingHand }}</p>
-            <p>{{ character.size }}</p>
-            <p>{{ character.weight }}</p>
-            <p>{{ character.age }} ans</p>
-            <p>{{ character.distinctive }}</p>
-            <p>{{ character.occupation }}</p>
-            <p>{{ character.story }}</p>
-            <p>{{ character.notes }}</p>
-            <p>{{ character.birthplace }}</p>
-            <p>{{ character.surname }}</p>
-            <p>{{ character.homeplace }}</p>
-            <p>{{ character.relatives }}</p>
-            <p>{{ character.allegiance }}</p>
-            <p>{{ character.coinpurse }} <i class="fas fa-money-bill"></i></p>
+
         </section>
-
-        <aside>
-            <h2>{{ 'default.orelse' | trans | capitalize }}</h2>
-
-            <a href="{{ path('user.characters') }}" class="app_button" title="{{ 'pages.user.characters.title' | trans | capitalize }}">
-                {{ 'default.back' | trans | capitalize }}
-            </a>
-        </aside>
     </article>
 {% endblock %}

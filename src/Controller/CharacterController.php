@@ -46,7 +46,8 @@ class CharacterController extends AbstractController
 
         if ($characterPremade) {
             $character = clone $characterPremade;
-            $character->setUser($this->getUser());
+            $character->setUser($this->getUser())
+                ->setIsPremade(false);
 
             if ($name) {
                 $character->setName($name);
