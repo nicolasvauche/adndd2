@@ -52,6 +52,12 @@ class Campaign
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="campaigns")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $game;
+
     public function __construct()
     {
         $this->scenarios = new ArrayCollection();
@@ -148,6 +154,18 @@ class Campaign
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
 
         return $this;
     }

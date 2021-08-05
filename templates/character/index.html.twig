@@ -106,7 +106,13 @@
                 removeButton.addEventListener('click', event => {
                     event.preventDefault()
                     if (window.confirm('Veux-tu VRAIMENT supprimer ce personnage ?')) {
-                        window.location.href = event.target.href
+                        let button = event.target
+
+                        if (button.tagName === 'I') {
+                            button = button.parentNode
+                        }
+
+                        window.location.href = button.href
                     }
                 })
             }
