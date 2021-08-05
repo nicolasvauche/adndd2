@@ -17,9 +17,21 @@ class CharacterController extends AbstractController
      */
     public function index(): Response
     {
-        $characters = $this->getDoctrine()->getRepository(Character::class)->findAll(['isPremade' => true]);
+        $characters = $this->getDoctrine()->getRepository(Character::class)->findBy(['user' => $this->getUser()]);
 
         return $this->render('character/index.html.twig', [
+            'characters' => $characters,
+        ]);
+    }
+
+    /**
+     * @Route("nouveau-personnage", name="user.characters.create")
+     */
+    public function create(): Response
+    {
+        $characters = $this->getDoctrine()->getRepository(Character::class)->findBy(['isPremade' => true]);
+
+        return $this->render('character/create.html.twig', [
             'characters' => $characters,
         ]);
     }
