@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Character;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,5 +35,31 @@ class CharacterController extends AbstractController
         return $this->render('character/create.html.twig', [
             'characters' => $characters,
         ]);
+    }
+
+    /**
+     * @Route("/copier-un-personnage/{id}/{name}", name="user.characters.copy")
+     */
+    public function copy(EntityManagerInterface $manager, $id, $name = null): Response
+    {
+        $characterPremade = $this->getDoctrine()->getRepository(Character::class)->find($id);
+
+        if ($characterPremade) {
+            $character = clone $characterPremade;
+            $character->setUser($this->getUser());
+
+            if ($name) {
+                $character->setName($name);
+            }
+
+            $manager->persist($character);
+            $manager->flush();
+
+            $this->addFlash('success', 'Ton personnage a été créé !');
+        } else {
+            $this->addFlash('error', 'Hum… Erreur bizarre…');
+        }
+
+        return $this->redirectToRoute('user.characters');
     }
 }

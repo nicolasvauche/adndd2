@@ -9,6 +9,17 @@
         <section>
             <h1>{{ 'pages.user.characters.title' | trans | capitalize }}</h1>
 
+            <!-- Flash messages -->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    {% if loop.first %}
+                        <div class="app_alert {{ label }}">
+                            {{ message | trans | capitalize }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
             {% if characters | length > 0 %}
                 <div class="characters app_grid three app_slider xs">
                     {% for character in characters %}

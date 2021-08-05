@@ -40,9 +40,9 @@
                             </p>
                         </div>
                         <div class="app_grid_item_footer">
-                            <a href="#" class="app_grid_item_footer_action button cta" title="">
+                            <button class="choose app_grid_item_footer_action button cta" data-characterid="{{ character.id }}">
                                 Choisir
-                            </a>
+                            </button>
                         </div>
                     </div>
                 {% endfor %}
@@ -81,6 +81,18 @@
                     }
                 }
             })
+
+            const chooseButtons = document.querySelectorAll('.choose')
+            for (chooseButton of chooseButtons) {
+                chooseButton.addEventListener('click', event => {
+                    const newName = window.prompt('Veux-tu renommer ce personnage ?')
+                    if (newName) {
+                        window.location.href = '/tes-personnages/copier-un-personnage/' + event.target.dataset.characterid + '/' + newName
+                    } else {
+                        window.location.href = '/tes-personnages/copier-un-personnage/' + event.target.dataset.characterid
+                    }
+                })
+            }
         })
     </script>
 {% endblock %}
