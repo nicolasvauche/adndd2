@@ -62,4 +62,23 @@ class CharacterController extends AbstractController
 
         return $this->redirectToRoute('user.characters');
     }
+
+    /**
+     * @Route("/supprimer-un-personnage/{id}", name="user.characters.remove")
+     */
+    public function remove(EntityManagerInterface $manager, $id): Response
+    {
+        $character = $this->getDoctrine()->getRepository(Character::class)->find($id);
+
+        if ($character) {
+            $manager->remove($character);
+            $manager->flush();
+
+            $this->addFlash('success', 'Ton personnage a été supprimé !');
+        } else {
+            $this->addFlash('error', 'Hum… Erreur bizarre…');
+        }
+
+        return $this->redirectToRoute('user.characters');
+    }
 }

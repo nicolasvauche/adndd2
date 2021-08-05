@@ -55,7 +55,7 @@
                                 <a href="#" class="app_grid_item_footer_action button" title="">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="#" class="app_grid_item_footer_action button" title="">
+                                <a href="{{ path('user.characters.remove', {'id': character.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprimer ce personnage">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>
@@ -100,6 +100,16 @@
                     }
                 }
             })
+
+            const removeButtons = document.querySelectorAll('.remove')
+            for (const removeButton of removeButtons) {
+                removeButton.addEventListener('click', event => {
+                    event.preventDefault()
+                    if (window.confirm('Veux-tu VRAIMENT supprimer ce personnage ?')) {
+                        window.location.href = event.target.href
+                    }
+                })
+            }
         })
     </script>
 {% endblock %}

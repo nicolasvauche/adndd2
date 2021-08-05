@@ -83,7 +83,7 @@
             })
 
             const chooseButtons = document.querySelectorAll('.choose')
-            for (chooseButton of chooseButtons) {
+            for (const chooseButton of chooseButtons) {
                 chooseButton.addEventListener('click', event => {
                     const newName = window.prompt('Veux-tu renommer ce personnage ?')
                     if (newName) {
