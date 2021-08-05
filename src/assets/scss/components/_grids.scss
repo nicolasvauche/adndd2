@@ -164,7 +164,7 @@
 
                 &.button {
                     color: $color-blue;
-                    background-color: transparent;
+                    background-color: $color-bg-primary;
                     text-decoration: none;
 
                     &:first-child {

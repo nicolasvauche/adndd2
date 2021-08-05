@@ -51,6 +51,19 @@ class PlayController extends AbstractController
     }
 
     /**
+     * @Route("/tes-tables-de-jeu", name="user.play.myscenarios")
+     */
+    public function myScenarios(): Response
+    {
+        $scenarios = $this->getDoctrine()->getRepository(Scenario::class)->findBy(['user' => $this->getUser()]);
+
+        return $this->render('play/mytables.html.twig',
+            [
+                'scenarios' => $scenarios,
+            ]);
+    }
+
+    /**
      * @Route("/creer-une-table/{gameId}", name="user.play.create")
      */
     public function create(GameRepository $gameRepository, Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, $gameId = null): Response
@@ -129,6 +142,25 @@ class PlayController extends AbstractController
     }
 
     /**
+     * @Route("/supprimer-une-table/{id}", name="user.play.remove")
+     */
+    public function remove(EntityManagerInterface $manager, $id): Response
+    {
+        $scenario = $this->getDoctrine()->getRepository(Scenario::class)->find($id);
+
+        if ($scenario) {
+            $manager->remove($scenario);
+            $manager->flush();
+
+            $this->addFlash('success', 'Ta table de jeu a été supprimée !');
+        } else {
+            $this->addFlash('error', 'Hum… Erreur bizarre…');
+        }
+
+        return $this->redirectToRoute('user.play.myscenarios');
+    }
+
+    /**
      * @Route("/inviter-des-joueurs/{id}", name="user.play.invite")
      */
     public function invite(Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, Scenario $scenario): Response
@@ -167,18 +199,5 @@ class PlayController extends AbstractController
         }
 
         return new JsonResponse($json);
-    }
-
-    /**
-     * @Route("/tes-tables-de-jeu", name="user.play.myscenarios")
-     */
-    public function myScenarios(): Response
-    {
-        $scenarios = $this->getDoctrine()->getRepository(Scenario::class)->findBy(['user' => $this->getUser()]);
-
-        return $this->render('play/mytables.html.twig',
-            [
-                'scenarios' => $scenarios,
-            ]);
     }
 }

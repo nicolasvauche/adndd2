@@ -60,7 +60,7 @@
                             <strong>4/5</strong>
                         </p>
                         <div class="app_grid_item_footer">
-                            <a href="#" class="app_grid_item_footer_action danger" title="{{ 'default.delete' | trans | capitalize }}">
+                            <a href="{{ path('user.play.remove', {'id': scenario.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprimer cette table de jeu">
                                 <i class="fas fa-trash"></i>
                             </a>
 
@@ -103,6 +103,22 @@
                     }
                 }
             })
+
+            const removeButtons = document.querySelectorAll('.remove')
+            for (const removeButton of removeButtons) {
+                removeButton.addEventListener('click', event => {
+                    event.preventDefault()
+                    if (window.confirm('Veux-tu VRAIMENT supprimer cette table de jeu ?')) {
+                        let button = event.target
+
+                        if (button.tagName === 'I') {
+                            button = button.parentNode
+                        }
+
+                        window.location.href = button.href
+                    }
+                })
+            }
         })
     </script>
 {% endblock %}
