@@ -151,27 +151,27 @@ play:
   game:
     campaign:
       label: "campagne associée"
-      emptyData: "Choisissez la campagne à associer au scénario"
+      emptyData: "Choisis la campagne à associer au scénario"
     name:
       label: "nom du scénario"
       placeholder: "ex: La grosse aventure"
     shortDescription:
       label: "description (courte)"
-      placeholder: "Décrivez vite fait votre scénario"
+      placeholder: "Décris vite fait ton scénario"
     description:
       label: "description (longue)"
-      placeholder: "Décrivez mieux que ça votre scénario"
+      placeholder: "Décris mieux que ça ton scénario"
     startAt:
       label: "date de début"
     isPrivate:
       label: "partie privée"
     submit:
-      label: "créer la table"
+      label: "crée la table"
     edit:
-      label: "modifier la table"
+      label: "modifie la table"
     visibility:
       public: "publique"
       private: "privée"
   invite:
     submit:
-      label: "inviter"
+      label: "invite"
