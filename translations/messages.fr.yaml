@@ -4,6 +4,8 @@ default:
   copyrights: "tous droits réservés"
   cancel: "annuler"
   back: "retour"
+  delete: "supprimer"
+  edit: "modifier"
 pages:
   login:
     menu: "connexion"
@@ -155,6 +157,9 @@ play:
     shortDescription:
       label: "description (courte)"
       placeholder: "Décrivez vite fait votre scénario"
+    description:
+      label: "description (longue)"
+      placeholder: "Décrivez mieux que ça votre scénario"
     startAt:
       label: "date de début"
     isPrivate:

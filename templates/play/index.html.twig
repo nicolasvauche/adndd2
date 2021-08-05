@@ -22,14 +22,11 @@
                                 {% set scenariosGames = scenariosGames|merge([scenario.game.id]) %}
                             {% endif %}
                         {% endfor %}
-                        {% for game in games %}
-                            <option value="{{ game.id }}">{{ game.name }}</option>
-                        {% endfor %}
                     </select>
                 </div>
             </div>
 
-            <div class="app_grid four app_slider xs">
+            <div class="app_grid three app_slider xs">
 
                 {% for scenario in scenarios %}
                     <div class="game app_grid_item app_slider_item" data-gameid="{{ scenario.game.id }}">
@@ -81,7 +78,7 @@
                     </div>
                 {% endfor %}
 
-                <div class="game app_grid_item app_slider_item" data-gameid="2">
+                {#<div class="game app_grid_item app_slider_item" data-gameid="2">
                     <div class="app_grid_item_header">
                         <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app_grid_item_image" />
                         <h3 class="app_grid_item_title">Donjons & Dragons</h3>
@@ -273,7 +270,7 @@
                             </a>
                         {% endif %}
                     </div>
-                </div>
+                </div>#}
 
             </div>
         </section>

@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <div class="app_grid four app_slider xs">
+            <div class="app_grid three app_slider xs">
 
                 {% for scenario in scenarios %}
                     <div class="game app_grid_item app_slider_item" data-gameid="{{ scenario.game.id }}">
@@ -60,17 +60,19 @@
                             <strong>4/5</strong>
                         </p>
                         <div class="app_grid_item_footer">
-                            <a href="{{ path('play.invite', {'id': scenario.id}) }}" class="app_grid_item_footer_action button br_none">Inviter</a>
+                            <a href="#" class="app_grid_item_footer_action danger" title="{{ 'default.delete' | trans | capitalize }}">
+                                <i class="fas fa-trash"></i>
+                            </a>
 
-                            <a href="#" class="app_grid_item_footer_action button cta br_none" title="Rejoindre la partie">Rejoindre</a>
-
-                            <a href="{{ path('play.edit', {'id': scenario.id}) }}" class="app_grid_item_footer_action">
+                            <a href="{{ path('user.play.edit', {'id': scenario.id}) }}" class="app_grid_item_footer_action button br_none" title="{{ 'default.edit' | trans | capitalize }}">
                                 <i class="fas fa-edit"></i>
                             </a>
 
-                            <a href="#" class="app_grid_item_footer_action danger">
-                                <i class="fas fa-trash"></i>
+                            <a href="{{ path('user.play.invite', {'id': scenario.id}) }}" class="app_grid_item_footer_action button br_none" title="{{ 'pages.play.invite.title' | trans | capitalize }}">
+                                <i class="fas fa-user-plus"></i>
                             </a>
+
+                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
                         </div>
                     </div>
                 {% endfor %}
