@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'pages.user.characters.create.title' | trans | capitalize }}{% endblock %}
+
+{% block body_class %}character{% endblock %}
+
+{% block body %}
+    <article class="aside">
+        <section>
+            <h1>{{ 'pages.user.characters.create.title' | trans | capitalize }}</h1>
+
+            <div class="app_filters">
+                <h2>Choisis un personnage prétiré</h2>
+
+                <div class="app_filters_controls">
+                    <select name="characters_game" id="characters_game" class="app_filter_select">
+                        <option value="all">{{ 'pages.games.title' | trans | capitalize }}</option>
+                        {% set charactersGames = [] %}
+                        {% for character in characters %}
+                            {% if character.game.id not in charactersGames %}
+                                <option value="{{ character.game.id }}">{{ character.game.name }}</option>
+                                {% set charactersGames = charactersGames|merge([character.game.id]) %}
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="characters app_grid three app_slider xs">
+                {% for character in characters %}
+                    <div class="char app_grid_item app_slider_item" data-gameid="{{ character.game.id }}">
+                        <div class="app_grid_item_header">
+                            <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" class="app_grid_item_image" alt="{{ character.name }}" />
+                            <h3 class="app_grid_item_title">{{ character.name }}</h3>
+                            <h4 class="app_grid_item_subtitle">{{ character.game.name }}</h4>
+                        </div>
+                        <div class="app_grid_item_body">
+                            <p class="app_grid_item_info excerpt">
+                                {{ character.story }}
+                            </p>
+                        </div>
+                        <div class="app_grid_item_footer">
+                            <button class="choose app_grid_item_footer_action button cta" data-characterid="{{ character.id }}">
+                                Choisir
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </section>
+
+        <aside>
+            <h2>{{ 'default.orelse' | trans | capitalize }}</h2>
+
+            <a href="{{ path('user.characters') }}" class="app_button" title="{{ 'pages.user.characters.title' | trans | capitalize }}">
+                {{ 'default.cancel' | trans | capitalize }}
+            </a>
+        </aside>
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const charactersThumbnails = document.querySelectorAll(('.char'))
+            const filterSelect = document.getElementById('characters_game')
+            filterSelect.addEventListener('change', event => {
+                const gameId = filterSelect.value
+                if (gameId === 'all') {
+                    for (const characterThumbnail of charactersThumbnails) {
+                        characterThumbnail.style.display = 'flex'
+                    }
+                } else {
+                    for (const characterThumbnail of charactersThumbnails) {
+                        if (parseInt(characterThumbnail.dataset.gameid) !== parseInt(gameId)) {
+                            characterThumbnail.style.display = 'none'
+                        } else {
+                            characterThumbnail.style.display = 'flex'
+                        }
+                    }
+                }
+            })
+
+            const chooseButtons = document.querySelectorAll('.choose')
+            for (const chooseButton of chooseButtons) {
+                chooseButton.addEventListener('click', event => {
+                    const newName = window.prompt('Veux-tu renommer ce personnage ?')
+                    if (newName) {
+                        window.location.href = '/tes-personnages/copier-un-personnage/' + event.target.dataset.characterid + '/' + newName
+                    } else {
+                        window.location.href = '/tes-personnages/copier-un-personnage/' + event.target.dataset.characterid
+                    }
+                })
+            }
+        })
+    </script>
+{% endblock %}
+

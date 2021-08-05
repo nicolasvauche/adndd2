@@ -396,4 +396,11 @@ class Character
 
         return $this;
     }
+
+    public function clearId()
+    {
+        $this->id = null;
+
+        return $this;
+    }
 }
