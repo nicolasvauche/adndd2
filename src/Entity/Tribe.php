@@ -29,9 +29,15 @@ class Tribe
      */
     private $games;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="tribe")
+     */
+    private $characters;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
+        $this->characters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,6 +79,36 @@ class Tribe
     {
         if ($this->games->removeElement($game)) {
             $game->removeTribe($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Character[]
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setTribe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->removeElement($character)) {
+            // set the owning side to null (unless already changed)
+            if ($character->getTribe() === $this) {
+                $character->setTribe(null);
+            }
         }
 
         return $this;
