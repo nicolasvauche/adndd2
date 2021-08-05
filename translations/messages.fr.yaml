@@ -3,10 +3,10 @@ default:
   more: "Toujours plus…"
   orelse: "ou sinon"
   copyrights: "tous droits réservés"
-  cancel: "annuler"
+  cancel: "annule"
   back: "retour"
-  delete: "supprimer"
-  edit: "modifier"
+  delete: "supprime"
+  edit: "modifie"
 pages:
   login:
     menu: "connexion"

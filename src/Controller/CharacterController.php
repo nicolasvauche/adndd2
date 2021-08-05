@@ -25,7 +25,7 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("nouveau-personnage", name="user.characters.create")
+     * @Route("/nouveau-personnage", name="user.characters.create")
      */
     public function create(): Response
     {

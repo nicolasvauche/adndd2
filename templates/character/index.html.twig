@@ -36,13 +36,13 @@
                 </div>
             {% else %}
                 <p class="info">
-                    Tu n'as pas encore créé de personnage…
+                    Tu n'as pas encore créé de personnage, dommage…
                 </p>
             {% endif %}
         </section>
 
         <aside>
-            <h2>{{ 'pages.user.characters.menu' | trans | capitalize }}</h2>
+            <h2>{{ 'default.more' | trans | capitalize }}</h2>
 
             <a href="{{ path('user.characters.create') }}" class="app_button cta" title="{{ 'pages.user.characters.create.title' | trans | capitalize }}">
                 {{ 'pages.user.characters.create.menu' | trans | capitalize }}
