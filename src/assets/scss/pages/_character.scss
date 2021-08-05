@@ -1,0 +1,15 @@
+&.character {
+    article {
+        section {
+            .app_grid {
+                .app_grid_item {
+                    .app_grid_item_image {
+                        height: 30vh;
+                        object-fit: cover;
+                        object-position: center top;
+                    }
+                }
+            }
+        }
+    }
+}
