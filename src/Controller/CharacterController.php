@@ -130,8 +130,6 @@ class CharacterController extends AbstractController
                     dd($e);
                 }
 
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
                 $character->setAvatar($newFilename);
             }
 
