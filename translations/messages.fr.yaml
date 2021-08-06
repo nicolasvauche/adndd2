@@ -181,3 +181,6 @@ play:
   invite:
     submit:
       label: "invite"
+character:
+  edit:
+    label: "modifie"

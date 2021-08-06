@@ -62,6 +62,10 @@
         <aside>
             <h2>{{ 'pages.play.game.title' | trans | capitalize }}</h2>
 
+            <span>
+                <img src="{{ asset('assets/images/games/' ~ scenario.game.media) }}" class="app_image" alt="{{ scenario.game.name }}">
+            </span>
+
             <span><i class="fas fa-scroll"></i> <strong>{{ scenario.game.name }}</strong></span>
 
             <span><i class="fas fa-clock"></i> {{ scenario.startAt | date('d/m/Y H:i') }}</span>

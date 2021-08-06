@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Character;
 use App\Entity\CharacterSpell;
+use App\Form\CharacterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/tes-personnages")
@@ -100,5 +103,35 @@ class CharacterController extends AbstractController
         return $this->render('character/infos.html.twig', [
             'character' => $character,
         ]);
+    }
+
+    /**
+     * @Route("/modifie-un-personnage/{id}", name="user.characters.edit")
+     */
+    public function edit(Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, Character $character)
+    {
+        $form = $this->createForm(CharacterType::class, $character);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($character);
+            $manager->flush();
+
+            $this->addFlash('success', 'Ton personnage a été modifié.');
+
+            return $this->redirectToRoute('user.characters');
+        } else {
+            $errors = $validator->validate($form);
+
+            if (count($errors) > 0) {
+                $this->addFlash('danger', $errors[0]->getMessage());
+            }
+        }
+        return $this->render('character/form.html.twig',
+            [
+                'mode' => 'edit',
+                'form' => $form->createView(),
+                'character' => $character,
+            ]);
     }
 }

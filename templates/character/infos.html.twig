@@ -20,7 +20,7 @@
                             {{ 'default.back' | trans | capitalize }}
                         </a>
 
-                        <a href="#" class="app_button cta" title="{{ 'pages.user.characters.edit.title' | trans | capitalize }}">
+                        <a href="{{ path('user.characters.edit', {'id': character.id}) }}" class="app_button cta" title="{{ 'pages.user.characters.edit.title' | trans | capitalize }}">
                             {{ 'pages.user.characters.edit.menu' | trans | capitalize }}
                         </a>
                     </div>

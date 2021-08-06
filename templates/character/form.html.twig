@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if mode == 'add' %}
+        {{ 'pages.user.characters.create.title' | trans | capitalize }}
+    {% else %}
+        {{ 'pages.user.characters.edit.title' | trans | capitalize }}
+    {% endif %}
+{% endblock %}
+
+{% block body_class %}character{% endblock %}
+
+{% block body %}
+    <article class="aside">
+        <section>
+            <h1>
+                {% if mode == 'add' %}
+                    {{ 'pages.user.characters.create.title' | trans | capitalize }}
+                {% else %}
+                    {{ 'pages.user.characters.edit.title' | trans | capitalize }}
+                {% endif %}
+            </h1>
+
+            <!-- Flash messages -->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    {% if loop.first %}
+                        <div class="app_alert {{ label }}">
+                            {{ message | trans | capitalize }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+            {{ form_start(form, { attr: { 'class': 'app_form'}}) }}
+            <div class="app_form_group">
+                {# {{ form_widget(form.campaign) }}
+                <label for="{{ form.campaign.vars.id }}">{{ form.campaign.vars.label | trans | capitalize }}</label> #}
+            </div>
+
+            <div class="app_grid two">
+                <div class="app_form_group app_grid_item mb_0">
+                    <a href="{{ path('user.characters') }}" class="app_button">{{ 'default.cancel' | trans | capitalize }}</a>
+                </div>
+
+                <div class="app_form_group app_grid_item mb_0">
+                    {{ form_widget(form.submit, {'label': mode == 'add' ? 'character.submit.label' : 'character.edit.label'}) }}
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </section>
+
+        <aside>
+            <h2>
+                {{ 'default.more' | trans | capitalize }}
+            </h2>
+
+            <span>
+                <img src="{{ asset('assets/images/games/' ~ character.game.media) }}" class="app_image" alt="{{ character.game.name }}">
+            </span>
+
+            <span><i class="fas fa-scroll"></i> {{ character.game.name }}</span>
+        </aside>
+    </article>
+{% endblock %}

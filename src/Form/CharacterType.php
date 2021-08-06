@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Character;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,7 +15,7 @@ class CharacterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tribe')
+            //->add('tribe')
             ->add('avatar')
             ->add('name', TextType::class,
                 [
@@ -108,7 +109,14 @@ class CharacterType extends AbstractType
                 ])
             ->add('relatives')
             ->add('allegiance')
-            ->add('coinpurse');
+            ->add('coinpurse')
+            ->add('submit', SubmitType::class,
+                [
+                    'label' => 'character.submit.label',
+                    'attr' => [
+                        'class' => 'app_button cta',
+                    ],
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
