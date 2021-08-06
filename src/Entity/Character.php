@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CharacterRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -127,6 +129,16 @@ class Character
      * @ORM\ManyToOne(targetEntity=Tribe::class, inversedBy="characters")
      */
     private $tribe;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CharacterSpell::class, mappedBy="characters")
+     */
+    private $characterSpells;
+
+    public function __construct()
+    {
+        $this->characterSpells = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -400,6 +412,36 @@ class Character
     public function clearId()
     {
         $this->id = null;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CharacterSpell[]
+     */
+    public function getCharacterSpells(): Collection
+    {
+        return $this->characterSpells;
+    }
+
+    public function addCharacterSpell(CharacterSpell $characterSpell): self
+    {
+        if (!$this->characterSpells->contains($characterSpell)) {
+            $this->characterSpells[] = $characterSpell;
+            $characterSpell->setCharacters($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacterSpell(CharacterSpell $characterSpell): self
+    {
+        if ($this->characterSpells->removeElement($characterSpell)) {
+            // set the owning side to null (unless already changed)
+            if ($characterSpell->getCharacters() === $this) {
+                $characterSpell->setCharacters(null);
+            }
+        }
 
         return $this;
     }

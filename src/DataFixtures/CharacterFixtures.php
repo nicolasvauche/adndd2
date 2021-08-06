@@ -68,8 +68,9 @@ class CharacterFixtures extends Fixture implements OrderedFixtureInterface
             sique, le jeune Johan s’est intéressé très tôt aux  théories  modernes  de  psychologie.  Il tente désormais de créer sa propre méthode thérapeutique en travaillant plus particuliè-rement  sur  les  maladies  mentales  dans  les  civilisations préindustrielles.', true, '', 
             '', '', '200', 'game2'],              
         ];
-
+        $z = 0;
         foreach ($tabCharac as list($a, $b, $c, $d, $e, $f, $g, $h, $i, $j, $k, $l, $m, $n, $o, $p)) {
+            $z++;
             $character = new Character();
             $character->setName($a)
             ->setAvatar($b)
@@ -88,6 +89,7 @@ class CharacterFixtures extends Fixture implements OrderedFixtureInterface
             ->setCoinpurse($o)
             ->setGame($this->getReference($p));
             $manager->persist( $character );
+            $this->addReference('character'.$z, $character);
         }
 
         $manager->flush();
@@ -95,6 +97,6 @@ class CharacterFixtures extends Fixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 14;
+        return 4;
     }
 }
