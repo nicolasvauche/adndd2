@@ -15,11 +15,15 @@
                         <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" class="app_image" alt="{{ character.name }}" />
                     </p>
 
-                    <p>
+                    <div class="actions">
                         <a href="{{ path('user.characters') }}" class="app_button" title="{{ 'pages.user.characters.title' | trans | capitalize }}">
                             {{ 'default.back' | trans | capitalize }}
                         </a>
-                    </p>
+
+                        <a href="#" class="app_button cta" title="{{ 'pages.user.characters.edit.title' | trans | capitalize }}">
+                            {{ 'pages.user.characters.edit.menu' | trans | capitalize }}
+                        </a>
+                    </div>
                 </div>
                 <div class="details">
                     <div class="content">
@@ -31,35 +35,53 @@
 
                         <p>
                            <span>
-                               {{ character.size }} | {{ character.weight }} | {{ character.age }} ans | {{ character.coinpurse }} <i class="fas fa-money-bill"></i>
+                               {{ character.size }} | {{ character.weight }} | {{ character.age }} ans | {{ character.coinpurse }} <i class="fas fa-coins"></i>
                            </span>
                         </p>
 
-                        <p>
-                            <strong>Origine :</strong> {{ character.birthplace }}
-                        </p>
+                        {% if character.birthplace %}
+                            <p>
+                                <strong>Origine :</strong> {{ character.birthplace }}
+                            </p>
+                        {% endif %}
 
-                        <p>
-                            <strong>Habitat :</strong> {{ character.homeplace }}
-                        </p>
+                        {% if character.homeplace %}
+                            <p>
+                                <strong>Habitat :</strong> {{ character.homeplace }}
+                            </p>
+                        {% endif %}
 
-                        <p>
-                            <strong>Occupation :</strong> {{ character.occupation }}
-                        </p>
+                        {% if character.occupation %}
+                            <p>
+                                <strong>Occupation :</strong> {{ character.occupation }}
+                            </p>
+                        {% endif %}
 
-                        <p>{{ character.relatives }}</p>
+                        {% if character.relatives %}
+                            <p>
+                                <strong>Compagnons :</strong> {{ character.relatives }}
+                            </p>
+                        {% endif %}
 
-                        <span>Description</span>
-                        <blockquote>{{ character.description }}</blockquote>
+                        {% if character.description %}
+                            <span>Description</span>
+                            <blockquote>{{ character.description }}</blockquote>
+                        {% endif %}
 
-                        <span>Histoire</span>
-                        <blockquote>{{ character.story }}</blockquote>
+                        {% if character.story %}
+                            <span>Histoire</span>
+                            <blockquote>{{ character.story }}</blockquote>
+                        {% endif %}
 
-                        <span>Signes distinctifs</span>
-                        <blockquote>{{ character.distinctive }}</blockquote>
+                        {% if character.distinctive %}
+                            <span>Signes distinctifs</span>
+                            <blockquote>{{ character.distinctive }}</blockquote>
+                        {% endif %}
 
-                        <span>Notes</span>
-                        <blockquote>{{ character.notes }}</blockquote>
+                        {% if character.notes %}
+                            <span>Notes</span>
+                            <blockquote>{{ character.notes }}</blockquote>
+                        {% endif %}
 
                     </div>
                     <div class="icons">
