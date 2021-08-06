@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'pages.user.characters.infos.title' | trans | capitalize }}{% endblock %}
+
+{% block body_class %}character{% endblock %}
+
+{% block body %}
+    <article>
+        <section>
+            <h1>{{ 'pages.user.characters.infos.title' | trans | capitalize }}</h1>
+
+            <div class="character_infos">
+                <div class="image">
+                    <p>
+                        <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" class="app_image" alt="{{ character.name }}" />
+                    </p>
+
+                    <div class="actions">
+                        <a href="{{ path('user.characters') }}" class="app_button" title="{{ 'pages.user.characters.title' | trans | capitalize }}">
+                            {{ 'default.back' | trans | capitalize }}
+                        </a>
+
+                        <a href="#" class="app_button cta" title="{{ 'pages.user.characters.edit.title' | trans | capitalize }}">
+                            {{ 'pages.user.characters.edit.menu' | trans | capitalize }}
+                        </a>
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="content">
+                        <h2 class="character_name">{{ character.name }}</h2>
+
+                        <p>{{ character.surname }}</p>
+
+                        <p>{{ character.allegiance }}</p>
+
+                        <p>
+                           <span>
+                               {{ character.size }} | {{ character.weight }} | {{ character.age }} ans | {{ character.coinpurse }} <i class="fas fa-coins"></i>
+                           </span>
+                        </p>
+
+                        {% if character.birthplace %}
+                            <p>
+                                <strong>Origine :</strong> {{ character.birthplace }}
+                            </p>
+                        {% endif %}
+
+                        {% if character.homeplace %}
+                            <p>
+                                <strong>Habitat :</strong> {{ character.homeplace }}
+                            </p>
+                        {% endif %}
+
+                        {% if character.occupation %}
+                            <p>
+                                <strong>Occupation :</strong> {{ character.occupation }}
+                            </p>
+                        {% endif %}
+
+                        {% if character.relatives %}
+                            <p>
+                                <strong>Compagnons :</strong> {{ character.relatives }}
+                            </p>
+                        {% endif %}
+
+                        {% if character.description %}
+                            <span>Description</span>
+                            <blockquote>{{ character.description }}</blockquote>
+                        {% endif %}
+
+                        {% if character.story %}
+                            <span>Histoire</span>
+                            <blockquote>{{ character.story }}</blockquote>
+                        {% endif %}
+
+                        {% if character.distinctive %}
+                            <span>Signes distinctifs</span>
+                            <blockquote>{{ character.distinctive }}</blockquote>
+                        {% endif %}
+
+                        {% if character.notes %}
+                            <span>Notes</span>
+                            <blockquote>{{ character.notes }}</blockquote>
+                        {% endif %}
+
+                    </div>
+                    <div class="icons">
+                        <i class="fas fa-{% if character.gender == 'F' %}venus{% else %}mars{% endif %}"></i>
+
+                        <i class="fas fa-hand-point-{% if character.guidingHand == 'droitier' %}right{% else %}left{% endif %}"></i>
+                    </div>
+                </div>
+            </div>
+
+            {# <p>{{ character.tribe.name }}</p> #}
+
+        </section>
+    </article>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Character;
+use App\Entity\CharacterSpell;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,10 +47,19 @@ class CharacterController extends AbstractController
 
         if ($characterPremade) {
             $character = clone $characterPremade;
-            $character->setUser($this->getUser());
+            $character->setUser($this->getUser())
+                ->setIsPremade(false);
 
             if ($name) {
                 $character->setName($name);
+            }
+
+            foreach ($characterPremade->getCharacterSpells() as $characterSpellPremade) {
+                $characterspell = new CharacterSpell();
+                $characterspell->setCharacter($character)
+                    ->setSpell($characterSpellPremade->getSpell())
+                    ->setLevel($characterSpellPremade->getLevel());
+                $manager->persist($characterspell);
             }
 
             $manager->persist($character);
@@ -80,5 +90,15 @@ class CharacterController extends AbstractController
         }
 
         return $this->redirectToRoute('user.characters');
+    }
+
+    /**
+     * @Route("/infos-personnage/{id}", name="user.characters.infos")
+     */
+    public function infos(Character $character): Response
+    {
+        return $this->render('character/infos.html.twig', [
+            'character' => $character,
+        ]);
     }
 }

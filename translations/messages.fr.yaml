@@ -38,6 +38,12 @@ pages:
       create:
         menu: "nouveau personnage"
         title: "crée un nouveau personage"
+      infos:
+        menu: "ton personnage"
+        title: "aperçu de ton personnage"
+      edit:
+        menu: "modifie"
+        title: "modifie ton personnage"
     games:
       menu: "tes aventures"
       title: "gère tes aventures"
