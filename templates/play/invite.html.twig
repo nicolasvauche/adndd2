@@ -90,7 +90,7 @@
 
                 for (guestDiv of guestsDiv) {
                     if (guestDiv.classList.contains('placehold')) {
-                        const guestImage = document.createElement('img')
+                        const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
                         const guestName = guestDiv.querySelector(('.app_grid_item_title'))
 
                         guestDiv.dataset.characterid = character.id
@@ -107,11 +107,10 @@
 
                         guestLink.appendChild(guestImage)
 
-                        guestName.innerHTML = character.fullname
-                        guestLink.appendChild(guestName)
-                        console.log(character)
                         guestImage.src = '/assets/images/characters/' + character.avatar
                         guestLink.appendChild(guestImage)
+                        guestName.innerHTML = character.fullname
+                        guestLink.appendChild(guestName)
 
                         guestDiv.appendChild(guestLink)
 
@@ -131,6 +130,7 @@
                     if (parseInt(guestDiv.dataset.characterid) === parseInt(character.id)) {
                         const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
                         const guestName = guestDiv.querySelector(('.app_grid_item_title'))
+                        guestImage.src = '{{ asset('assets/images/user_avatar.png') }}'
                         guestName.innerHTML = 'Libre'
 
                         guestDiv.innerHTML = ''
@@ -172,7 +172,7 @@
                         }
                     };
 
-                    xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.game.id }} + '/' + characterName, true);
+                    xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.game.id }} +'/' + characterName, true);
                     xhttp.send();
                 } else {
                     charactersDiv.style.display = 'none'
