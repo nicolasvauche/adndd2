@@ -152,7 +152,9 @@ class Character
 
     public function setAvatar(?string $avatar): self
     {
-        $this->avatar = $avatar;
+        if ($avatar) {
+            $this->avatar = $avatar;
+        }
 
         return $this;
     }
