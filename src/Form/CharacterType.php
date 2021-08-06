@@ -77,7 +77,7 @@ class CharacterType extends AbstractType
                 ])
             ->add('gender', TextType::class,
                 [
-                    'required' => false,
+                    'required' => true,
                     'label' => 'character.gender.label',
                     'attr' => [
                         'class' => 'app_form_control',
@@ -86,7 +86,7 @@ class CharacterType extends AbstractType
                 ])
             ->add('size', TextType::class,
                 [
-                    'required' => false,
+                    'required' => true,
                     'label' => 'character.size.label',
                     'attr' => [
                         'class' => 'app_form_control',
@@ -95,7 +95,7 @@ class CharacterType extends AbstractType
                 ])
             ->add('weight', TextType::class,
                 [
-                    'required' => false,
+                    'required' => true,
                     'label' => 'character.weight.label',
                     'attr' => [
                         'class' => 'app_form_control',
@@ -104,7 +104,7 @@ class CharacterType extends AbstractType
                 ])
             ->add('guidingHand', TextType::class,
                 [
-                    'required' => false,
+                    'required' => true,
                     'label' => 'character.guidingHand.label',
                     'attr' => [
                         'class' => 'app_form_control',
@@ -180,7 +180,7 @@ class CharacterType extends AbstractType
                 ])
             ->add('coinpurse', TextType::class,
                 [
-                    'required' => false,
+                    'required' => true,
                     'label' => 'character.coinpurse.label',
                     'attr' => [
                         'class' => 'app_form_control',
