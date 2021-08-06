@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
   locale: 'fr'
+  asset_characters: '%kernel.project_dir%/public/assets/images/characters'
 
 services:
   # default configuration for services in *this* file

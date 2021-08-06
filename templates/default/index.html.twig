@@ -19,7 +19,7 @@
                 <div class="app_grid four app_slider xs">
                     {% for game in games %}
                         <div class="app_grid_item app_slider_item">
-                            <img src="{{ asset('assets/images/games/' ~ game.media) }}" class="app_grid_item_image" alt="{{ game.name }}" />
+                            <img src="{{ asset('assets/images/games/' ~ game.media) }}" class="app_grid_item_image app_image" alt="{{ game.name }}" />
                         </div>
                     {% endfor %}
 

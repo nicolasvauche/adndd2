@@ -181,3 +181,47 @@ play:
   invite:
     submit:
       label: "invite"
+character:
+  edit:
+    label: "modifie"
+  avatar:
+    label: "son avatar"
+  name:
+    label: "son nom"
+    placeholder: "ex: Bohort"
+  surname:
+    label: "son surnom"
+    placeholder: "ex: Le Brave"
+  age:
+    label: "son âge"
+    placeholder: "ex: 15"
+  allegiance:
+    label: "ses allégeances"
+    placeholder: "ex: Chaos 0 - Balance 0 - Loi 3"
+  birthplace:
+    label: "son origine"
+    placeholder: "ex: Paris"
+  homeplace:
+    label: "Son habitat"
+    placeholder: "ex: France"
+  occupation:
+    label: "son occupation"
+    placeholder: "ex: Marin"
+  description:
+    label: "décris-le"
+    placeholder: "ex: Grand, fin, calme, un peu renfrogné quelques fois…"
+  story:
+    label: "son histoire"
+    placeholder: "ex: Il fut embarqué sur un bâteau le long des côtes des Terres désolées et humides. Il a fuit les meurtriers de sa famille…"
+  distinctive:
+    label: "signes distinctifs"
+    placeholder: "ex: Paumettes proéminentes, Yeux sombres et creux, Tatouages tribaux, …"
+  notes:
+    label: "notes"
+    placeholder: "Ce blabla te permettra de noter diverses infos sur ton perso, pendant une partie ou à la fin d'un scénario ;)"
+  guidingHand:
+    placeholder: "ex: Droitier, Gaucher, Fausse Patte, …"
+  weight:
+    placeholder: "ex: 330kg"
+  size:
+    placeholder: "ex: 4m80"

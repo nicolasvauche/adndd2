@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if mode == 'add' %}
+        {{ 'pages.user.characters.create.title' | trans | capitalize }}
+    {% else %}
+        {{ 'pages.user.characters.edit.title' | trans | capitalize }}
+    {% endif %}
+{% endblock %}
+
+{% block body_class %}character{% endblock %}
+
+{% block body %}
+    <article>
+        <section>
+            <h1>
+                {% if mode == 'add' %}
+                    {{ 'pages.user.characters.create.title' | trans | capitalize }}
+                {% else %}
+                    {{ 'pages.user.characters.edit.title' | trans | capitalize }}
+                {% endif %}
+            </h1>
+
+            <!-- Flash messages -->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    {% if loop.first %}
+                        <div class="app_alert {{ label }}">
+                            {{ message | trans | capitalize }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+            {{ form_start(form, { attr: { 'class': 'app_form'}}) }}
+            <div class="character_infos">
+                <div class="image">
+                    <div class="app_form_groups">
+                        <div class="app_form_group">
+                            <p>
+                                <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" class="app_image" alt="{{ character.name }}" />
+                            </p>
+
+                            {{ form_widget(form.avatar) }}
+                            <label for="{{ form.avatar.vars.id }}">{{ form.avatar.vars.label | trans | capitalize }}</label>
+                        </div>
+
+                        <div class="icons">
+                            <div class="app_form_group">
+                                <span>
+                                    <i class="fas fa-venus"></i>
+                                    <i class="fas fa-mars"></i>
+                                </span>
+                                {{ form_widget(form.gender) }}
+                            </div>
+
+                            <div class="app_form_group">
+                                <span>
+                                    <i class="fas fa-hand-point-left"></i>
+                                    <i class="fas fa-hand-point-right"></i>
+                                </span>
+                                {{ form_widget(form.guidingHand) }}
+                            </div>
+
+                            <div class="app_form_group">
+                                <span>
+                                    <i class="fas fa-text-height"></i>
+                                </span>
+                                {{ form_widget(form.size) }}
+                            </div>
+
+                            <div class="app_form_group">
+                                <span>
+                                    <i class="fas fa-weight-hanging"></i>
+                                </span>
+                                {{ form_widget(form.weight) }}
+                            </div>
+
+                            <div class="app_form_group">
+                                <span>
+                                    <i class="fas fa-coins"></i>
+                                </span>
+                                {{ form_widget(form.coinpurse) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="content">
+                        <div class="app_grid two">
+                            <div class="app_form_group app_grid_item">
+                                {{ form_widget(form.name) }}
+                                <label for="{{ form.name.vars.id }}">{{ form.name.vars.label | trans | capitalize }}</label>
+                            </div>
+
+                            <div class="app_form_group app_grid_item">
+                                {{ form_widget(form.surname) }}
+                                <label for="{{ form.surname.vars.id }}">{{ form.surname.vars.label | trans | capitalize }}</label>
+                            </div>
+                        </div>
+
+                        <div class="app_grid two">
+                            <div class="app_form_group app_grid_item">
+                                {{ form_widget(form.age, {'type':'number', 'lang': app.request.locale}) }}
+                                <label for="{{ form.age.vars.id }}">{{ form.age.vars.label | trans | capitalize }}</label>
+                            </div>
+
+                            <div class="app_form_group app_grid_item">
+                                {{ form_widget(form.birthplace) }}
+                                <label for="{{ form.birthplace.vars.id }}">{{ form.birthplace.vars.label | trans | capitalize }}</label>
+                            </div>
+                        </div>
+
+                        <div class="app_form_group app_grid_item">
+                            {{ form_widget(form.allegiance) }}
+                            <label for="{{ form.allegiance.vars.id }}">{{ form.allegiance.vars.label | trans | capitalize }}</label>
+                        </div>
+
+                        <div class="app_grid two">
+                            <div class="app_form_group app_grid_item">
+                                {{ form_widget(form.homeplace) }}
+                                <label for="{{ form.homeplace.vars.id }}">{{ form.homeplace.vars.label | trans | capitalize }}</label>
+                            </div>
+
+                            <div class="app_form_group app_grid_item">
+                                {{ form_widget(form.occupation) }}
+                                <label for="{{ form.occupation.vars.id }}">{{ form.occupation.vars.label | trans | capitalize }}</label>
+                            </div>
+                        </div>
+
+                        <div class="app_grid two">
+                            <div class="app_form_group app_grid_item">
+                                {{ form_widget(form.description) }}
+                                <label for="{{ form.description.vars.id }}">{{ form.description.vars.label | trans | capitalize }}</label>
+                            </div>
+
+                            <div class="app_form_group">
+                                {{ form_widget(form.distinctive) }}
+                                <label for="{{ form.distinctive.vars.id }}">{{ form.distinctive.vars.label | trans | capitalize }}</label>
+                            </div>
+                        </div>
+
+                        <div class="app_form_group">
+                            {{ form_widget(form.story) }}
+                            <label for="{{ form.story.vars.id }}">{{ form.story.vars.label | trans | capitalize }}</label>
+                        </div>
+
+                        <div class="app_form_group">
+                            {{ form_widget(form.notes) }}
+                            <label for="{{ form.notes.vars.id }}">{{ form.notes.vars.label | trans | capitalize }}</label>
+                        </div>
+
+                        <div class="app_grid two">
+                            <div class="app_form_group app_grid_item">
+                                <a href="{{ path('user.characters') }}" class="app_button">{{ 'default.cancel' | trans | capitalize }}</a>
+                            </div>
+                            <div class="app_form_group app_grid_item">
+                                {{ form_widget(form.submit, {'label': mode == 'add' ? 'character.submit.label' : 'character.edit.label'}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </section>
+    </article>
+{% endblock %}
