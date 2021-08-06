@@ -19,13 +19,13 @@ class CharacterSpell
 
     /**
      * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="characterSpells")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $character;
 
     /**
      * @ORM\ManyToOne(targetEntity=Spell::class, inversedBy="characterSpells")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $spell;
 
