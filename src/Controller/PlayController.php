@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Character;
 use App\Entity\Scenario;
 use App\Entity\User;
 use App\Form\ScenarioType;
@@ -173,25 +174,28 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/rechercher-un-joueur/{playerName}", name="user.play.invite.player")
+     * @Route("/rechercher-un-personnage/{id}/{characterName}", name="user.play.invite.character")
      */
-    public function invitePlayer(Request $request, $playerName)
+    public function inviteCharacter(Request $request, $id, $characterName)
     {
-        $player = $this->getDoctrine()->getRepository(User::class)->createQueryBuilder('u')
-            ->where('u.pseudo LIKE :playerName')
-            ->orWhere('u.firstname LIKE :playerName')
-            ->orWhere('u.lastname LIKE :playerName')
-            ->orWhere("CONCAT(u.firstname, ' ' , u.lastname) LIKE :playerName")
-            ->setParameter('playerName', '%' . $playerName . '%')
+        $character = $this->getDoctrine()->getRepository(Character::class)->createQueryBuilder('c')
+            ->where('c.name LIKE :characterName')
+            ->orWhere('c.surname LIKE :characterName')
+            ->orWhere("CONCAT(c.name, ' ' , c.surname) LIKE :characterName")
+            ->andWhere('c.isPremade = 0')
+            ->andWhere('c.game = :gameId')
+            ->setParameter('characterName', '%' . $characterName . '%')
+            ->setParameter('gameId', $id)
             ->getQuery()
             ->getOneOrNullResult();
 
-        if ($player) {
+        if ($character) {
             $json = [
                 [
-                    'id' => $player->getId(),
-                    'fullname' => $player->getFullname(),
-                    'pseudo' => $player->getPseudo(),
+                    'id' => $character->getId(),
+                    'fullname' => $character->getFullname(),
+                    'avatar' => $character->getAvatar(),
+                    'username' => $character->getUser()->getFullname(),
                 ],
             ];
         } else {

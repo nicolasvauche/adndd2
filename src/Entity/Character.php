@@ -171,6 +171,11 @@ class Character
         return $this;
     }
 
+    public function getFullname(): ?string
+    {
+        return $this->name . ' ' . $this->surname;
+    }
+
     public function getGender(): ?string
     {
         return $this->gender;

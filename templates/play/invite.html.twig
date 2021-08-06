@@ -22,13 +22,13 @@
 
             <form class="app_form" method="post">
                 <div class="app_form_group button">
-                    <div id="players"></div>
+                    <div id="characters"></div>
                     <i class="fas fa-spinner fa-spin"></i>
-                    <input type="text" id="invite_playername" name="invite_playername" class="app_form_control" autofocus />
-                    <button id="invite_playersup">
+                    <input type="text" id="invite_charactername" name="invite_charactername" class="app_form_control" autofocus />
+                    <button id="invite_charactersup">
                         <i class="fas fa-trash"></i>
                     </button>
-                    <label for="invite_playername">Rechercher un joueur</label>
+                    <label for="invite_charactername">Rechercher un personnage</label>
                 </div>
 
                 <div class="invited app_grid five">
@@ -80,20 +80,20 @@
 {% block javascripts %}
     <script defer>
         window.addEventListener("DOMContentLoaded", () => {
-            const playerAddInput = document.getElementById('invite_playername')
-            const playerSupBtn = document.getElementById('invite_playersup')
+            const characterAddInput = document.getElementById('invite_charactername')
+            const characterSupBtn = document.getElementById('invite_charactersup')
             const loader = document.querySelector('.fa-spin')
-            const playersDiv = document.getElementById('players')
+            const charactersDiv = document.getElementById('characters')
 
-            const addPlayer = player => {
+            const addcharacter = character => {
                 const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
 
                 for (guestDiv of guestsDiv) {
                     if (guestDiv.classList.contains('placehold')) {
-                        const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
+                        const guestImage = document.createElement('img')
                         const guestName = guestDiv.querySelector(('.app_grid_item_title'))
 
-                        guestDiv.dataset.playerid = player.id
+                        guestDiv.dataset.characterid = character.id
                         guestDiv.classList.remove('placehold')
                         guestDiv.innerHTML = ''
 
@@ -102,30 +102,33 @@
                         guestLink.title = "Enlever cette invitation"
                         guestLink.addEventListener('click', event => {
                             event.preventDefault()
-                            deletePlayer(player)
+                            deletecharacter(character)
                         })
 
                         guestLink.appendChild(guestImage)
 
-                        guestName.innerHTML = player.pseudo
+                        guestName.innerHTML = character.fullname
                         guestLink.appendChild(guestName)
+                        console.log(character)
+                        guestImage.src = '/assets/images/characters/' + character.avatar
+                        guestLink.appendChild(guestImage)
 
                         guestDiv.appendChild(guestLink)
 
-                        playerAddInput.value = ''
-                        playersDiv.innerHTML = ''
-                        playersDiv.style.display = 'none'
+                        characterAddInput.value = ''
+                        charactersDiv.innerHTML = ''
+                        charactersDiv.style.display = 'none'
 
                         return
                     }
                 }
             }
 
-            const deletePlayer = player => {
+            const deletecharacter = character => {
                 const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
 
                 for (guestDiv of guestsDiv) {
-                    if (parseInt(guestDiv.dataset.playerid) === parseInt(player.id)) {
+                    if (parseInt(guestDiv.dataset.characterid) === parseInt(character.id)) {
                         const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
                         const guestName = guestDiv.querySelector(('.app_grid_item_title'))
                         guestName.innerHTML = 'Libre'
@@ -138,49 +141,49 @@
                 }
             }
 
-            playerAddInput.addEventListener('input', event => {
-                const playerName = playerAddInput.value
+            characterAddInput.addEventListener('input', event => {
+                const characterName = characterAddInput.value
 
-                if (playerName.length > 2) {
+                if (characterName.length > 2) {
                     loader.style.display = 'inline'
 
                     const xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = function () {
-                        playersDiv.innerHTML = ''
+                        charactersDiv.innerHTML = ''
                         if (this.readyState === 4 && this.status === 200) {
-                            const playerDiv = document.createElement('p')
-                            const playerData = JSON.parse(this.responseText)
-                            if (playerData.length > 0) {
-                                playerDiv.classList.add('player')
-                                playerDiv.dataset.userid = playerData[0].id
-                                playerDiv.innerHTML = playerData[0].fullname + ' <span>(' + playerData[0].pseudo + ')</span>'
-                                playerDiv.addEventListener('click', event => {
-                                    addPlayer(playerData[0])
+                            const characterDiv = document.createElement('p')
+                            const characterData = JSON.parse(this.responseText)
+                            if (characterData.length > 0) {
+                                characterDiv.classList.add('character')
+                                characterDiv.dataset.userid = characterData[0].id
+                                characterDiv.innerHTML = characterData[0].fullname + ' <span>(' + characterData[0].username + ')</span>'
+                                characterDiv.addEventListener('click', event => {
+                                    addcharacter(characterData[0])
                                 })
-                                playersDiv.appendChild(playerDiv)
-                                playersDiv.style.display = 'block'
+                                charactersDiv.appendChild(characterDiv)
+                                charactersDiv.style.display = 'block'
                                 loader.style.display = 'none'
                             } else {
-                                playerDiv.innerHTML = 'aucun résultat…'
-                                playersDiv.appendChild(playerDiv)
-                                playersDiv.style.display = 'block'
+                                characterDiv.innerHTML = 'aucun résultat…'
+                                charactersDiv.appendChild(characterDiv)
+                                charactersDiv.style.display = 'block'
                                 loader.style.display = 'none'
                             }
                         }
                     };
 
-                    xhttp.open("GET", '/jouer-en-ligne/rechercher-un-joueur/' + playerName, true);
+                    xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.game.id }} + '/' + characterName, true);
                     xhttp.send();
                 } else {
-                    playersDiv.style.display = 'none'
+                    charactersDiv.style.display = 'none'
                     loader.style.display = 'none'
                 }
             })
-            playerSupBtn.addEventListener('click', event => {
+            characterSupBtn.addEventListener('click', event => {
                 event.preventDefault()
-                playerAddInput.value = ''
-                playersDiv.innerHTML = ''
-                playersDiv.style.display = 'none'
+                characterAddInput.value = ''
+                charactersDiv.innerHTML = ''
+                charactersDiv.style.display = 'none'
             })
         })
     </script>

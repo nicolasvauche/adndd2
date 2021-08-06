@@ -48,7 +48,11 @@
                             </div>
                             <div class="app_grid_item_body">
                                 <p class="app_grid_item_info excerpt">
-                                    {{ character.story }}
+                                    {% if character.story %}
+                                        {{ character.story }}
+                                    {% else %}
+                                        {{ character.description }}
+                                    {% endif %}
                                 </p>
                             </div>
                             <div class="app_grid_item_footer">

@@ -70,8 +70,8 @@ pages:
       title: "modifier une table de jeu"
       menu: "modifier la table de jeu"
     invite:
-      title: "inviter des joueurs à la table"
-      menu: "inviter des joueurs"
+      title: "inviter des personnages à la table"
+      menu: "inviter des personnages"
     game:
       title: "Infos de la table"
   contact:
