@@ -63,16 +63,16 @@ class SpellFixtures extends Fixture implements OrderedFixtureInterface
             $manager->persist($spell);
 
             $characterspell = new CharacterSpell();
-            $characterspell->setCharacters($this->getReference('character1'))
-                    ->setSpell($spell)
-                    ->setLevel('50');
-            $manager->persist( $characterspell );
+            $characterspell->setCharacter($this->getReference('character1'))
+                ->setSpell($spell)
+                ->setLevel('50');
+            $manager->persist($characterspell);
 
             $characterspell = new CharacterSpell();
-            $characterspell->setCharacters($this->getReference('character3'))
-                    ->setSpell($spell)
-                    ->setLevel('25');
-            $manager->persist( $characterspell );
+            $characterspell->setCharacter($this->getReference('character3'))
+                ->setSpell($spell)
+                ->setLevel('25');
+            $manager->persist($characterspell);
         }
 
         $manager->flush();

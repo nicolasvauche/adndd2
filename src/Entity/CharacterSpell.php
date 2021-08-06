@@ -21,7 +21,7 @@ class CharacterSpell
      * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="characterSpells")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $characters;
+    private $character;
 
     /**
      * @ORM\ManyToOne(targetEntity=Spell::class, inversedBy="characterSpells")
@@ -39,14 +39,14 @@ class CharacterSpell
         return $this->id;
     }
 
-    public function getCharacters(): ?Character
+    public function getCharacter(): ?Character
     {
-        return $this->characters;
+        return $this->character;
     }
 
-    public function setCharacters(?Character $characters): self
+    public function setCharacter(?Character $character): self
     {
-        $this->characters = $characters;
+        $this->character = $character;
 
         return $this;
     }
