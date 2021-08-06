@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Character;
+use App\Entity\CharacterSpell;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,6 +52,14 @@ class CharacterController extends AbstractController
 
             if ($name) {
                 $character->setName($name);
+            }
+
+            foreach ($characterPremade->getCharacterSpells() as $characterSpellPremade) {
+                $characterspell = new CharacterSpell();
+                $characterspell->setCharacter($character)
+                    ->setSpell($characterSpellPremade->getSpell())
+                    ->setLevel($characterSpellPremade->getLevel());
+                $manager->persist($characterspell);
             }
 
             $manager->persist($character);

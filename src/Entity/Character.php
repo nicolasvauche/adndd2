@@ -131,7 +131,7 @@ class Character
     private $tribe;
 
     /**
-     * @ORM\OneToMany(targetEntity=CharacterSpell::class, mappedBy="characters")
+     * @ORM\OneToMany(targetEntity=CharacterSpell::class, mappedBy="character")
      */
     private $characterSpells;
 
