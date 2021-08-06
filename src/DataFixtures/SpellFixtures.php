@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Spell;
 use App\Entity\SpellType;
 use App\Entity\Game;
+use App\Entity\CharacterSpell;
 
 use App\Repository\GameRepository;
 
@@ -60,6 +61,18 @@ class SpellFixtures extends Fixture implements OrderedFixtureInterface
                 ->setSpellType($e)
                 ->addGame($this->getReference('game1'));
             $manager->persist($spell);
+
+            $characterspell = new CharacterSpell();
+            $characterspell->setCharacters($this->getReference('character1'))
+                    ->setSpell($spell)
+                    ->setLevel('50');
+            $manager->persist( $characterspell );
+
+            $characterspell = new CharacterSpell();
+            $characterspell->setCharacters($this->getReference('character3'))
+                    ->setSpell($spell)
+                    ->setLevel('25');
+            $manager->persist( $characterspell );
         }
 
         $manager->flush();

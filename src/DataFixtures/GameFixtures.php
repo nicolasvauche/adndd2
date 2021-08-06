@@ -173,6 +173,6 @@ EOF
 
     public function getOrder()
     {
-        return 6;
+        return 3;
     }
 }
