@@ -28,33 +28,40 @@
                     <button id="invite_charactersup">
                         <i class="fas fa-trash"></i>
                     </button>
-                    <label for="invite_charactername">Rechercher un personnage</label>
+                    <label for="invite_charactername">Recherche un personnage</label>
                 </div>
 
                 <div class="invited app_grid five">
-                    {% for i in 0..4 %}
-                        <div class="app_grid_item placehold">
-                            <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
-                            <span class="app_grid_item_title">Libre</span>
+                    {% set i = 0 %}
+                    {% for character in scenario.characters %}
+                        <div class="character app_grid_item" data-characterid="{{ character.id }}">
+                            <a href="#" class="guest_link" title="Enlève ce personnage" data-charactername="{{ character.name }}">
+                                <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" alt="{{ character.name }}" class="app_grid_item_image" data-charactername="{{ character.name }}" />
+                                <span class="app_grid_item_title" data-charactername="{{ character.name }}">{{ character.fullname }}</span>
+                            </a>
                         </div>
+                        {% set i = i + 1 %}
                     {% endfor %}
+
+                    {% if i < 5 %}
+                        {% for j in i..4 %}
+                            <div class="app_grid_item placehold">
+                                <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
+                                <span class="app_grid_item_title">Libre</span>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <div class="app_form_group">
                     <p class="info">
                         <i class="far fa-hand-point-up"></i>
-                        Cliquez sur une invitation pour l'enlever
+                        Clique sur une invitation pour l'enlever
                     </p>
                 </div>
 
-                <div class="app_grid two mb_0">
-                    <div class="app_form_group">
-                        <a href="{{ path('user.play.myscenarios') }}" class="app_button">{{ 'default.cancel' | trans | capitalize }}</a>
-                    </div>
-
-                    <div class="app_form_group">
-                        <button type="submit" class="app_button cta">{{ 'play.invite.submit.label' | trans | capitalize }}</button>
-                    </div>
+                <div class="app_form_group mb_0">
+                    <a href="{{ path('user.play.myscenarios') }}" class="app_button">{{ 'default.back' | trans | capitalize }}</a>
                 </div>
             </form>
         </section>
@@ -100,10 +107,13 @@
 
                         const guestLink = document.createElement('a')
                         guestLink.href = "#"
-                        guestLink.title = "Enlever cette invitation"
+                        guestLink.title = "Enlève ce personnage"
+                        guestLink.classList.add('guest_link')
                         guestLink.addEventListener('click', event => {
                             event.preventDefault()
-                            deletecharacter(character)
+                            if (window.confirm('Veux-tu VRAIMENT virer ce personnage de la table ?')) {
+                                deletecharacter(character)
+                            }
                         })
 
                         guestLink.appendChild(guestImage)
@@ -125,21 +135,29 @@
             }
 
             const deletecharacter = character => {
-                const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
+                const xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
 
-                for (guestDiv of guestsDiv) {
-                    if (parseInt(guestDiv.dataset.characterid) === parseInt(character.id)) {
-                        const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
-                        const guestName = guestDiv.querySelector(('.app_grid_item_title'))
-                        guestImage.src = '{{ asset('assets/images/user_avatar.png') }}'
-                        guestName.innerHTML = 'Libre'
+                        for (guestDiv of guestsDiv) {
+                            if (parseInt(guestDiv.dataset.characterid) === parseInt(character.id)) {
+                                const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
+                                const guestName = guestDiv.querySelector(('.app_grid_item_title'))
+                                guestImage.src = '{{ asset('assets/images/user_avatar.png') }}'
+                                guestName.innerHTML = 'Libre'
 
-                        guestDiv.innerHTML = ''
-                        guestDiv.appendChild(guestImage)
-                        guestDiv.appendChild(guestName)
-                        guestDiv.classList.add('placehold')
+                                guestDiv.innerHTML = ''
+                                guestDiv.appendChild(guestImage)
+                                guestDiv.appendChild(guestName)
+                                guestDiv.classList.add('placehold')
+                            }
+                        }
                     }
-                }
+                };
+
+                xhttp.open("POST", '/jouer-en-ligne/virer-un-personnage/' + {{ scenario.id }} +'/' + character.id, true);
+                xhttp.send();
             }
 
             characterAddInput.addEventListener('input', event => {
@@ -173,7 +191,7 @@
                         }
                     };
 
-                    xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.game.id }} +'/' + characterName, true);
+                    xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.id }} +'/' + characterName, true);
                     xhttp.send();
                 } else {
                     charactersDiv.style.display = 'none'
@@ -199,18 +217,34 @@
                     }
                 }
 
-                console.log(invitedCharacters)
-
                 const xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function () {
                     if (this.readyState === 4 && this.status === 200) {
-
+                        window.location.href = '{{ path('user.play.myscenarios') }}'
                     }
                 };
 
-                xhttp.open("POST", '/jouer-en-ligne/inviter-des-personnages/' + {{ scenario.id }} + '/' + JSON.stringify(invitedCharacters), true);
+                xhttp.open("POST", '/jouer-en-ligne/inviter-des-personnages/' + {{ scenario.id }} +'/' + JSON.stringify(invitedCharacters), true);
                 xhttp.send();
             })
+
+            const guestLinks = document.querySelectorAll('.guest_link')
+            for (guestLink of guestLinks) {
+                guestLink.addEventListener('click', event => {
+                    event.preventDefault()
+                    if (window.confirm('Veux-tu VRAIMENT virer ce personnage de la table ?')) {
+                        const xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState === 4 && this.status === 200) {
+                                deletecharacter(JSON.parse(this.responseText)[0])
+                            }
+                        }
+
+                        xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.id }} +'/' + event.target.dataset.charactername + '/1', true)
+                        xhttp.send();
+                    }
+                })
+            }
         })
     </script>
 {% endblock %}

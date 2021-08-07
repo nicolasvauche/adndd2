@@ -61,17 +61,17 @@ pages:
     title: "tous les jeux en ligne"
   play:
     menu: "jouer"
-    title: "jouer en ligne"
+    title: "joue en ligne"
     title2: "les tables de jeu"
     create:
-      title: "créer une table de jeu"
+      title: "crée une table de jeu"
       menu: "nouvelle table"
     edit:
-      title: "modifier une table de jeu"
-      menu: "modifier la table de jeu"
+      title: "modifie une table de jeu"
+      menu: "modifie la table de jeu"
     invite:
-      title: "inviter des personnages à la table"
-      menu: "inviter des personnages"
+      title: "invite des personnages à la table"
+      menu: "invite des personnages"
     game:
       title: "Infos de la table"
   contact:

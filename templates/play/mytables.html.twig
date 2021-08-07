@@ -57,7 +57,7 @@
                         </div>
                         <p class="app_grid_item_info mb_0">
                             <i class="fas fa-users"></i>
-                            <strong>4/5</strong>
+                            <strong>{{ scenario.characters | length }}/5</strong>
                         </p>
                         <div class="app_grid_item_footer">
                             <a href="{{ path('user.play.remove', {'id': scenario.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprimer cette table de jeu">
@@ -72,7 +72,7 @@
                                 <i class="fas fa-user-plus"></i>
                             </a>
 
-                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Jouer</a>
                         </div>
                     </div>
                 {% endfor %}

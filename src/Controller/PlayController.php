@@ -164,7 +164,7 @@ class PlayController extends AbstractController
     /**
      * @Route("/inviter-des-joueurs/{id}", name="user.play.invite")
      */
-    public function invite(Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, Scenario $scenario): Response
+    public function invite(Scenario $scenario): Response
     {
 
         return $this->render('play/invite.html.twig',
@@ -174,10 +174,13 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/rechercher-un-personnage/{id}/{characterName}", name="user.play.invite.character")
+     * @Route("/rechercher-un-personnage/{scenarioId}/{characterName}/{deleteMode}", name="user.play.invite.character")
      */
-    public function inviteCharacter(Request $request, $id, $characterName)
+    public function inviteCharacter(Request $request, EntityManagerInterface $manager, $scenarioId, $characterName, $deleteMode = false)
     {
+        $json = [];
+        $scenario = $this->getDoctrine()->getRepository(Scenario::class)->find($scenarioId);
+
         $character = $this->getDoctrine()->getRepository(Character::class)->createQueryBuilder('c')
             ->where('c.name LIKE :characterName')
             ->orWhere('c.surname LIKE :characterName')
@@ -185,39 +188,58 @@ class PlayController extends AbstractController
             ->andWhere('c.isPremade = 0')
             ->andWhere('c.game = :gameId')
             ->setParameter('characterName', '%' . $characterName . '%')
-            ->setParameter('gameId', $id)
+            ->setParameter('gameId', $scenario->getGame()->getId())
             ->getQuery()
             ->getOneOrNullResult();
 
         if ($character) {
-            $json = [
-                [
-                    'id' => $character->getId(),
-                    'fullname' => $character->getFullname(),
-                    'avatar' => $character->getAvatar(),
-                    'username' => $character->getUser()->getFullname(),
-                ],
-            ];
-        } else {
-            $json = [];
+            if ($deleteMode) {
+                $scenario->addCharacter($character);
+                $manager->persist($scenario);
+                $manager->flush();
+
+                $json = [
+                    [
+                        'id' => $character->getId(),
+                        'fullname' => $character->getFullname(),
+                        'avatar' => $character->getAvatar(),
+                        'username' => $character->getUser()->getFullname(),
+                    ],
+                ];
+            } else {
+                if (!$scenario->getCharacters()->contains($character) && sizeof($scenario->getCharacters()) < 5) {
+                    $scenario->addCharacter($character);
+                    $manager->persist($scenario);
+                    $manager->flush();
+
+                    $json = [
+                        [
+                            'id' => $character->getId(),
+                            'fullname' => $character->getFullname(),
+                            'avatar' => $character->getAvatar(),
+                            'username' => $character->getUser()->getFullname(),
+                        ],
+                    ];
+                }
+            }
         }
 
         return new JsonResponse($json);
     }
 
     /**
-     * @Route("/inviter-des-personnages/{id}/{charactersIds}", name="user.play.invite.characters")
+     * @Route("/virer-un-personnage/{id}/{characterId}", name="user.play.invite.characters")
      */
-    public function inviteCharacters(Request $request, Scenario $scenario, $charactersIds)
+    public function removeCharacter(Request $request, EntityManagerInterface $manager, Scenario $scenario, $characterId)
     {
-        foreach (json_decode($charactersIds) as $key => $characterId) {
-            $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
-            if ($character) {
-                dd($character->getName());
-                //TODO: Relation Scenario > Characters
-            }
+        $json = [];
+        $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
+        if ($character) {
+            $scenario->removeCharacter($character);
+            $manager->persist($scenario);
+            $manager->flush();
         }
 
-        return $this->redirectToRoute('user.play.myscenarios');
+        return new JsonResponse($json);
     }
 }
