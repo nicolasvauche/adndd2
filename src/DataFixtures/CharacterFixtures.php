@@ -39,7 +39,7 @@ class CharacterFixtures extends Fixture implements OrderedFixtureInterface
             ['Lord Duncan Blight', 'duncan.jpg', 'Homme', '', '1m81', '82kg', 'Duncan est un homme de haute stature, à la mise soignée et aux manières distinguées, 
             mais  son  visage  porte  les  stigmates  de  la  guerre.  L’élégance  de  ses  costumes  peine  
             à dissimuler une nature plus brutale et on l’imagine tout autant à son aise en bras de chemise dans une guerre des gangs que dans un salon de thé.',
-                '42', 'Berline ordinaire', 'Militaire - Ancien  colonel  de  l’armée  britannique, Duncan est issu d’une riche famille aristo-
+                '42', '', 'Militaire - Ancien  colonel  de  l’armée  britannique, Duncan est issu d’une riche famille aristo-
             cratique. Grand amateur de rugby et de boxe, malgré des états de services irréprochables, il a quitté l’armée pour acheter une salle de boxe à New-York.', true, '', 'New-York', '', '200', 'game2'],
             ['Francesca Petrini', 'francesca.jpg', 'Femme', '', '1m67', '57kg', 'Francesca  est  une  jeune  femme  élégante  
             mais timide, qui cache son embarras sous un chapeau à large bord. Toutefois, celui qui parvient à croiser son regard en mesure im-médiatement toute l’acuité, c’est alors géné-
@@ -50,7 +50,7 @@ class CharacterFixtures extends Fixture implements OrderedFixtureInterface
             ['John Prentiss', 'john.jpg', 'Homme', '', '1m74', '70kg', 'La  mâchoire  carrée,  le  regard  franc  et  la parole facile, John est un jeune homme athlé-
             tique qui semble partout à son aise. Chemise entrouverte, chapeau de cuir, il soigne son allure de baroudeur et ne se sépare jamais 
             d’un carnet dans lequel il prend note de ses 
-            exploits, réels ou imaginaires.', '29', 'Pistolet moyen', 'Aventurier - Fils  d’un  riche  industriel  américain,  John 
+            exploits, réels ou imaginaires.', '29', '', 'Aventurier - Fils  d’un  riche  industriel  américain,  John 
             a  été  élevé  par  une  nourrice  noire.  Il  en  a  
             conçu une grande amertume pour les théo-
             ries racistes de sa famille et, très jeune, est parti explorer le monde, relatant ses voyages dans des romans qui connaissent un succès 

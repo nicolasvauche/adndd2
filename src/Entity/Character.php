@@ -135,9 +135,15 @@ class Character
      */
     private $characterSpells;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CharacterCharacteristic::class, mappedBy="character99")
+     */
+    private $characterCharacteristics;
+
     public function __construct()
     {
         $this->characterSpells = new ArrayCollection();
+        $this->characterCharacteristics = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -442,6 +448,36 @@ class Character
             // set the owning side to null (unless already changed)
             if ($characterSpell->getCharacters() === $this) {
                 $characterSpell->setCharacters(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CharacterCharacteristic[]
+     */
+    public function getCharacterCharacteristics(): Collection
+    {
+        return $this->characterCharacteristics;
+    }
+
+    public function addCharacterCharacteristic(CharacterCharacteristic $characterCharacteristic): self
+    {
+        if (!$this->characterCharacteristics->contains($characterCharacteristic)) {
+            $this->characterCharacteristics[] = $characterCharacteristic;
+            $characterCharacteristic->setCharacter99($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacterCharacteristic(CharacterCharacteristic $characterCharacteristic): self
+    {
+        if ($this->characterCharacteristics->removeElement($characterCharacteristic)) {
+            // set the owning side to null (unless already changed)
+            if ($characterCharacteristic->getCharacter99() === $this) {
+                $characterCharacteristic->setCharacter99(null);
             }
         }
 
