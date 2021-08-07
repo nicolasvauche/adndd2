@@ -145,11 +145,17 @@ class Character
      */
     private $scenarios;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Equipment::class, mappedBy="characters")
+     */
+    private $equipments;
+
     public function __construct()
     {
         $this->characterSpells = new ArrayCollection();
         $this->characterSkills = new ArrayCollection();
         $this->scenarios = new ArrayCollection();
+        $this->equipments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -517,6 +523,33 @@ class Character
     {
         if ($this->scenarios->removeElement($scenario)) {
             $scenario->removeCharacter($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipment[]
+     */
+    public function getEquipments(): Collection
+    {
+        return $this->equipments;
+    }
+
+    public function addEquipment(Equipment $equipment): self
+    {
+        if (!$this->equipments->contains($equipment)) {
+            $this->equipments[] = $equipment;
+            $equipment->addCharacter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipment(Equipment $equipment): self
+    {
+        if ($this->equipments->removeElement($equipment)) {
+            $equipment->removeCharacter($this);
         }
 
         return $this;
