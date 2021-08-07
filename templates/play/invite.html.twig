@@ -20,41 +20,48 @@
                 {% endfor %}
             {% endfor %}
 
-            <form class="app_form" method="post">
+            <form id="invite_form" class="app_form" method="post">
                 <div class="app_form_group button">
-                    <div id="players"></div>
+                    <div id="characters"></div>
                     <i class="fas fa-spinner fa-spin"></i>
-                    <input type="text" id="invite_playername" name="invite_playername" class="app_form_control" autofocus />
-                    <button id="invite_playersup">
+                    <input type="text" id="invite_charactername" name="invite_charactername" class="app_form_control" autofocus />
+                    <button id="invite_charactersup">
                         <i class="fas fa-trash"></i>
                     </button>
-                    <label for="invite_playername">Rechercher un joueur</label>
+                    <label for="invite_charactername">Recherche un personnage</label>
                 </div>
 
                 <div class="invited app_grid five">
-                    {% for i in 0..4 %}
-                        <div class="app_grid_item placehold">
-                            <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
-                            <span class="app_grid_item_title">Libre</span>
+                    {% set i = 0 %}
+                    {% for character in scenario.characters %}
+                        <div class="character app_grid_item" data-characterid="{{ character.id }}">
+                            <a href="#" class="guest_link" title="Enlève ce personnage" data-charactername="{{ character.name }}">
+                                <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" alt="{{ character.name }}" class="app_grid_item_image" data-charactername="{{ character.name }}" />
+                                <span class="app_grid_item_title" data-charactername="{{ character.name }}">{{ character.fullname }}</span>
+                            </a>
                         </div>
+                        {% set i = i + 1 %}
                     {% endfor %}
+
+                    {% if i < 5 %}
+                        {% for j in i..4 %}
+                            <div class="app_grid_item placehold">
+                                <img src="{{ asset('assets/images/user_avatar.png') }}" alt="Un Invité" class="app_grid_item_image" />
+                                <span class="app_grid_item_title">Libre</span>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <div class="app_form_group">
                     <p class="info">
                         <i class="far fa-hand-point-up"></i>
-                        Cliquez sur une invitation pour l'enlever
+                        Clique sur une invitation pour l'enlever
                     </p>
                 </div>
 
-                <div class="app_grid two mb_0">
-                    <div class="app_form_group">
-                        <a href="{{ path('user.play.myscenarios') }}" class="app_button">{{ 'default.cancel' | trans | capitalize }}</a>
-                    </div>
-
-                    <div class="app_form_group">
-                        <button type="submit" class="app_button cta">{{ 'play.invite.submit.label' | trans | capitalize }}</button>
-                    </div>
+                <div class="app_form_group mb_0">
+                    <a href="{{ path('user.play.myscenarios') }}" class="app_button">{{ 'default.back' | trans | capitalize }}</a>
                 </div>
             </form>
         </section>
@@ -80,12 +87,13 @@
 {% block javascripts %}
     <script defer>
         window.addEventListener("DOMContentLoaded", () => {
-            const playerAddInput = document.getElementById('invite_playername')
-            const playerSupBtn = document.getElementById('invite_playersup')
+            const characterAddInput = document.getElementById('invite_charactername')
+            const characterSupBtn = document.getElementById('invite_charactersup')
             const loader = document.querySelector('.fa-spin')
-            const playersDiv = document.getElementById('players')
+            const charactersDiv = document.getElementById('characters')
+            const inviteForm = document.getElementById('invite_form')
 
-            const addPlayer = player => {
+            const addcharacter = character => {
                 const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
 
                 for (guestDiv of guestsDiv) {
@@ -93,95 +101,150 @@
                         const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
                         const guestName = guestDiv.querySelector(('.app_grid_item_title'))
 
-                        guestDiv.dataset.playerid = player.id
+                        guestDiv.dataset.characterid = character.id
                         guestDiv.classList.remove('placehold')
                         guestDiv.innerHTML = ''
 
                         const guestLink = document.createElement('a')
                         guestLink.href = "#"
-                        guestLink.title = "Enlever cette invitation"
+                        guestLink.title = "Enlève ce personnage"
+                        guestLink.classList.add('guest_link')
                         guestLink.addEventListener('click', event => {
                             event.preventDefault()
-                            deletePlayer(player)
+                            if (window.confirm('Veux-tu VRAIMENT virer ce personnage de la table ?')) {
+                                deletecharacter(character)
+                            }
                         })
 
                         guestLink.appendChild(guestImage)
 
-                        guestName.innerHTML = player.pseudo
+                        guestImage.src = '/assets/images/characters/' + character.avatar
+                        guestLink.appendChild(guestImage)
+                        guestName.innerHTML = character.fullname
                         guestLink.appendChild(guestName)
 
                         guestDiv.appendChild(guestLink)
 
-                        playerAddInput.value = ''
-                        playersDiv.innerHTML = ''
-                        playersDiv.style.display = 'none'
+                        characterAddInput.value = ''
+                        charactersDiv.innerHTML = ''
+                        charactersDiv.style.display = 'none'
 
                         return
                     }
                 }
             }
 
-            const deletePlayer = player => {
-                const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
+            const deletecharacter = character => {
+                const xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
 
-                for (guestDiv of guestsDiv) {
-                    if (parseInt(guestDiv.dataset.playerid) === parseInt(player.id)) {
-                        const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
-                        const guestName = guestDiv.querySelector(('.app_grid_item_title'))
-                        guestName.innerHTML = 'Libre'
+                        for (guestDiv of guestsDiv) {
+                            if (parseInt(guestDiv.dataset.characterid) === parseInt(character.id)) {
+                                const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
+                                const guestName = guestDiv.querySelector(('.app_grid_item_title'))
+                                guestImage.src = '{{ asset('assets/images/user_avatar.png') }}'
+                                guestName.innerHTML = 'Libre'
 
-                        guestDiv.innerHTML = ''
-                        guestDiv.appendChild(guestImage)
-                        guestDiv.appendChild(guestName)
-                        guestDiv.classList.add('placehold')
+                                guestDiv.innerHTML = ''
+                                guestDiv.appendChild(guestImage)
+                                guestDiv.appendChild(guestName)
+                                guestDiv.classList.add('placehold')
+                            }
+                        }
                     }
-                }
+                };
+
+                xhttp.open("POST", '/jouer-en-ligne/virer-un-personnage/' + {{ scenario.id }} +'/' + character.id, true);
+                xhttp.send();
             }
 
-            playerAddInput.addEventListener('input', event => {
-                const playerName = playerAddInput.value
+            characterAddInput.addEventListener('input', event => {
+                const characterName = characterAddInput.value
 
-                if (playerName.length > 2) {
+                if (characterName.length > 2) {
                     loader.style.display = 'inline'
 
                     const xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = function () {
-                        playersDiv.innerHTML = ''
+                        charactersDiv.innerHTML = ''
                         if (this.readyState === 4 && this.status === 200) {
-                            const playerDiv = document.createElement('p')
-                            const playerData = JSON.parse(this.responseText)
-                            if (playerData.length > 0) {
-                                playerDiv.classList.add('player')
-                                playerDiv.dataset.userid = playerData[0].id
-                                playerDiv.innerHTML = playerData[0].fullname + ' <span>(' + playerData[0].pseudo + ')</span>'
-                                playerDiv.addEventListener('click', event => {
-                                    addPlayer(playerData[0])
+                            const characterDiv = document.createElement('p')
+                            const characterData = JSON.parse(this.responseText)
+                            if (characterData.length > 0) {
+                                characterDiv.classList.add('character')
+                                characterDiv.dataset.userid = characterData[0].id
+                                characterDiv.innerHTML = characterData[0].fullname + ' <span>(' + characterData[0].username + ')</span>'
+                                characterDiv.addEventListener('click', event => {
+                                    addcharacter(characterData[0])
                                 })
-                                playersDiv.appendChild(playerDiv)
-                                playersDiv.style.display = 'block'
+                                charactersDiv.appendChild(characterDiv)
+                                charactersDiv.style.display = 'block'
                                 loader.style.display = 'none'
                             } else {
-                                playerDiv.innerHTML = 'aucun résultat…'
-                                playersDiv.appendChild(playerDiv)
-                                playersDiv.style.display = 'block'
+                                characterDiv.innerHTML = 'aucun résultat…'
+                                charactersDiv.appendChild(characterDiv)
+                                charactersDiv.style.display = 'block'
                                 loader.style.display = 'none'
                             }
                         }
                     };
 
-                    xhttp.open("GET", '/jouer-en-ligne/rechercher-un-joueur/' + playerName, true);
+                    xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.id }} +'/' + characterName, true);
                     xhttp.send();
                 } else {
-                    playersDiv.style.display = 'none'
+                    charactersDiv.style.display = 'none'
                     loader.style.display = 'none'
                 }
             })
-            playerSupBtn.addEventListener('click', event => {
+
+            characterSupBtn.addEventListener('click', event => {
                 event.preventDefault()
-                playerAddInput.value = ''
-                playersDiv.innerHTML = ''
-                playersDiv.style.display = 'none'
+                characterAddInput.value = ''
+                charactersDiv.innerHTML = ''
+                charactersDiv.style.display = 'none'
             })
+
+            inviteForm.addEventListener('submit', event => {
+                event.preventDefault()
+                const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
+                const invitedCharacters = []
+
+                for (guestDiv of guestsDiv) {
+                    if (!guestDiv.classList.contains('placehold')) {
+                        invitedCharacters.push(guestDiv.dataset.characterid)
+                    }
+                }
+
+                const xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        window.location.href = '{{ path('user.play.myscenarios') }}'
+                    }
+                };
+
+                xhttp.open("POST", '/jouer-en-ligne/inviter-des-personnages/' + {{ scenario.id }} +'/' + JSON.stringify(invitedCharacters), true);
+                xhttp.send();
+            })
+
+            const guestLinks = document.querySelectorAll('.guest_link')
+            for (guestLink of guestLinks) {
+                guestLink.addEventListener('click', event => {
+                    event.preventDefault()
+                    if (window.confirm('Veux-tu VRAIMENT virer ce personnage de la table ?')) {
+                        const xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState === 4 && this.status === 200) {
+                                deletecharacter(JSON.parse(this.responseText)[0])
+                            }
+                        }
+
+                        xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.id }} +'/' + event.target.dataset.charactername + '/1', true)
+                        xhttp.send();
+                    }
+                })
+            }
         })
     </script>
 {% endblock %}

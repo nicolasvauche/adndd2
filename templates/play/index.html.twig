@@ -47,7 +47,7 @@
                         {% if app.user %}
                             <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
                                 <i class="fas fa-users"></i>
-                                <strong>4/5</strong>
+                                <strong>{{ scenario.characters | length }}/5</strong>
                             </p>
                         {% endif %}
                         <div class="app_grid_item_footer">
@@ -60,7 +60,11 @@
                                     {% endif %}
                                 </span>
 
-                                <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                                {% if scenario.characters | length < 5 %}
+                                    <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                                {% else %}
+                                    <span class="app_grid_item_footer_action">Pleine</span>
+                                {% endif %}
                             {% else %}
                                 <span class="app_grid_item_footer_action">
                                     {% if scenario.isPrivate %}
@@ -78,7 +82,7 @@
                     </div>
                 {% endfor %}
 
-                {#<div class="game app_grid_item app_slider_item" data-gameid="2">
+                {# <div class="game app_grid_item app_slider_item" data-gameid="2">
                     <div class="app_grid_item_header">
                         <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app_grid_item_image" />
                         <h3 class="app_grid_item_title">Donjons & Dragons</h3>
@@ -270,7 +274,7 @@
                             </a>
                         {% endif %}
                     </div>
-                </div>#}
+                </div> #}
 
             </div>
         </section>
