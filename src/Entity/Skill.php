@@ -29,9 +29,25 @@ class Skill
      */
     private $gameSkills;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=SkillType::class, inversedBy="skills")
+     */
+    private $skillType;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CharacterSkill::class, mappedBy="skill")
+     */
+    private $characterSkills;
+
     public function __construct()
     {
         $this->gameSkills = new ArrayCollection();
+        $this->characterSkills = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,6 +91,60 @@ class Skill
             // set the owning side to null (unless already changed)
             if ($gameSkill->getSkill() === $this) {
                 $gameSkill->setSkill(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getSkillType(): ?SkillType
+    {
+        return $this->skillType;
+    }
+
+    public function setSkillType(?SkillType $skillType): self
+    {
+        $this->skillType = $skillType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CharacterSkill[]
+     */
+    public function getCharacterSkills(): Collection
+    {
+        return $this->characterSkills;
+    }
+
+    public function addCharacterSkill(CharacterSkill $characterSkill): self
+    {
+        if (!$this->characterSkills->contains($characterSkill)) {
+            $this->characterSkills[] = $characterSkill;
+            $characterSkill->setSkill($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacterSkill(CharacterSkill $characterSkill): self
+    {
+        if ($this->characterSkills->removeElement($characterSkill)) {
+            // set the owning side to null (unless already changed)
+            if ($characterSkill->getSkill() === $this) {
+                $characterSkill->setSkill(null);
             }
         }
 
