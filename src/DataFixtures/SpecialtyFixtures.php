@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Specialty;
 use App\Entity\Game;
+use App\Entity\Character;
 
 use App\Repository\GameRepository;
 
@@ -20,34 +21,24 @@ class SpecialtyFixtures extends Fixture implements OrderedFixtureInterface
          */
         $tabspecialties = [];
         $tabspecialties = [
-            'Cuisinier', 
-            'Bûcheron', 
-            'Policier', 
-            'Archer', 
-            'Chevalier', 
-            'Artilleur', 
-            'Commerçant', 
-            "En recherche d'emploi", 
-            'Ninja', 
-            'Sumotori', 
-            'Yakuza', 
-            'Lancier', 
-            'Pompier', 
-            'Mitrailleur',
-            'Arbalétrier',
-            'Cowboy',
-            'Agriculteur',
-            'Mousquetaire',
-            'Marin'
+            'Pilote', 
+            'Militaire', 
+            'Archéologue', 
+            'Aventurier', 
+            'Journaliste', 
+            'Thérapeute', 
         ];
-  
+        
+        $i = 7;
         foreach ($tabspecialties as &$value) {
-        $specialty = new Specialty();
-        $specialty->setName($value);
-        $specialty->addGame($this->getReference('game1'));
-        $manager->persist( $specialty );
+            $specialty = new Specialty();
+            $specialty->setName($value)
+                    ->addGame($this->getReference('game2'))
+                    ->addCharacter($this->getReference('character'.$i));
+            $manager->persist( $specialty );
+            $i++;
         }
-        unset($value);
+        unset($value, $i);
 
         $manager->flush();
     }
