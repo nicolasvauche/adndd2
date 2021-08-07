@@ -204,4 +204,20 @@ class PlayController extends AbstractController
 
         return new JsonResponse($json);
     }
+
+    /**
+     * @Route("/inviter-des-personnages/{id}/{charactersIds}", name="user.play.invite.characters")
+     */
+    public function inviteCharacters(Request $request, Scenario $scenario, $charactersIds)
+    {
+        foreach (json_decode($charactersIds) as $key => $characterId) {
+            $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
+            if ($character) {
+                dd($character->getName());
+                //TODO: Relation Scenario > Characters
+            }
+        }
+
+        return $this->redirectToRoute('user.play.myscenarios');
+    }
 }
