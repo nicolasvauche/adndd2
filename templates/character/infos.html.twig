@@ -11,33 +11,62 @@
 
             <div class="character_infos">
                 <div class="image">
-                    <p>
-                        <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" class="app_image" alt="{{ character.name }}" />
-                    </p>
+                    <div class="app_group">
+                        <p>
+                            <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" class="app_image" alt="{{ character.name }}" />
+                        </p>
+
+                        <div class="icons">
+                            <span>
+                                <i class="fas fa-{% if character.gender | lower == 'emme' %}venus{% else %}mars{% endif %}"></i>
+                                {{ character.gender | capitalize }}
+                            </span>
+
+                            <span>
+                                <i class="fas fa-hand-point-{% if character.guidingHand | lower == 'droitier' %}right{% else %}left{% endif %}"></i>
+                                {{ character.guidingHand | capitalize }}
+                            </span>
+
+                            <span>
+                                <i class="fas fa-text-height"></i>
+                                {{ character.size }}
+                            </span>
+
+                            <span>
+                                <i class="fas fa-weight-hanging"></i>
+                                {{ character.weight }}
+                            </span>
+
+                            <span>
+                                <i class="fas fa-coins"></i>
+                                {{ character.coinpurse }}
+                            </span>
+                        </div>
+                    </div>
 
                     <div class="actions">
                         <a href="{{ path('user.characters') }}" class="app_button" title="{{ 'pages.user.characters.title' | trans | capitalize }}">
                             {{ 'default.back' | trans | capitalize }}
                         </a>
 
-                        <a href="#" class="app_button cta" title="{{ 'pages.user.characters.edit.title' | trans | capitalize }}">
+                        <a href="{{ path('user.characters.edit', {'id': character.id}) }}" class="app_button cta" title="{{ 'pages.user.characters.edit.title' | trans | capitalize }}">
                             {{ 'pages.user.characters.edit.menu' | trans | capitalize }}
                         </a>
                     </div>
                 </div>
                 <div class="details">
                     <div class="content">
-                        <h2 class="character_name">{{ character.name }}</h2>
-
-                        <p>{{ character.surname }}</p>
-
-                        <p>{{ character.allegiance }}</p>
+                        <h2 class="character_name">{{ character.name }} {{ character.surname }}</h2>
 
                         <p>
-                           <span>
-                               {{ character.size }} | {{ character.weight }} | {{ character.age }} ans | {{ character.coinpurse }} <i class="fas fa-coins"></i>
-                           </span>
+                            <strong>{{ character.allegiance }}</strong>
                         </p>
+
+                        {% if character.age %}
+                            <p>
+                                <strong>Age :</strong> {{ character.age }} ans
+                            </p>
+                        {% endif %}
 
                         {% if character.birthplace %}
                             <p>
@@ -83,11 +112,6 @@
                             <blockquote>{{ character.notes }}</blockquote>
                         {% endif %}
 
-                    </div>
-                    <div class="icons">
-                        <i class="fas fa-{% if character.gender == 'F' %}venus{% else %}mars{% endif %}"></i>
-
-                        <i class="fas fa-hand-point-{% if character.guidingHand == 'droitier' %}right{% else %}left{% endif %}"></i>
                     </div>
                 </div>
             </div>

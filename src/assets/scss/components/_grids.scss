@@ -92,7 +92,22 @@
         }
 
         a {
+            display: block;
             text-decoration: none;
+
+            .app_grid_item_image {
+                display: block;
+                height: 20vh;
+                width: 100%;
+                object-fit: cover;
+                object-position: center top;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            .app_grid_item_title {
+                margin-top: 0.5rem !important;
+            }
         }
 
         .app_grid_item_header {
