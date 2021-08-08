@@ -39,9 +39,15 @@ class Characteristic
      */
     private $gameCharacteristics;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CharacterCharacteristic::class, mappedBy="characteristic")
+     */
+    private $characterCharacteristics;
+
     public function __construct()
     {
         $this->gameCharacteristics = new ArrayCollection();
+        $this->characterCharacteristics = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,6 +115,36 @@ class Characteristic
             // set the owning side to null (unless already changed)
             if ($gameCharacteristic->getCharacteristic() === $this) {
                 $gameCharacteristic->setCharacteristic(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CharacterCharacteristic[]
+     */
+    public function getCharacterCharacteristics(): Collection
+    {
+        return $this->characterCharacteristics;
+    }
+
+    public function addCharacterCharacteristic(CharacterCharacteristic $characterCharacteristic): self
+    {
+        if (!$this->characterCharacteristics->contains($characterCharacteristic)) {
+            $this->characterCharacteristics[] = $characterCharacteristic;
+            $characterCharacteristic->setCharacteristic($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacterCharacteristic(CharacterCharacteristic $characterCharacteristic): self
+    {
+        if ($this->characterCharacteristics->removeElement($characterCharacteristic)) {
+            // set the owning side to null (unless already changed)
+            if ($characterCharacteristic->getCharacteristic() === $this) {
+                $characterCharacteristic->setCharacteristic(null);
             }
         }
 

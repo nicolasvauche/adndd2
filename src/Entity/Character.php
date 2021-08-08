@@ -136,6 +136,11 @@ class Character
     private $characterSpells;
 
     /**
+     * @ORM\OneToMany(targetEntity=CharacterCharacteristic::class, mappedBy="character")
+     */
+    private $characterCharacteristics;
+
+    /**
      * @ORM\OneToMany(targetEntity=CharacterSkill::class, mappedBy="character")
      */
     private $characterSkills;
@@ -148,6 +153,7 @@ class Character
     public function __construct()
     {
         $this->characterSpells = new ArrayCollection();
+        $this->characterCharacteristics = new ArrayCollection();
         $this->characterSkills = new ArrayCollection();
         $this->scenarios = new ArrayCollection();
     }
@@ -459,6 +465,36 @@ class Character
             // set the owning side to null (unless already changed)
             if ($characterSpell->getCharacters() === $this) {
                 $characterSpell->setCharacters(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CharacterCharacteristic[]
+     */
+    public function getCharacterCharacteristics(): Collection
+    {
+        return $this->characterCharacteristics;
+    }
+
+    public function addCharacterCharacteristic(CharacterCharacteristic $characterCharacteristic): self
+    {
+        if (!$this->characterCharacteristics->contains($characterCharacteristic)) {
+            $this->characterCharacteristics[] = $characterCharacteristic;
+            $characterCharacteristic->setCharacter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacterCharacteristic(CharacterCharacteristic $characterCharacteristic): self
+    {
+        if ($this->characterCharacteristics->removeElement($characterCharacteristic)) {
+            // set the owning side to null (unless already changed)
+            if ($characterCharacteristic->getCharacter() === $this) {
+                $characterCharacteristic->setCharacter(null);
             }
         }
 
