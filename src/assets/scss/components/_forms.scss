@@ -71,7 +71,7 @@
                 padding-right: 3.5rem;
             }
 
-            .fa-spin {
+            #loader {
                 display: none;
                 position: absolute;
                 top: 2.4rem;
@@ -83,7 +83,7 @@
                 }
             }
 
-            #players {
+            #characters {
                 order: 9;
                 display: none;
                 margin: 0 1rem;
@@ -94,7 +94,7 @@
                 border-bottom-left-radius: $border-radius-default;
                 border-bottom-right-radius: $border-radius-default;
 
-                .player {
+                .character {
                     font-weight: bold;
                     cursor: pointer;
 

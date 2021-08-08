@@ -18,12 +18,12 @@
 
                         <div class="icons">
                             <span>
-                                <i class="fas fa-{% if character.gender == 'Femme' %}venus{% else %}mars{% endif %}"></i>
-                                {{ character.gender == 'Femme' ? 'Femme' : 'Homme' }}
+                                <i class="fas fa-{% if character.gender | lower == 'emme' %}venus{% else %}mars{% endif %}"></i>
+                                {{ character.gender | capitalize }}
                             </span>
 
                             <span>
-                                <i class="fas fa-hand-point-{% if character.guidingHand == 'droitier' %}right{% else %}left{% endif %}"></i>
+                                <i class="fas fa-hand-point-{% if character.guidingHand | lower == 'droitier' %}right{% else %}left{% endif %}"></i>
                                 {{ character.guidingHand | capitalize }}
                             </span>
 
