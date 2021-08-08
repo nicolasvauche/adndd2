@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Character;
+use App\Entity\CharacterCharacteristic;
+use App\Entity\CharacterSkill;
 use App\Entity\CharacterSpell;
 use App\Form\CharacterType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -57,6 +59,7 @@ class CharacterController extends AbstractController
             if ($name) {
                 $character->setName($name);
             }
+            $manager->persist($character);
 
             foreach ($characterPremade->getCharacterSpells() as $characterSpellPremade) {
                 $characterspell = new CharacterSpell();
@@ -66,7 +69,23 @@ class CharacterController extends AbstractController
                 $manager->persist($characterspell);
             }
 
-            $manager->persist($character);
+            foreach ($characterPremade->getCharacterSkills() as $characterSkillPremade) {
+                $characterskill = new CharacterSkill();
+                $characterskill->setCharacter($character)
+                    ->setSkill($characterSkillPremade->getSkill())
+                    ->setBase($characterSkillPremade->getBase());
+                $manager->persist($characterskill);
+            }
+
+            foreach ($characterPremade->getCharacterCharacteristics() as $characterCharPremade) {
+                $characterchar = new CharacterCharacteristic();
+                $characterchar->setCharacter($character)
+                    ->setCharacteristic($characterCharPremade->getCharacteristic())
+                    ->setBase($characterCharPremade->getBase())
+                    ->setModifyer($characterCharPremade->getModifyer());
+                $manager->persist($characterchar);
+            }
+
             $manager->flush();
 
             $this->addFlash('success', 'Ton personnage a été créé !');
@@ -78,9 +97,9 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/supprimer-un-personnage/{id}", name="user.characters.remove")
+     * @Route("/supprimer-un-personnage/{id}", name="user.characters.delete")
      */
-    public function remove(EntityManagerInterface $manager, $id): Response
+    public function delete(EntityManagerInterface $manager, $id): Response
     {
         $character = $this->getDoctrine()->getRepository(Character::class)->find($id);
 

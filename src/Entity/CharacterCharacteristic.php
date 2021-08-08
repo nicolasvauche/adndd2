@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CharacterSkillRepository;
+use App\Repository\CharacterCharacteristicRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CharacterSkillRepository::class)
+ * @ORM\Entity(repositoryClass=CharacterCharacteristicRepository::class)
  */
-class CharacterSkill
+class CharacterCharacteristic
 {
     /**
      * @ORM\Id
@@ -18,21 +18,26 @@ class CharacterSkill
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="characterSkills")
+     * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="characterCharacteristics")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $character;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Skill::class, inversedBy="characterSkills")
+     * @ORM\ManyToOne(targetEntity=Characteristic::class, inversedBy="characterCharacteristics")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private $skill;
+    private $characteristic;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $base;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $modifyer;
 
     public function getId(): ?int
     {
@@ -51,14 +56,14 @@ class CharacterSkill
         return $this;
     }
 
-    public function getSkill(): ?Skill
+    public function getCharacteristic(): ?Characteristic
     {
-        return $this->skill;
+        return $this->characteristic;
     }
 
-    public function setSkill(?Skill $skill): self
+    public function setCharacteristic(?Characteristic $characteristic): self
     {
-        $this->skill = $skill;
+        $this->characteristic = $characteristic;
 
         return $this;
     }
@@ -71,6 +76,18 @@ class CharacterSkill
     public function setBase(?int $base): self
     {
         $this->base = $base;
+
+        return $this;
+    }
+
+    public function getModifyer(): ?int
+    {
+        return $this->modifyer;
+    }
+
+    public function setModifyer(?int $modifyer): self
+    {
+        $this->modifyer = $modifyer;
 
         return $this;
     }
