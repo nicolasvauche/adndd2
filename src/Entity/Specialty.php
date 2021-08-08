@@ -29,9 +29,15 @@ class Specialty
      */
     private $games;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Character::class, inversedBy="specialties")
+     */
+    private $characters;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
+        $this->characters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -74,6 +80,30 @@ class Specialty
         if ($this->games->removeElement($game)) {
             $game->removeSpecialty($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Character[]
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Character $character): self
+    {
+        $this->characters->removeElement($character);
 
         return $this;
     }

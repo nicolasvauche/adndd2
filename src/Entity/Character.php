@@ -150,12 +150,18 @@ class Character
      */
     private $scenarios;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Specialty::class, mappedBy="characters")
+     */
+    private $specialties;
+
     public function __construct()
     {
         $this->characterSpells = new ArrayCollection();
         $this->characterCharacteristics = new ArrayCollection();
         $this->characterSkills = new ArrayCollection();
         $this->scenarios = new ArrayCollection();
+        $this->specialties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -553,6 +559,33 @@ class Character
     {
         if ($this->scenarios->removeElement($scenario)) {
             $scenario->removeCharacter($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Specialty[]
+     */
+    public function getSpecialties(): Collection
+    {
+        return $this->specialties;
+    }
+
+    public function addSpecialty(Specialty $specialty): self
+    {
+        if (!$this->specialties->contains($specialty)) {
+            $this->specialties[] = $specialty;
+            $specialty->addCharacter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpecialty(Specialty $specialty): self
+    {
+        if ($this->specialties->removeElement($specialty)) {
+            $specialty->removeCharacter($this);
         }
 
         return $this;
