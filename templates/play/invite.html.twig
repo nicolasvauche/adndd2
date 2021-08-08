@@ -23,7 +23,7 @@
             <form id="invite_form" class="app_form" method="post">
                 <div class="app_form_group button">
                     <div id="characters"></div>
-                    <i class="fas fa-spinner fa-spin"></i>
+                    <i id="loader" class="fas fa-spinner fa-spin"></i>
                     <input type="text" id="invite_charactername" name="invite_charactername" class="app_form_control" autofocus />
                     <button id="invite_charactersup">
                         <i class="fas fa-trash"></i>
@@ -89,49 +89,60 @@
         window.addEventListener("DOMContentLoaded", () => {
             const characterAddInput = document.getElementById('invite_charactername')
             const characterSupBtn = document.getElementById('invite_charactersup')
-            const loader = document.querySelector('.fa-spin')
+            const loader = document.getElementById('loader')
             const charactersDiv = document.getElementById('characters')
-            const inviteForm = document.getElementById('invite_form')
 
             const addcharacter = character => {
-                const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
+                const xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    charactersDiv.style.textAlign = 'center'
+                    charactersDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'
 
-                for (guestDiv of guestsDiv) {
-                    if (guestDiv.classList.contains('placehold')) {
-                        const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
-                        const guestName = guestDiv.querySelector(('.app_grid_item_title'))
+                    if (this.readyState === 4 && this.status === 200) {
+                        const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
 
-                        guestDiv.dataset.characterid = character.id
-                        guestDiv.classList.remove('placehold')
-                        guestDiv.innerHTML = ''
+                        for (guestDiv of guestsDiv) {
+                            if (guestDiv.classList.contains('placehold')) {
+                                const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
+                                const guestName = guestDiv.querySelector(('.app_grid_item_title'))
 
-                        const guestLink = document.createElement('a')
-                        guestLink.href = "#"
-                        guestLink.title = "Enlève ce personnage"
-                        guestLink.classList.add('guest_link')
-                        guestLink.addEventListener('click', event => {
-                            event.preventDefault()
-                            if (window.confirm('Veux-tu VRAIMENT virer ce personnage de la table ?')) {
-                                deletecharacter(character)
+                                guestDiv.dataset.characterid = character.id
+                                guestDiv.classList.remove('placehold')
+                                guestDiv.innerHTML = ''
+
+                                const guestLink = document.createElement('a')
+                                guestLink.href = "#"
+                                guestLink.title = "Enlève ce personnage"
+                                guestLink.classList.add('guest_link')
+                                guestLink.addEventListener('click', event => {
+                                    event.preventDefault()
+                                    if (window.confirm('Veux-tu VRAIMENT virer ce personnage de la table ?')) {
+                                        deletecharacter(character)
+                                    }
+                                })
+
+                                guestLink.appendChild(guestImage)
+
+                                guestImage.src = '/assets/images/characters/' + character.avatar
+                                guestLink.appendChild(guestImage)
+                                guestName.innerHTML = character.fullname
+                                guestLink.appendChild(guestName)
+
+                                guestDiv.appendChild(guestLink)
+
+                                characterAddInput.value = ''
+                                charactersDiv.innerHTML = ''
+                                charactersDiv.style.textAlign = 'left'
+                                charactersDiv.style.display = 'none'
+
+                                return
                             }
-                        })
-
-                        guestLink.appendChild(guestImage)
-
-                        guestImage.src = '/assets/images/characters/' + character.avatar
-                        guestLink.appendChild(guestImage)
-                        guestName.innerHTML = character.fullname
-                        guestLink.appendChild(guestName)
-
-                        guestDiv.appendChild(guestLink)
-
-                        characterAddInput.value = ''
-                        charactersDiv.innerHTML = ''
-                        charactersDiv.style.display = 'none'
-
-                        return
+                        }
                     }
-                }
+                };
+
+                xhttp.open("GET", '/jouer-en-ligne/inviter-un-personnage/' + {{ scenario.id }} +'/' + character.id, true);
+                xhttp.send();
             }
 
             const deletecharacter = character => {
@@ -204,28 +215,6 @@
                 characterAddInput.value = ''
                 charactersDiv.innerHTML = ''
                 charactersDiv.style.display = 'none'
-            })
-
-            inviteForm.addEventListener('submit', event => {
-                event.preventDefault()
-                const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
-                const invitedCharacters = []
-
-                for (guestDiv of guestsDiv) {
-                    if (!guestDiv.classList.contains('placehold')) {
-                        invitedCharacters.push(guestDiv.dataset.characterid)
-                    }
-                }
-
-                const xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState === 4 && this.status === 200) {
-                        window.location.href = '{{ path('user.play.myscenarios') }}'
-                    }
-                };
-
-                xhttp.open("POST", '/jouer-en-ligne/inviter-des-personnages/' + {{ scenario.id }} +'/' + JSON.stringify(invitedCharacters), true);
-                xhttp.send();
             })
 
             const guestLinks = document.querySelectorAll('.guest_link')

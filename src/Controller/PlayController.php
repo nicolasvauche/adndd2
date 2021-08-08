@@ -174,9 +174,9 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/rechercher-un-personnage/{scenarioId}/{characterName}/{deleteMode}", name="user.play.invite.character")
+     * @Route("/rechercher-un-personnage/{scenarioId}/{characterName}/{deleteMode}", name="user.play.invite.search")
      */
-    public function inviteCharacter(Request $request, EntityManagerInterface $manager, $scenarioId, $characterName, $deleteMode = false)
+    public function searchCharacter(Request $request, EntityManagerInterface $manager, $scenarioId, $characterName, $deleteMode = false)
     {
         $json = [];
         $scenario = $this->getDoctrine()->getRepository(Scenario::class)->find($scenarioId);
@@ -207,11 +207,7 @@ class PlayController extends AbstractController
                     ],
                 ];
             } else {
-                if (!$scenario->getCharacters()->contains($character) && sizeof($scenario->getCharacters()) < 5) {
-                    $scenario->addCharacter($character);
-                    $manager->persist($scenario);
-                    $manager->flush();
-
+                if (!$scenario->getCharacters()->contains($character)) {
                     $json = [
                         [
                             'id' => $character->getId(),
@@ -228,9 +224,36 @@ class PlayController extends AbstractController
     }
 
     /**
+     * @Route("/inviter-un-personnage/{id}/{characterId}", name="user.play.invite.character")
+     */
+    public function inviteCharacter(EntityManagerInterface $manager, Scenario $scenario, $characterId)
+    {
+        $json = [];
+        $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
+        if ($character) {
+            if (!$scenario->getCharacters()->contains($character) && sizeof($scenario->getCharacters()) < 5) {
+                $scenario->addCharacter($character);
+                $manager->persist($scenario);
+                $manager->flush();
+
+                $json = [
+                    [
+                        'id' => $character->getId(),
+                        'fullname' => $character->getFullname(),
+                        'avatar' => $character->getAvatar(),
+                        'username' => $character->getUser()->getFullname(),
+                    ],
+                ];
+            }
+        }
+
+        return new JsonResponse($json);
+    }
+
+    /**
      * @Route("/virer-un-personnage/{id}/{characterId}", name="user.play.invite.characters")
      */
-    public function removeCharacter(Request $request, EntityManagerInterface $manager, Scenario $scenario, $characterId)
+    public function removeCharacter(EntityManagerInterface $manager, Scenario $scenario, $characterId)
     {
         $json = [];
         $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
