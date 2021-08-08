@@ -136,7 +136,7 @@ class Character
     private $characterSpells;
 
     /**
-     * @ORM\OneToMany(targetEntity=CharacterCharacteristic::class, mappedBy="character99")
+     * @ORM\OneToMany(targetEntity=CharacterCharacteristic::class, mappedBy="character")
      */
     private $characterCharacteristics;
 
@@ -483,7 +483,7 @@ class Character
     {
         if (!$this->characterCharacteristics->contains($characterCharacteristic)) {
             $this->characterCharacteristics[] = $characterCharacteristic;
-            $characterCharacteristic->setCharacter99($this);
+            $characterCharacteristic->setCharacter($this);
         }
 
         return $this;
@@ -493,8 +493,8 @@ class Character
     {
         if ($this->characterCharacteristics->removeElement($characterCharacteristic)) {
             // set the owning side to null (unless already changed)
-            if ($characterCharacteristic->getCharacter99() === $this) {
-                $characterCharacteristic->setCharacter99(null);
+            if ($characterCharacteristic->getCharacter() === $this) {
+                $characterCharacteristic->setCharacter(null);
             }
         }
 
