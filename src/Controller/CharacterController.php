@@ -59,7 +59,6 @@ class CharacterController extends AbstractController
             if ($name) {
                 $character->setName($name);
             }
-            $manager->persist($character);
 
             foreach ($characterPremade->getCharacterSpells() as $characterSpellPremade) {
                 $characterspell = new CharacterSpell();
@@ -85,6 +84,13 @@ class CharacterController extends AbstractController
                     ->setModifyer($characterCharPremade->getModifyer());
                 $manager->persist($characterchar);
             }
+
+            foreach ($characterPremade->getSpecialties() as $specialty) {
+                $specialty->addCharacter($character);
+                $manager->persist($specialty);
+            }
+
+            $manager->persist($character);
 
             $manager->flush();
 
