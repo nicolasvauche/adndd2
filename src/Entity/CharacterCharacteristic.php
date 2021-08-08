@@ -19,13 +19,13 @@ class CharacterCharacteristic
 
     /**
      * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="characterCharacteristics")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $character;
 
     /**
      * @ORM\ManyToOne(targetEntity=Characteristic::class, inversedBy="characterCharacteristics")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $characteristic;
 

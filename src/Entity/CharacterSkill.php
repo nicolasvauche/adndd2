@@ -19,13 +19,13 @@ class CharacterSkill
 
     /**
      * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="characterSkills")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $character;
 
     /**
      * @ORM\ManyToOne(targetEntity=Skill::class, inversedBy="characterSkills")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $skill;
 
