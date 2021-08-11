@@ -49,8 +49,12 @@
                             {{ 'default.back' | trans | capitalize }}
                         </a>
 
-                        <a href="{{ path('user.characters.edit', {'id': character.id}) }}" class="app_button cta" title="{{ 'pages.user.characters.edit.title' | trans | capitalize }}">
-                            {{ 'pages.user.characters.edit.menu' | trans | capitalize }}
+                        <a href="{{ path('user.characters.sheet', {'id': character.id}) }}" class="app_button" title="{{ 'pages.user.characters.sheet.title' | trans | capitalize }}">
+                            <i class="fas fa-scroll"></i>
+                        </a>
+
+                        <a href="{{ path('user.characters.edit', {'id': character.id}) }}" class="app_button" title="{{ 'pages.user.characters.edit.title' | trans | capitalize }}">
+                            <i class="fas fa-edit"></i>
                         </a>
                     </div>
                 </div>

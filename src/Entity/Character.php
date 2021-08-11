@@ -136,6 +136,11 @@ class Character
     private $characterSpells;
 
     /**
+     * @ORM\OneToMany(targetEntity=CharacterCharacteristic::class, mappedBy="character")
+     */
+    private $characterCharacteristics;
+
+    /**
      * @ORM\OneToMany(targetEntity=CharacterSkill::class, mappedBy="character")
      */
     private $characterSkills;
@@ -150,12 +155,19 @@ class Character
      */
     private $equipments;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Specialty::class, mappedBy="characters")
+     */
+    private $specialties;
+
     public function __construct()
     {
         $this->characterSpells = new ArrayCollection();
+        $this->characterCharacteristics = new ArrayCollection();
         $this->characterSkills = new ArrayCollection();
         $this->scenarios = new ArrayCollection();
         $this->equipments = new ArrayCollection();
+        $this->specialties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -472,6 +484,36 @@ class Character
     }
 
     /**
+     * @return Collection|CharacterCharacteristic[]
+     */
+    public function getCharacterCharacteristics(): Collection
+    {
+        return $this->characterCharacteristics;
+    }
+
+    public function addCharacterCharacteristic(CharacterCharacteristic $characterCharacteristic): self
+    {
+        if (!$this->characterCharacteristics->contains($characterCharacteristic)) {
+            $this->characterCharacteristics[] = $characterCharacteristic;
+            $characterCharacteristic->setCharacter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacterCharacteristic(CharacterCharacteristic $characterCharacteristic): self
+    {
+        if ($this->characterCharacteristics->removeElement($characterCharacteristic)) {
+            // set the owning side to null (unless already changed)
+            if ($characterCharacteristic->getCharacter() === $this) {
+                $characterCharacteristic->setCharacter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection|CharacterSkill[]
      */
     public function getCharacterSkills(): Collection
@@ -550,6 +592,33 @@ class Character
     {
         if ($this->equipments->removeElement($equipment)) {
             $equipment->removeCharacter($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Specialty[]
+     */
+    public function getSpecialties(): Collection
+    {
+        return $this->specialties;
+    }
+
+    public function addSpecialty(Specialty $specialty): self
+    {
+        if (!$this->specialties->contains($specialty)) {
+            $this->specialties[] = $specialty;
+            $specialty->addCharacter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpecialty(Specialty $specialty): self
+    {
+        if ($this->specialties->removeElement($specialty)) {
+            $specialty->removeCharacter($this);
         }
 
         return $this;
