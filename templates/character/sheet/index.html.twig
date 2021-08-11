@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'pages.user.characters.sheet.title' | trans | capitalize }}{% endblock %}
+
+{% block body_class %}sheet{% endblock %}
+
+{% block body %}
+    <article class="aside">
+        <section>
+            <h1>{{ 'pages.user.characters.sheet.title' | trans | capitalize }}</h1>
+
+            {{ character.fullname }}
+        </section>
+
+        <aside>
+            <h2>{{ 'default.more' | trans | capitalize }}</h2>
+
+            <a href="{{ path('user.characters.infos', {'id': character.id}) }}" class="app_button" title="{{ 'pages.user.characters.infos.title' | trans | capitalize }}">
+                {{ 'pages.user.characters.infos.menu' | trans | capitalize }}
+            </a>
+
+            <a href="{{ path('user.characters') }}" class="app_button" title="{{ 'pages.user.characters.title' | trans | capitalize }}">
+                {{ 'default.back' | trans | capitalize }}
+            </a>
+        </aside>
+    </article>
+{% endblock %}

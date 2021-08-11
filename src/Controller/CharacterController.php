@@ -178,4 +178,14 @@ class CharacterController extends AbstractController
                 'character' => $character,
             ]);
     }
+
+    /**
+     * @Route("/feuille-de-personnage/{id}", name="user.characters.sheet")
+     */
+    public function sheet(Character $character): Response
+    {
+        return $this->render('character/sheet/index.html.twig', [
+            'character' => $character,
+        ]);
+    }
 }

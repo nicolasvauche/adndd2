@@ -26,5 +26,13 @@
         color: $color-bg-primary !important;
         background-color: $color-blue !important;
         border: 2px solid $color-blue !important;
+
+        i {
+            color: $color-bg-primary !important;
+        }
+    }
+
+    i {
+        transition: color 0.3s ease-in-out;
     }
 }

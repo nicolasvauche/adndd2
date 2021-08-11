@@ -44,6 +44,9 @@ pages:
       edit:
         menu: "modifie"
         title: "modifie ton personnage"
+      sheet:
+        menu: "fiche perso"
+        title: "feuille de personnage"
     games:
       menu: "tes aventures"
       title: "gère tes aventures"
