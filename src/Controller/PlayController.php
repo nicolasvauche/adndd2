@@ -193,14 +193,23 @@ class PlayController extends AbstractController
                     ];
                 } else {
                     if (!$scenario->getCharacters()->contains($character)) {
-                        $json = [
-                            [
-                                'id' => $character->getId(),
-                                'fullname' => $character->getFullname(),
-                                'avatar' => $character->getAvatar(),
-                                'username' => $character->getUser()->getFullname(),
-                            ],
-                        ];
+                        $playerExists = false;
+                        foreach ($scenario->getCharacters() as $key => $invited) {
+                            if ($invited->getUser()->getId() == $character->getUser()->getId()) {
+                                $playerExists = true;
+                            }
+                        }
+
+                        if (!$playerExists) {
+                            $json = [
+                                [
+                                    'id' => $character->getId(),
+                                    'fullname' => $character->getFullname(),
+                                    'avatar' => $character->getAvatar(),
+                                    'username' => $character->getUser()->getFullname(),
+                                ],
+                            ];
+                        }
                     }
                 }
             }
