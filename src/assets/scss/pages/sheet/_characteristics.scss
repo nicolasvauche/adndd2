@@ -1,0 +1,42 @@
+.titresection { 
+    font-size: 20px;
+    font-weight: bold;
+    color: $color-bg-alt; 
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 5px 5%;
+    padding-bottom: 2%;
+}
+
+.containercarac { 
+    font-weight: bold;
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 5px 5%;
+    grid-template-areas: "carac" "valeur" "valeur" "valeur";
+}
+    
+.carac {
+    background-color: $color-bg-alt;
+    color: $color-bg-primary;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    grid-template-areas: "shortname" "name";
+    width: auto;
+}
+
+.name {
+    font-weight: normal;
+}
+
+.valeur {
+    font-family: Candara;
+    font-size: 25px;
+    border: 2px $color-bg-alt solid;
+}  

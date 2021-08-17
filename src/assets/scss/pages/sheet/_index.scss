@@ -1,0 +1,9 @@
+&.sheet{
+    article{
+        section{
+            @import 'characteristics';
+            @import 'healthpoints';
+            @import 'level';
+        }
+    }
+}

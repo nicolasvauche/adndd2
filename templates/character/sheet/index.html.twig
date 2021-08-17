@@ -9,7 +9,11 @@
         <section>
             <h1>{{ 'pages.user.characters.sheet.title' | trans | capitalize }}</h1>
 
-            {{ character.fullname }}
+            {% include 'character/sheet/characteristics.html.twig' with {'character' : character} %} 
+            <br>
+            {% include 'character/sheet/healthpoints.html.twig' with {'character' : character} %}
+            <br>
+            {% include 'character/sheet/level.html.twig' with {'character' : character} %}
         </section>
 
         <aside>

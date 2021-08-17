@@ -1,0 +1,37 @@
+<div class="titresection">
+    <div class="titrecat">
+        Carac.
+    </div>
+    <div class="titrecat">
+        Valeur
+    </div>
+    <div class="titrecat">
+        Mod.
+    </div>
+</div>
+
+{% for characterCharacteristic in character.characterCharacteristics %}
+    {% if characterCharacteristic.characteristic.type == 'Type' %}
+        <div class="containercarac">
+            <div class="carac">
+                <div>
+                    {{ characterCharacteristic.characteristic.shortname }}
+                </div>
+                <div class="name">
+                    {{ characterCharacteristic.characteristic.name }}
+                </div>
+            </div>
+            <div class="valeur">
+                {{ characterCharacteristic.base }}
+            </div>
+            <div class="valeur">
+                {% if (characterCharacteristic.modifyer >= 0) %}
+                    + {{ characterCharacteristic.modifyer }}
+                {% else %}
+                    {{ characterCharacteristic.modifyer }}
+                {% endif %}
+            </div>
+            <div class="valeur"></div>
+        </div>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,25 @@
+{% for characterCharacteristic in character.characterCharacteristics %}
+    {% if characterCharacteristic.characteristic.shortname == 'PV' %}
+        <div class="containerpdv">
+            <div class="pdv">
+                <div>
+                    {{ characterCharacteristic.characteristic.shortname }}
+                </div>
+                <div class="namepdv">
+                    {{ characterCharacteristic.characteristic.name }}
+                </div>
+            </div>
+            <div class="valeurpdv">
+                {{ characterCharacteristic.base }}
+            </div>
+            <div class="valeurpdv"></div>
+        </div>
+    {% endif %}
+{% endfor %}
+
+<div class="infosection">
+    Points de vie restants:
+</div>
+<div class="infosection">
+    Blessures graves:
+</div>

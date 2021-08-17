@@ -1,0 +1,40 @@
+.infosection {
+    border: 2px $color-bg-alt solid;
+    height: 100px;
+    margin-bottom: 2%;
+}
+
+.containerpdv {
+    font-weight: bold;
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 5px 5%;
+    grid-template-areas: "pdv pdv valeurpdv valeurpdv";
+    margin-bottom: 2%;
+  }
+  
+  .pdv {
+    background-color: darkgreen;
+    color: $color-bg-primary;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas: "shortname" "namepdv";
+    grid-area: pdv;
+    width: auto;
+  }
+  
+  .namepdv { 
+    font-weight: normal;
+}
+  
+  .valeurpdv {
+    font-family: Candara;
+    font-size: 25px;
+    border: 2px $color-bg-alt solid;
+  }
+  

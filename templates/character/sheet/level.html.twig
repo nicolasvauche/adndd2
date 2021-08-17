@@ -1,0 +1,28 @@
+{% for characterCharacteristic in character.characterCharacteristics %}
+    {% if characterCharacteristic.characteristic.shortname == 'LVL' %}
+        <div class="containerhealth">
+            <div class="healthname">
+                {{ characterCharacteristic.characteristic.name }}
+            </div>
+            <div class="healthvalue">
+                <div class="number">1</div>
+                <div class="number">2</div>
+                <div class="number">3</div>
+                <div class="number">4</div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+<br>
+{% for characterCharacteristic in character.characterCharacteristics %}
+    {% if characterCharacteristic.characteristic.shortname == 'DDV' %}
+        <div class="containerddv">
+            <div class="healthname">
+                {{ characterCharacteristic.characteristic.name }}
+            </div>
+            <div class="ddvvalue">
+                d{{ characterCharacteristic.base }}
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
