@@ -177,7 +177,7 @@ class PlayController extends AbstractController
             ->getOneOrNullResult();
 
         if ($character) {
-            if ($character->getUser()->getId() !== $this->getUser()->getId()) {
+            //if ($character->getUser()->getId() !== $this->getUser()->getId()) {
                 if ($deleteMode) {
                     $scenario->addCharacter($character);
                     $manager->persist($scenario);
@@ -212,7 +212,7 @@ class PlayController extends AbstractController
                         }
                     }
                 }
-            }
+            //}
         }
 
         return new JsonResponse($json);

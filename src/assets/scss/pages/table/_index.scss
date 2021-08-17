@@ -45,14 +45,33 @@
                             flex-direction: column;
                             align-items: center;
                             justify-content: space-between;
+
+                            & .modal {
+                                img {
+                                    margin-bottom: 0.25rem;
+                                    height: 6rem;
+                                    object-fit: cover;
+                                    object-position: top;
+                                }
+                            }
                         }
                     }
 
                     #diceset {
-                        text-align: center;
-
                         & > .name {
+                            color: $color-bg-secondary;
                             text-align: center;
+                            text-shadow: none;
+                        }
+
+                        .dices {
+                            display: grid;
+                            grid-template-columns: repeat(3, 1fr);
+                            grid-gap: 0.5rem;
+
+                            a {
+                                margin: 0;
+                            }
                         }
                     }
 
