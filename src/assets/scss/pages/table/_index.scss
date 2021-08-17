@@ -39,6 +39,15 @@
                         justify-content: center;
                     }
 
+                    & > .top {
+                        .character {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: space-between;
+                        }
+                    }
+
                     #diceset {
                         text-align: center;
 
@@ -75,7 +84,7 @@
                             color: $color-red;
 
                             i {
-                                font-size: 1rem;
+                                font-size: 1.5rem;
                             }
                         }
 
