@@ -60,13 +60,27 @@
                                     {% endif %}
                                 </span>
 
-                                {% if scenario.characters | length < 5 %}
-                                    <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                                {% set myCharacter = null %}
+                                {% for character in scenario.characters %}
+                                    {% if character.user.id == app.user.id %}
+                                        {% set myCharacter = character %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if scenario.user.id == app.user.id %}
+                                    {% set myCharacter = 'MJ' %}
+                                {% endif %}
+
+                                {% if myCharacter is not null %}
+                                    <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue</a>
                                 {% else %}
-                                    <span class="app_grid_item_footer_action">Pleine</span>
+                                    {% if scenario.characters | length < 5 %}
+                                        <a href="#" class="app_grid_item_footer_action button cta" title="Demande à rejoindre la partie">Postule</a>
+                                    {% else %}
+                                        <span class="app_grid_item_footer_action">Pleine</span>
+                                    {% endif %}
                                 {% endif %}
                             {% else %}
-                                <span class="app_grid_item_footer_action">
+                                <span class="app_grid_item_footer_action disabled">
                                     {% if scenario.isPrivate %}
                                         {{ 'play.game.visibility.private' | trans | capitalize }}
                                     {% else %}

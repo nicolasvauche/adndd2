@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ scenario.name }}{% endblock %}
+
+{% block body_class %}table{% endblock %}
+
+{% block body %}
+    <article>
+        <section>
+            <h1>{{ scenario.name }}</h1>
+
+            <div class="content">
+                <div id="visio">
+                    {{ scenario.description | raw }}
+                </div>
+
+                <div class="controls">
+                    <div class="top">
+                        {% if myCharacter.name != 'MJ' %}
+                            <a href="{{ path('user.characters.sheet', {'id': myCharacter.id}) }}" title="Ta fiche perso">
+                                <i class="fas fa-scroll"></i>
+                                <br />
+                                {{ myCharacter.name }}
+                            </a>
+                        {% else %}
+                            {% for character in scenario.characters %}
+                                <div class="character">
+                                    <a href="{{ path('user.characters.sheet', {'id': character.id}) }}" class="mb_0" title="Fiche perso de {{ character.fullname }}">
+                                        <i class="fas fa-scroll"></i>
+                                        <br />
+                                        {{ character.name }}
+                                    </a>
+                                    <a href="#" class="kick" title="Vire {{ character.fullname }} de la table de jeu" data-characterid="{{ character.id }}" data-charactername="{{ character.fullname }}">
+                                        <i class="fas fa-sign-out-alt" data-characterid="{{ character.id }}" data-charactername="{{ character.fullname }}"></i>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div id="diceset">
+                        <h3 class="name">{{ scenario.game.gamesystem.diceset.name }}</h3>
+                        <div class="dices">
+                            <a href="#" title="Ajouter un D">
+                                <img src="{{ asset('assets/images/home_dices.png') }}" alt="Temp" style="transform: rotate(140deg);" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bottom">
+                        {% if myCharacter.name == 'MJ' %}
+                            <a href="{{ path('play') }}" id="end" class="warning" title="Clôture la table de jeu">
+                                <i class="fas fa-trophy"></i>
+                                <br />
+                                Fin
+                            </a>
+                        {% endif %}
+
+                        <a href="{{ path('play') }}" id="quit" class="danger" title="Quitte la table de jeu">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <br />
+                            Quitte
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    <script defer>
+        window.addEventListener("DOMContentLoaded", () => {
+            const quitBtn = document.getElementById('quit')
+            quitBtn.addEventListener('click', event => {
+                event.preventDefault()
+                if (window.confirm('Tu veux VRAIMENT quitter la table de jeu ?')) {
+                    window.location.href = quitBtn.href
+                }
+            })
+
+            {% if myCharacter.name == 'MJ' %}
+                const endBtn = document.getElementById('end')
+                endBtn.addEventListener('click', event => {
+                    event.preventDefault()
+                    if (window.confirm('Tu veux VRAIMENT clôturer cette partie ?')) {
+                        window.location.href = endBtn.href
+                    }
+                })
+            {% endif %}
+
+            {% if myCharacter.name == 'MJ' %}
+                const kickBtns = document.querySelectorAll('.kick')
+                for (const kickBtn of kickBtns) {
+                    kickBtn.addEventListener('click', event => {
+                        event.preventDefault();
+                        if (window.confirm('Veux-tu VRAIMENT virer ' + event.target.dataset.charactername + ' de la table de jeu ?')) {
+                            console.log('Kicked ' + event.target.dataset.characterid)
+                        }
+                    })
+                }
+            {% endif %}
+        })
+    </script>
+{% endblock %}

@@ -29,25 +29,9 @@ class PlayController extends AbstractController
     {
         $scenarios = $scenarioRepository->findAll();
 
-        $games = [
-            0 => [
-                'id' => 2,
-                'name' => 'Donjons & Dragons',
-            ],
-            1 => [
-                'id' => 3,
-                'name' => 'Chroniques Oubliées',
-            ],
-            2 => [
-                'id' => 4,
-                'name' => "L'appel de Cthulhu",
-            ],
-        ];
-
         return $this->render('play/index.html.twig',
             [
                 'scenarios' => $scenarios,
-                'games' => $games,
             ]);
     }
 
@@ -193,21 +177,12 @@ class PlayController extends AbstractController
             ->getOneOrNullResult();
 
         if ($character) {
-            if ($deleteMode) {
-                $scenario->addCharacter($character);
-                $manager->persist($scenario);
-                $manager->flush();
+            if ($character->getUser()->getId() !== $this->getUser()->getId()) {
+                if ($deleteMode) {
+                    $scenario->addCharacter($character);
+                    $manager->persist($scenario);
+                    $manager->flush();
 
-                $json = [
-                    [
-                        'id' => $character->getId(),
-                        'fullname' => $character->getFullname(),
-                        'avatar' => $character->getAvatar(),
-                        'username' => $character->getUser()->getFullname(),
-                    ],
-                ];
-            } else {
-                if (!$scenario->getCharacters()->contains($character)) {
                     $json = [
                         [
                             'id' => $character->getId(),
@@ -216,6 +191,17 @@ class PlayController extends AbstractController
                             'username' => $character->getUser()->getFullname(),
                         ],
                     ];
+                } else {
+                    if (!$scenario->getCharacters()->contains($character)) {
+                        $json = [
+                            [
+                                'id' => $character->getId(),
+                                'fullname' => $character->getFullname(),
+                                'avatar' => $character->getAvatar(),
+                                'username' => $character->getUser()->getFullname(),
+                            ],
+                        ];
+                    }
                 }
             }
         }
@@ -264,5 +250,41 @@ class PlayController extends AbstractController
         }
 
         return new JsonResponse($json);
+    }
+
+    /**
+     * @Route("/table-de-jeu/{id}", name="play.scenario")
+     */
+    public function scenario(Scenario $scenario): Response
+    {
+        $myCharacter = null;
+
+        foreach ($scenario->getCharacters() as $key => $character) {
+            if ($character->getUser()->getId() === $this->getUser()->getId()) {
+                $myCharacter = $character;
+            }
+        }
+
+        if ($scenario->getUser()->getId() == $this->getUser()->getId()) {
+            $myCharacter = new Character();
+            $myCharacter->setGame($scenario->getGame())
+                ->setUser($this->getUser())
+                ->setIsPremade(false)
+                ->setName('MJ');
+        }
+
+        if (!$myCharacter) {
+            return $this->redirectToRoute('play');
+        } else {
+            if ($myCharacter->getName() !== 'MJ' && sizeof($scenario->getCharacters()) == 0) {
+                return $this->redirectToRoute('play');
+            }
+        }
+
+        return $this->render('play/table/index.html.twig',
+            [
+                'scenario' => $scenario,
+                'myCharacter' => $myCharacter,
+            ]);
     }
 }

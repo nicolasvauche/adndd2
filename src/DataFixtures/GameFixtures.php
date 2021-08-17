@@ -47,7 +47,7 @@ EOF
         $this->addReference('game1', $game1);
 
         $game2 = new Game();
-        $game2->setName("Chroniques Oubliées")
+        $game2->setName("Chroniques Oubliées Cthulhu")
             ->setShortDescription("Chroniques Oubliées peut être considéré comme un jeu de rôle d'initiation. D'heroic fantasy pour ses premières versions, il a été édité en premier lieu en 2009 par Black Book sous forme de boîte.")
             ->setDescription(
                 <<<EOF
@@ -56,7 +56,7 @@ Chroniques Oubliées peut être considéré comme un jeu de rôle d'initiation. 
 </p>
 EOF
             )
-            ->setMedia('cover_chroniquesoubliees.png')
+            ->setMedia('cover_chroniquesoubliees.jpg')
             ->setIsActive(true);
         $manager->persist($game2);
         $this->addReference('game2', $game2);
