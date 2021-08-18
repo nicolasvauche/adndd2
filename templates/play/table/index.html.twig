@@ -60,12 +60,27 @@
                     modal.style.display = 'flex'
                 })
             }
+
             const modalCloseButtons = document.querySelectorAll('.app_modal_close')
             for (const modalCloseButton of modalCloseButtons) {
                 modalCloseButton.addEventListener('click', () => {
                     modalCloseButton.parentNode.parentNode.style.display = 'none'
                 })
             }
+
+            const toggleControlsBtn = document.getElementById('toggleControls')
+            toggleControlsBtn.addEventListener('click', event => {
+                event.preventDefault()
+                const controlsPanel = document.getElementById('controls')
+                const toggleIcon = document.getElementById('toggleIcon')
+                if (controlsPanel.classList.contains('on')) {
+                    controlsPanel.classList.remove('on')
+                    toggleIcon.classList.replace('fa-chevron-right', 'fa-chevron-left')
+                } else {
+                    controlsPanel.classList.add('on')
+                    toggleIcon.classList.replace('fa-chevron-left', 'fa-chevron-right')
+                }
+            })
         })
     </script>
 {% endblock %}

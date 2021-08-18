@@ -1,4 +1,10 @@
-<div class="controls">
+<div id="controls">
+    <div class="toggle">
+        <a href="#" id="toggleControls" title="Ouvrir le menu">
+            <i id="toggleIcon" class="fas fa-chevron-left"></i>
+        </a>
+    </div>
+
     <div class="top">
         {% include 'play/table/controls/characters.html.twig' with {'scenario': scenario, 'myCharacter': myCharacter} %}
     </div>

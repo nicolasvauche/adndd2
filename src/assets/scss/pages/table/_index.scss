@@ -3,9 +3,13 @@
         section {
             margin: 0;
             padding: 0;
-            height: calc(100vh - 4rem);
+            height: calc(100vh - 3.5rem);
             border-radius: 0;
             box-shadow: none;
+
+            @include respond(sm) {
+                height: calc(100vh - 4rem);
+            }
 
             h1 {
                 margin: 0;
@@ -13,30 +17,78 @@
             }
 
             & > .content {
-                display: grid;
-                grid-template-columns: 9fr 1fr;
-                height: calc(100% - 4.5rem);
+                display: flex;
+                justify-content: space-between;
+                height: calc(100% - 3rem);
+
+                @include respond(sm) {
+                    height: calc(100% - 3.5rem);
+                }
+
+                @include respond(md) {
+                    height: calc(100% - 4rem);
+                }
 
                 #visio {
+                    width: calc(100% - 2rem);
                     padding: 1rem;
                     color: $color-bg-primary;
                     background-color: $color-black;
                     box-shadow: inset 4px 4px 16px #000000;
                 }
 
-                .controls {
+                #controls {
+                    position: relative;
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
+                    overflow: hidden;
                     padding: 1rem 0.25rem;
+                    flex: 0 0 1rem;
                     background-color: $color-fg-primary;
+                    transition: all 0.3s ease-in-out;
 
-                    & > .top,
-                    & > .bottom {
+                    & > .toggle {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 1.5rem;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: $color-bg-secondary;
+                        background-color: $color-bg-alt;
+                    }
+
+                    &.on {
+                        padding-left: 1.75rem;
+                        flex: 0 0 80%;
+
+                        @include respond(sm) {
+                            flex: 0 0 50%;
+                        }
+
+                        @include respond(md) {
+                            flex: 0 0 30%;
+                        }
+                    }
+
+                    & > .top {
                         display: grid;
-                        grid-template-columns: repeat(2, 1fr);
+                        grid-template-columns: repeat(4, 1fr);
                         grid-gap: 0.25rem;
                         justify-content: center;
+                    }
+
+                    & > .bottom {
+                        display: flex;
+                        align-items: flex-end;
+                        justify-content: flex-end;
+
+                        & > a {
+                            margin: 0 1rem;
+                        }
                     }
 
                     & > .top {
@@ -49,7 +101,7 @@
                             & .modal {
                                 img {
                                     margin-bottom: 0.25rem;
-                                    height: 6rem;
+                                    height: 5rem;
                                     object-fit: cover;
                                     object-position: top;
                                 }
@@ -66,7 +118,7 @@
 
                         .dices {
                             display: grid;
-                            grid-template-columns: repeat(3, 1fr);
+                            grid-template-columns: repeat(6, 1fr);
                             grid-gap: 0.5rem;
 
                             a {
