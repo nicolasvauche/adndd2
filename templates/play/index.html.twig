@@ -37,32 +37,32 @@
                                 <h5 class="app_grid_item_subtitle sub">{{ scenario.campaign.name }}</h5>
                             {% endif %}
                             <h4 class="app_grid_item_subtitle">{{ scenario.name }}</h4>
+                            <p class="app_grid_item_info excerpt">
+                                {{ scenario.shortDescription }}
+                            </p>
+                        </div>
+
+                        <div>
                             <p class="app_grid_item_info">
                                 <strong>{{ scenario.startAt | date('d/m/Y H:i') }}</strong>
                             </p>
 
-                            <hr />
+                            {% if app.user %}
+                                <div class="app_grid_item_thumbnails">
+                                    {% for character in scenario.characters %}
+                                        <p class="thumbnail" title="{{ character.fullname }}">
+                                            <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" class="app_image thumbnail {% if character.user == app.user %}active{% endif %}" alt="{{ character.fullname }}">
+                                        </p>
+                                    {% endfor %}
+                                </div>
 
-                            <p class="app_grid_item_info excerpt mb_0">
-                                {{ scenario.shortDescription }}
-                            </p>
+                                <p class="app_grid_item_info">
+                                    <i class="fas fa-users"></i>
+                                    <strong>{{ scenario.characters | length }}/5</strong>
+                                </p>
+                            {% endif %}
                         </div>
-                        {% if app.user %}
-                            <hr />
 
-                            <p class="app_grid_item_info">
-                                <i class="fas fa-users"></i>
-                                <strong>{{ scenario.characters | length }}/5</strong>
-                            </p>
-
-                            <div class="app_grid_item_thumbnails {% if app.user %}mb_0{% endif %}">
-                                {% for character in scenario.characters %}
-                                    <p class="thumbnail" title="{{ character.fullname }}">
-                                        <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" class="app_image thumbnail {% if character.user == app.user %}active{% endif %}" alt="{{ character.fullname }}">
-                                    </p>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
                         <div class="app_grid_item_footer">
                             {% if app.user %}
                                 <span class="app_grid_item_footer_action">
