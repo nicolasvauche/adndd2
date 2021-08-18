@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'pages.user.plays.title' | trans | capitalize }}{% endblock %}
+{% block title %}{{ 'pages.user.games.title' | trans | capitalize }}{% endblock %}
 
 {% block body_class %}play{% endblock %}
 
 {% block body %}
     <article>
         <section>
-            <h1>{{ 'pages.user.plays.menu' | trans | capitalize }}</h1>
+            <h1>{{ 'pages.user.games.menu' | trans | capitalize }}</h1>
 
             <!-- Flash messages -->
             {% for label, messages in app.flashes %}
@@ -21,13 +21,13 @@
             {% endfor %}
 
             <div class="app_filters">
-                <h2>{{ 'pages.user.plays.title' | trans | capitalize }}</h2>
+                <h2>{{ 'pages.user.games.title' | trans | capitalize }}</h2>
 
                 <div class="app_filters_controls">
                     <select name="tables_game" id="tables_game" class="app_filter_select">
                         <option value="all">{{ 'pages.games.title' | trans | capitalize }}</option>
                         {% set scenariosGames = [] %}
-                        {% for scenario in scenarios %}
+                        {% for scenario in myGames %}
                             {% if scenario.game.id not in scenariosGames %}
                                 <option value="{{ scenario.game.id }}">{{ scenario.game.name }}</option>
                                 {% set scenariosGames = scenariosGames|merge([scenario.game.id]) %}
@@ -39,7 +39,7 @@
 
             <div class="app_grid three app_slider xs">
 
-                {% for scenario in scenarios %}
+                {% for scenario in myGames %}
                     <div class="game app_grid_item app_slider_item" data-gameid="{{ scenario.game.id }}">
                         <div class="app_grid_item_header">
                             <img src="{{ asset('assets/images/games/' ~ scenario.game.media) }}" alt="{{ scenario.game.name }}" class="app_grid_item_image" />
@@ -51,9 +51,6 @@
                             <p class="app_grid_item_info">
                                 <strong>{{ scenario.startAt | date('d/m/Y H:i') }}</strong>
                             </p>
-
-                            <hr />
-
                             <p class="app_grid_item_info excerpt">
                                 {{ scenario.shortDescription }}
                             </p>
@@ -65,7 +62,6 @@
                             <i class="fas fa-users"></i>
                             <strong>{{ scenario.characters | length }}/5</strong>
                         </p>
-
                         <div class="app_grid_item_thumbnails mb_0">
                             {% for character in scenario.characters %}
                                 <p class="thumbnail" title="{{ character.fullname }}">
@@ -73,18 +69,9 @@
                                 </p>
                             {% endfor %}
                         </div>
-
                         <div class="app_grid_item_footer">
-                            <a href="{{ path('user.play.remove', {'id': scenario.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprimer cette table de jeu">
-                                <i class="fas fa-trash"></i>
-                            </a>
-
-                            <a href="{{ path('user.play.edit', {'id': scenario.id}) }}" class="app_grid_item_footer_action button br_none" title="{{ 'default.edit' | trans | capitalize }}">
-                                <i class="fas fa-edit"></i>
-                            </a>
-
-                            <a href="{{ path('user.play.invite', {'id': scenario.id}) }}" class="app_grid_item_footer_action button br_none" title="{{ 'pages.play.invite.title' | trans | capitalize }}">
-                                <i class="fas fa-user-plus"></i>
+                            <a href="#" class="app_grid_item_footer_action button leave" title="Quitte cette table de jeu" data-scenarioid="{{ scenario.id }}">
+                                <i class="fas fa-sign-out-alt"></i>
                             </a>
 
                             <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue</a>
@@ -119,18 +106,19 @@
                 }
             })
 
-            const removeButtons = document.querySelectorAll('.remove')
-            for (const removeButton of removeButtons) {
-                removeButton.addEventListener('click', event => {
+            const leaveButtons = document.querySelectorAll('.leave')
+            for (const leaveButton of leaveButtons) {
+                leaveButton.addEventListener('click', event => {
                     event.preventDefault()
-                    if (window.confirm('Veux-tu VRAIMENT supprimer cette table de jeu ?')) {
+                    if (window.confirm('Veux-tu VRAIMENT abandonner cette table de jeu ?')) {
                         let button = event.target
 
                         if (button.tagName === 'I') {
                             button = button.parentNode
                         }
 
-                        window.location.href = button.href
+                        console.log('Tu quittes la table #' + button.dataset.scenarioid)
+                        //window.location.href = button.href
                     }
                 })
             }

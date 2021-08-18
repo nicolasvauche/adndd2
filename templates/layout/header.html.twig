@@ -50,7 +50,7 @@
                         </li>
 
                         <li>
-                            <a href="{{ path('home') }}" {% if app.request.get('_route') == 'user.games' %}class="active"{% endif %} title="{{ 'pages.user.games.title' | trans | capitalize }}">
+                            <a href="{{ path('user.play.mygames') }}" {% if app.request.get('_route') == 'user.play.mygames' %}class="active"{% endif %} title="{{ 'pages.user.games.title' | trans | capitalize }}">
                                 {{ 'pages.user.games.menu' | trans | capitalize }}
                             </a>
                         </li>
