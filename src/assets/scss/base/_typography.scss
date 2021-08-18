@@ -108,6 +108,10 @@ dl {
     }
 }
 
+hr {
+    border-color: $color-bg-secondary;
+}
+
 /** Custom classes **/
 .mb_0 {
     margin-bottom: 0 !important;

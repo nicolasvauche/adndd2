@@ -160,6 +160,17 @@
             }
         }
 
+        .app_grid_item_thumbnails {
+            display: flex;
+            justify-content: center;
+
+            .thumbnail {
+                margin: 0 0.25rem;
+                font-size: 0.8rem !important;
+                font-weight: bold;
+            }
+        }
+
         .app_grid_item_footer {
             display: flex;
             justify-content: space-between;

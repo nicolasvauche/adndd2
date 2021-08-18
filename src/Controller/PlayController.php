@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Character;
 use App\Entity\Scenario;
-use App\Entity\User;
 use App\Form\ScenarioType;
 use App\Repository\GameRepository;
 use App\Repository\ScenarioRepository;
@@ -14,7 +13,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -32,6 +30,38 @@ class PlayController extends AbstractController
         return $this->render('play/index.html.twig',
             [
                 'scenarios' => $scenarios,
+            ]);
+    }
+
+    /**
+     * @Route("/tes-aventures", name="user.play.mygames")
+     */
+    public function myGames(): Response
+    {
+        $scenarios = $this->getDoctrine()->getRepository(Scenario::class)->findAll();
+        $myGames = [];
+
+        foreach ($scenarios as $scenario) {
+            $myCharacters = $this->getDoctrine()->getRepository(Character::class)->findBy(
+                [
+                    'game' => $scenario->getGame()->getId(),
+                    'user' => $this->getUser(),
+                ]
+            );
+
+            foreach ($myCharacters as $myCharacter) {
+                if ($scenario->getCharacters()->contains($myCharacter)) {
+                    $myGames[] = $scenario;
+                }
+            }
+        }
+
+        $myCharacters = $this->getDoctrine()->getRepository(Character::class)->findBy(['user' => $this->getUser()]);
+
+        return $this->render('play/mygames.html.twig',
+            [
+                'myGames' => $myGames,
+                'myCharacters' => $myCharacters,
             ]);
     }
 
@@ -177,7 +207,7 @@ class PlayController extends AbstractController
             ->getOneOrNullResult();
 
         if ($character) {
-            //if ($character->getUser()->getId() !== $this->getUser()->getId()) {
+            if ($character->getUser()->getId() !== $this->getUser()->getId()) {
                 if ($deleteMode) {
                     $scenario->addCharacter($character);
                     $manager->persist($scenario);
@@ -212,7 +242,7 @@ class PlayController extends AbstractController
                         }
                     }
                 }
-            //}
+            }
         }
 
         return new JsonResponse($json);
