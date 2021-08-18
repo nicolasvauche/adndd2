@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'pages.user.plays.join.title' | trans | capitalize }}{% endblock %}
+
+{% block body_class %}play{% endblock %}
+
+{% block body %}
+    <article class="aside">
+        <section>
+            <h1>{{ 'pages.user.plays.join.title' | trans | capitalize }}</h1>
+
+            <!-- Flash messages -->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    {% if loop.first %}
+                        <div class="app_alert {{ label }}">
+                            {{ message | trans | capitalize }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+            <form id="join_form" class="app_form" method="post">
+                <div class="invited app_grid five">
+                    {% for character in myCharacters %}
+                        <div class="character app_grid_item off" data-characterid="{{ character.id }}">
+                            <a href="#" class="guest_link" title="Choisis ce personnage" data-charactername="{{ character.name }}">
+                                <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" alt="{{ character.name }}" class="app_grid_item_image" data-charactername="{{ character.name }}" />
+                                <span class="app_grid_item_title" data-charactername="{{ character.name }}">{{ character.fullname }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="app_grid two mb_0">
+                    <div class="app_form_group mb_0">
+                        <a href="{{ path('play') }}" class="app_button">{{ 'default.back' | trans | capitalize }}</a>
+                    </div>
+
+                    <div class="app_form_group mb_0">
+                        <a id="submit" class="app_button cta disabled">{{ 'default.confirm' | trans | capitalize }}</a>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <aside>
+            <h2>{{ 'pages.play.game.title' | trans | capitalize }}</h2>
+
+            <span>
+                <img src="{{ asset('assets/images/games/' ~ scenario.game.media) }}" class="app_image" alt="{{ scenario.game.name }}">
+            </span>
+
+            <span><i class="fas fa-scroll"></i> <strong>{{ scenario.game.name }}</strong></span>
+
+            <span><strong>{{ scenario.name }}</strong></span>
+
+            <span>{{ scenario.campaign.name }}</span>
+
+            <span><i class="fas fa-clock"></i> {{ scenario.startAt | date('d/m/Y H:i') }}</span>
+
+            {% if scenario.isPrivate %}
+                <span><i class="fas fa-eye-slash"></i> {{ 'play.game.isPrivate.label' | trans | capitalize }}</span>
+            {% endif %}
+        </aside>
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    <script defer>
+        window.addEventListener("DOMContentLoaded", () => {
+            const submitBtn = document.getElementById('submit')
+            const charactersDiv = document.querySelectorAll('.character')
+
+            for (characterDiv of charactersDiv) {
+                characterDiv.addEventListener('click', event => {
+                    event.preventDefault()
+                    for (invited of charactersDiv) {
+                        invited.classList.remove('on')
+                        invited.classList.add('off')
+                        const button = invited.querySelector('a')
+                        button.title = 'Choisis ce personnage'
+                    }
+
+                    let button = event.target
+                    if (button.tagName === 'IMG' || button.tagName === 'SPAN') {
+                        button = button.parentNode
+                        button.title = "C'est ce personnage qui jouera"
+                        button = button.parentNode
+                    }
+                    button.classList.toggle('on', 'off')
+
+                    submitBtn.classList.remove('disabled')
+                    submitBtn.href = "/jouer-en-ligne/rejoins-une-table/{{ scenario.id }}/" + button.dataset.characterid
+                })
+            }
+        })
+    </script>
+{% endblock %}

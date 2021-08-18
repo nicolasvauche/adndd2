@@ -188,6 +188,48 @@ class PlayController extends AbstractController
     }
 
     /**
+     * @Route("/postule-a-une-table/{id}", name="user.play.candidate")
+     */
+    public function candidate(Scenario $scenario): Response
+    {
+        $hasCharacter = false;
+
+        foreach ($this->getUser()->getCharacters() as $myCharacter) {
+            if ($myCharacter->getGame()->getId() === $scenario->getGame()->getId()) {
+                $hasCharacter = true;
+            }
+        }
+
+        if ($hasCharacter) {
+            //$this->addFlash('success', 'Le MJ est prévenu. On attend désormais sa réponse…');
+        } else {
+            $this->addFlash('danger', "Tu n'as aucun personnage pour jouer à ce jeu :/");
+            return $this->redirectToRoute('user.characters');
+        }
+
+        return $this->render('play/join.html.twig',
+            [
+                'myCharacters' => $this->getUser()->getCharacters(),
+                'scenario' => $scenario,
+            ]
+        );
+    }
+
+    /**
+     * @Route("/rejoins-une-table/{id}/{characterId}", name="user.play.join")
+     */
+    public function join(Scenario $scenario, $characterId): Response
+    {
+        $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
+
+        dd("Rejoins la table " . $scenario->getName() . " avec " . $character->getFullname());
+
+        $this->addFlash('succes', 'Ta candidature a été envoyée au MJ. Attendons sa réponse…');
+
+        return $this->redirectToRoute('play');
+    }
+
+    /**
      * @Route("/rechercher-un-personnage/{scenarioId}/{characterName}/{deleteMode}", name="user.play.invite.search")
      */
     public function searchCharacter(Request $request, EntityManagerInterface $manager, $scenarioId, $characterName, $deleteMode = false)

@@ -21,11 +21,13 @@
             {% endfor %}
 
             {% if characters | length == 0 %}
-                <div class="app_alert info">
-                    Tu n'a pas encore créé de personnage.
-                    <br />
-                    Pour en créer un, regarde bien sur cette page !
-                </div>
+                {% if app.flashes | length == 0 %}
+                    <div class="app_alert info">
+                        Tu n'a pas encore créé de personnage.
+                        <br />
+                        Pour en créer un, regarde bien sur cette page !
+                    </div>
+                {% endif %}
             {% else %}
                 <div class="app_filters">
                     <h2>Tu peux filtrer par jeu si tu veux :</h2>
