@@ -193,10 +193,12 @@ class PlayController extends AbstractController
     public function candidate(Scenario $scenario): Response
     {
         $hasCharacter = false;
+        $myCharacters = [];
 
         foreach ($this->getUser()->getCharacters() as $myCharacter) {
             if ($myCharacter->getGame()->getId() === $scenario->getGame()->getId()) {
                 $hasCharacter = true;
+                $myCharacters[] = $myCharacter;
             }
         }
 
@@ -209,7 +211,7 @@ class PlayController extends AbstractController
 
         return $this->render('play/join.html.twig',
             [
-                'myCharacters' => $this->getUser()->getCharacters(),
+                'myCharacters' => $myCharacters,
                 'scenario' => $scenario,
             ]
         );
