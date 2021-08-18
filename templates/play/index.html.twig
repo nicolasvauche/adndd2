@@ -37,13 +37,19 @@
                                 <h5 class="app_grid_item_subtitle sub">{{ scenario.campaign.name }}</h5>
                             {% endif %}
                             <h4 class="app_grid_item_subtitle">{{ scenario.name }}</h4>
-                            <p class="app_grid_item_info excerpt">
-                                {{ scenario.shortDescription }}
-                            </p>
                         </div>
 
                         <div>
-                            <p class="app_grid_item_info">
+                            <p class="app_grid_item_info excerpt">
+                                {{ scenario.shortDescription }}
+                            </p>
+
+                            <p class="app_grid_item_infos flex around">
+                                <strong>
+                                    <i class="fas fa-users"></i>
+                                    {{ scenario.characters | length }}/5
+                                </strong>
+
                                 <strong>{{ scenario.startAt | date('d/m/Y H:i') }}</strong>
                             </p>
 
@@ -55,11 +61,6 @@
                                         </p>
                                     {% endfor %}
                                 </div>
-
-                                <p class="app_grid_item_info">
-                                    <i class="fas fa-users"></i>
-                                    <strong>{{ scenario.characters | length }}/5</strong>
-                                </p>
                             {% endif %}
                         </div>
 

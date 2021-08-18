@@ -1,6 +1,6 @@
 default:
   welcome: "bienvenue"
-  more: "Toujours plus…"
+  more: "En plus…"
   orelse: "ou sinon"
   copyrights: "tous droits réservés"
   cancel: "annule"

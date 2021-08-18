@@ -9,23 +9,6 @@
         <section>
             <h1>{{ 'pages.user.characters.title' | trans | capitalize }}</h1>
 
-            <div class="app_filters">
-                <h2>Tu peux filtrer par jeu si tu veux :</h2>
-
-                <div class="app_filters_controls">
-                    <select name="characters_game" id="characters_game" class="app_filter_select">
-                        <option value="all">{{ 'pages.games.title' | trans | capitalize }}</option>
-                        {% set charactersGames = [] %}
-                        {% for character in characters %}
-                            {% if character.game.id not in charactersGames %}
-                                <option value="{{ character.game.id }}">{{ character.game.name }}</option>
-                                {% set charactersGames = charactersGames|merge([character.game.id]) %}
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-
             <!-- Flash messages -->
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
@@ -37,7 +20,31 @@
                 {% endfor %}
             {% endfor %}
 
-            {% if characters | length > 0 %}
+            {% if characters | length == 0 %}
+                <div class="app_alert info">
+                    Tu n'a pas encore créé de personnage.
+                    <br />
+                    Pour en créer un, regarde bien sur cette page !
+                </div>
+            {% else %}
+                <div class="app_filters">
+                    <h2>Tu peux filtrer par jeu si tu veux :</h2>
+
+                    <div class="app_filters_controls">
+                        <select name="characters_game" id="characters_game" class="app_filter_select">
+                            <option value="all">{{ 'pages.games.title' | trans | capitalize }}</option>
+                            {% set charactersGames = [] %}
+                            {% for character in characters %}
+                                {% if character.game.id not in charactersGames %}
+                                    <option value="{{ character.game.id }}">{{ character.game.name }}</option>
+                                    {% set charactersGames = charactersGames|merge([character.game.id]) %}
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+
                 <div class="characters app_grid three app_slider xs">
                     {% for character in characters %}
                         <div class="char app_grid_item app_slider_item" data-gameid="{{ character.game.id }}">
@@ -49,9 +56,9 @@
                             <div class="app_grid_item_body">
                                 <p class="app_grid_item_info excerpt">
                                     {% if character.story %}
-                                        {{ character.story }}
+                                        {{ character.story | length > 205 ? character.story | slice(0, 205) ~ '…' : character.story }}
                                     {% else %}
-                                        {{ character.description }}
+                                        {{ character.description | length > 205 ? character.description | slice(0, 205) ~ '…' : character.description }}
                                     {% endif %}
                                 </p>
                             </div>
@@ -75,10 +82,6 @@
                         </div>
                     {% endfor %}
                 </div>
-            {% else %}
-                <p class="info">
-                    Tu n'as pas encore créé de personnage, dommage…
-                </p>
             {% endif %}
         </section>
 
@@ -93,42 +96,44 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            const charactersThumbnails = document.querySelectorAll(('.char'))
-            const filterSelect = document.getElementById('characters_game')
-            filterSelect.addEventListener('change', event => {
-                const gameId = filterSelect.value
-                if (gameId === 'all') {
-                    for (const characterThumbnail of charactersThumbnails) {
-                        characterThumbnail.style.display = 'flex'
-                    }
-                } else {
-                    for (const characterThumbnail of charactersThumbnails) {
-                        if (parseInt(characterThumbnail.dataset.gameid) !== parseInt(gameId)) {
-                            characterThumbnail.style.display = 'none'
-                        } else {
+    {% if characters | length > 0 %}
+        <script>
+            window.addEventListener("DOMContentLoaded", () => {
+                const charactersThumbnails = document.querySelectorAll(('.char'))
+                const filterSelect = document.getElementById('characters_game')
+                filterSelect.addEventListener('change', event => {
+                    const gameId = filterSelect.value
+                    if (gameId === 'all') {
+                        for (const characterThumbnail of charactersThumbnails) {
                             characterThumbnail.style.display = 'flex'
                         }
-                    }
-                }
-            })
-
-            const removeButtons = document.querySelectorAll('.remove')
-            for (const removeButton of removeButtons) {
-                removeButton.addEventListener('click', event => {
-                    event.preventDefault()
-                    if (window.confirm('Veux-tu VRAIMENT supprimer ce personnage ?')) {
-                        let button = event.target
-
-                        if (button.tagName === 'I') {
-                            button = button.parentNode
+                    } else {
+                        for (const characterThumbnail of charactersThumbnails) {
+                            if (parseInt(characterThumbnail.dataset.gameid) !== parseInt(gameId)) {
+                                characterThumbnail.style.display = 'none'
+                            } else {
+                                characterThumbnail.style.display = 'flex'
+                            }
                         }
-
-                        window.location.href = button.href
                     }
                 })
-            }
-        })
-    </script>
+
+                const removeButtons = document.querySelectorAll('.remove')
+                for (const removeButton of removeButtons) {
+                    removeButton.addEventListener('click', event => {
+                        event.preventDefault()
+                        if (window.confirm('Veux-tu VRAIMENT supprimer ce personnage ?')) {
+                            let button = event.target
+
+                            if (button.tagName === 'I') {
+                                button = button.parentNode
+                            }
+
+                            window.location.href = button.href
+                        }
+                    })
+                }
+            })
+        </script>
+    {% endif %}
 {% endblock %}

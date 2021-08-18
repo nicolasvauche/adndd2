@@ -154,15 +154,16 @@
                 text-align: left;
                 font-size: 0.8rem;
             }
+        }
 
-            &:last-of-type {
-                /*margin: 1.5rem 0;*/
-            }
+        .app_grid_item_infos {
+            margin-bottom: 0.5rem;
+            padding: 0 0.5rem;
+            line-height: normal;
         }
 
         .app_grid_item_thumbnails {
             display: flex;
-            justify-content: center;
             margin-bottom: 0.5rem;
 
             .thumbnail {
