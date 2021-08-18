@@ -1,0 +1,17 @@
+<div id="controls">
+    <div class="toggle">
+        <a href="#" id="toggleControls" title="Ouvrir le menu">
+            <i id="toggleIcon" class="fas fa-chevron-left"></i>
+        </a>
+    </div>
+
+    <div class="top">
+        {% include 'play/table/controls/characters.html.twig' with {'scenario': scenario, 'myCharacter': myCharacter} %}
+    </div>
+
+    {% include 'play/table/controls/diceset/index.html.twig' with {'scenario': scenario} %}
+
+    <div class="bottom">
+        {% include 'play/table/controls/actions.html.twig' with {'myCharacter': myCharacter} %}
+    </div>
+</div>

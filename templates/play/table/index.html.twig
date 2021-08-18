@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ scenario.name }}{% endblock %}
+
+{% block body_class %}table{% endblock %}
+
+{% block body %}
+    <article>
+        <section>
+            <h1>{{ scenario.name }}</h1>
+
+            <div class="content">
+                {% include 'play/table/visio.html.twig' with {'scenario': scenario} %}
+
+                {% include 'play/table/controls/index.html.twig' with {'scenario': scenario, 'myCharacter': myCharacter} %}
+            </div>
+        </section>
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    <script defer>
+        window.addEventListener("DOMContentLoaded", () => {
+            const quitBtn = document.getElementById('quit')
+            quitBtn.addEventListener('click', event => {
+                event.preventDefault()
+                if (window.confirm('Tu veux VRAIMENT quitter la table de jeu ?')) {
+                    window.location.href = quitBtn.href
+                }
+            })
+
+            {% if myCharacter.name == 'MJ' %}
+            const endBtn = document.getElementById('end')
+            endBtn.addEventListener('click', event => {
+                event.preventDefault()
+                if (window.confirm('Tu veux VRAIMENT clôturer cette partie ?')) {
+                    window.location.href = endBtn.href
+                }
+            })
+            {% endif %}
+
+            {% if myCharacter.name == 'MJ' %}
+            const kickBtns = document.querySelectorAll('.kick')
+            for (const kickBtn of kickBtns) {
+                kickBtn.addEventListener('click', event => {
+                    event.preventDefault();
+                    if (window.confirm('Veux-tu VRAIMENT virer ' + event.target.dataset.charactername + ' de la table de jeu ?')) {
+                        console.log('Kicked ' + event.target.dataset.characterid)
+                    }
+                })
+            }
+            {% endif %}
+
+            const modalButtons = document.querySelectorAll('.modal')
+            for (const modalButton of modalButtons) {
+                modalButton.addEventListener('click', event => {
+                    event.preventDefault()
+                    const modalId = modalButton.dataset.modal
+                    const modal = document.getElementById(modalId)
+                    modal.style.display = 'flex'
+                })
+            }
+
+            const modalCloseButtons = document.querySelectorAll('.app_modal_close')
+            for (const modalCloseButton of modalCloseButtons) {
+                modalCloseButton.addEventListener('click', () => {
+                    modalCloseButton.parentNode.parentNode.style.display = 'none'
+                })
+            }
+
+            const toggleControlsBtn = document.getElementById('toggleControls')
+            toggleControlsBtn.addEventListener('click', event => {
+                event.preventDefault()
+                const controlsPanel = document.getElementById('controls')
+                const toggleIcon = document.getElementById('toggleIcon')
+                if (controlsPanel.classList.contains('on')) {
+                    controlsPanel.classList.remove('on')
+                    toggleIcon.classList.replace('fa-chevron-right', 'fa-chevron-left')
+                } else {
+                    controlsPanel.classList.add('on')
+                    toggleIcon.classList.replace('fa-chevron-left', 'fa-chevron-right')
+                }
+            })
+        })
+    </script>
+{% endblock %}
