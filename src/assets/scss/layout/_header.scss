@@ -156,6 +156,19 @@
                     &.active {
                         color: $color-orange;
                     }
+
+                    &.app_button {
+                        &.cta {
+                            padding: 0.5rem 1rem;
+                            color: $color-bg-primary;
+                            background-color: $color-blue;
+
+                            &.active {
+                                color: $color-bg-primary;
+                                background-color: $color-orange;
+                            }
+                        }
+                    }
                 }
 
                 &:hover {

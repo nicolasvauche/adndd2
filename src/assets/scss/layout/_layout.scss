@@ -68,24 +68,18 @@ html {
             }
 
             &.aside {
-                @include respond(sm) {
+                @include respond(md) {
                     display: grid;
-                    grid-template-columns: 6fr 4fr;
-                    grid-gap: 1rem;
+                    grid-template-columns: 7fr 3fr;
+                    grid-gap: 1.5rem;
                     align-items: flex-start;
-                    padding: 0 0.75rem;
+                    padding: 0 12vw;
 
                     & > section,
                     & > aside {
                         margin-left: 0;
                         margin-right: 0;
                     }
-                }
-
-                @include respond(md) {
-                    grid-template-columns: 7fr 3fr;
-                    grid-gap: 1.5rem;
-                    padding: 0 12vw;
                 }
             }
         }
