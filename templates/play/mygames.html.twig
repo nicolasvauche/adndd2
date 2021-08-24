@@ -83,9 +83,17 @@
                             </div>
 
                             <div class="app_grid_item_footer">
-                                <a href="#" class="app_grid_item_footer_action button leave" title="Quitte cette table de jeu" data-scenarioid="{{ scenario.id }}">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                </a>
+                                {% set myCharacter = null %}
+                                {% for game in myGames %}
+                                    {% for character in game.characters %}
+                                        {% if character.user.id == app.user.id %}
+                                            {% set myCharacter = character %}
+                                            <a href="{{ path('user.play.leave', {'id': scenario.id, 'characterId': myCharacter.id}) }}" class="app_grid_item_footer_action button leave" title="Quitte cette table de jeu" data-scenarioid="{{ scenario.id }}">
+                                                <i class="fas fa-sign-out-alt"></i>
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
 
                                 <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue</a>
                             </div>
@@ -133,7 +141,7 @@
                             }
 
                             console.log('Tu quittes la table #' + button.dataset.scenarioid)
-                            //window.location.href = button.href
+                            window.location.href = button.href
                         }
                     })
                 }

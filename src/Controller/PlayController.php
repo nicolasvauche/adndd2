@@ -220,13 +220,45 @@ class PlayController extends AbstractController
     /**
      * @Route("/rejoins-une-table/{id}/{characterId}", name="user.play.join")
      */
-    public function join(Scenario $scenario, $characterId): Response
+    public function join(EntityManagerInterface $manager, Scenario $scenario, $characterId): Response
     {
         $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
 
-        dd("Rejoins la table " . $scenario->getName() . " avec " . $character->getFullname());
+        if ($character) {
+            if (!$scenario->getCharacters()->contains($character) && sizeof($scenario->getCharacters()) < 5) {
+                $scenario->addCharacter($character);
+                $manager->persist($scenario);
+                $manager->flush();
 
-        $this->addFlash('succes', 'Ta candidature a été envoyée au MJ. Attendons sa réponse…');
+                $this->addFlash('success', 'Ta candidature a été envoyée au MJ. Attendons sa réponse…');
+            } else {
+                if ($scenario->getCharacters()->contains($character)) {
+                    $this->addFlash('warning', 'Ta candidature a déjà été envoyée au MJ ! Attends sa réponse…');
+                } else if (sizeof($scenario->getCharacters()) < 5) {
+                    $this->addFlash('danger', 'Cette table est pleine, désolé :(');
+                }
+            }
+        }
+
+        return $this->redirectToRoute('play');
+    }
+
+    /**
+     * @Route("/quitte-une-table/{id}/{characterId}", name="user.play.leave")
+     */
+    public function leave(EntityManagerInterface $manager, Scenario $scenario, $characterId): Response
+    {
+        $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
+
+        if ($character) {
+            if ($scenario->getCharacters()->contains($character)) {
+                $scenario->removeCharacter($character);
+                $manager->persist($scenario);
+                $manager->flush();
+
+                $this->addFlash('warning', 'Tu as quitté la table de jeu.');
+            }
+        }
 
         return $this->redirectToRoute('play');
     }
