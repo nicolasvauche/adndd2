@@ -1,12 +1,13 @@
 default:
   welcome: "bienvenue"
-  more: "Toujours plus…"
+  more: "En plus…"
   orelse: "ou sinon"
   copyrights: "tous droits réservés"
   cancel: "annule"
   back: "retour"
   delete: "supprime"
   edit: "modifie"
+  confirm: "c'est parti !"
 pages:
   login:
     menu: "connexion"
@@ -53,6 +54,8 @@ pages:
     plays:
       menu: "tes tables de jeu"
       title: "gère tes tables de jeu"
+      join:
+        title: "rejoins une table de jeu"
   home:
     menu: "accueil"
     title: "page d'accueil"

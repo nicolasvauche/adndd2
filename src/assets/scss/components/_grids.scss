@@ -18,6 +18,10 @@
 
     &.three {
         @include respond(sm) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include respond(md) {
             grid-template-columns: repeat(3, 1fr);
         }
     }
@@ -45,9 +49,24 @@
             text-align: center;
             background-color: $color-bg-altmenu;
             border-radius: $border-radius-default;
-            transition: background-color 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+
+            &.off {
+                opacity: 0.5;
+            }
+
+            &.on {
+                opacity: 1;
+                background-color: $color-orange !important;
+
+                .app_grid_item_title {
+                    color: $color-fg-primary !important;
+                    text-shadow: none;
+                }
+            }
 
             &:hover {
+                opacity: 1;
                 background-color: $color-blue;
             }
 
@@ -133,7 +152,7 @@
         }
 
         .app_grid_item_image {
-            max-height: 95%;
+            max-height: 40vh;
             object-position: top;
             border-radius: $border-radius-default;
 
@@ -154,20 +173,27 @@
                 text-align: left;
                 font-size: 0.8rem;
             }
+        }
 
-            &:last-of-type {
-                /*margin: 1.5rem 0;*/
-            }
+        .app_grid_item_infos {
+            margin-bottom: 0.5rem;
+            padding: 0 0.5rem;
+            line-height: normal;
         }
 
         .app_grid_item_thumbnails {
             display: flex;
             justify-content: center;
+            margin-bottom: 0.5rem;
 
             .thumbnail {
                 margin: 0 0.25rem;
                 font-size: 0.8rem !important;
                 font-weight: bold;
+
+                &.disabled {
+                    opacity: 0.5;
+                }
             }
         }
 

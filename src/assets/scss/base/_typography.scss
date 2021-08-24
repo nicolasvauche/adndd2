@@ -128,3 +128,17 @@ hr {
 .disabled {
     color: rgba($color-fg-primary, 0.5);
 }
+
+.flex {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    &.between {
+        justify-content: space-between;
+    }
+
+    &.around {
+        justify-content: space-around;
+    }
+}

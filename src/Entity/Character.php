@@ -146,11 +146,6 @@ class Character
     private $characterSkills;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Scenario::class, mappedBy="characters")
-     */
-    private $scenarios;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Equipment::class, mappedBy="characters")
      */
     private $equipments;
@@ -160,14 +155,19 @@ class Character
      */
     private $specialties;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ScenarioCharacter::class, mappedBy="personnage", orphanRemoval=true)
+     */
+    private $scenarioCharacters;
+
     public function __construct()
     {
         $this->characterSpells = new ArrayCollection();
         $this->characterCharacteristics = new ArrayCollection();
         $this->characterSkills = new ArrayCollection();
-        $this->scenarios = new ArrayCollection();
         $this->equipments = new ArrayCollection();
         $this->specialties = new ArrayCollection();
+        $this->scenarioCharacters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -544,33 +544,6 @@ class Character
     }
 
     /**
-     * @return Collection|Scenario[]
-     */
-    public function getScenarios(): Collection
-    {
-        return $this->scenarios;
-    }
-
-    public function addScenario(Scenario $scenario): self
-    {
-        if (!$this->scenarios->contains($scenario)) {
-            $this->scenarios[] = $scenario;
-            $scenario->addCharacter($this);
-        }
-
-        return $this;
-    }
-
-    public function removeScenario(Scenario $scenario): self
-    {
-        if ($this->scenarios->removeElement($scenario)) {
-            $scenario->removeCharacter($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Equipment[]
      */
     public function getEquipments(): Collection
@@ -619,6 +592,36 @@ class Character
     {
         if ($this->specialties->removeElement($specialty)) {
             $specialty->removeCharacter($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ScenarioCharacter[]
+     */
+    public function getScenarioCharacters(): Collection
+    {
+        return $this->scenarioCharacters;
+    }
+
+    public function addScenarioCharacter(ScenarioCharacter $scenarioCharacter): self
+    {
+        if (!$this->scenarioCharacters->contains($scenarioCharacter)) {
+            $this->scenarioCharacters[] = $scenarioCharacter;
+            $scenarioCharacter->setPersonnage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeScenarioCharacter(ScenarioCharacter $scenarioCharacter): self
+    {
+        if ($this->scenarioCharacters->removeElement($scenarioCharacter)) {
+            // set the owning side to null (unless already changed)
+            if ($scenarioCharacter->getPersonnage() === $this) {
+                $scenarioCharacter->setPersonnage(null);
+            }
         }
 
         return $this;

@@ -20,120 +20,131 @@
                 {% endfor %}
             {% endfor %}
 
-            <div class="app_filters">
-                <h2>{{ 'pages.user.plays.title' | trans | capitalize }}</h2>
-
-                <div class="app_filters_controls">
-                    <select name="tables_game" id="tables_game" class="app_filter_select">
-                        <option value="all">{{ 'pages.games.title' | trans | capitalize }}</option>
-                        {% set scenariosGames = [] %}
-                        {% for scenario in scenarios %}
-                            {% if scenario.game.id not in scenariosGames %}
-                                <option value="{{ scenario.game.id }}">{{ scenario.game.name }}</option>
-                                {% set scenariosGames = scenariosGames|merge([scenario.game.id]) %}
-                            {% endif %}
-                        {% endfor %}
-                    </select>
+            {% if scenarios | length == 0 %}
+                <div class="app_alert info">
+                    Tu ne gères actuellement aucune partie.
+                    <br />
+                    Pour en créer une, va voir sur la page des
+                    <a href="{{ path('games') }}" title="{{ 'pages.games.title' | trans | capitalize }}">jeux en ligne</a>
+                    !
                 </div>
-            </div>
+            {% else %}
+                <div class="app_filters">
+                    <h2>{{ 'pages.user.plays.title' | trans | capitalize }}</h2>
 
-            <div class="app_grid three app_slider xs">
-
-                {% for scenario in scenarios %}
-                    <div class="game app_grid_item app_slider_item" data-gameid="{{ scenario.game.id }}">
-                        <div class="app_grid_item_header">
-                            <img src="{{ asset('assets/images/games/' ~ scenario.game.media) }}" alt="{{ scenario.game.name }}" class="app_grid_item_image" />
-                            <h3 class="app_grid_item_title">{{ scenario.game.name }}</h3>
-                            {% if scenario.campaign %}
-                                <h5 class="app_grid_item_subtitle sub">{{ scenario.campaign.name }}</h5>
-                            {% endif %}
-                            <h4 class="app_grid_item_subtitle">{{ scenario.name }}</h4>
-                            <p class="app_grid_item_info">
-                                <strong>{{ scenario.startAt | date('d/m/Y H:i') }}</strong>
-                            </p>
-
-                            <hr />
-
-                            <p class="app_grid_item_info excerpt">
-                                {{ scenario.shortDescription }}
-                            </p>
-                        </div>
-
-                        <hr />
-
-                        <p class="app_grid_item_info">
-                            <i class="fas fa-users"></i>
-                            <strong>{{ scenario.characters | length }}/5</strong>
-                        </p>
-
-                        <div class="app_grid_item_thumbnails mb_0">
-                            {% for character in scenario.characters %}
-                                <p class="thumbnail" title="{{ character.fullname }}">
-                                    <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" class="app_image thumbnail {% if character.user == app.user %}active{% endif %}" alt="{{ character.fullname }}">
-                                </p>
+                    <div class="app_filters_controls">
+                        <select name="tables_game" id="tables_game" class="app_filter_select">
+                            <option value="all">{{ 'pages.games.title' | trans | capitalize }}</option>
+                            {% set scenariosGames = [] %}
+                            {% for scenario in scenarios %}
+                                {% if scenario.game.id not in scenariosGames %}
+                                    <option value="{{ scenario.game.id }}">{{ scenario.game.name }}</option>
+                                    {% set scenariosGames = scenariosGames|merge([scenario.game.id]) %}
+                                {% endif %}
                             {% endfor %}
-                        </div>
-
-                        <div class="app_grid_item_footer">
-                            <a href="{{ path('user.play.remove', {'id': scenario.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprimer cette table de jeu">
-                                <i class="fas fa-trash"></i>
-                            </a>
-
-                            <a href="{{ path('user.play.edit', {'id': scenario.id}) }}" class="app_grid_item_footer_action button br_none" title="{{ 'default.edit' | trans | capitalize }}">
-                                <i class="fas fa-edit"></i>
-                            </a>
-
-                            <a href="{{ path('user.play.invite', {'id': scenario.id}) }}" class="app_grid_item_footer_action button br_none" title="{{ 'pages.play.invite.title' | trans | capitalize }}">
-                                <i class="fas fa-user-plus"></i>
-                            </a>
-
-                            <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue</a>
-                        </div>
+                        </select>
                     </div>
-                {% endfor %}
+                </div>
 
-            </div>
+                <div class="app_grid three app_slider xs">
+
+                    {% for scenario in scenarios %}
+                        <div class="game app_grid_item app_slider_item" data-gameid="{{ scenario.game.id }}">
+                            <div class="app_grid_item_header">
+                                <img src="{{ asset('assets/images/games/' ~ scenario.game.media) }}" alt="{{ scenario.game.name }}" class="app_grid_item_image" />
+                                <h3 class="app_grid_item_title">{{ scenario.game.name }}</h3>
+                                {% if scenario.campaign %}
+                                    <h5 class="app_grid_item_subtitle sub">{{ scenario.campaign.name }}</h5>
+                                {% endif %}
+                                <h4 class="app_grid_item_subtitle">{{ scenario.name }}</h4>
+                            </div>
+
+                            <div>
+                                <p class="app_grid_item_info excerpt">
+                                    {{ scenario.shortDescription }}
+                                </p>
+
+                                <p class="app_grid_item_info">
+                                    <strong>{{ scenario.startAt | date('d/m/Y H:i') }}</strong>
+                                </p>
+
+                                <div class="app_grid_item_thumbnails">
+                                    {% for scenarioCharacter in scenario.scenarioCharacters %}
+                                        <p class="thumbnail {% if not scenarioCharacter.isAccepted %}disabled{% endif %}" title="{{ scenarioCharacter.personnage.fullname }}{% if not scenarioCharacter.isAccepted %} (en attente){% endif %}">
+                                            <img src="{{ asset('assets/images/characters/' ~ scenarioCharacter.personnage.avatar) }}" class="app_image thumbnail {% if scenarioCharacter.personnage.user == app.user %}active{% endif %}" alt="{{ scenarioCharacter.personnage.fullname }}">
+                                        </p>
+                                    {% endfor %}
+                                </div>
+
+                                <p class="app_grid_item_info">
+                                    <i class="fas fa-users"></i>
+                                    <strong>{{ scenario.scenarioCharacters | length }}/5</strong>
+                                </p>
+                            </div>
+
+                            <div class="app_grid_item_footer">
+                                <a href="{{ path('user.play.remove', {'id': scenario.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprimer cette table de jeu">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+
+                                <a href="{{ path('user.play.edit', {'id': scenario.id}) }}" class="app_grid_item_footer_action button br_none" title="{{ 'default.edit' | trans | capitalize }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                <a href="{{ path('user.play.invite', {'id': scenario.id}) }}" class="app_grid_item_footer_action button br_none" title="{{ 'pages.play.invite.title' | trans | capitalize }}">
+                                    <i class="fas fa-user-plus"></i>
+                                </a>
+
+                                <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            {% endif %}
         </section>
     </article>
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            const gamesThumbnails = document.querySelectorAll(('.game'))
-            const filterSelect = document.getElementById('tables_game')
-            filterSelect.addEventListener('change', event => {
-                const gameId = filterSelect.value
-                if (gameId === 'all') {
-                    for (const gameThumbnail of gamesThumbnails) {
-                        gameThumbnail.style.display = 'flex'
-                    }
-                } else {
-                    for (const gameThumbnail of gamesThumbnails) {
-                        if (parseInt(gameThumbnail.dataset.gameid) !== parseInt(gameId)) {
-                            gameThumbnail.style.display = 'none'
-                        } else {
+    {% if scenarios | length > 0 %}
+        <script>
+            window.addEventListener("DOMContentLoaded", () => {
+                const gamesThumbnails = document.querySelectorAll(('.game'))
+                const filterSelect = document.getElementById('tables_game')
+                filterSelect.addEventListener('change', event => {
+                    const gameId = filterSelect.value
+                    if (gameId === 'all') {
+                        for (const gameThumbnail of gamesThumbnails) {
                             gameThumbnail.style.display = 'flex'
                         }
-                    }
-                }
-            })
-
-            const removeButtons = document.querySelectorAll('.remove')
-            for (const removeButton of removeButtons) {
-                removeButton.addEventListener('click', event => {
-                    event.preventDefault()
-                    if (window.confirm('Veux-tu VRAIMENT supprimer cette table de jeu ?')) {
-                        let button = event.target
-
-                        if (button.tagName === 'I') {
-                            button = button.parentNode
+                    } else {
+                        for (const gameThumbnail of gamesThumbnails) {
+                            if (parseInt(gameThumbnail.dataset.gameid) !== parseInt(gameId)) {
+                                gameThumbnail.style.display = 'none'
+                            } else {
+                                gameThumbnail.style.display = 'flex'
+                            }
                         }
-
-                        window.location.href = button.href
                     }
                 })
-            }
-        })
-    </script>
+
+                const removeButtons = document.querySelectorAll('.remove')
+                for (const removeButton of removeButtons) {
+                    removeButton.addEventListener('click', event => {
+                        event.preventDefault()
+                        if (window.confirm('Veux-tu VRAIMENT supprimer cette table de jeu ?')) {
+                            let button = event.target
+
+                            if (button.tagName === 'I') {
+                                button = button.parentNode
+                            }
+
+                            window.location.href = button.href
+                        }
+                    })
+                }
+            })
+        </script>
+    {% endif %}
 {% endblock %}
