@@ -58,7 +58,7 @@
                             <p class="app_grid_item_infos flex around">
                                 <strong>
                                     <i class="fas fa-users"></i>
-                                    {{ scenario.characters | length }}/5
+                                    {{ scenario.scenarioCharacters | length }}/5
                                 </strong>
 
                                 <strong>{{ scenario.startAt | date('d/m/Y H:i') }}</strong>
@@ -66,9 +66,9 @@
 
                             {% if app.user %}
                                 <div class="app_grid_item_thumbnails">
-                                    {% for character in scenario.characters %}
-                                        <p class="thumbnail" title="{{ character.fullname }}">
-                                            <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" class="app_image thumbnail {% if character.user == app.user %}active{% endif %}" alt="{{ character.fullname }}">
+                                    {% for scenarioCharacter in scenario.scenarioCharacters %}
+                                        <p class="thumbnail {% if not scenarioCharacter.isAccepted %}disabled{% endif %}" title="{{ scenarioCharacter.personnage.fullname }}{% if not scenarioCharacter.isAccepted %} (en attente){% endif %}">
+                                            <img src="{{ asset('assets/images/characters/' ~ scenarioCharacter.personnage.avatar) }}" class="app_image thumbnail {% if scenarioCharacter.personnage.user == app.user %}active{% endif %}" alt="{{ scenarioCharacter.personnage.fullname }}">
                                         </p>
                                     {% endfor %}
                                 </div>
@@ -86,9 +86,9 @@
                                 </span>
 
                                 {% set myCharacter = null %}
-                                {% for character in scenario.characters %}
-                                    {% if character.user.id == app.user.id %}
-                                        {% set myCharacter = character %}
+                                {% for scenarioCharacter in scenario.scenarioCharacters %}
+                                    {% if scenarioCharacter.personnage.user.id == app.user.id %}
+                                        {% set myCharacter = scenarioCharacter.personnage %}
                                     {% endif %}
                                 {% endfor %}
                                 {% if scenario.user.id == app.user.id %}
@@ -98,7 +98,7 @@
                                 {% if myCharacter is not null %}
                                     <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue</a>
                                 {% else %}
-                                    {% if scenario.characters | length < 5 %}
+                                    {% if scenario.scenarioCharacters | length < 5 %}
                                         <a href="{{ path('user.play.candidate', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Demande à rejoindre la partie">Postule</a>
                                     {% else %}
                                         <span class="app_grid_item_footer_action">Pleine</span>

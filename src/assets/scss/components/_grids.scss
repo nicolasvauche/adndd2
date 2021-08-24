@@ -183,12 +183,17 @@
 
         .app_grid_item_thumbnails {
             display: flex;
+            justify-content: center;
             margin-bottom: 0.5rem;
 
             .thumbnail {
                 margin: 0 0.25rem;
                 font-size: 0.8rem !important;
                 font-weight: bold;
+
+                &.disabled {
+                    opacity: 0.5;
+                }
             }
         }
 

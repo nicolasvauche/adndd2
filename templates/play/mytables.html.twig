@@ -69,16 +69,16 @@
                                 </p>
 
                                 <div class="app_grid_item_thumbnails">
-                                    {% for character in scenario.characters %}
-                                        <p class="thumbnail" title="{{ character.fullname }}">
-                                            <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" class="app_image thumbnail {% if character.user == app.user %}active{% endif %}" alt="{{ character.fullname }}">
+                                    {% for scenarioCharacter in scenario.scenarioCharacters %}
+                                        <p class="thumbnail {% if not scenarioCharacter.isAccepted %}disabled{% endif %}" title="{{ scenarioCharacter.personnage.fullname }}{% if not scenarioCharacter.isAccepted %} (en attente){% endif %}">
+                                            <img src="{{ asset('assets/images/characters/' ~ scenarioCharacter.personnage.avatar) }}" class="app_image thumbnail {% if scenarioCharacter.personnage.user == app.user %}active{% endif %}" alt="{{ scenarioCharacter.personnage.fullname }}">
                                         </p>
                                     {% endfor %}
                                 </div>
 
                                 <p class="app_grid_item_info">
                                     <i class="fas fa-users"></i>
-                                    <strong>{{ scenario.characters | length }}/5</strong>
+                                    <strong>{{ scenario.scenarioCharacters | length }}/5</strong>
                                 </p>
                             </div>
 
