@@ -72,6 +72,18 @@
                         @include respond(md) {
                             flex: 0 0 30%;
                         }
+
+                        &.player {
+                            flex: 0 0 40%;
+
+                            @include respond(sm) {
+                                flex: 0 0 20%;
+                            }
+
+                            @include respond(md) {
+                                flex: 0 0 8rem;
+                            }
+                        }
                     }
 
                     & > .top {
@@ -81,6 +93,12 @@
                         justify-content: center;
                     }
 
+                    &.player {
+                        & > .top {
+                            display: block;
+                        }
+                    }
+
                     & > .bottom {
                         display: flex;
                         align-items: flex-end;
@@ -88,6 +106,12 @@
 
                         & > a {
                             margin: 0 1rem;
+                        }
+                    }
+
+                    &.player {
+                        & > .bottom {
+                            justify-content: center;
                         }
                     }
 
@@ -123,6 +147,14 @@
 
                             a {
                                 margin: 0;
+                            }
+                        }
+                    }
+
+                    &.player {
+                        #diceset {
+                            .dices {
+                                grid-template-columns: repeat(3, 1fr);
                             }
                         }
                     }
