@@ -407,7 +407,7 @@ class PlayController extends AbstractController
         $myCharacter = null;
 
         foreach ($scenario->getScenarioCharacters() as $scenarioCharacter) {
-            if ($scenarioCharacter->getPersonnage()->getUser()->getId() === $this->getUser()->getId()) {
+            if ($scenarioCharacter->getPersonnage()->getUser()->getId() === $this->getUser()->getId() && $scenarioCharacter->getIsAccepted()) {
                 $myCharacter = $scenarioCharacter->getPersonnage();
             }
         }

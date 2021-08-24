@@ -84,10 +84,14 @@
 
                             <div class="app_grid_item_footer">
                                 {% set myCharacter = null %}
+                                {% set isAccepted = false %}
                                 {% for game in myGames %}
                                     {% for scenarioCharacter in game.scenarioCharacters %}
                                         {% if scenarioCharacter.personnage.user.id == app.user.id and scenarioCharacter.personnage.game.id == scenario.game.id %}
                                             {% set myCharacter = scenarioCharacter.personnage %}
+                                            {% if scenarioCharacter.isAccepted %}
+                                                {% set isAccepted = true %}
+                                            {% endif %}
                                             <a href="{{ path('user.play.leave', {'id': scenario.id, 'characterId': myCharacter.id}) }}" class="app_grid_item_footer_action button leave" title="Quitte cette table de jeu" data-scenarioid="{{ scenario.id }}">
                                                 <i class="fas fa-sign-out-alt"></i>
                                             </a>
@@ -95,7 +99,11 @@
                                     {% endfor %}
                                 {% endfor %}
 
-                                <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue</a>
+                                {% if isAccepted %}
+                                    <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue</a>
+                                {% else %}
+                                    <span class="app_grid_item_footer_action">En attente</span>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}

@@ -86,9 +86,13 @@
                                 </span>
 
                                 {% set myCharacter = null %}
+                                {% set isAccepted = false %}
                                 {% for scenarioCharacter in scenario.scenarioCharacters %}
                                     {% if scenarioCharacter.personnage.user.id == app.user.id %}
                                         {% set myCharacter = scenarioCharacter.personnage %}
+                                        {% if scenarioCharacter.isAccepted %}
+                                            {% set isAccepted = true %}
+                                        {% endif %}
                                     {% endif %}
                                 {% endfor %}
                                 {% if scenario.user.id == app.user.id %}
@@ -96,7 +100,11 @@
                                 {% endif %}
 
                                 {% if myCharacter is not null %}
-                                    <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue</a>
+                                    {% if isAccepted %}
+                                        <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue</a>
+                                    {% else %}
+                                        <span class="app_grid_item_footer_action">En attente</span>
+                                    {% endif %}
                                 {% else %}
                                     {% if scenario.scenarioCharacters | length < 5 %}
                                         <a href="{{ path('user.play.candidate', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Demande à rejoindre la partie">Postule</a>
