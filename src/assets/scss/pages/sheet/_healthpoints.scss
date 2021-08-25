@@ -1,35 +1,15 @@
 .healthpoints{
     .health_info {
-        border: 2px $color-bg-alt solid;
+        border: 1px $color-bg-alt solid;
         height: 100px;
-        margin-bottom: 2%;
-        background-color: red;
-    }
-
-    .border_title{
-        border: #6b2b06 solid 1px;
+        margin: 0 1rem 1.5rem;
     }
 
     .vtitle{
-        text-align: center;
-        font-weight: bold;
-        color: white;
         background-color: darkgreen;
     }
 
     .subtitle{
-        text-align: center;
-        color: white;
         background-color: darkgreen;
     }
-
-    .data_case{
-        text-align: center;
-        height: 100%;
-        font-size: 1.5rem;
-        color: black;  
-        font-weight: bold;
-        font-family: candara;     
-    }
-
 }

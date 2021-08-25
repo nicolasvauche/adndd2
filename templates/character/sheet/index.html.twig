@@ -8,12 +8,7 @@
     <article class="aside">
         <section>
             <h1>{{ 'pages.user.characters.sheet.title' | trans | capitalize }}</h1>
-
-            {% include 'character/sheet/characteristics.html.twig' with {'character' : character} %} 
-            <br>
-            {% include 'character/sheet/healthpoints.html.twig' with {'character' : character} %}
-            <br>
-            {% include 'character/sheet/level.html.twig' with {'character' : character} %}
+            {% include 'character/sheet/' ~ character.game.slug ~ '/index.html.twig' with {'character' : character} %}
         </section>
 
         <aside>

@@ -71,9 +71,9 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
             ["Points de vie", "PV", 'Base'],
             ["Points de choc", "PC", 'Base'],
             ["Défense", "DEF", 'Base'],
-            ["Contact", "CNT", 'Base'],
-            ["Distance", "DIS", 'Base'],
-            ["Magique", "MAG", 'Base'],
+            ["Contact", "CNT", 'Attack'],
+            ["Distance", "DIS", 'Attack'],
+            ["Magique", "MAG", 'Attack'],
         ];
 
 

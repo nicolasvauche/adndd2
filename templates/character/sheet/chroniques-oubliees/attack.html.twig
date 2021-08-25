@@ -1,0 +1,23 @@
+<div class="attack app_grid three">
+    <div class="htitle">
+        Attaque
+    </div>
+    <div class="htitle">
+        Mod.
+    </div>
+    <div></div>
+</div>
+
+{% for characterCharacteristic in character.characterCharacteristics %}
+    {% if characterCharacteristic.characteristic.type == 'Attack' %}
+        <div class="attack app_grid three">
+            <div class="vtitle">
+                {{ characterCharacteristic.characteristic.name }}
+            </div>
+            <div class="border_title data_case">
+                {{ characterCharacteristic.base }}
+            </div>
+            <div class="border_title data_case"></div>
+        </div>
+    {% endif %}
+{% endfor %}

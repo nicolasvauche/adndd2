@@ -1,0 +1,27 @@
+{% for characterCharacteristic in character.characterCharacteristics %}
+    {% if characterCharacteristic.characteristic.shortname == 'LVL' %}
+        <div class="level app_grid two">
+            <div class="level vtitle">
+                {{ characterCharacteristic.characteristic.name }}
+            </div>
+            <div class="app_grid four">
+                <div {% if characterCharacteristic.base == 1 %} class="number" {% else %} class="data_case" {% endif %} >1</div>
+                <div {% if characterCharacteristic.base == 2 %} class="number" {% else %} class="data_case" {% endif %} >2</div>
+                <div {% if characterCharacteristic.base == 3 %} class="number" {% else %} class="data_case" {% endif %} >3</div>
+                <div {% if characterCharacteristic.base == 4 %} class="number" {% else %} class="data_case" {% endif %} >4</div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+{% for characterCharacteristic in character.characterCharacteristics %}
+    {% if characterCharacteristic.characteristic.shortname == 'DDV' %}
+        <div class="level app_grid two">
+            <div class="vtitle">
+                {{ characterCharacteristic.characteristic.name }}
+            </div>
+            <div class="border_title data_case">
+                d{{ characterCharacteristic.base }}
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
