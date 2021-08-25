@@ -14,6 +14,10 @@
         justify-content: center;
     }
 
+    &.on {
+        display: flex;
+    }
+
     .app_modal_box {
         position: relative;
         margin-top: 2rem;
@@ -54,7 +58,8 @@
     }
 
     .app_modal_body {
-        text-align: center;
+        // text-align: center;
+        color: $color-fg-primary;
 
         .app_modal_title {
             padding-bottom: 1rem;

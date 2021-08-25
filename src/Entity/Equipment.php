@@ -69,9 +69,15 @@ class Equipment
      */
     private $games;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Character::class, inversedBy="equipments")
+     */
+    private $characters;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
+        $this->characters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -210,6 +216,30 @@ class Equipment
         if ($this->games->removeElement($game)) {
             $game->removeEquipment($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Character[]
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Character $character): self
+    {
+        $this->characters->removeElement($character);
 
         return $this;
     }

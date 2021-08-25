@@ -1,0 +1,13 @@
+{% if myCharacter.name == 'MJ' %}
+    <a href="{{ path('play') }}" id="end" class="warning" title="Clôture la table de jeu">
+        <i class="fas fa-trophy"></i>
+        <br />
+        Fin
+    </a>
+{% endif %}
+
+<a href="{{ path('play') }}" id="quit" class="danger" title="Quitte la table de jeu">
+    <i class="fas fa-sign-out-alt"></i>
+    <br />
+    Quitte
+</a>

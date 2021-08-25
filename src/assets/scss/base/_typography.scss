@@ -108,6 +108,10 @@ dl {
     }
 }
 
+hr {
+    border-color: $color-bg-secondary;
+}
+
 /** Custom classes **/
 .mb_0 {
     margin-bottom: 0 !important;
@@ -119,4 +123,22 @@ dl {
 
 .fg_light {
     color: $color-bg-secondary !important;
+}
+
+.disabled {
+    color: rgba($color-fg-primary, 0.5);
+}
+
+.flex {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    &.between {
+        justify-content: space-between;
+    }
+
+    &.around {
+        justify-content: space-around;
+    }
 }

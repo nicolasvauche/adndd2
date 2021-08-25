@@ -9,6 +9,17 @@
         <section>
             <h1>{{ 'pages.play.title' | trans | capitalize }}</h1>
 
+            <!-- Flash messages -->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    {% if loop.first %}
+                        <div class="app_alert {{ label }}">
+                            {{ message | trans }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
             <div class="app_filters">
                 <h2>{{ 'pages.play.title2' | trans | capitalize }}</h2>
 
@@ -37,19 +48,33 @@
                                 <h5 class="app_grid_item_subtitle sub">{{ scenario.campaign.name }}</h5>
                             {% endif %}
                             <h4 class="app_grid_item_subtitle">{{ scenario.name }}</h4>
-                            <p class="app_grid_item_info">
-                                <strong>{{ scenario.startAt | date('d/m/Y H:i') }}</strong>
-                            </p>
+                        </div>
+
+                        <div>
                             <p class="app_grid_item_info excerpt">
                                 {{ scenario.shortDescription }}
                             </p>
-                        </div>
-                        {% if app.user %}
-                            <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
-                                <i class="fas fa-users"></i>
-                                <strong>{{ scenario.characters | length }}/5</strong>
+
+                            <p class="app_grid_item_infos flex around">
+                                <strong>
+                                    <i class="fas fa-users"></i>
+                                    {{ scenario.scenarioCharacters | length }}/5
+                                </strong>
+
+                                <strong>{{ scenario.startAt | date('d/m/Y H:i') }}</strong>
                             </p>
-                        {% endif %}
+
+                            {% if app.user %}
+                                <div class="app_grid_item_thumbnails">
+                                    {% for scenarioCharacter in scenario.scenarioCharacters %}
+                                        <p class="thumbnail {% if not scenarioCharacter.isAccepted %}disabled{% endif %}" title="{{ scenarioCharacter.personnage.fullname }}{% if not scenarioCharacter.isAccepted %} (en attente){% endif %}">
+                                            <img src="{{ asset('assets/images/characters/' ~ scenarioCharacter.personnage.avatar) }}" class="app_image thumbnail {% if scenarioCharacter.personnage.user == app.user %}active{% endif %}" alt="{{ scenarioCharacter.personnage.fullname }}">
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
                         <div class="app_grid_item_footer">
                             {% if app.user %}
                                 <span class="app_grid_item_footer_action">
@@ -60,13 +85,35 @@
                                     {% endif %}
                                 </span>
 
-                                {% if scenario.characters | length < 5 %}
-                                    <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
+                                {% set myCharacter = null %}
+                                {% set isAccepted = false %}
+                                {% for scenarioCharacter in scenario.scenarioCharacters %}
+                                    {% if scenarioCharacter.personnage.user.id == app.user.id %}
+                                        {% set myCharacter = scenarioCharacter.personnage %}
+                                        {% if scenarioCharacter.isAccepted %}
+                                            {% set isAccepted = true %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if scenario.user.id == app.user.id %}
+                                    {% set myCharacter = 'MJ' %}
+                                {% endif %}
+
+                                {% if myCharacter is not null %}
+                                    {% if isAccepted %}
+                                        <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue</a>
+                                    {% else %}
+                                        <span class="app_grid_item_footer_action">En attente</span>
+                                    {% endif %}
                                 {% else %}
-                                    <span class="app_grid_item_footer_action">Pleine</span>
+                                    {% if scenario.scenarioCharacters | length < 5 %}
+                                        <a href="{{ path('user.play.candidate', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Demande à rejoindre la partie">Postule</a>
+                                    {% else %}
+                                        <span class="app_grid_item_footer_action">Pleine</span>
+                                    {% endif %}
                                 {% endif %}
                             {% else %}
-                                <span class="app_grid_item_footer_action">
+                                <span class="app_grid_item_footer_action disabled">
                                     {% if scenario.isPrivate %}
                                         {{ 'play.game.visibility.private' | trans | capitalize }}
                                     {% else %}
@@ -81,201 +128,6 @@
                         </div>
                     </div>
                 {% endfor %}
-
-                {# <div class="game app_grid_item app_slider_item" data-gameid="2">
-                    <div class="app_grid_item_header">
-                        <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app_grid_item_image" />
-                        <h3 class="app_grid_item_title">Donjons & Dragons</h3>
-                        <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
-                        <p class="app_grid_item_info">
-                            <strong>24/07/2021 19:00</strong>
-                        </p>
-                        <p class="app_grid_item_info excerpt">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                        </p>
-                    </div>
-                    {% if app.user %}
-                        <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
-                            <i class="fas fa-users"></i>
-                            <strong>4/5</strong>
-                        </p>
-                    {% endif %}
-                    <div class="app_grid_item_footer">
-                        {% if app.user %}
-                            <span class="app_grid_item_footer_action">Publique</span>
-
-                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
-                        {% else %}
-                            <span class="app_grid_item_footer_action">Publique</span>
-
-                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                {{ 'pages.login.menu' | trans | capitalize }}
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="game app_grid_item app_slider_item" data-gameid="4">
-                    <div class="app_grid_item_header">
-                        <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app_grid_item_image" />
-                        <h3 class="app_grid_item_title">L'appel de Cthulhu</h3>
-                        <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
-                        <p class="app_grid_item_info">
-                            <strong>25/07/2021 19:23</strong>
-                        </p>
-                        <p class="app_grid_item_info excerpt">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                        </p>
-                    </div>
-                    {% if app.user %}
-                        <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
-                            <i class="fas fa-users"></i>
-                            <strong>3/5</strong>
-                        </p>
-                    {% endif %}
-                    <div class="app_grid_item_footer">
-                        {% if app.user %}
-                            <span class="app_grid_item_footer_action">Privée</span>
-
-                            <span class="app_grid_item_footer_action"><i class="fas fa-lock"></i></span>
-                        {% else %}
-                            <span class="app_grid_item_footer_action">Privée</span>
-
-                            <span class="app_grid_item_footer_action"><i class="fas fa-lock"></i></span>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="game app_grid_item app_slider_item" data-gameid="3">
-                    <div class="app_grid_item_header">
-                        <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" class="app_grid_item_image" />
-                        <h3 class="app_grid_item_title">Chroniques Oubliées</h3>
-                        <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
-                        <p class="app_grid_item_info">
-                            <strong>26/07/2021 13:42</strong>
-                        </p>
-                        <p class="app_grid_item_info excerpt">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                        </p>
-                    </div>
-                    {% if app.user %}
-                        <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
-                            <i class="fas fa-users"></i>
-                            <strong>1/5</strong>
-                        </p>
-                    {% endif %}
-                    <div class="app_grid_item_footer">
-                        {% if app.user %}
-                            <span class="app_grid_item_footer_action">Publique</span>
-
-                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
-                        {% else %}
-                            <span class="app_grid_item_footer_action">Publique</span>
-
-                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                {{ 'pages.login.menu' | trans | capitalize }}
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="game app_grid_item app_slider_item" data-gameid="4">
-                    <div class="app_grid_item_header">
-                        <img src="{{ asset('assets/images/games/cover_cth.png') }}" alt="L'appel de Cthulhu" class="app_grid_item_image" />
-                        <h3 class="app_grid_item_title">L'appel de Cthulhu</h3>
-                        <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
-                        <p class="app_grid_item_info">
-                            <strong>27/07/2021 08:00</strong>
-                        </p>
-                        <p class="app_grid_item_info excerpt">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                        </p>
-                    </div>
-                    {% if app.user %}
-                        <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
-                            <i class="fas fa-users"></i>
-                            <strong>5/5</strong>
-                        </p>
-                    {% endif %}
-                    <div class="app_grid_item_footer">
-                        {% if app.user %}
-                            <span class="app_grid_item_footer_action">Publique</span>
-
-                            <span class="app_grid_item_footer_action"><i class="fas fa-lock"></i></span>
-                        {% else %}
-                            <span class="app_grid_item_footer_action">Publique</span>
-
-                            <span class="app_grid_item_footer_action"><i class="fas fa-lock"></i></span>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="game app_grid_item app_slider_item" data-gameid="2">
-                    <div class="app_grid_item_header">
-                        <img src="{{ asset('assets/images/games/cover_add.png') }}" alt="Donjons & Dragons" class="app_grid_item_image" />
-                        <h3 class="app_grid_item_title">Donjons & Dragons</h3>
-                        <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
-                        <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
-                            <strong>28/07/2021 22:00</strong>
-                        </p>
-                        <p class="app_grid_item_info excerpt">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                        </p>
-                    </div>
-                    {% if app.user %}
-                        <p class="app_grid_item_info">
-                            <i class="fas fa-users"></i>
-                            <strong>2/5</strong>
-                        </p>
-                    {% endif %}
-                    <div class="app_grid_item_footer">
-                        {% if app.user %}
-                            <span class="app_grid_item_footer_action">Publique</span>
-
-                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
-                        {% else %}
-                            <span class="app_grid_item_footer_action">Publique</span>
-
-                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                {{ 'pages.login.menu' | trans | capitalize }}
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="game app_grid_item app_slider_item" data-gameid="3">
-                    <div class="app_grid_item_header">
-                        <img src="{{ asset('assets/images/games/cover_cob.png') }}" alt="Chroniques Oubliées" class="app_grid_item_image" />
-                        <h3 class="app_grid_item_title">Chroniques Oubliées</h3>
-                        <h4 class="app_grid_item_subtitle">Nom du scénario</h4>
-                        <p class="app_grid_item_info {% if app.user %}mb_0{% endif %}">
-                            <strong>30/07/2021 20:30</strong>
-                        </p>
-                        <p class="app_grid_item_info excerpt">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                        </p>
-                    </div>
-                    {% if app.user %}
-                        <p class="app_grid_item_info">
-                            <i class="fas fa-users"></i>
-                            <strong>2/5</strong>
-                        </p>
-                    {% endif %}
-                    <div class="app_grid_item_footer">
-                        {% if app.user %}
-                            <span class="app_grid_item_footer_action">Publique</span>
-
-                            <a href="#" class="app_grid_item_footer_action button cta" title="Rejoindre la partie">Rejoindre</a>
-                        {% else %}
-                            <span class="app_grid_item_footer_action">Publique</span>
-
-                            <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
-                                {{ 'pages.login.menu' | trans | capitalize }}
-                            </a>
-                        {% endif %}
-                    </div>
-                </div> #}
-
             </div>
         </section>
     </article>

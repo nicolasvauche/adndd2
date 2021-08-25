@@ -80,13 +80,13 @@ class Scenario
     private $campaign;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Character::class, inversedBy="scenarios")
+     * @ORM\OneToMany(targetEntity=ScenarioCharacter::class, mappedBy="scenario", orphanRemoval=true)
      */
-    private $characters;
+    private $scenarioCharacters;
 
     public function __construct()
     {
-        $this->characters = new ArrayCollection();
+        $this->scenarioCharacters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -227,25 +227,31 @@ class Scenario
     }
 
     /**
-     * @return Collection|Character[]
+     * @return Collection|ScenarioCharacter[]
      */
-    public function getCharacters(): Collection
+    public function getScenarioCharacters(): Collection
     {
-        return $this->characters;
+        return $this->scenarioCharacters;
     }
 
-    public function addCharacter(Character $character): self
+    public function addScenarioCharacter(ScenarioCharacter $scenarioCharacter): self
     {
-        if (!$this->characters->contains($character)) {
-            $this->characters[] = $character;
+        if (!$this->scenarioCharacters->contains($scenarioCharacter)) {
+            $this->scenarioCharacters[] = $scenarioCharacter;
+            $scenarioCharacter->setScenario($this);
         }
 
         return $this;
     }
 
-    public function removeCharacter(Character $character): self
+    public function removeScenarioCharacter(ScenarioCharacter $scenarioCharacter): self
     {
-        $this->characters->removeElement($character);
+        if ($this->scenarioCharacters->removeElement($scenarioCharacter)) {
+            // set the owning side to null (unless already changed)
+            if ($scenarioCharacter->getScenario() === $this) {
+                $scenarioCharacter->setScenario(null);
+            }
+        }
 
         return $this;
     }

@@ -22,6 +22,12 @@
         background-color: darkred;
     }
 
+    &.warning {
+        font-weight: bold;
+        color: $color-bg-secondary;
+        background-color: $color-orange;
+    }
+
     &.success {
         font-weight: bold;
         color: $color-bg-secondary;

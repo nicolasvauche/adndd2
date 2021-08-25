@@ -1,0 +1,40 @@
+{% if myCharacter.name != 'MJ' %}
+    <div class="character">
+        <a href="{{ path('user.characters.sheet', {'id': myCharacter.id}) }}" class="modal" title="Ta fiche perso" data-modal="character-{{ myCharacter.id }}">
+            <img src="{{ asset('assets/images/characters/' ~ myCharacter.avatar) }}" class="app_image" title="{{ myCharacter.fullname }}" />
+            <small>{{ myCharacter.name | length > 7 ? myCharacter.name | slice(0, 7) ~ '…' : myCharacter.name }}</small>
+        </a>
+    </div>
+    <div class="app_modal" id="character-{{ myCharacter.id }}">
+        <div class="app_modal_box">
+            <button class="app_button app_modal_close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="app_modal_body">
+                {% include 'character/sheet/modal.html.twig' with {'character': myCharacter} %}
+            </div>
+        </div>
+    </div>
+{% else %}
+    {% for scenarioCharacter in scenario.scenarioCharacters %}
+        <div class="character">
+            <a href="#" class="modal mb_0" title="Fiche perso de {{ scenarioCharacter.personnage.fullname }}" data-modal="character-{{ scenarioCharacter.personnage.id }}">
+                <img src="{{ asset('assets/images/characters/' ~ scenarioCharacter.personnage.avatar) }}" class="app_image" title="{{ scenarioCharacter.personnage.fullname }}" />
+                <small>{{ scenarioCharacter.personnage.name | length > 7 ? scenarioCharacter.personnage.name | slice(0, 7) ~ '…' : scenarioCharacter.personnage.name }}</small>
+            </a>
+            <a href="#" class="kick" title="Vire {{ scenarioCharacter.personnage.fullname }} de la table de jeu" data-characterid="{{ scenarioCharacter.personnage.id }}" data-charactername="{{ scenarioCharacter.personnage.fullname }}">
+                <i class="fas fa-sign-out-alt" data-characterid="{{ scenarioCharacter.personnage.id }}" data-charactername="{{ scenarioCharacter.personnage.fullname }}"></i>
+            </a>
+        </div>
+        <div class="app_modal" id="character-{{ scenarioCharacter.personnage.id }}">
+            <div class="app_modal_box">
+                <button class="app_button app_modal_close">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="app_modal_body">
+                    {% include 'character/sheet/modal.html.twig' with {'character': scenarioCharacter.personnage} %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

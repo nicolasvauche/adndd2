@@ -27,9 +27,9 @@
 
                                 <a href="{{ path('user.play.create', { 'gameId': game.id }) }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.play.create.title' | trans | capitalize }}">{{ 'pages.play.create.menu' | trans | capitalize }}</a>
                             {% else %}
-                                <span class="app_grid_item_footer_action">Les règles</span>
+                                <span class="app_grid_item_footer_action disabled" title="Connecte-toi pour voir les règles">Les règles</span>
 
-                                <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="{{ 'pages.login.title' | trans | capitalize }}">
+                                <a href="{{ path('app_login') }}" class="app_grid_item_footer_action button cta" title="Connecte-toi pour créer une table de jeu">
                                     {{ 'pages.login.menu' | trans | capitalize }}
                                 </a>
                             {% endif %}

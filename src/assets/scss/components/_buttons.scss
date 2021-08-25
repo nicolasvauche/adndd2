@@ -32,6 +32,25 @@
         }
     }
 
+    &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+
+        &:hover {
+            color: $color-fg-primary !important;
+            background-color: $color-bg-primary !important;
+            border: 2px solid $color-fg-primary !important;
+        }
+
+        &.cta{
+            &:hover {
+                color: $color-fg-primary !important;
+                background-color: $color-orange !important;
+                border: 2px solid $color-fg-primary !important;
+            }
+        }
+    }
+
     i {
         transition: color 0.3s ease-in-out;
     }

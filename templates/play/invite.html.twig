@@ -33,11 +33,11 @@
 
                 <div class="invited app_grid five">
                     {% set i = 0 %}
-                    {% for character in scenario.characters %}
-                        <div class="character app_grid_item" data-characterid="{{ character.id }}">
-                            <a href="#" class="guest_link" title="Enlève ce personnage" data-charactername="{{ character.name }}">
-                                <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" alt="{{ character.name }}" class="app_grid_item_image" data-charactername="{{ character.name }}" />
-                                <span class="app_grid_item_title" data-charactername="{{ character.name }}">{{ character.fullname }}</span>
+                    {% for scenarioCharacter in scenario.scenarioCharacters %}
+                        <div class="character app_grid_item {% if not scenarioCharacter.isAccepted %}off{% endif %}" data-characterid="{{ scenarioCharacter.personnage.id }}">
+                            <a href="#" class="guest_link" title="{% if not scenarioCharacter.isAccepted %}Accepte / {% endif %}Enlève ce personnage" data-charactername="{{ scenarioCharacter.personnage.name }}">
+                                <img src="{{ asset('assets/images/characters/' ~ scenarioCharacter.personnage.avatar) }}" alt="{{ scenarioCharacter.personnage.name }}" class="app_grid_item_image" data-charactername="{{ scenarioCharacter.personnage.name }}" />
+                                <span class="app_grid_item_title" data-charactername="{{ scenarioCharacter.personnage.name }}">{{ scenarioCharacter.personnage.fullname }}</span>
                             </a>
                         </div>
                         {% set i = i + 1 %}
@@ -56,7 +56,7 @@
                 <div class="app_form_group">
                     <p class="info">
                         <i class="far fa-hand-point-up"></i>
-                        Clique sur une invitation pour l'enlever
+                        Clique sur une invitation pour l'enlever ou l'accepter
                     </p>
                 </div>
 
@@ -171,6 +171,16 @@
                 xhttp.send();
             }
 
+            const acceptcharacter = character => {
+                const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
+
+                for (guestDiv of guestsDiv) {
+                    if (parseInt(guestDiv.dataset.characterid) === parseInt(character.id)) {
+                        guestDiv.classList.remove('off')
+                    }
+                }
+            }
+
             characterAddInput.addEventListener('input', event => {
                 const characterName = characterAddInput.value
 
@@ -221,16 +231,34 @@
             for (guestLink of guestLinks) {
                 guestLink.addEventListener('click', event => {
                     event.preventDefault()
-                    if (window.confirm('Veux-tu VRAIMENT virer ce personnage de la table ?')) {
+                    let div = event.target
+
+                    if (div.tagName === 'IMG' || div.tagName === 'SPAN') {
+                        div = div.parentNode.parentNode
+                    }
+
+                    if (div.classList.contains('off')) {
                         const xhttp = new XMLHttpRequest();
                         xhttp.onreadystatechange = function () {
                             if (this.readyState === 4 && this.status === 200) {
-                                deletecharacter(JSON.parse(this.responseText)[0])
+                                acceptcharacter(JSON.parse(this.responseText)[0])
                             }
                         }
 
-                        xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.id }} +'/' + event.target.dataset.charactername + '/1', true)
+                        xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.id }} +'/' + event.target.dataset.charactername + '/0/1', true)
                         xhttp.send();
+                    } else {
+                        if (window.confirm('Veux-tu VRAIMENT virer ce personnage de la table ?')) {
+                            const xhttp = new XMLHttpRequest();
+                            xhttp.onreadystatechange = function () {
+                                if (this.readyState === 4 && this.status === 200) {
+                                    deletecharacter(JSON.parse(this.responseText)[0])
+                                }
+                            }
+
+                            xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.id }} +'/' + event.target.dataset.charactername + '/1', true)
+                            xhttp.send();
+                        }
                     }
                 })
             }
