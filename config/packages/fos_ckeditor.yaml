@@ -1,0 +1,11 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+fos_ck_editor:
+  configs:
+    default:
+      toolbar: [ [ "Bold", "Italic", "Strike", "-", "RemoveFormat" ], "-", ['Link', 'Unlink'], "-", ['NumberedList', 'BulletedList'], "-", ['Undo', 'Redo'] , "-" , [ "Source" ] ]
+      uiColor: "#ffeaae"
+      removePlugins: 'elementspath, easyimage, cloudservices, exportpdf'
+      resize_enabled: false
+twig:
+  form_themes:
+    - '@FOSCKEditor/Form/ckeditor_widget.html.twig'

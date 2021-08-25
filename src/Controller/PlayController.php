@@ -102,7 +102,7 @@ class PlayController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $scenario->setStatus('waiting')
-                ->setDescription('<p>' . $scenario->getShortDescription() . '</p>')
+                ->setDescription($scenario->getShortDescription())
                 ->setGame($game)
                 ->setUser($this->getUser());
             $manager->persist($scenario);

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Character;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -111,20 +112,22 @@ class CharacterType extends AbstractType
                         'placeholder' => 'character.guidingHand.placeholder',
                     ],
                 ])
-            ->add('description', TextareaType::class,
+            ->add('description', CKEditorType::class,
                 [
                     'required' => false,
                     'label' => 'character.description.label',
+                    'config_name' => 'default',
                     'attr' => [
                         'class' => 'app_form_control',
                         'placeholder' => 'character.description.placeholder',
                         'rows' => 5,
                     ],
                 ])
-            ->add('distinctive', TextareaType::class,
+            ->add('distinctive', CKEditorType::class,
                 [
                     'required' => false,
                     'label' => 'character.distinctive.label',
+                    'config_name' => 'default',
                     'attr' => [
                         'class' => 'app_form_control',
                         'placeholder' => 'character.distinctive.placeholder',
@@ -149,20 +152,22 @@ class CharacterType extends AbstractType
                         'placeholder' => 'character.occupation.placeholder',
                     ],
                 ])
-            ->add('story', TextareaType::class,
+            ->add('story', CKEditorType::class,
                 [
                     'required' => false,
                     'label' => 'character.story.label',
+                    'config_name' => 'default',
                     'attr' => [
                         'class' => 'app_form_control',
                         'placeholder' => 'character.story.placeholder',
                         'rows' => 5,
                     ],
                 ])
-            ->add('notes', TextareaType::class,
+            ->add('notes', CKEditorType::class,
                 [
                     'required' => false,
                     'label' => 'character.notes.label',
+                    'config_name' => 'default',
                     'attr' => [
                         'class' => 'app_form_control',
                         'placeholder' => 'character.notes.placeholder',
