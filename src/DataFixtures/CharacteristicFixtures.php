@@ -13,10 +13,50 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
-    {
+    {   
+         /**
+         * common characteristic
+         */
+
+        $commonCharacteristics = [
+            ["Force", "FOR", 'Type'],
+            ["Constitution", "CON", 'Type'],
+            ["Intelligence", "INT", 'Type'],
+            ["Dexterité", "DEX", 'Type'],
+        ];
+
+        foreach ($commonCharacteristics as list($a, $b, $c)) {
+            $characteristic = new Characteristic();
+            $characteristic->setName($a)
+                        ->setShortName($b)
+                        ->setType($c);
+            $manager->persist($characteristic);
+
+            $gameCharacteristic = new GameCharacteristic();
+            $gameCharacteristic->setGame($this->getReference('game1'))
+                    ->setCharacteristic($characteristic)
+                    ->setBase('0');
+            $manager->persist( $gameCharacteristic );
+
+            $gameCharacteristic = new GameCharacteristic();
+            $gameCharacteristic->setGame($this->getReference('game2'))
+                    ->setCharacteristic($characteristic)
+                    ->setBase('0');
+            $manager->persist( $gameCharacteristic );
+
+            for ($i = 1; $i<=6; $i++){
+                $charactercharacteristic = new CharacterCharacteristic();
+                $charactercharacteristic->setCharacter($this->getReference('character'.$i))
+                        ->setCharacteristic($characteristic)
+                        ->setBase('0');
+                $manager->persist( $charactercharacteristic );                
+            }
+        }
+        
         /**
          * Elric characteristic
          */
+
         $characteristics = [
             ["Modificateur aux dégâts", "DMG", 'Base'],
             ["Jet d'Idée", "JIDE", 'Base'],
@@ -24,12 +64,8 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
             ["Jet de Charisme", "JCHAR", 'Base'],
             ["Jet de Dexterité", "JDEX", 'Base'],
             ["Point de vie", "HP", 'Base'],
-            ["Force", "FOR", 'Type'],
-            ["Constitution", "CON", 'Type'],
             ["Taille", "TAI", 'Type'],
-            ["Intelligence", "INT", 'Type'],
             ["Pouvoir", "POU", 'Type'],
-            ["Dexterité", "DEX", 'Type'],
             ["Apparence", "APP", 'Type'],
         ];
 
@@ -54,16 +90,14 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
                 $manager->persist( $charactercharacteristic );                
             }
         }
+        
 /* -------------------------------------------------------------------------------------------------------------------------- */
 
         /**
          * Chroniques oubliées characteristic
          */
+
         $characteristics = [
-            ["Force", "FOR", 'Type'],
-            ["Dextérité", "DEX", 'Type'],
-            ["Constitution", "CON", 'Type'],
-            ["Intelligence", "INT", 'Type'],
             ["Perception", "PER", 'Type'],
             ["Charisme", "CHA", 'Type'],
             ["Niveau", "LVL", 'Base'],
@@ -71,11 +105,10 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
             ["Points de vie", "PV", 'Base'],
             ["Points de choc", "PC", 'Base'],
             ["Défense", "DEF", 'Base'],
-            ["Contact", "CNT", 'Base'],
-            ["Distance", "DIS", 'Base'],
-            ["Magique", "MAG", 'Base'],
+            ["Contact", "CNT", 'Attack'],
+            ["Distance", "DIS", 'Attack'],
+            ["Magique", "MAG", 'Attack'],
         ];
-
 
         foreach ($characteristics as list($a, $b, $c)) {
             $i = 7;
@@ -97,6 +130,7 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
         /**
          * CO character skills
          */
+
         $tabgamers = array('character7', 'character8', 'character9', 'character10', 'character11', 'character12');
         $tab1 = array("10", "17", "13", "12", "10", "13", "1", "10", "11", "3", "13", "1", "4", "1");
         $tab2 = array("15", "12", "15", "10", "12", "11", "1", "10", "12", "2", "11", "2", "3", "0");

@@ -48,6 +48,19 @@ class UserFixtures
             ->setActivatedAt(new \DateTime());
         $manager->persist($matt);
 
+        $julien = new User();
+        $julien->setRegisterId('1123785')
+            ->setFirstName('Julien')
+            ->setLastName('Vasse')
+            ->setPseudo('Icar45')
+            ->setEmail('julien.vasse87@outlook.fr')
+            ->setPassword($this->encoder->encodePassword($julien, 'julien'))
+            ->setRoles(['ROLE_USER'])
+            ->setIsActive(true)
+            ->setGender('Mr')
+            ->setActivatedAt(new \DateTime());
+        $manager->persist($julien);
+
         // Guest account
         $dom = new User();
         $dom->setFirstName('Dominique')
