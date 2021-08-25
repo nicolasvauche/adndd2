@@ -1,25 +1,25 @@
 {% for characterCharacteristic in character.characterCharacteristics %}
     {% if characterCharacteristic.characteristic.shortname == 'PV' %}
-        <div class="containerpdv">
-            <div class="pdv">
-                <div>
+        <div class="healthpoints app_grid three">
+            <div>
+                <div class="vtitle">
                     {{ characterCharacteristic.characteristic.shortname }}
                 </div>
-                <div class="namepdv">
+                <div class="subtitle">
                     {{ characterCharacteristic.characteristic.name }}
                 </div>
             </div>
-            <div class="valeurpdv">
+            <div class="border_title data_case">
                 {{ characterCharacteristic.base }}
             </div>
-            <div class="valeurpdv"></div>
+            <div class="border_title data_case"></div>
         </div>
     {% endif %}
 {% endfor %}
 
-<div class="infosection">
+<div class="healthpoints health_info">
     Points de vie restants:
 </div>
-<div class="infosection">
+<div class="healthpoints health_info">
     Blessures graves:
 </div>

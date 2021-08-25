@@ -1,42 +1,34 @@
-.titresection { 
-    font-size: 20px;
-    font-weight: bold;
-    color: $color-bg-alt; 
-    display: grid;
-    text-align: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    gap: 5px 5%;
-    padding-bottom: 2%;
-}
+.characteristics{
+    .border_title{
+        border: #6b2b06 solid 1px;
+    }
 
-.containercarac { 
-    font-weight: bold;
-    display: grid;
-    text-align: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    gap: 5px 5%;
-    grid-template-areas: "carac" "valeur" "valeur" "valeur";
-}
-    
-.carac {
-    background-color: $color-bg-alt;
-    color: $color-bg-primary;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    align-items: center;
-    grid-template-areas: "shortname" "name";
-    width: auto;
-}
+    .htitle{
+        text-align: center;
+        color: #6b2b06;
+        font-weight: bold;
+    }
 
-.name {
-    font-weight: normal;
-}
+    .vtitle{
+        text-align: center;
+        font-weight: bold;
+        color: white;
+        background-color: #6b2b06;
+    }
 
-.valeur {
-    font-family: Candara;
-    font-size: 25px;
-    border: 2px $color-bg-alt solid;
-}  
+    .subtitle{
+        text-align: center;
+        color: white;
+        background-color: #6b2b06;
+    }
+
+    .data_case{
+        text-align: center;
+        height: 100%;
+        font-size: 1.5rem;
+        color: black;  
+        font-weight: bold;
+        font-family: candara;     
+    }
+
+}
