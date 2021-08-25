@@ -402,8 +402,12 @@ class PlayController extends AbstractController
     /**
      * @Route("/table-de-jeu/{id}", name="play.scenario")
      */
-    public function scenario(Scenario $scenario): Response
+    public function scenario(?Scenario $scenario): Response
     {
+        if (!$scenario) {
+            return $this->redirectToRoute('play');
+        }
+
         $myCharacter = null;
 
         foreach ($scenario->getScenarioCharacters() as $scenarioCharacter) {

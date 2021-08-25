@@ -119,9 +119,13 @@ EOF
          */
         $diceset1 = new Diceset();
         $diceset1->setName($gameSystem1->getName())
-            ->addGameSystem($gameSystem1)
-            ->addGameSystem($gameSystem2);
+            ->addGameSystem($gameSystem1);
         $manager->persist($diceset1);
+
+        $diceset2 = new Diceset();
+        $diceset2->setName($gameSystem2->getName())
+            ->addGameSystem($gameSystem2);
+        $manager->persist($diceset2);
 
         /**
          * Default Dices
@@ -164,7 +168,8 @@ EOF
             $newDice = new Dice();
             $newDice->setName($dice['name'])
                 ->setFaces($dice['faces'])
-                ->addDiceset($diceset1);
+                ->addDiceset($diceset1)
+                ->addDiceset($diceset2);
             $manager->persist($newDice);
         }
 
