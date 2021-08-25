@@ -51,9 +51,9 @@
                         </div>
 
                         <div>
-                            <p class="app_grid_item_info excerpt">
-                                {{ scenario.shortDescription }}
-                            </p>
+                            <div class="app_grid_item_info excerpt">
+                                {{ scenario.shortDescription | raw }}
+                            </div>
 
                             <p class="app_grid_item_infos flex around">
                                 <strong>

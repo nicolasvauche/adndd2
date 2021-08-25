@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Campaign;
 use App\Entity\Scenario;
 use App\Repository\CampaignRepository;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -47,20 +48,22 @@ class ScenarioType extends AbstractType
                         'placeholder' => 'play.game.name.placeholder',
                     ],
                 ])
-            ->add('shortDescription', TextareaType::class,
+            ->add('shortDescription', CKEditorType::class,
                 [
                     'required' => false,
                     'label' => 'play.game.shortDescription.label',
+                    'config_name' => 'default',
                     'attr' => [
                         'class' => 'app_form_control',
                         'placeholder' => 'play.game.shortDescription.placeholder',
                         'rows' => 5,
                     ],
                 ])
-            ->add('description', TextareaType::class,
+            ->add('description', CKEditorType::class,
                 [
                     'required' => false,
                     'label' => 'play.game.description.label',
+                    'config_name' => 'default',
                     'attr' => [
                         'class' => 'app_form_control',
                         'placeholder' => 'play.game.description.placeholder',
