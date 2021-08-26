@@ -100,7 +100,7 @@
                                 {% endif %}
 
                                 {% if myCharacter is not null %}
-                                    {% if isAccepted %}
+                                    {% if isAccepted or myCharacter == 'MJ' %}
                                         <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue</a>
                                     {% else %}
                                         <span class="app_grid_item_footer_action">En attente</span>
