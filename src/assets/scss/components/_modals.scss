@@ -4,6 +4,7 @@
     top: 0;
     left: 0;
     z-index: 9999;
+    overflow-y: auto;
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -21,6 +22,7 @@
     .app_modal_box {
         position: relative;
         margin-top: 2rem;
+        margin-bottom: 2rem;
         padding: 2rem 1rem;
         width: calc(100% - 4rem);
         background-color: $color-bg-secondary;

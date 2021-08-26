@@ -159,13 +159,14 @@ EOF
         $dice5 = new Dice();
         $dice5->setName('D12')
             ->setFaces(12)
-            ->addDiceset($diceset1);
+            ->addDiceset($diceset1)
+            ->addDiceset($diceset2);
         $manager->persist($dice5);
 
         $dice6 = new Dice();
         $dice6->setName('D20')
-            ->setFaces(4)
-            ->addDiceset($diceset2);
+            ->setFaces(20)
+            ->addDiceset($diceset1);
         $manager->persist($dice6);
 
         $dice7 = new Dice();

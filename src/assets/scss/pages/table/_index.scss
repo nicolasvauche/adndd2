@@ -150,12 +150,36 @@
                         }
 
                         .dices {
-                            display: grid;
-                            grid-template-columns: repeat(6, 1fr);
-                            grid-gap: 0.5rem;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
 
                             a {
                                 margin: 0;
+                                transform: rotate3d(0, 0, 0, 0deg) scale(0.75);
+                                transition: all 0.2s ease;
+
+                                @include respond(sm) {
+                                    margin: 0 0.5rem;
+                                }
+
+                                &:nth-child(1n) {
+                                    &:hover {
+                                        transform: rotate3d(1, 1, 1, 15deg) scale(1);
+                                    }
+                                }
+
+                                &:nth-child(2n) {
+                                    &:hover {
+                                        transform: rotate3d(-1, 2, 1, 15deg) scale(1);
+                                    }
+                                }
+
+                                &:nth-child(3n) {
+                                    &:hover {
+                                        transform: rotate3d(1, -1, -1, 15deg);
+                                    }
+                                }
                             }
                         }
                     }
