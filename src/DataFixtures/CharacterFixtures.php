@@ -70,12 +70,8 @@ class CharacterFixtures extends Fixture implements OrderedFixtureInterface
                 '', '', '200', 'game2'],
         ];
         $z = 0;
-        $zz = 1;
         foreach ($tabCharac as list($a, $b, $c, $d, $e, $f, $g, $h, $i, $j, $k, $l, $m, $n, $o, $p)) {
             $z++;
-            if ($zz > 4) {
-                $zz = 1;
-            }
             $character = new Character();
             $character->setName($a)
                 ->setAvatar($b)
@@ -95,7 +91,14 @@ class CharacterFixtures extends Fixture implements OrderedFixtureInterface
                 ->setGame($this->getReference($p));
             $manager->persist($character);
             $this->addReference('character' . $z, $character);
+        }
 
+        $zz = 1;
+        foreach ($tabCharac as list($a, $b, $c, $d, $e, $f, $g, $h, $i, $j, $k, $l, $m, $n, $o, $p)) {
+            $z++;
+            if ($zz > 4) {
+                $zz = 1;
+            }
             $playerCharacter = new Character();
             $playerCharacter->setName($a)
                 ->setAvatar($b)
@@ -115,6 +118,7 @@ class CharacterFixtures extends Fixture implements OrderedFixtureInterface
                 ->setGame($this->getReference($p))
                 ->setUser($this->getReference('user' . $zz));
             $manager->persist($playerCharacter);
+            $this->addReference('character' . $z, $playerCharacter);
 
             $zz++;
         }

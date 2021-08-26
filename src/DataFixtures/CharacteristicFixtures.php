@@ -13,8 +13,8 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
-    {   
-         /**
+    {
+        /**
          * common characteristic
          */
 
@@ -28,31 +28,31 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
         foreach ($commonCharacteristics as list($a, $b, $c)) {
             $characteristic = new Characteristic();
             $characteristic->setName($a)
-                        ->setShortName($b)
-                        ->setType($c);
+                ->setShortName($b)
+                ->setType($c);
             $manager->persist($characteristic);
 
             $gameCharacteristic = new GameCharacteristic();
             $gameCharacteristic->setGame($this->getReference('game1'))
-                    ->setCharacteristic($characteristic)
-                    ->setBase('0');
-            $manager->persist( $gameCharacteristic );
+                ->setCharacteristic($characteristic)
+                ->setBase('0');
+            $manager->persist($gameCharacteristic);
 
             $gameCharacteristic = new GameCharacteristic();
             $gameCharacteristic->setGame($this->getReference('game2'))
+                ->setCharacteristic($characteristic)
+                ->setBase('0');
+            $manager->persist($gameCharacteristic);
+
+            for ($i = 1; $i <= 24; $i++) {
+                $charactercharacteristic = new CharacterCharacteristic();
+                $charactercharacteristic->setCharacter($this->getReference('character' . $i))
                     ->setCharacteristic($characteristic)
                     ->setBase('0');
-            $manager->persist( $gameCharacteristic );
-
-            for ($i = 1; $i<=6; $i++){
-                $charactercharacteristic = new CharacterCharacteristic();
-                $charactercharacteristic->setCharacter($this->getReference('character'.$i))
-                        ->setCharacteristic($characteristic)
-                        ->setBase('0');
-                $manager->persist( $charactercharacteristic );                
+                $manager->persist($charactercharacteristic);
             }
         }
-        
+
         /**
          * Elric characteristic
          */
@@ -72,26 +72,26 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
         foreach ($characteristics as list($a, $b, $c)) {
             $characteristic = new Characteristic();
             $characteristic->setName($a)
-                        ->setShortName($b)
-                        ->setType($c);
+                ->setShortName($b)
+                ->setType($c);
             $manager->persist($characteristic);
 
             $gameCharacteristic = new GameCharacteristic();
             $gameCharacteristic->setGame($this->getReference('game1'))
+                ->setCharacteristic($characteristic)
+                ->setBase('0');
+            $manager->persist($gameCharacteristic);
+
+            for ($i = 1; $i <= 6; $i++) {
+                $charactercharacteristic = new CharacterCharacteristic();
+                $charactercharacteristic->setCharacter($this->getReference('character' . $i))
                     ->setCharacteristic($characteristic)
                     ->setBase('0');
-            $manager->persist( $gameCharacteristic );
-
-            for ($i = 1; $i<=6; $i++){
-                $charactercharacteristic = new CharacterCharacteristic();
-                $charactercharacteristic->setCharacter($this->getReference('character'.$i))
-                        ->setCharacteristic($characteristic)
-                        ->setBase('0');
-                $manager->persist( $charactercharacteristic );                
+                $manager->persist($charactercharacteristic);
             }
         }
-        
-/* -------------------------------------------------------------------------------------------------------------------------- */
+
+        /* -------------------------------------------------------------------------------------------------------------------------- */
 
         /**
          * Chroniques oubliées characteristic
@@ -114,16 +114,16 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
             $i = 7;
             $characteristic = new Characteristic();
             $characteristic->setName($a)
-                        ->setShortName($b)
-                        ->setType($c);
+                ->setShortName($b)
+                ->setType($c);
             $tabCharCO[] = $characteristic;
             $manager->persist($characteristic);
 
             $gameCharacteristic = new GameCharacteristic();
             $gameCharacteristic->setGame($this->getReference('game2'))
-                    ->setCharacteristic($characteristic)
-                    ->setBase('0');
-            $manager->persist( $gameCharacteristic );
+                ->setCharacteristic($characteristic)
+                ->setBase('0');
+            $manager->persist($gameCharacteristic);
 
         }
 
@@ -147,60 +147,58 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
         $tab16 = array("0", "1", "0", "3", "2", "0");
 
         $i = 0;
-        foreach ($tabgamers as $key)
-        {            
+        foreach ($tabgamers as $key) {
             $j = 0;
-            foreach ($tabCharCO as $value)
-            {
-                
+            foreach ($tabCharCO as $value) {
+
                 $charactercharacteristic = new CharacterCharacteristic();
                 $charactercharacteristic->setCharacter($this->getReference($key));
                 $charactercharacteristic->setCharacteristic($value);
-        
+
                 switch ($i) {
                     case 0:
-                            $charactercharacteristic->setBase($tab1[$j]);
-                            if ($j<6){
-                                $charactercharacteristic->setModifyer($tab11[$j]);
-                            } 
+                        $charactercharacteristic->setBase($tab1[$j]);
+                        if ($j < 6) {
+                            $charactercharacteristic->setModifyer($tab11[$j]);
+                        }
                         break;
                     case 1:
-                            $charactercharacteristic->setBase($tab2[$j]);
-                            if ($j<6){
-                                $charactercharacteristic->setModifyer($tab12[$j]);
-                            }  
+                        $charactercharacteristic->setBase($tab2[$j]);
+                        if ($j < 6) {
+                            $charactercharacteristic->setModifyer($tab12[$j]);
+                        }
                         break;
                     case 2:
-                            $charactercharacteristic->setBase($tab3[$j]); 
-                            if ($j<6){
-                                $charactercharacteristic->setModifyer($tab13[$j]);
-                            }              
+                        $charactercharacteristic->setBase($tab3[$j]);
+                        if ($j < 6) {
+                            $charactercharacteristic->setModifyer($tab13[$j]);
+                        }
                         break;
                     case 3:
-                            $charactercharacteristic->setBase($tab4[$j]); 
-                            if ($j<6){
-                                $charactercharacteristic->setModifyer($tab14[$j]);
-                            }   
+                        $charactercharacteristic->setBase($tab4[$j]);
+                        if ($j < 6) {
+                            $charactercharacteristic->setModifyer($tab14[$j]);
+                        }
                         break;
                     case 4:
-                            $charactercharacteristic->setBase($tab5[$j]);
-                            if ($j<6){
-                                $charactercharacteristic->setModifyer($tab15[$j]);
-                            }   
+                        $charactercharacteristic->setBase($tab5[$j]);
+                        if ($j < 6) {
+                            $charactercharacteristic->setModifyer($tab15[$j]);
+                        }
                         break;
                     case 5:
-                            $charactercharacteristic->setBase($tab6[$j]); 
-                            if ($j<6){
-                                $charactercharacteristic->setModifyer($tab16[$j]);
-                            } 
+                        $charactercharacteristic->setBase($tab6[$j]);
+                        if ($j < 6) {
+                            $charactercharacteristic->setModifyer($tab16[$j]);
+                        }
                         break;
-                }            
-                $j++;    
+                }
+                $j++;
 
-                $manager->persist( $charactercharacteristic );
+                $manager->persist($charactercharacteristic);
             }
-            $i++;       
-        }              
+            $i++;
+        }
         $manager->flush();
     }
 
