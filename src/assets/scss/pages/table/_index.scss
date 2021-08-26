@@ -30,8 +30,7 @@
                 }
 
                 #visio {
-                    width: calc(100% - 2rem);
-                    padding: 1rem;
+                    width: 100%;
                     color: $color-bg-primary;
                     background-color: $color-black;
                     box-shadow: inset 4px 4px 16px #000000;
@@ -63,14 +62,14 @@
 
                     &.on {
                         padding-left: 1.75rem;
-                        flex: 0 0 80%;
+                        flex: 0 0 90%;
 
                         @include respond(sm) {
-                            flex: 0 0 50%;
+                            flex: 0 0 80%;
                         }
 
                         @include respond(md) {
-                            flex: 0 0 30%;
+                            flex: 0 0 45%;
                         }
 
                         &.player {
@@ -88,9 +87,13 @@
 
                     & > .top {
                         display: grid;
-                        grid-template-columns: repeat(4, 1fr);
+                        grid-template-columns: repeat(5, 1fr);
                         grid-gap: 0.25rem;
                         justify-content: center;
+
+                        @include respond(sm) {
+
+                        }
                     }
 
                     &.player {
@@ -125,9 +128,15 @@
                             & .modal {
                                 img {
                                     margin-bottom: 0.25rem;
-                                    height: 5rem;
+                                    width: 4rem;
+                                    height: 4rem;
                                     object-fit: cover;
                                     object-position: top;
+
+                                    @include respond(sm) {
+                                        width: 6rem;
+                                        height: 6rem;
+                                    }
                                 }
                             }
                         }
