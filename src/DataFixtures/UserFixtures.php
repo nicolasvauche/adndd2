@@ -47,6 +47,7 @@ class UserFixtures
             ->setIsActive(true)
             ->setActivatedAt(new \DateTime());
         $manager->persist($matt);
+        $this->addReference('user2', $matt);
 
         $julien = new User();
         $julien->setRegisterId('1123785')
@@ -60,6 +61,7 @@ class UserFixtures
             ->setGender('Mr')
             ->setActivatedAt(new \DateTime());
         $manager->persist($julien);
+        $this->addReference('user3', $julien);
 
         // Guest account
         $dom = new User();
@@ -71,6 +73,7 @@ class UserFixtures
             ->setRoles(['ROLE_USER'])
             ->setIsActive(true);
         $manager->persist($dom);
+        $this->addReference('user4', $dom);
 
         $manager->flush();
     }
