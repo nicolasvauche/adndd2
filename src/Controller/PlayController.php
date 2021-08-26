@@ -286,39 +286,69 @@ class PlayController extends AbstractController
             ->where('c.name LIKE :characterName')
             ->orWhere('c.surname LIKE :characterName')
             ->orWhere("CONCAT(c.name, ' ' , c.surname) LIKE :characterName")
+            ->orWhere("CONCAT(u.firstname, ' ', u.lastname) LIKE :characterName")
+            ->orWhere('u.pseudo LIKE :characterName')
             ->andWhere('c.isPremade = 0')
             ->andWhere('c.game = :gameId')
             ->setParameter('characterName', '%' . $characterName . '%')
             ->setParameter('gameId', $scenario->getGame()->getId())
+            ->join('c.user', 'u')
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getResult();
 
         if ($character) {
-            if ($character->getUser()->getId() !== $this->getUser()->getId()) {
-                if ($deleteMode) {
-                    foreach ($scenario->getScenarioCharacters() as $scenarioCharacter) {
-                        if ($scenarioCharacter->getPersonnage()->getId() === $character->getId()) {
-                            /*$scenario->addCharacter($character);
-                            $manager->persist($scenario);
-                            $manager->flush();*/
+            if (is_array($character)) {
+                foreach ($character as $char) {
+                    if ($char->getUser()->getId() !== $this->getUser()->getId()) {
+                        if ($deleteMode) {
+                            $json[] = [
+                                [
+                                    'id' => $char->getId(),
+                                    'fullname' => $char->getFullname(),
+                                    'avatar' => $char->getAvatar(),
+                                    'username' => $char->getUser()->getFullname(),
+                                ],
+                            ];
+                        } else {
+                            if ($acceptMode) {
+                                $scenarioCharacter = $this->getDoctrine()->getRepository(ScenarioCharacter::class)->findOneBy(['personnage' => $char]);
+                                $scenarioCharacter->setIsAccepted(true);
+                                $manager->persist($scenarioCharacter);
+                                $manager->flush();
+
+                                $json[] = [
+                                    [
+                                        'id' => $char->getId(),
+                                        'fullname' => $char->getFullname(),
+                                        'avatar' => $char->getAvatar(),
+                                        'username' => $char->getUser()->getFullname(),
+                                    ],
+                                ];
+                            } else {
+                                $playerExists = false;
+                                foreach ($scenario->getScenarioCharacters() as $scenarioCharacter) {
+                                    if ($scenarioCharacter->getPersonnage()->getId() === $char->getId()) {
+                                        $playerExists = true;
+                                    }
+                                }
+
+                                if (!$playerExists) {
+                                    $json[] = [
+                                        [
+                                            'id' => $char->getId(),
+                                            'fullname' => $char->getFullname(),
+                                            'avatar' => $char->getAvatar(),
+                                            'username' => $char->getUser()->getFullname(),
+                                        ],
+                                    ];
+                                }
+                            }
                         }
                     }
-
-                    $json = [
-                        [
-                            'id' => $character->getId(),
-                            'fullname' => $character->getFullname(),
-                            'avatar' => $character->getAvatar(),
-                            'username' => $character->getUser()->getFullname(),
-                        ],
-                    ];
-                } else {
-                    if ($acceptMode) {
-                        $scenarioCharacter = $this->getDoctrine()->getRepository(ScenarioCharacter::class)->findOneBy(['personnage' => $character]);
-                        $scenarioCharacter->setIsAccepted(true);
-                        $manager->persist($scenarioCharacter);
-                        $manager->flush();
-
+                }
+            } else {
+                if ($character->getUser()->getId() !== $this->getUser()->getId()) {
+                    if ($deleteMode) {
                         $json = [
                             [
                                 'id' => $character->getId(),
@@ -328,14 +358,12 @@ class PlayController extends AbstractController
                             ],
                         ];
                     } else {
-                        $playerExists = false;
-                        foreach ($scenario->getScenarioCharacters() as $scenarioCharacter) {
-                            if ($scenarioCharacter->getPersonnage()->getId() === $character->getId()) {
-                                $playerExists = true;
-                            }
-                        }
+                        if ($acceptMode) {
+                            $scenarioCharacter = $this->getDoctrine()->getRepository(ScenarioCharacter::class)->findOneBy(['personnage' => $character]);
+                            $scenarioCharacter->setIsAccepted(true);
+                            $manager->persist($scenarioCharacter);
+                            $manager->flush();
 
-                        if (!$playerExists) {
                             $json = [
                                 [
                                     'id' => $character->getId(),
@@ -344,6 +372,24 @@ class PlayController extends AbstractController
                                     'username' => $character->getUser()->getFullname(),
                                 ],
                             ];
+                        } else {
+                            $playerExists = false;
+                            foreach ($scenario->getScenarioCharacters() as $scenarioCharacter) {
+                                if ($scenarioCharacter->getPersonnage()->getId() === $character->getId()) {
+                                    $playerExists = true;
+                                }
+                            }
+
+                            if (!$playerExists) {
+                                $json = [
+                                    [
+                                        'id' => $character->getId(),
+                                        'fullname' => $character->getFullname(),
+                                        'avatar' => $character->getAvatar(),
+                                        'username' => $character->getUser()->getFullname(),
+                                    ],
+                                ];
+                            }
                         }
                     }
                 }
