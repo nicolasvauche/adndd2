@@ -2,8 +2,9 @@
     <h3 class="name">{{ scenario.game.gamesystem.diceset.name }}</h3>
     <div class="dices">
         {% for dice in scenario.game.gamesystem.diceset.dices %}
-            <a href="#" title="Ajouter un {{ dice.name }}">
-                <img src="{{ asset('assets/images/dices/' ~ dice.name | lower ~ '.png') }}" alt="{{ dice.name }}" />
+            <a href="#" title="Ajoute un {{ dice.name }}">
+                <img src="{{ asset('assets/images/dices/' ~ dice.name | lower ~ '.png') }}" alt="{{ dice.name }}" data-diceid="{{ dice.id }}" data-dicename="{{ dice.name }}" />
+                <span title="Enlève un {{ dice.name }}">0</span>
             </a>
         {% endfor %}
     </div>

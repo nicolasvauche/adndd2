@@ -95,6 +95,34 @@
                     toggleIcon.classList.replace('fa-chevron-left', 'fa-chevron-right')
                 }
             })
+
+            const tableSet = {
+                {% for dice in scenario.game.gamesystem.diceset.dices %}
+                '{{ dice.name }}': 0,
+                {% endfor %}
+            }
+            const dices = document.querySelectorAll('.dices > a > img')
+            for (dice of dices) {
+                dice.addEventListener('click', event => {
+                    const diceImg = event.target
+                    event.preventDefault()
+                    tableSet[diceImg.dataset.dicename] = (tableSet[diceImg.dataset.dicename] + 1) || 0
+                    const diceNb = diceImg.parentNode.querySelector('span')
+                    diceNb.innerHTML = tableSet[diceImg.dataset.dicename]
+                })
+            }
+            const dicesNb = document.querySelectorAll('.dices > a > span')
+            for (diceNb of dicesNb) {
+                diceNb.addEventListener('click', event => {
+                    const diceImg = event.target.parentNode.querySelector('img')
+                    event.preventDefault()
+                    tableSet[diceImg.dataset.dicename] = tableSet[diceImg.dataset.dicename] - 1
+                    if (tableSet[diceImg.dataset.dicename] <= 0) {
+                        tableSet[diceImg.dataset.dicename] = 0
+                    }
+                    event.target.innerHTML = tableSet[diceImg.dataset.dicename]
+                })
+            }
         })
     </script>
 {% endblock %}
