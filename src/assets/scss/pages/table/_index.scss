@@ -155,14 +155,14 @@
                             align-items: flex-end;
                             justify-content: center;
                             padding: 0.5rem;
-                            margin: 0 1rem;
+                            margin: 0 1rem 1.5rem;
                             background-color: $color-bg-alt;
                             box-shadow: inset $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
                             border-radius: $border-radius-default;
 
-                            @include respond(sm){
+                            @include respond(sm) {
                                 padding: 1rem;
-                                margin: 0 2rem;
+                                margin: 0 2rem 1.5rem;
                             }
 
                             a {
@@ -206,6 +206,15 @@
                                     margin-top: 0.5rem;
                                     font-size: 1.5rem;
                                     font-weight: bold;
+                                }
+                            }
+                        }
+
+                        .app_button {
+                            &.cta {
+                                &.hidden {
+                                    opacity: 0;
+                                    cursor: default;
                                 }
                             }
                         }

@@ -96,21 +96,29 @@
                 }
             })
 
-            const tableSet = {
+            let tableSet = {
                 {% for dice in scenario.game.gamesystem.diceset.dices %}
                 '{{ dice.name }}': 0,
                 {% endfor %}
             }
+
             const dices = document.querySelectorAll('.dices > a > img')
+            const rollBtn = document.getElementById('rollDices')
+            let nbDicesonTable = 0
             for (dice of dices) {
                 dice.addEventListener('click', event => {
                     const diceImg = event.target
                     event.preventDefault()
                     tableSet[diceImg.dataset.dicename] = (tableSet[diceImg.dataset.dicename] + 1) || 0
+                    nbDicesonTable++
                     const diceNb = diceImg.parentNode.querySelector('span')
                     diceNb.innerHTML = tableSet[diceImg.dataset.dicename]
+                    if (nbDicesonTable > 0) {
+                        rollBtn.classList.remove('hidden')
+                    }
                 })
             }
+
             const dicesNb = document.querySelectorAll('.dices > a > span')
             for (diceNb of dicesNb) {
                 diceNb.addEventListener('click', event => {
@@ -120,9 +128,29 @@
                     if (tableSet[diceImg.dataset.dicename] <= 0) {
                         tableSet[diceImg.dataset.dicename] = 0
                     }
+                    nbDicesonTable--
+                    if (nbDicesonTable <= 0) {
+                        nbDicesonTable = 0
+                    }
                     event.target.innerHTML = tableSet[diceImg.dataset.dicename]
+                    if (nbDicesonTable == 0) {
+                        rollBtn.classList.add('hidden')
+                    }
                 })
             }
+
+            rollBtn.addEventListener('click', event => {
+                const btn = event.target
+                if (!btn.classList.contains('hidden')) {
+                    const dicesToRoll = {}
+                    for (const element in tableSet) {
+                        if (tableSet[element] > 0) {
+                            dicesToRoll[element] = tableSet[element]
+                        }
+                    }
+                    alert('Rolling ' + JSON.stringify(dicesToRoll))
+                }
+            })
         })
     </script>
 {% endblock %}
