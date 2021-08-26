@@ -104,16 +104,16 @@
 
             const dices = document.querySelectorAll('.dices > a > img')
             const rollBtn = document.getElementById('rollDices')
-            let nbDicesonTable = 0
+            let nbDicesOnTable = 0
             for (dice of dices) {
                 dice.addEventListener('click', event => {
                     const diceImg = event.target
                     event.preventDefault()
                     tableSet[diceImg.dataset.dicename] = (tableSet[diceImg.dataset.dicename] + 1) || 0
-                    nbDicesonTable++
+                    nbDicesOnTable++
                     const diceNb = diceImg.parentNode.querySelector('span')
                     diceNb.innerHTML = tableSet[diceImg.dataset.dicename]
-                    if (nbDicesonTable > 0) {
+                    if (nbDicesOnTable > 0) {
                         rollBtn.classList.remove('hidden')
                     }
                 })
@@ -128,12 +128,12 @@
                     if (tableSet[diceImg.dataset.dicename] <= 0) {
                         tableSet[diceImg.dataset.dicename] = 0
                     }
-                    nbDicesonTable--
-                    if (nbDicesonTable <= 0) {
-                        nbDicesonTable = 0
+                    nbDicesOnTable--
+                    if (nbDicesOnTable <= 0) {
+                        nbDicesOnTable = 0
                     }
                     event.target.innerHTML = tableSet[diceImg.dataset.dicename]
-                    if (nbDicesonTable == 0) {
+                    if (nbDicesOnTable == 0) {
                         rollBtn.classList.add('hidden')
                     }
                 })
@@ -149,6 +149,16 @@
                         }
                     }
                     alert('Rolling ' + JSON.stringify(dicesToRoll))
+                    nbDicesOnTable = 0
+                    tableSet = {
+                        {% for dice in scenario.game.gamesystem.diceset.dices %}
+                        '{{ dice.name }}': 0,
+                        {% endfor %}
+                    }
+                    for (const dice of dicesNb) {
+                        dice.innerHTML = 0
+                    }
+                    rollBtn.classList.add('hidden')
                 }
             })
         })
