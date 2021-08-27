@@ -98,7 +98,7 @@
 
             let tableSet = {
                 {% for dice in scenario.game.gamesystem.diceset.dices %}
-                '{{ dice.name }}': 0,
+                '{{ dice.faces }}': 0,
                 {% endfor %}
             }
 
@@ -143,16 +143,29 @@
                 const btn = event.target
                 if (!btn.classList.contains('hidden')) {
                     const dicesToRoll = {}
+                    let dicesSum = 0
                     for (const element in tableSet) {
                         if (tableSet[element] > 0) {
-                            dicesToRoll[element] = tableSet[element]
+                            dicesToRoll['D' + element] = tableSet[element]
+                            for (let i = 1; i <= tableSet[element]; i++) {
+                                let total = 0
+                                if (parseInt(element) === 100) {
+                                    total = Math.floor(Math.random() * 100 - 1) + 1
+                                    total = Math.floor(total / 10) * 10
+                                } else {
+                                    total = Math.floor(Math.random() * parseInt(element) - 1) + 1
+                                }
+                                console.log('added 1D' + element + '(' + i + '/' + tableSet[element] + ') = ' + total)
+                                dicesSum += total
+                            }
                         }
                     }
-                    alert('Rolling ' + JSON.stringify(dicesToRoll))
+                    alert('Rolling ' + JSON.stringify(dicesToRoll) + ' = ' + dicesSum)
+
                     nbDicesOnTable = 0
                     tableSet = {
                         {% for dice in scenario.game.gamesystem.diceset.dices %}
-                        '{{ dice.name }}': 0,
+                        '{{ dice.faces }}': 0,
                         {% endfor %}
                     }
                     for (const dice of dicesNb) {

@@ -3,7 +3,7 @@
     <div class="dices">
         {% for dice in scenario.game.gamesystem.diceset.dices %}
             <a href="#" title="Ajoute un {{ dice.name }}">
-                <img src="{{ asset('assets/images/dices/' ~ dice.name | lower ~ '.png') }}" alt="{{ dice.name }}" data-diceid="{{ dice.id }}" data-dicename="{{ dice.name }}" />
+                <img src="{{ asset('assets/images/dices/' ~ dice.name | lower ~ '.png') }}" alt="{{ dice.name }}" data-diceid="{{ dice.id }}" data-dicename="{{ dice.faces }}" />
                 <span title="Enlève un {{ dice.name }}">0</span>
             </a>
         {% endfor %}
