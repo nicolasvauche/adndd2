@@ -1,0 +1,23 @@
+{% for characterCharacteristic in character.characterCharacteristics %}
+    {% if characterCharacteristic.characteristic.shortname == 'DEF' %}
+        <div class="defense app_grid three">
+            <div>
+                <div class="vtitle">
+                    {{ characterCharacteristic.characteristic.shortname }}
+                </div>
+                <div class="subtitle">
+                    {{ characterCharacteristic.characteristic.name }}
+                </div>
+            </div>
+            <div class="border_title data_case">
+                {{ characterCharacteristic.base }}
+            </div>
+            <div class="border_title data_case"></div>
+        </div>
+    {% endif %}
+{% endfor %}
+<div class="defense">
+<div class="defense_info">
+    DEF = 10 + Mod. DEX
+</div>
+</div>

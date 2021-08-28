@@ -15,7 +15,11 @@
                 {{ characterCharacteristic.characteristic.name }}
             </div>
             <div class="border_title data_case">
-                {{ characterCharacteristic.base }}
+                {% if (characterCharacteristic.base >= 0) %}
+                    +{{ characterCharacteristic.base }}
+                {% else %}
+                    {{ characterCharacteristic.base }}
+                {% endif %}
             </div>
             <div class="border_title data_case"></div>
         </div>

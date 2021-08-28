@@ -25,7 +25,7 @@
                 {{ characterCharacteristic.base }}
             </div>
             <div class="border_title data_case">
-                {% if (characterCharacteristic.modifyer > 0) %}
+                {% if (characterCharacteristic.modifyer >= 0) %}
                     +{{ characterCharacteristic.modifyer }}
                 {% else %}
                     {{ characterCharacteristic.modifyer }}

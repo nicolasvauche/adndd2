@@ -30,13 +30,16 @@
                 font-weight: bold;
                 color: black;  
                 height: 100%;
-                font-family: candara;     
+                font-family: $font-family-thirdy;     
             }
 
             @import 'healthpoints';
             @import 'level';
             @import 'attack';
             @import 'weapon';
+            @import 'defense';
+            @import 'shock';
+            @import 'skills';
         }
     }
 }

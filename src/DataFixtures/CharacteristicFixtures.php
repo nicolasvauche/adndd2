@@ -30,6 +30,7 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
             $characteristic->setName($a)
                         ->setShortName($b)
                         ->setType($c);
+            $tabCharCO[] = $characteristic;
             $manager->persist($characteristic);
 
             $gameCharacteristic = new GameCharacteristic();
