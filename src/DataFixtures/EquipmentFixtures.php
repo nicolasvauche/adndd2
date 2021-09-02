@@ -40,7 +40,8 @@ class EquipmentFixtures extends Fixture implements OrderedFixtureInterface
             'Lutte',
             'Machine lourde', 
             'Marchandises', 
-            'Arme à distance',                              
+            'Arme à distance', 
+                          
         ];
 
         foreach ($equipmenttypes as $key => $value) {
@@ -93,6 +94,9 @@ class EquipmentFixtures extends Fixture implements OrderedFixtureInterface
         $equipmenttype->setName($value);
         $manager->persist($equipmenttype);
 
+        // Armes default Elric
+
+        
         /**
          * CO equipments
          */

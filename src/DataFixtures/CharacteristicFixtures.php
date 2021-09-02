@@ -87,12 +87,12 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
          */
 
         $tabgamers = array('character1', 'character2', 'character3', 'character4', 'character5', 'character6');
-        $tab1 = array("12", "15", "17", "12", "2", null, null, null, null, "13", "14", "16", "11");
-        $tab2 = array("16", "13", "15", "18", "2", null, null, null, null, "15", "13", "14", "11");
-        $tab3 = array("14", "13", "14", "13", "2", null, null, null, null, "15", "15", "17", "13");
-        $tab4 = array("15", "15", "16", "15", "2", null, null, null, null, "14", "13", "13", "13");
-        $tab5 = array("14", "13", "15", "15", "2", null, null, null, null, "15", "15", "13", "13");
-        $tab6 = array("12", "16", "13", "15", "2", null, null, null, null, "13", "14", "16", "17");
+        $tab1 = array("12", "15", "17", "12", "1d4", null, null, null, null, "13", "14", "16", "11");
+        $tab2 = array("16", "13", "15", "18", "1d4", null, null, null, null, "15", "13", "14", "11");
+        $tab3 = array("14", "13", "14", "13", "1d4", null, null, null, null, "15", "15", "17", "13");
+        $tab4 = array("15", "15", "16", "15", "1d4", null, null, null, null, "14", "13", "13", "13");
+        $tab5 = array("14", "13", "15", "15", "1d4", null, null, null, null, "15", "15", "13", "13");
+        $tab6 = array("12", "16", "13", "15", "1d4", null, null, null, null, "13", "14", "16", "17");
 
         $i = 0;
         foreach ($tabgamers as $key)

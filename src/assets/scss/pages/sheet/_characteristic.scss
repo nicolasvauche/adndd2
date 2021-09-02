@@ -5,11 +5,13 @@
     }
 
     .otitle{
-        text-align: center;
         font-weight: bold;
         color: white;
         background-color: $color-violet;
         text-transform: uppercase;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .app_grid{
@@ -17,5 +19,15 @@
         padding-bottom: 0;
         margin-top: 0;
         margin-bottom: 1rem;
+    }
+
+    .cname{
+        display: flex;
+        justify-content: center;
+        align-items: center;        
+    }
+
+    span{
+        text-transform: uppercase;
     }
 }

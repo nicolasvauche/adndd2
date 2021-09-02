@@ -17,7 +17,7 @@ class SpecialtyFixtures extends Fixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         /**
-         * Default specialty
+         * Default specialty CO
          */
         $tabspecialties = [];
         $tabspecialties = [
@@ -38,7 +38,55 @@ class SpecialtyFixtures extends Fixture implements OrderedFixtureInterface
             $manager->persist( $specialty );
             $i++;
         }
+
         unset($value, $i);
+
+        /**
+         * Default specialty Elric
+         */        
+
+        $tabspecialtiesElric = [
+            'Beggar', 
+            'Craftsperson', 
+            'Shopkeeper', 
+            'Hunter', 
+            'Lost', 
+            'Forgotten', 
+            'Mercenary', 
+            'Bodyguard', 
+            'Merchant', 
+            'Minor Noble', 
+            'Nomad', 
+            'Paid Assassin', 
+            'Thug', 
+            'Peasant', 
+            'Farmer', 
+            'Physician', 
+            'Apothecary', 
+            'Sailor', 
+            'Scribe', 
+            'Engineer', 
+            'Shaman', 
+            'Priest', 
+            'Cultist', 
+            'Slave (freed or escaped)', 
+            'Small Trader', 
+            'Soldier', 
+            'Guard', 
+            'Watchman', 
+            'Tax or Rent collector', 
+            'Thief', 
+            'Troubadour',
+            'Entertainer',
+        ];
+        
+        foreach ($tabspecialtiesElric as &$value) {
+            $specialty = new Specialty();
+            $specialty->setName($value)
+                    ->addGame($this->getReference('game1'));
+            $manager->persist( $specialty );
+        }
+        unset($value, $i);        
 
         $manager->flush();
     }

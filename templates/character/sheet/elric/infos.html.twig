@@ -6,7 +6,7 @@
             </div>
 
             <div class="content">
-                <h2 class="character_name">{{ character.name }} {{ character.surname }}</h2>
+                <h2 class="character_gamename">{{ character.game.name }}</h2>
                 <div class="icons">
                     <span>
                         <i class="fas fa-{% if character.gender | lower == 'emme' %}venus{% else %}mars{% endif %}"></i>

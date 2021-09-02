@@ -12,4 +12,14 @@
         text-align: left;
         font-size: medium;
     }
+
+    .data_case_skill{
+        display: flex;
+        justify-content: left;
+        align-items: left; 
+        font-size: larger;
+        color: $color-fg-primary;
+        font-weight: bold;    
+        font-family: $font-family-third;    
+    }
 }

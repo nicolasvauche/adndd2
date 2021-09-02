@@ -26,12 +26,13 @@
             }
 
             .data_case{
-                text-align: center;
                 font-size: 1.5rem;
                 font-weight: bold;
                 color: black;  
-                height: 100%;
-                font-family: $font-family-thirdy;     
+                font-family: $font-family-third;   
+                display: flex;
+                justify-content: center;
+                align-items: center;  
             }
 
             @import 'healthpoints';
@@ -42,6 +43,7 @@
             @import 'shock';
             @import 'skills';
             @import 'characteristic';
+            @import 'magic';
         }
     }
 }
