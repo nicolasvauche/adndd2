@@ -10,6 +10,7 @@
                 font-weight: bold;
                 color: white;
                 background-color: #6b2b06;
+                text-transform: uppercase;
             }
 
             .htitle{
@@ -40,6 +41,7 @@
             @import 'defense';
             @import 'shock';
             @import 'skills';
+            @import 'characteristic';
         }
     }
 }

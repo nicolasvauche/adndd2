@@ -14,13 +14,16 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {   
+
+
+/* -------------------------------------------------------------------------------------------------------------------------- */        
          /**
-         * common characteristic
+         * common characteristics
          */
 
         $commonCharacteristics = [
-            ["Force", "FOR", 'Type'],
             ["Constitution", "CON", 'Type'],
+            ["Force", "FOR", 'Type'],
             ["Intelligence", "INT", 'Type'],
             ["Dexterité", "DEX", 'Type'],
         ];
@@ -31,6 +34,7 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
                         ->setShortName($b)
                         ->setType($c);
             $tabCharCO[] = $characteristic;
+            $tabCharElric[] = $characteristic;
             $manager->persist($characteristic);
 
             $gameCharacteristic = new GameCharacteristic();
@@ -44,26 +48,19 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
                     ->setCharacteristic($characteristic)
                     ->setBase('0');
             $manager->persist( $gameCharacteristic );
-
-            for ($i = 1; $i<=6; $i++){
-                $charactercharacteristic = new CharacterCharacteristic();
-                $charactercharacteristic->setCharacter($this->getReference('character'.$i))
-                        ->setCharacteristic($characteristic)
-                        ->setBase('0');
-                $manager->persist( $charactercharacteristic );                
-            }
         }
+            
         
         /**
-         * Elric characteristic
+         * Elric characteristics
          */
 
         $characteristics = [
             ["Modificateur aux dégâts", "DMG", 'Base'],
             ["Jet d'Idée", "JIDE", 'Base'],
             ["Jet de Chance", "JLUCK", 'Base'],
-            ["Jet de Charisme", "JCHAR", 'Base'],
             ["Jet de Dexterité", "JDEX", 'Base'],
+            ["Jet de Charisme", "JCHA", 'Base'],
             ["Point de vie", "HP", 'Base'],
             ["Taille", "TAI", 'Type'],
             ["Pouvoir", "POU", 'Type'],
@@ -75,6 +72,7 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
             $characteristic->setName($a)
                         ->setShortName($b)
                         ->setType($c);
+            $tabCharElric[] = $characteristic;
             $manager->persist($characteristic);
 
             $gameCharacteristic = new GameCharacteristic();
@@ -82,20 +80,62 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
                     ->setCharacteristic($characteristic)
                     ->setBase('0');
             $manager->persist( $gameCharacteristic );
-
-            for ($i = 1; $i<=6; $i++){
-                $charactercharacteristic = new CharacterCharacteristic();
-                $charactercharacteristic->setCharacter($this->getReference('character'.$i))
-                        ->setCharacteristic($characteristic)
-                        ->setBase('0');
-                $manager->persist( $charactercharacteristic );                
-            }
         }
+
+        /**
+         * Elric character characteristics
+         */
+
+        $tabgamers = array('character1', 'character2', 'character3', 'character4', 'character5', 'character6');
+        $tab1 = array("12", "15", "17", "12", "2", null, null, null, null, "13", "14", "16", "11");
+        $tab2 = array("16", "13", "15", "18", "2", null, null, null, null, "15", "13", "14", "11");
+        $tab3 = array("14", "13", "14", "13", "2", null, null, null, null, "15", "15", "17", "13");
+        $tab4 = array("15", "15", "16", "15", "2", null, null, null, null, "14", "13", "13", "13");
+        $tab5 = array("14", "13", "15", "15", "2", null, null, null, null, "15", "15", "13", "13");
+        $tab6 = array("12", "16", "13", "15", "2", null, null, null, null, "13", "14", "16", "17");
+
+        $i = 0;
+        foreach ($tabgamers as $key)
+        {            
+            $j = 0;
+            foreach ($tabCharElric as $value)
+            {
+                
+                $charactercharacteristic = new CharacterCharacteristic();
+                $charactercharacteristic->setCharacter($this->getReference($key));
+                $charactercharacteristic->setCharacteristic($value);
         
+                switch ($i) {
+                    case 0:
+                            $charactercharacteristic->setBase($tab1[$j]);
+                        break;
+                    case 1:
+                            $charactercharacteristic->setBase($tab2[$j]);
+                        break;
+                    case 2:
+                            $charactercharacteristic->setBase($tab3[$j]);            
+                        break;
+                    case 3:
+                            $charactercharacteristic->setBase($tab4[$j]); 
+                        break;
+                    case 4:
+                            $charactercharacteristic->setBase($tab5[$j]);
+                        break;
+                    case 5:
+                            $charactercharacteristic->setBase($tab6[$j]); 
+                        break;
+                }            
+                $j++;    
+
+                $manager->persist( $charactercharacteristic );
+            }
+            $i++;       
+        }        
+
 /* -------------------------------------------------------------------------------------------------------------------------- */
 
         /**
-         * Chroniques oubliées characteristic
+         * Chroniques oubliées characteristics
          */
 
         $characteristics = [
@@ -129,7 +169,7 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
         }
 
         /**
-         * CO character skills
+         * CO character characteristics
          */
 
         $tabgamers = array('character7', 'character8', 'character9', 'character10', 'character11', 'character12');

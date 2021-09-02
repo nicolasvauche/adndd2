@@ -1,0 +1,21 @@
+.characteristic{
+    .info {
+        margin: 0 1rem 1.5rem;
+        text-align: center;
+    }
+
+    .otitle{
+        text-align: center;
+        font-weight: bold;
+        color: white;
+        background-color: $color-violet;
+        text-transform: uppercase;
+    }
+
+    .app_grid{
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+}

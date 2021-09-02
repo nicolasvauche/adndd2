@@ -1,0 +1,11 @@
+<div class="characteristic app_grid two">
+    <div>
+        {% include 'character/sheet/elric/characteristic/_left.html.twig' with {'character' : character} %}
+    </div>
+    <div>
+        {% include 'character/sheet/elric/characteristic/_right.html.twig' with {'character' : character} %}
+    </div>
+</div>
+<div class="app_grid">
+    {% include 'character/sheet/elric/characteristic/_bottom.html.twig' with {'character' : character} %}
+</div>

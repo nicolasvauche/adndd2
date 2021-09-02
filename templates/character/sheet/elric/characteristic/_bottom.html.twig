@@ -1,0 +1,26 @@
+<div class="app_grid four">
+{% for characterCharacteristic in character.characterCharacteristics %}
+    {% if characterCharacteristic.characteristic.type == 'Type' %}
+        {% if (characterCharacteristic.characteristic.shortname == 'INT') or (characterCharacteristic.characteristic.shortname == 'POU') or (characterCharacteristic.characteristic.shortname == 'DEX') %}
+            <div>
+                <div class="vtitle">
+                    {{ characterCharacteristic.characteristic.shortname }}
+                </div>
+                <div class="subtitle">
+                    {{ characterCharacteristic.characteristic.name }}
+                </div>
+            </div>
+            <div class="border_title data_case">
+                {{ characterCharacteristic.base }}
+            </div>
+            <div class="data_case">
+                    X 5
+            </div>               
+            <div class="border_title data_case">
+                {% set total = characterCharacteristic.base * 5 %}
+                {{ total }}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+</div>
