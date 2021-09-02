@@ -7,7 +7,7 @@
     text-align: center;
     color: $color-fg-primary;
     background-color: $color-bg-primary;
-    border: 2px solid $color-fg-primary;
+    border: none;
     border-radius: $border-radius-default;
     box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
     cursor: pointer;
@@ -25,7 +25,7 @@
     &:hover {
         color: $color-bg-primary !important;
         background-color: $color-blue !important;
-        border: 2px solid $color-blue !important;
+        border: none !important;
 
         i {
             color: $color-bg-primary !important;
@@ -39,14 +39,14 @@
         &:hover {
             color: $color-fg-primary !important;
             background-color: $color-bg-primary !important;
-            border: 2px solid $color-fg-primary !important;
+            border: none !important;
         }
 
         &.cta{
             &:hover {
                 color: $color-fg-primary !important;
                 background-color: $color-orange !important;
-                border: 2px solid $color-fg-primary !important;
+                border: none !important;
             }
         }
     }
