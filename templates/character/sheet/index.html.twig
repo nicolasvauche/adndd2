@@ -26,7 +26,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
+    <script defer>
         window.addEventListener("DOMContentLoaded", () => {
             const magicRange = document.getElementById('magicRange')
             const hitRange = document.getElementById('hitRange')
@@ -64,7 +64,7 @@
         })
     </script>
 
-    <script>
+    <script defer>
         window.addEventListener("DOMContentLoaded", () => {
             const healthRange = document.getElementById('healthRange')
             const updateValue = (rangeInput) => {

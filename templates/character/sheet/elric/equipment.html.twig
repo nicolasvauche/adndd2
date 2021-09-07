@@ -1,18 +1,18 @@
 <div class="skills app_grid one">
-    <div class="htitle">
-        équipement
-    </div>
+	<div class="htitle">
+		équipement
+	</div>
 </div>
 
 
 <div class="htitle border_title app_grid">
-    {% for characterEquipment in character.equipments %}
-        <div class="data_case">
-            {{ characterEquipment.name }}
-        </div>
-    {% else %}
-        <div class="data_case">
-            Aucun
-        </div>    
-    {% endfor %}
+	{% for characterEquipment in character.equipments %}
+		<div class="data_case">
+			{{ characterEquipment.name }}
+		</div>
+	{% else %}
+		<div class="data_case">
+			Aucun
+		</div>
+	{% endfor %}
 </div>
