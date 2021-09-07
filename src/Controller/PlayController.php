@@ -478,7 +478,7 @@ class PlayController extends AbstractController
             }
         }
 
-        return $this->render('play/table/index.html.twig',
+        return $this->render('play/scenario/index.html.twig',
             [
                 'scenario' => $scenario,
                 'myCharacter' => $myCharacter,

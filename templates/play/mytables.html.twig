@@ -5,7 +5,7 @@
 {% block body_class %}play{% endblock %}
 
 {% block body %}
-    <article>
+    <article class="aside">
         <section>
             <h1>{{ 'pages.user.plays.menu' | trans | capitalize }}</h1>
 
@@ -103,6 +103,16 @@
                 </div>
             {% endif %}
         </section>
+
+        <aside>
+            <h2>
+                {{ 'pages.play.campaign.menu' | trans | capitalize }}
+            </h2>
+
+            <a href="#" class="app_button">Nouvelle campagne</a>
+
+            <a href="{{ app.request.headers.get('referer') }}" class="app_button cta">retour</a>
+        </aside>
     </article>
 {% endblock %}
 

@@ -80,6 +80,9 @@ pages:
       menu: "invite des personnages"
     game:
       title: "Infos de la table"
+    campaign:
+      title: "toutes tes campagnes de jeu"
+      menu: "Gère tes campagnes"
   contact:
     menu: "contact"
     title: "contactons-nous"

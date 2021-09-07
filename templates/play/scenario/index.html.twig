@@ -10,9 +10,9 @@
             <h1>{{ scenario.name }}</h1>
 
             <div class="content">
-                {% include 'play/table/visio.html.twig' with {'scenario': scenario} %}
+                {% include 'play/scenario/visio.html.twig' with {'scenario': scenario} %}
 
-                {% include 'play/table/controls/index.html.twig' with {'scenario': scenario, 'myCharacter': myCharacter} %}
+                {% include 'play/scenario/controls/index.html.twig' with {'scenario': scenario, 'myCharacter': myCharacter} %}
 
                 <div class="app_modal on">
                     <div class="app_modal_box">
