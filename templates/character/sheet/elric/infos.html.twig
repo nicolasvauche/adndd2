@@ -68,8 +68,9 @@
                 {% endif %}
                 
                 {% if character.distinctive %}
-                    <span>Signes distinctifs</span>
-                    <blockquote>{{ character.distinctive }}</blockquote>
+                    <p>
+                        <strong>Signes distinctifs :</strong> {{ character.distinctive }}
+                    </p>
                 {% endif %}
 
                 {% if character.notes %}

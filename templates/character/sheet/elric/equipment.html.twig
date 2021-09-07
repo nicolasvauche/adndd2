@@ -4,10 +4,15 @@
     </div>
 </div>
 
-<div class="htitle app_grid two border_title">
+
+<div class="htitle border_title app_grid">
     {% for characterEquipment in character.equipments %}
-        <div class="weapon_info data_case">
+        <div class="data_case">
             {{ characterEquipment.name }}
         </div>
+    {% else %}
+        <div class="data_case">
+            Aucun
+        </div>    
     {% endfor %}
 </div>

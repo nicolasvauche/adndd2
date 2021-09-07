@@ -1,3 +1,20 @@
+<div>
+    <div class="htitle">
+        Argent: <span id="money" class="slide"> {{ character.coinpurse }} </span> $
+    </div>
+    <div class="htitle">
+        <input type="range" min="0" max="1000" step="1" list="tickmarks" id="moneyRange">
+            <datalist id="tickmarks">
+                <option value="0">
+                <option value="250">
+                <option value="500">
+                <option value="750">
+                <option value="1000">
+            </datalist>
+        </input>
+    </div>
+</div>
+
 <div class="skills app_grid one">
     <div class="htitle">
         équipement
@@ -5,9 +22,6 @@
 </div>
 
 <div class="htitle app_grid two border_title">
-    <div class="weapon_info data_case">
-        Argent : {{ character.coinpurse }} $
-    </div>
     {% for characterEquipment in character.equipments %}
         <div class="weapon_info data_case">
             {{ characterEquipment.name }}

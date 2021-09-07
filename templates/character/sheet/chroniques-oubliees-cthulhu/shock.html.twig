@@ -18,10 +18,36 @@
 {% endfor %}
 
 <div class="shock app_grid two">
-    <div class="shock_info border_title">
-        Points de folie:
+    <div>
+        <div class="htitle">
+            Points de folie: <span id="crazy" class="slide">50</span>
+        </div>
+        <div class="htitle">
+            <input type="range" min="0" max="100" step="1" list="tickmarks" id="crazyRange">
+                <datalist id="tickmarks">
+                    <option value="0">
+                    <option value="25">
+                    <option value="50">
+                    <option value="75">
+                    <option value="100">
+                </datalist>
+            </input>
+        </div>
     </div>
-    <div class="shock_info border_title">
-        PC restants:
+    <div>
+        <div class="htitle">
+            PC restants: <span id="pcrest" class="slide">50</span>
+        </div>
+        <div class="htitle">
+            <input type="range" min="0" max="100" step="1" list="tickmarks" id="pcrestRange">
+                <datalist id="tickmarks">
+                    <option value="0">
+                    <option value="25">
+                    <option value="50">
+                    <option value="75">
+                    <option value="100">
+                </datalist>
+            </input>
+        </div>
     </div>
 </div>

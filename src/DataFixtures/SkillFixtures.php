@@ -40,7 +40,6 @@ class SkillFixtures extends Fixture implements OrderedFixtureInterface
             "Voie de la médecine",
             "Voie de la psychologie",
             "Voie des sciences",
-
         ];
 
         foreach ($skilltypes as $key => $value) {
@@ -50,65 +49,114 @@ class SkillFixtures extends Fixture implements OrderedFixtureInterface
             $tabSkillTypes[] = $skilltype;
         }
 
+        /**
+         * Elric skill types
+         */
+
+        $tabSkillTypesElric = [];
+        $skillTypesElric = [
+            "Agilité",
+            "Communication",
+            "Connaissance",
+            "Manipulation",
+            "Perception",
+        ];
+
+        foreach ($skillTypesElric as $key => $value) {
+            $skilltype = new Skilltype();
+            $skilltype->setName($value);
+            $manager->persist($skilltype);
+            $tabSkillTypesElric[] = $skilltype;
+        }
 
         /**
          * Elric game skills
          */
             
         $tabSkills = [
-            "Esquive",
-            "Réparation et bricolage",
-            "Déguisement",
-            "Perception",
-            "Langue maternelle (courant)",
-            "Monde naturel",
-            "Chevaucher",
-            "Aperçu",
-            "Négociation",
-            "Parler vite",
-            "Art oratoire",
-            "Recherche",
-            "Crochetage",
-            "Cacher",
-            "Artisanat",
-            "Écoute",
-            "Navigation",
-            "Premiers soins",
-            "Naviguer",
-            "Écriture",
-            "Grimper",
-            "Dissimuler objet",
-            "Autres langages (Melnibonéan)",
-            "Autres langages (courant)",
-            "Langue maternelle (Mong)",
-            "Pistage",
-            "Piégeage",
-            "Art (Torture)",
-            "Saut",
-            "Déplacement discret",
-            "Flairer parfum",
-            "Nager",
-            "Lancer",
-            "Art (Courtoisie)",
-            "Jeune Royaume",
-            "Potions",
-            "Art (Conversation)",
+            ["Esquive", "DEX X 2%", $tabSkillTypesElric[0]],
+            ["Réparation et bricolage", "DEX X 4%", $tabSkillTypesElric[3]],
+            ["Déguisement", "15", $tabSkillTypesElric[1]],
+            ["Evaluer", "15", $tabSkillTypesElric[2]],
+            ["Langue maternelle (courant)", "INT X 5%", $tabSkillTypesElric[1]],
+            ["Monde naturel", "25", $tabSkillTypesElric[2]],
+            ["Chevaucher", "35", $tabSkillTypesElric[3]],
+            ["Aperçu", "15", $tabSkillTypesElric[2]],
+            ["Négociation", "15", $tabSkillTypesElric[1]],
+            ["Parler vite", "15", $tabSkillTypesElric[1]],
+            ["Art oratoire", "5", $tabSkillTypesElric[1]],
+            ["Recherche", "20", $tabSkillTypesElric[4]],
+            ["Crochetage", "5", $tabSkillTypesElric[3]],
+            ["Cacher (se)", "20", $tabSkillTypesElric[3]],
+            ["Artisanat", "5", $tabSkillTypesElric[3]],
+            ["Écoute", "25", $tabSkillTypesElric[4]],
+            ["Navigation", "10", $tabSkillTypesElric[2]],
+            ["Premiers soins", "00", $tabSkillTypesElric[0]],
+            ["Naviguer", "10", $tabSkillTypesElric[3]],
+            ["Écriture", "00", $tabSkillTypesElric[3]],
+            ["Grimper", "40", $tabSkillTypesElric[0]],
+            ["Dissimuler objet", "25", $tabSkillTypesElric[3]],
+            ["Autre langage (Melnibonéan)", "00", $tabSkillTypesElric[1]],
+            ["Autre langage (courant)", "00", $tabSkillTypesElric[1]],
+            ["Langue maternelle (Mong)", "INT X 5%", $tabSkillTypesElric[1]],
+            ["Pistage", "10", $tabSkillTypesElric[4]],
+            ["Piégeage", "5", $tabSkillTypesElric[3]],
+            ["Art (Torture)", '5', $tabSkillTypesElric[1]],
+            ["Saut", "25", $tabSkillTypesElric[0]],
+            ["Déplacement discret", "20", $tabSkillTypesElric[0]],
+            ["Flairer parfum", "15", $tabSkillTypesElric[4]],
+            ["Nager", "25", $tabSkillTypesElric[0]],
+            ["Lancer", "25", $tabSkillTypesElric[0]],
+            ["Art (Courtoisie)", '5', $tabSkillTypesElric[1]],
+            ["Jeune Royaume", "15% / 00 there", $tabSkillTypesElric[2]],
+            ["Potions", "00", $tabSkillTypesElric[2]],
+            ["Art (Conversation)", '5', $tabSkillTypesElric[1]],
         ];
 
         $tabSkillsElric = [];
-        foreach ($tabSkills as $key => $value)
+        
+        foreach ($tabSkills as list($name, $base, $skilltp))
         {
             $skill = new Skill();
-            $skill->setName($value);
+            $skill->setName($name)
+                ->setSkillType($skilltp);
             $tabSkillsElric[] = $skill;
             $manager->persist( $skill );
 
             $gameSkill = new GameSkill();
             $gameSkill->setGame($this->getReference('game1'))
                     ->setSkill($skill)
-                    ->setBase('50');
+                    ->setBase($base);
             $manager->persist( $gameSkill );
         }
+
+        /**
+         * Elric game skills exists
+         */
+
+        $tabSkillsElricEx = [
+            ['Art', '5', $tabSkillTypesElric[1]],
+            ['Bagarre', '50', $tabSkillTypesElric[0]],
+            ['La sphère du million', '00', $tabSkillTypesElric[2]],
+            ['Physique', '30', $tabSkillTypesElric[3]],
+            ['Royaumes Inconnus', '00 / 15% there', $tabSkillTypesElric[2]],
+            ['Lutter', '25', $tabSkillTypesElric[0]],
+        ];
+
+        foreach ($tabSkillsElricEx as list($name, $base, $skilltp))
+        {
+            $skill = new Skill();
+            $skill->setName($name)
+                ->setSkillType($skilltp);
+            $manager->persist( $skill );
+
+            $gameSkill = new GameSkill();
+            $gameSkill->setGame($this->getReference('game1'))
+                    ->setSkill($skill)
+                    ->setBase($base);
+            $manager->persist( $gameSkill );
+        }
+
 
         /**
          * Elric character skills

@@ -30,16 +30,18 @@
         window.addEventListener("DOMContentLoaded", () => {
             const magicRange = document.getElementById('magicRange')
             const hitRange = document.getElementById('hitRange')
+            const healthRange = document.getElementById('healthRange')
 
             const updateValue = (rangeInput) => {
                 let val = rangeInput.value
 
                 if (rangeInput.id === 'magicRange') {
                     type = 'magic'
-                } else {
+                }
+                if (rangeInput.id === 'hitRange') {
                     type = 'hit'
                 }
-                
+
                 if ((val == 0) && (type =='magic')) {
                     val = "Inconscient (" + val + ")";
                 } 
@@ -57,6 +59,54 @@
             })
             
             hitRange.addEventListener('change', (event) => {
+                updateValue(event.target)
+            }) 
+        })
+    </script>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const healthRange = document.getElementById('healthRange')
+            const updateValue = (rangeInput) => {
+                let val = rangeInput.value
+                if (rangeInput.id === 'healthRange') {
+                    type = 'health'
+                }
+                if (rangeInput.id === 'crazyRange') {
+                    type = 'crazy'
+                }
+                if (rangeInput.id === 'pcrestRange') {
+                    type = 'pcrest'
+                }
+                if (rangeInput.id === 'moneyRange') {
+                    type = 'money'
+                }                
+
+                if (type === 'health'){
+                    if (val == 0) {
+                        val = "Mort (" + val + ")";
+                    } 
+                    if (val == 100) {
+                        val = "Max (" + val + ")";
+                    } 
+                }
+                console.log(type)
+                document.getElementById(type).innerHTML = val; 
+            }
+
+            healthRange.addEventListener('change', (event) => {
+                updateValue(event.target)
+            })
+
+            crazyRange.addEventListener('change', (event) => {
+                updateValue(event.target)
+            })
+
+            pcrestRange.addEventListener('change', (event) => {
+                updateValue(event.target)
+            }) 
+
+            moneyRange.addEventListener('change', (event) => {
                 updateValue(event.target)
             }) 
         })
