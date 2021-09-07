@@ -18,22 +18,10 @@
             <section class="games">
                 <div class="app_grid four app_slider xs">
                     {% for game in games %}
-                        <div class="app_grid_item app_slider_item">
+                        <a href="{{ path('games') }}" class="app_grid_item app_slider_item" title="{{ 'pages.games.title' | trans | capitalize }}">
                             <img src="{{ asset('assets/images/games/' ~ game.media) }}" class="app_grid_item_image app_image" alt="{{ game.name }}" />
-                        </div>
+                        </a>
                     {% endfor %}
-
-                    {# <div class="app_grid_item app_slider_item">
-                        <img src="{{ asset('assets/images/games/cover_add.png') }}" class="app_grid_item_image" alt="Donjons & Dragons" />
-                    </div>
-
-                    <div class="app_grid_item app_slider_item">
-                        <img src="{{ asset('assets/images/games/cover_cob.png') }}" class="app_grid_item_image" alt="Chroniques Oubliées" />
-                    </div>
-
-                    <div class="app_grid_item app_slider_item">
-                        <img src="{{ asset('assets/images/games/cover_cth.png') }}" class="app_grid_item_image" alt="L'appel de Cthulhu" />
-                    </div> #}
 
                 </div>
 
