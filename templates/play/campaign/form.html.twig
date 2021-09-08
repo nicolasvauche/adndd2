@@ -33,17 +33,38 @@
             {% endfor %}
 
             {{ form_start(form, { attr: { 'class': 'app_form'}}) }}
-            {{ form_widget(form.name) }}
-            <label for="{{ form.name.vars.id }}">{{ form.name.vars.label | trans | capitalize }}</label>
+            <div class="app_form_group">
+                {{ form_widget(form.game, {'disabled': mode == 'add' ? false : true, attr: {'class': mode == 'add' ? 'app_form_control' : 'app_form_control disabled'}}) }}
+                <label for="{{ form.game.vars.id }}">{{ form.game.vars.label | trans | capitalize }}</label>
+            </div>
+
+            <div class="app_form_group">
+                {{ form_widget(form.name) }}
+                <label for="{{ form.name.vars.id }}">{{ form.name.vars.label | trans | capitalize }}</label>
+            </div>
+
+            <div class="app_form_group">
+                {{ form_widget(form.shortDescription) }}
+                <label for="{{ form.shortDescription.vars.id }}">{{ form.shortDescription.vars.label | trans | capitalize }}</label>
+            </div>
+
+            <div class="app_form_group">
+                {{ form_widget(form.description) }}
+                <label for="{{ form.description.vars.id }}">{{ form.description.vars.label | trans | capitalize }}</label>
+            </div>
+
+            <div class="app_form_group">
+                {{ form_widget(form.submit, {'label': mode == 'add' ? 'campaign.submit.label' : 'campaign.edit.label'}) }}
+            </div>
             {{ form_end(form) }}
         </section>
 
         <aside>
             <h2>
                 {% if mode == 'add' %}
-                    {{ 'pages.campaign.create.menu' | trans | capitalize }}
+                    {{ 'pages.user.campaign.create.menu' | trans | capitalize }}
                 {% else %}
-                    {{ 'pages.campaign.edit.menu' | trans | capitalize }}
+                    {{ 'default.orelse' | trans | capitalize }}
                 {% endif %}
             </h2>
 

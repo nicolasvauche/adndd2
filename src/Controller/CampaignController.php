@@ -79,7 +79,7 @@ class CampaignController extends AbstractController
 
             $this->addFlash('success', 'La campagne a été modifiée.');
 
-            return $this->redirectToRoute('user.campaigns');
+            return $this->redirectToRoute('user.campaign');
         } else {
             $errors = $validator->validate($form);
 

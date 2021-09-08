@@ -56,6 +56,12 @@ pages:
       title: "gère tes tables de jeu"
       join:
         title: "rejoins une table de jeu"
+    campaign:
+      create:
+        title: "crée une campagne"
+        menu: "Nouvelle campagne"
+      edit:
+        title: "modifie une campagne"
   home:
     menu: "accueil"
     title: "page d'accueil"
@@ -164,6 +170,8 @@ contact:
     label: "envoie ton message"
 play:
   game:
+    label: "jeu concerné"
+    emptyData: "Choisis le jeu à associer à cette campagne"
     campaign:
       label: "campagne associée"
       emptyData: "Choisis la campagne à associer au scénario"
@@ -234,3 +242,17 @@ character:
     placeholder: "ex: 330kg"
   size:
     placeholder: "ex: 4m80"
+campaign:
+  name:
+    label: "nom"
+    placeholder: "ex: La vallée des perdus"
+  description:
+    label: "description"
+    placeholder: "que va-t-il se passer au fil des scénarios ?"
+  shortdescription:
+    label: "description (courte)"
+    placeholder: "Décris cette campagne vite fait"
+  submit:
+    label: "crée ta campagne"
+  edit:
+    label: "modifie cette campagne"

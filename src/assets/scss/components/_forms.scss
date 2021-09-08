@@ -154,6 +154,16 @@
                 box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
             }
 
+            &.disabled {
+                cursor: not-allowed;
+
+                &:hover,
+                &:focus {
+                    outline: none;
+                    box-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) calc(#{$box-shadow-radius} / 2) $box-shadow-color;
+                }
+            }
+
             option {
                 text-align: center;
             }

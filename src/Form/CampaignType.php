@@ -18,6 +18,17 @@ class CampaignType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('game', EntityType::class,
+                [
+                    'required' => true,
+                    'class' => Game::class,
+                    'choice_label' => 'name',
+                    'label' => 'play.game.label',
+                    'placeholder' => 'play.game.emptyData',
+                    'attr' => [
+                        'class' => 'app_form_control',
+                    ],
+                ])
             ->add('name', TextType::class,
                 [
                     'required' => true,
@@ -49,20 +60,9 @@ class CampaignType extends AbstractType
                         'rows' => 3,
                     ],
                 ])
-            ->add('game', EntityType::class,
-                [
-                    'required' => false,
-                    'class' => Game::class,
-                    'choice_label' => 'name',
-                    'label' => 'play.game.label',
-                    'placeholder' => 'play.game.emptyData',
-                    'attr' => [
-                        'class' => 'app_form_control',
-                    ],
-                ])
             ->add('submit', SubmitType::class,
                 [
-                    'label' => 'play.campaign.submit.label',
+                    'label' => 'campaign.submit.label',
                     'attr' => [
                         'class' => 'app_button cta',
                     ],
