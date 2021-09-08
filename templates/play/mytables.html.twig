@@ -39,7 +39,7 @@
                             {% for scenario in scenarios %}
                                 {% if scenario.game.id not in scenariosGames %}
                                     <option value="{{ scenario.game.id }}">{{ scenario.game.name }}</option>
-                                    {% set scenariosGames = scenariosGames|merge([scenario.game.id]) %}
+                                    {% set scenariosGames = scenariosGames | merge([scenario.game.id]) %}
                                 {% endif %}
                             {% endfor %}
                         </select>
@@ -59,7 +59,7 @@
                                 <h4 class="app_grid_item_subtitle">{{ scenario.name }}</h4>
                             </div>
 
-                            <div>
+                            <div class="app_grid_item_body">
                                 <div class="app_grid_item_info excerpt">
                                     {{ scenario.shortDescription | raw }}
                                 </div>
@@ -106,10 +106,10 @@
 
         <aside>
             <h2>
-                {{ 'pages.play.campaign.menu' | trans | capitalize }}
+                {{ 'default.more' | trans | capitalize }}
             </h2>
 
-            <a href="#" class="app_button">Nouvelle campagne</a>
+            <a href="{{ path('campaign') }}" class="app_button">Gère tes campagnes</a>
 
             <a href="{{ app.request.headers.get('referer') }}" class="app_button cta">retour</a>
         </aside>
