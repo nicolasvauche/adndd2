@@ -54,7 +54,7 @@
                                     </div>
 
                                     <div class="app_grid_item_footer">
-                                        <a href="#" class="remove app_grid_item_footer_action button danger" title="Supprimer cette campagne">
+                                        <a href="{{ path('user.campaign.delete', {'id': campaign.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprimer cette campagne">
                                             <i class="fas fa-trash"></i>
                                         </a>
 
