@@ -36,37 +36,71 @@
             <div class="app_grid three app_slider xs">
                 {% set campaignsIds = [] %}
                 {% for campaign in campaigns %}
-                    {% for scenario in campaign.scenarios %}
-                        {% if scenario.user == app.user %}
-                            {% if campaign.id not in campaignsIds %}
-                                <div class="campaign app_grid_item app_slider_item" data-gameid="{{ scenario.game.id }}">
-                                    <div class="app_grid_item_header">
-                                        <img src="{{ asset('assets/images/games/' ~ scenario.game.media) }}" alt="{{ scenario.game.name }}" class="app_grid_item_image" />
-                                        <h4 class="app_grid_item_subtitle sub">{{ scenario.campaign.name }}</h4>
-                                        <h3 class="app_grid_item_title">{{ scenario.game.name }}</h3>
-                                    </div>
+                    {% if campaign.scenarios | length > 0 %}
+                        {% for scenario in campaign.scenarios %}
+                            {% if scenario.user == app.user %}
+                                {% if campaign.id not in campaignsIds %}
+                                    <div class="campaign app_grid_item app_slider_item" data-gameid="{{ scenario.game.id }}">
+                                        <div class="app_grid_item_header">
+                                            <img src="{{ asset('assets/images/games/' ~ scenario.game.media) }}" alt="{{ scenario.game.name }}" class="app_grid_item_image" />
+                                            <h4 class="app_grid_item_subtitle sub">{{ scenario.campaign.name }}</h4>
+                                            <h3 class="app_grid_item_title">{{ scenario.game.name }}</h3>
+                                        </div>
 
-                                    <div class="app_grid_item_body app_grid_item_info">
-                                        <h5 class="app_grid_item_title">Scénarios :</h5>
-                                        {% for campaignScenario in campaign.scenarios %}
-                                            <p class="app_grid_item_info mb_0">{{ campaignScenario.name }}</p>
-                                        {% endfor %}
-                                    </div>
+                                        <div class="app_grid_item_body app_grid_item_info excerpt">
+                                            {{ campaign.shortDescription | raw }}
 
-                                    <div class="app_grid_item_footer">
-                                        <a href="{{ path('user.campaign.delete', {'id': campaign.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprimer cette campagne">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                            <hr />
 
-                                        <a href="{{ path('user.campaign.edit', {'id': campaign.id}) }}" class="app_grid_item_footer_action button" title="{{ 'default.edit' | trans | capitalize }}">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
+                                            <h5>Scénarios :</h5>
+                                            {% for campaignScenario in campaign.scenarios %}
+                                                <p class="app_grid_item_info excerpt mb_0">{{ campaignScenario.name }}</p>
+                                            {% endfor %}
+                                        </div>
+
+                                        <div class="app_grid_item_footer">
+                                            <a href="{{ path('user.campaign.delete', {'id': campaign.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprimer cette campagne">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+
+                                            <a href="{{ path('user.campaign.edit', {'id': campaign.id}) }}" class="app_grid_item_footer_action button" title="{{ 'default.edit' | trans | capitalize }}">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                {% set campaignsIds = campaignsIds | merge([campaign.id]) %}
+                                    {% set campaignsIds = campaignsIds | merge([campaign.id]) %}
+                                {% endif %}
                             {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        {% if campaign.id not in campaignsIds %}
+                            <div class="app_grid_item app_slider_item disabled">
+                                <div class="app_grid_item_header">
+                                    <img src="{{ asset('assets/images/games/' ~ campaign.game.media) }}" alt="{{ campaign.game.name }}" class="app_grid_item_image" />
+                                    <h4 class="app_grid_item_subtitle sub">{{ campaign.name }}</h4>
+                                    <h3 class="app_grid_item_title">{{ campaign.game.name }}</h3>
+                                </div>
+
+                                <div class="app_grid_item_body app_grid_item_info excerpt">
+                                    {{ campaign.shortDescription | raw }}
+                                    <hr />
+
+                                    <h5>Aucun scénario</h5>
+                                </div>
+
+                                <div class="app_grid_item_footer">
+                                    <a href="{{ path('user.campaign.delete', {'id': campaign.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprimer cette campagne">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+
+                                    <a href="{{ path('user.campaign.edit', {'id': campaign.id}) }}" class="app_grid_item_footer_action button" title="{{ 'default.edit' | trans | capitalize }}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            {% set campaignsIds = campaignsIds | merge([campaign.id]) %}
                         {% endif %}
-                    {% endfor %}
+                    {% endif %}
                 {% endfor %}
             </div>
         </section>
