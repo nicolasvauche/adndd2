@@ -58,7 +58,7 @@
                                             <i class="fas fa-trash"></i>
                                         </a>
 
-                                        <a href="#" class="app_grid_item_footer_action button" title="{{ 'default.edit' | trans | capitalize }}">
+                                        <a href="{{ path('user.campaign.edit', {'id': campaign.id}) }}" class="app_grid_item_footer_action button" title="{{ 'default.edit' | trans | capitalize }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     </div>
@@ -76,7 +76,7 @@
                 {{ 'default.more' | trans | capitalize }}
             </h2>
 
-            <a href="#" class="app_button">Nouvelle campagne</a>
+            <a href="{{ path('user.campaign.create') }}" class="app_button">Nouvelle campagne</a>
 
             <a href="{{ app.request.headers.get('referer') }}" class="app_button cta">retour</a>
         </aside>
