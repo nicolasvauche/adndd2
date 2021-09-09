@@ -141,7 +141,7 @@
                     }
                 };
 
-                xhttp.open("GET", '/jouer-en-ligne/inviter-un-personnage/' + {{ scenario.id }} +'/' + character.id, true);
+                xhttp.open("GET", '/joue-en-ligne/invite-un-personnage/' + {{ scenario.id }} +'/' + character.id, true);
                 xhttp.send();
             }
 
@@ -167,7 +167,7 @@
                     }
                 };
 
-                xhttp.open("POST", '/jouer-en-ligne/virer-un-personnage/' + {{ scenario.id }} +'/' + character[0].id, true);
+                xhttp.open("POST", '/joue-en-ligne/vire-un-personnage/' + {{ scenario.id }} +'/' + character[0].id, true);
                 xhttp.send();
             }
 
@@ -215,7 +215,7 @@
                         }
                     };
 
-                    xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.id }} +'/' + characterName, true);
+                    xhttp.open("GET", '/joue-en-ligne/recherche-un-personnage/' + {{ scenario.id }} +'/' + characterName, true);
                     xhttp.send();
                 } else {
                     charactersDiv.style.display = 'none'
@@ -248,7 +248,7 @@
                             }
                         }
 
-                        xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.id }} +'/' + event.target.dataset.charactername + '/0/1', true)
+                        xhttp.open("GET", '/joue-en-ligne/recherche-un-personnage/' + {{ scenario.id }} +'/' + event.target.dataset.charactername + '/0/1', true)
                         xhttp.send();
                     } else {
                         if (window.confirm('Veux-tu VRAIMENT virer ce personnage de la table ?')) {
@@ -259,7 +259,7 @@
                                 }
                             }
 
-                            xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.id }} +'/' + event.target.dataset.charactername + '/1', true)
+                            xhttp.open("GET", '/joue-en-ligne/recherche-un-personnage/' + {{ scenario.id }} +'/' + event.target.dataset.charactername + '/1', true)
                             xhttp.send();
                         }
                     }

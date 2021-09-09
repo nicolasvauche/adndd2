@@ -30,7 +30,7 @@
                 </div>
             {% else %}
                 <div class="app_filters">
-                    <h2>{{ 'pages.user.plays.title' | trans | capitalize }}</h2>
+                    <h2>Tu peux filtrer par jeu si tu veux <i class="fas fa-hand-point-right"></i></h2>
 
                     <div class="app_filters_controls">
                         <select name="tables_game" id="tables_game" class="app_filter_select">
@@ -95,7 +95,7 @@
                                     <i class="fas fa-user-plus"></i>
                                 </a>
 
-                                <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue</a>
+                                <a href="{{ path('play.scenario', {'id': scenario.id}) }}" class="app_grid_item_footer_action button cta" title="Rejoins la partie">Joue<sup><i class="fas fa-crown"></i></sup></a>
                             </div>
                         </div>
                     {% endfor %}
@@ -109,7 +109,7 @@
                 {{ 'default.more' | trans | capitalize }}
             </h2>
 
-            <a href="{{ path('user.campaign') }}" class="app_button">Gère tes campagnes</a>
+            <a href="{{ path('user.campaign') }}" class="app_button">Tes campagnes</a>
 
             <a href="{{ app.request.headers.get('referer') }}" class="app_button cta">retour</a>
         </aside>

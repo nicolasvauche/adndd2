@@ -206,7 +206,7 @@
             .app_grid_item_footer_action {
                 flex: 1;
                 display: block;
-                padding: 0.5rem 1rem;
+                padding: 0.5rem;
                 font-family: $font-family-secondary;
                 font-size: 1rem;
                 font-weight: bold;
@@ -240,6 +240,11 @@
                     &:hover {
                         color: $color-bg-primary;
                         background-color: $color-blue;
+                    }
+
+                    & > sup {
+                        font-size: 0.5rem;
+                        vertical-align: super;
                     }
                 }
 

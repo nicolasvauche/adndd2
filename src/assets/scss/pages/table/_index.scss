@@ -72,18 +72,6 @@
                         @include respond(md) {
                             flex: 0 0 45%;
                         }
-
-                        &.player {
-                            flex: 0 0 40%;
-
-                            @include respond(sm) {
-                                flex: 0 0 20%;
-                            }
-
-                            @include respond(md) {
-                                flex: 0 0 8rem;
-                            }
-                        }
                     }
 
                     & > .top {
@@ -241,14 +229,6 @@
                                 &:last-child {
                                     font-size: 1.5rem;
                                 }
-                            }
-                        }
-                    }
-
-                    &.player {
-                        #diceset {
-                            .dices {
-                                grid-template-columns: repeat(3, 1fr);
                             }
                         }
                     }

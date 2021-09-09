@@ -52,10 +52,10 @@ pages:
       menu: "tes aventures"
       title: "gère tes aventures"
     plays:
-      menu: "tes tables de jeu"
-      title: "gère tes tables de jeu"
+      menu: "tes scénarios"
+      title: "gère tes scénarios"
       join:
-        title: "rejoins une table de jeu"
+        title: "rejoins un scénario"
     campaign:
       create:
         title: "crée une campagne"
@@ -72,23 +72,23 @@ pages:
     menu: "les jeux"
     title: "tous les jeux en ligne"
   play:
-    menu: "jouer"
+    menu: "joue !"
     title: "joue en ligne"
-    title2: "les tables de jeu"
+    title2: "les scénarios"
     create:
-      title: "crée une table de jeu"
-      menu: "nouvelle table"
+      title: "crée un scénario"
+      menu: "nouveau scénario"
     edit:
-      title: "modifie une table de jeu"
-      menu: "modifie la table de jeu"
+      title: "modifie un scénario"
+      menu: "modifie le scénario"
     invite:
-      title: "invite des personnages à la table"
+      title: "invite des personnages dans ce scénario"
       menu: "invite des personnages"
     game:
-      title: "Infos de la table"
+      title: "infos du scénario"
     campaign:
       title: "toutes tes campagnes de jeu"
-      menu: "Gère tes campagnes"
+      menu: "gère tes campagnes"
   contact:
     menu: "contact"
     title: "contactons-nous"
@@ -189,9 +189,9 @@ play:
     isPrivate:
       label: "partie privée"
     submit:
-      label: "crée la table"
+      label: "crée le scénario"
     edit:
-      label: "modifie la table"
+      label: "modifie le scénario"
     visibility:
       public: "publique"
       private: "privée"
@@ -229,7 +229,7 @@ character:
     placeholder: "ex: Grand, fin, calme, un peu renfrogné quelques fois…"
   story:
     label: "son histoire"
-    placeholder: "ex: Il fut embarqué sur un bâteau le long des côtes des Terres désolées et humides. Il a fuit les meurtriers de sa famille…"
+    placeholder: "ex: Il fut embarqué sur un bâteau le long des côtes des Terres désolées et humides. Il a fuit les meurtri@s de sa famille…"
   distinctive:
     label: "signes distinctifs"
     placeholder: "ex: Paumettes proéminentes, Yeux sombres et creux, Tatouages tribaux, …"
