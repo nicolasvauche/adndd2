@@ -109,6 +109,10 @@
                     <span><i class="fas fa-eye-slash"></i> {{ 'play.game.isPrivate.label' | trans | capitalize }}</span>
                 {% endif %}
             {% endif %}
+
+            <hr />
+
+            <a href="{{ path('user.campaign') }}" class="app_button">Gère tes campagnes</a>
         </aside>
     </article>
 {% endblock %}

@@ -6,12 +6,12 @@
     </div>
 
     <div class="top">
-        {% include 'play/table/controls/characters.html.twig' with {'scenario': scenario, 'myCharacter': myCharacter} %}
+        {% include 'play/scenario/controls/characters.html.twig' with {'scenario': scenario, 'myCharacter': myCharacter} %}
     </div>
 
-    {% include 'play/table/controls/diceset/index.html.twig' with {'scenario': scenario} %}
+    {% include 'play/scenario/controls/diceset/index.html.twig' with {'scenario': scenario} %}
 
     <div class="bottom">
-        {% include 'play/table/controls/actions.html.twig' with {'myCharacter': myCharacter} %}
+        {% include 'play/scenario/controls/actions.html.twig' with {'myCharacter': myCharacter} %}
     </div>
 </div>
