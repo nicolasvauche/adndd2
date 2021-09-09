@@ -70,10 +70,12 @@ class CampaignController extends AbstractController
      */
     public function edit(Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, Campaign $campaign)
     {
+        $game = $campaign->getGame();
         $form = $this->createForm(CampaignType::class, $campaign);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $campaign->setGame($game);
             $manager->persist($campaign);
             $manager->flush();
 
