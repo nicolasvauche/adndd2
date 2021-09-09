@@ -35,6 +35,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/, requires_channel: '%env(resolve:APP_CHANNEL)%' }
         - { path: ^/jouer-en-ligne/[a-z]+, roles: ROLE_USER }
         - { path: ^/ton-profil, roles: ROLE_USER }
         - { path: ^/modifier-ton-mot-de-passe, roles: ROLE_USER }
