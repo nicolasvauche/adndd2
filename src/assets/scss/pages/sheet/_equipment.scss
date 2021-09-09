@@ -1,0 +1,11 @@
+.money {
+    padding: 0.5rem 1rem;
+    font-family: $font-family-primary;
+    font-size: 1rem;
+    text-align: center;
+    color: $color-fg-primary;
+    background-color: $color-bg-primary;
+    border: 2px solid $color-fg-primary;
+    border-radius: $border-radius-default;
+    box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
+}

@@ -31,9 +31,12 @@
             const magicRange = document.getElementById('magicRange')
             const hitRange = document.getElementById('hitRange')
             const healthRange = document.getElementById('healthRange')
+            const crazyRange = document.getElementById('crazyRange')
+            const pcrestRange = document.getElementById('pcrestRange')
 
             const updateValue = (rangeInput) => {
                 let val = rangeInput.value
+                let type 
 
                 if (rangeInput.id === 'magicRange') {
                     type = 'magic'
@@ -41,6 +44,16 @@
                 if (rangeInput.id === 'hitRange') {
                     type = 'hit'
                 }
+                if (rangeInput.id === 'crazyRange') {
+                    type = 'crazy'
+                }
+                if (rangeInput.id === 'pcrestRange') {
+                    type = 'pcrest'
+                }
+                if (rangeInput.id === 'healthRange') {
+                    type = 'health'
+                }
+
 
                 if ((val == 0) && (type =='magic')) {
                     val = "Inconscient (" + val + ")";
@@ -53,62 +66,37 @@
                 }                    
                 document.getElementById(type).innerHTML = val; 
             }
-
-            magicRange.addEventListener('change', (event) => {
-                updateValue(event.target)
-            })
             
+            if (magicRange){
+                magicRange.addEventListener('change', (event) => {
+                    updateValue(event.target)
+                })
+            }
+            
+            if (hitRange){
             hitRange.addEventListener('change', (event) => {
                 updateValue(event.target)
             }) 
-        })
-    </script>
-
-    <script defer>
-        window.addEventListener("DOMContentLoaded", () => {
-            const healthRange = document.getElementById('healthRange')
-            const updateValue = (rangeInput) => {
-                let val = rangeInput.value
-                if (rangeInput.id === 'healthRange') {
-                    type = 'health'
-                }
-                if (rangeInput.id === 'crazyRange') {
-                    type = 'crazy'
-                }
-                if (rangeInput.id === 'pcrestRange') {
-                    type = 'pcrest'
-                }
-                if (rangeInput.id === 'moneyRange') {
-                    type = 'money'
-                }                
-
-                if (type === 'health'){
-                    if (val == 0) {
-                        val = "Mort (" + val + ")";
-                    } 
-                    if (val == 100) {
-                        val = "Max (" + val + ")";
-                    } 
-                }
-                console.log(type)
-                document.getElementById(type).innerHTML = val; 
             }
 
-            healthRange.addEventListener('change', (event) => {
-                updateValue(event.target)
-            })
+            if (healthRange){
+                healthRange.addEventListener('change', (event) => {
+                    updateValue(event.target)
+                })
+            }
 
-            crazyRange.addEventListener('change', (event) => {
+            if(crazyRange){
+                crazyRange.addEventListener('change', (event) => {
                 updateValue(event.target)
-            })
+                })
+            }
 
-            pcrestRange.addEventListener('change', (event) => {
+            if(pcrestRange){
+                pcrestRange.addEventListener('change', (event) => {
                 updateValue(event.target)
-            }) 
-
-            moneyRange.addEventListener('change', (event) => {
-                updateValue(event.target)
-            }) 
+                }) 
+            }
         })
     </script>
+
 {% endblock %}

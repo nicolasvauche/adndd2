@@ -1,17 +1,8 @@
 <div>
     <div class="htitle">
-        Argent: <span id="money" class="slide"> {{ character.coinpurse }} </span> $
-    </div>
-    <div class="htitle">
-        <input type="range" min="0" max="1000" step="1" list="tickmarks" id="moneyRange">
-            <datalist id="tickmarks">
-                <option value="0">
-                <option value="250">
-                <option value="500">
-                <option value="750">
-                <option value="1000">
-            </datalist>
-        </input>
+        Argent: 
+        <input type="number" value="{{ character.coinpurse }}" class="money" /> 
+        <i class="fas fa-dollar-sign"></i>   
     </div>
 </div>
 
