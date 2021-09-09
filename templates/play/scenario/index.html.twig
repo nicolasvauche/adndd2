@@ -150,10 +150,10 @@
                             for (let i = 1; i <= tableSet[element]; i++) {
                                 let total = 0
                                 if (parseInt(element) === 100) {
-                                    total = Math.floor(Math.random() * 100 - 1) + 1
+                                    total = Math.floor(Math.random() * 100) + 1
                                     total = Math.floor(total / 10) * 10
                                 } else {
-                                    total = Math.floor(Math.random() * parseInt(element) - 1) + 1
+                                    total = Math.floor(Math.random() * parseInt(element)) + 1
                                 }
                                 console.log('rolling 1D' + element + '(' + i + '/' + tableSet[element] + ') = ' + total)
                                 dicesSum += total
