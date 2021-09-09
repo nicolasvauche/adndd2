@@ -155,12 +155,25 @@
                                 } else {
                                     total = Math.floor(Math.random() * parseInt(element) - 1) + 1
                                 }
-                                console.log('added 1D' + element + '(' + i + '/' + tableSet[element] + ') = ' + total)
+                                console.log('rolling 1D' + element + '(' + i + '/' + tableSet[element] + ') = ' + total)
                                 dicesSum += total
                             }
                         }
                     }
-                    alert('Rolling ' + JSON.stringify(dicesToRoll) + ' = ' + dicesSum)
+
+                    const dicesResult = document.getElementById('dicesResult')
+                    let dicesStr = ''
+                    let i = 1;
+                    for (let key in dicesToRoll) {
+                        if (dicesToRoll.hasOwnProperty(key)) {
+                            dicesStr += dicesToRoll[key] + ' ' + key
+                            if (i < Object.keys(dicesToRoll).length) {
+                                dicesStr += ' <strong>+</strong> '
+                            }
+                            i++
+                        }
+                    }
+                    dicesResult.innerHTML = '<h3>Dernier lancer :</h3>' + dicesStr + ' <strong>=</strong> ' + '<strong>' + dicesSum + '</strong>'
 
                     nbDicesOnTable = 0
                     tableSet = {
