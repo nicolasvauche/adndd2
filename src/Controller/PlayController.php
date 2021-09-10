@@ -224,7 +224,7 @@ class PlayController extends AbstractController
     /**
      * @Route("/rejoins-un-scenario/{id}/{characterId}", name="user.play.join")
      */
-    public function join(EntityManagerInterface $manager, Scenario $scenario, MailerService $mailerService, $characterId): Response
+    public function join(EntityManagerInterface $manager, MailerService $mailerService, Scenario $scenario, $characterId): Response
     {
         $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
 
@@ -292,7 +292,7 @@ EOF,
     /**
      * @Route("/quitte-un-scenario/{id}/{characterId}", name="user.play.leave")
      */
-    public function leave(EntityManagerInterface $manager, Scenario $scenario, MailerService $mailerService, $characterId): Response
+    public function leave(EntityManagerInterface $manager, MailerService $mailerService, Scenario $scenario, $characterId): Response
     {
         $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
 
@@ -352,7 +352,7 @@ EOF,
     /**
      * @Route("/recherche-un-personnage/{scenarioId}/{characterName}/{deleteMode}/{acceptMode}", name="user.play.invite.search")
      */
-    public function searchCharacter(Request $request, EntityManagerInterface $manager, $scenarioId, $characterName, $deleteMode = false, $acceptMode = false)
+    public function searchCharacter(Request $request, EntityManagerInterface $manager, MailerService $mailerService, $scenarioId, $characterName, $deleteMode = false, $acceptMode = false)
     {
         $json = [];
         $scenario = $this->getDoctrine()->getRepository(Scenario::class)->find($scenarioId);
@@ -390,6 +390,44 @@ EOF,
                                 $scenarioCharacter->setIsAccepted(true);
                                 $manager->persist($scenarioCharacter);
                                 $manager->flush();
+
+                                $mailerService->send(
+                                    [
+                                        'name' => $char->getFullname(),
+                                        'email' => $char->getUser()->getEmail(),
+                                        'subject' => 'Tu as rejoins le scénario : ' . $scenario->getName(),
+                                        'message' =>
+                                            <<<EOF
+<p>Salut {$char->getName()} !</p>
+<p>
+    Bonne nouvelle !<br />
+    Le MJ du scénario : {$scenario->getName()} a accepté ta candidature !<br />
+    C'est cool ;)
+</p>
+EOF,
+
+                                        'htmlTemplate' => 'emails/play/accept/user.html.twig',
+                                    ],
+                                    'user');
+
+                                $mailerService->send(
+                                    [
+                                        'to' => $scenario->getUser()->getEmail(),
+                                        'name' => $char->getFullname(),
+                                        'email' => $char->getUser()->getEmail(),
+                                        'subject' => 'Tu as accepté le perso ' . $char->getFullname() . ' dans ton scénario : ' . $scenario->getName(),
+                                        'message' =>
+                                            <<<EOF
+<p>Salut à toi, MJ !</p>
+<p>
+    Tu viens d'accepter la candidature de {$char->getFullname()}, personnage appartenant à {$char->getUser()->getFullname()} pour ton scénario : {$scenario->getName()}<br />
+    Le joueur a été prévenu par mail :)
+</p>
+EOF,
+
+                                        'htmlTemplate' => 'emails/play/accept/admin.html.twig',
+                                    ],
+                                    'admin');
 
                                 $json[] = [
                                     [
@@ -438,6 +476,44 @@ EOF,
                             $scenarioCharacter->setIsAccepted(true);
                             $manager->persist($scenarioCharacter);
                             $manager->flush();
+
+                            $mailerService->send(
+                                [
+                                    'name' => $character->getFullname(),
+                                    'email' => $character->getUser()->getEmail(),
+                                    'subject' => 'Tu as rejoins le scénario : ' . $scenario->getName(),
+                                    'message' =>
+                                        <<<EOF
+<p>Salut {$character->getName()} !</p>
+<p>
+    Bonne nouvelle !<br />
+    Le MJ du scénario : {$scenario->getName()} a accepté ta candidature !<br />
+    C'est cool ;)
+</p>
+EOF,
+
+                                    'htmlTemplate' => 'emails/play/accept/user.html.twig',
+                                ],
+                                'user');
+
+                            $mailerService->send(
+                                [
+                                    'to' => $scenario->getUser()->getEmail(),
+                                    'name' => $character->getFullname(),
+                                    'email' => $character->getUser()->getEmail(),
+                                    'subject' => 'Tu as accepté le perso ' . $character->getFullname() . ' dans ton scénario : ' . $scenario->getName(),
+                                    'message' =>
+                                        <<<EOF
+<p>Salut à toi, MJ !</p>
+<p>
+    Tu viens d'accepter la candidature de {$character->getFullname()}, personnage appartenant à {$character->getUser()->getFullname()} pour ton scénario : {$scenario->getName()}<br />
+    Le joueur a été prévenu par mail :)
+</p>
+EOF,
+
+                                    'htmlTemplate' => 'emails/play/accept/admin.html.twig',
+                                ],
+                                'admin');
 
                             $json = [
                                 [
