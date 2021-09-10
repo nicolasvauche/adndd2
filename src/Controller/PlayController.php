@@ -8,6 +8,7 @@ use App\Entity\ScenarioCharacter;
 use App\Form\ScenarioType;
 use App\Repository\GameRepository;
 use App\Repository\ScenarioRepository;
+use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -223,7 +224,7 @@ class PlayController extends AbstractController
     /**
      * @Route("/rejoins-un-scenario/{id}/{characterId}", name="user.play.join")
      */
-    public function join(EntityManagerInterface $manager, Scenario $scenario, $characterId): Response
+    public function join(EntityManagerInterface $manager, Scenario $scenario, MailerService $mailerService, $characterId): Response
     {
         $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
 
@@ -237,6 +238,43 @@ class PlayController extends AbstractController
                 $scenario->addScenarioCharacter($scenarioCharacter);
                 $manager->persist($scenario);
                 $manager->flush();
+
+                $mailerService->send(
+                    [
+                        'name' => $character->getFullname(),
+                        'email' => $character->getUser()->getEmail(),
+                        'subject' => 'Je postule pour ton scénario : ' . $scenario->getName(),
+                        'message' =>
+                            <<<EOF
+<p>Bonjour Ô puissant MJ !</p>
+<p>
+    Je viens vers toi afin de te présenter mon humble candidature pour participer à ton scénario : {$scenario->getName()}<br />
+    M'accepteras-tu ? J'attends ta réponse, mon mignon ;)
+</p>
+EOF,
+
+                        'htmlTemplate' => 'emails/play/join/user.html.twig',
+                    ],
+                    'user');
+
+                $mailerService->send(
+                    [
+                        'to' => $scenario->getUser()->getEmail(),
+                        'name' => $character->getFullname(),
+                        'email' => $character->getUser()->getEmail(),
+                        'subject' => 'On vient de postuler pour ton scénario : ' . $scenario->getName(),
+                        'message' =>
+                            <<<EOF
+<p>Salut à toi, MJ !</p>
+<p>
+    {$character->getFullname()}, personnage appartenant à {$character->getUser()->getFullname()}, vient de te proposer sa candidature pour participer à ton scénario : {$scenario->getName()}<br />
+    L'accepteras-tu ? Il attend ta réponse, sois gentil ;)
+</p>
+EOF,
+
+                        'htmlTemplate' => 'emails/play/join/admin.html.twig',
+                    ],
+                    'admin');
 
                 $this->addFlash('success', 'Ta candidature a été envoyée au MJ. Attendons sa réponse…');
             } else {
