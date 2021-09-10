@@ -98,12 +98,12 @@
 
                         {% if character.description %}
                             <span>Description</span>
-                            <blockquote>{{ character.description }}</blockquote>
+                            <blockquote>{{ character.description | raw }}</blockquote>
                         {% endif %}
 
                         {% if character.story %}
                             <span>Histoire</span>
-                            <blockquote>{{ character.story }}</blockquote>
+                            <blockquote>{{ character.story | raw }}</blockquote>
                         {% endif %}
 
                         {% if character.distinctive %}
@@ -113,7 +113,7 @@
 
                         {% if character.notes %}
                             <span>Notes</span>
-                            <blockquote>{{ character.notes }}</blockquote>
+                            <blockquote>{{ character.notes | raw }}</blockquote>
                         {% endif %}
 
                     </div>

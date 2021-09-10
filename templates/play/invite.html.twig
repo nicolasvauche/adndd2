@@ -35,7 +35,7 @@
                     {% set i = 0 %}
                     {% for scenarioCharacter in scenario.scenarioCharacters %}
                         <div class="character app_grid_item {% if not scenarioCharacter.isAccepted %}off{% endif %}" data-characterid="{{ scenarioCharacter.personnage.id }}">
-                            <a href="#" class="guest_link" title="{% if not scenarioCharacter.isAccepted %}Accepte / {% endif %}Enlève ce personnage" data-charactername="{{ scenarioCharacter.personnage.name }}">
+                            <a href="#" class="guest_link" title="{% if not scenarioCharacter.isAccepted %}Accepte{% else %}Enlève{% endif %} ce personnage" data-charactername="{{ scenarioCharacter.personnage.name }}">
                                 <img src="{{ asset('assets/images/characters/' ~ scenarioCharacter.personnage.avatar) }}" alt="{{ scenarioCharacter.personnage.name }}" class="app_grid_item_image" data-charactername="{{ scenarioCharacter.personnage.name }}" />
                                 <span class="app_grid_item_title" data-charactername="{{ scenarioCharacter.personnage.name }}">{{ scenarioCharacter.personnage.fullname }}</span>
                             </a>
@@ -141,7 +141,7 @@
                     }
                 };
 
-                xhttp.open("GET", '/jouer-en-ligne/inviter-un-personnage/' + {{ scenario.id }} +'/' + character.id, true);
+                xhttp.open("GET", '/joue-en-ligne/invite-un-personnage/' + {{ scenario.id }} +'/' + character.id, true);
                 xhttp.send();
             }
 
@@ -152,7 +152,7 @@
                         const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
 
                         for (guestDiv of guestsDiv) {
-                            if (parseInt(guestDiv.dataset.characterid) === parseInt(character.id)) {
+                            if (parseInt(guestDiv.dataset.characterid) === parseInt(character[0].id)) {
                                 const guestImage = guestDiv.querySelector(('.app_grid_item_image'))
                                 const guestName = guestDiv.querySelector(('.app_grid_item_title'))
                                 guestImage.src = '{{ asset('assets/images/user_avatar.png') }}'
@@ -167,7 +167,7 @@
                     }
                 };
 
-                xhttp.open("POST", '/jouer-en-ligne/virer-un-personnage/' + {{ scenario.id }} +'/' + character.id, true);
+                xhttp.open("POST", '/joue-en-ligne/vire-un-personnage/' + {{ scenario.id }} +'/' + character[0].id, true);
                 xhttp.send();
             }
 
@@ -175,7 +175,7 @@
                 const guestsDiv = document.querySelectorAll('.invited .app_grid_item')
 
                 for (guestDiv of guestsDiv) {
-                    if (parseInt(guestDiv.dataset.characterid) === parseInt(character.id)) {
+                    if (parseInt(guestDiv.dataset.characterid) === parseInt(character[0].id)) {
                         guestDiv.classList.remove('off')
                     }
                 }
@@ -191,19 +191,22 @@
                     xhttp.onreadystatechange = function () {
                         charactersDiv.innerHTML = ''
                         if (this.readyState === 4 && this.status === 200) {
-                            const characterDiv = document.createElement('p')
                             const characterData = JSON.parse(this.responseText)
                             if (characterData.length > 0) {
-                                characterDiv.classList.add('character')
-                                characterDiv.dataset.userid = characterData[0].id
-                                characterDiv.innerHTML = characterData[0].fullname + ' <span>(' + characterData[0].username + ')</span>'
-                                characterDiv.addEventListener('click', event => {
-                                    addcharacter(characterData[0])
-                                })
-                                charactersDiv.appendChild(characterDiv)
-                                charactersDiv.style.display = 'block'
+                                for (charData of characterData) {
+                                    const characterDiv = document.createElement('p')
+                                    characterDiv.classList.add('character')
+                                    characterDiv.dataset.userid = charData[0].id
+                                    characterDiv.innerHTML = charData[0].fullname + ' <span>(' + charData[0].username + ')</span>'
+                                    characterDiv.addEventListener('click', event => {
+                                        addcharacter(charData[0])
+                                    })
+                                    charactersDiv.appendChild(characterDiv)
+                                    charactersDiv.style.display = 'block'
+                                }
                                 loader.style.display = 'none'
                             } else {
+                                const characterDiv = document.createElement('p')
                                 characterDiv.innerHTML = 'aucun résultat…'
                                 charactersDiv.appendChild(characterDiv)
                                 charactersDiv.style.display = 'block'
@@ -212,7 +215,7 @@
                         }
                     };
 
-                    xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.id }} +'/' + characterName, true);
+                    xhttp.open("GET", '/joue-en-ligne/recherche-un-personnage/' + {{ scenario.id }} +'/' + characterName, true);
                     xhttp.send();
                 } else {
                     charactersDiv.style.display = 'none'
@@ -245,7 +248,7 @@
                             }
                         }
 
-                        xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.id }} +'/' + event.target.dataset.charactername + '/0/1', true)
+                        xhttp.open("GET", '/joue-en-ligne/recherche-un-personnage/' + {{ scenario.id }} +'/' + event.target.dataset.charactername + '/0/1', true)
                         xhttp.send();
                     } else {
                         if (window.confirm('Veux-tu VRAIMENT virer ce personnage de la table ?')) {
@@ -256,7 +259,7 @@
                                 }
                             }
 
-                            xhttp.open("GET", '/jouer-en-ligne/rechercher-un-personnage/' + {{ scenario.id }} +'/' + event.target.dataset.charactername + '/1', true)
+                            xhttp.open("GET", '/joue-en-ligne/recherche-un-personnage/' + {{ scenario.id }} +'/' + event.target.dataset.charactername + '/1', true)
                             xhttp.send();
                         }
                     }

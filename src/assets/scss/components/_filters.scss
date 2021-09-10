@@ -12,6 +12,10 @@
         @include respond(sm) {
             padding-top: 0.5rem;
         }
+
+        & > i {
+            color: $color-orange;
+        }
     }
 
     .app_filters_controls {

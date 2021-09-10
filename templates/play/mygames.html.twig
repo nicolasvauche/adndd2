@@ -25,12 +25,12 @@
                     Tu ne joues à aucune table en ce moment.
                     <br />
                     Pour en rejoindre une, va voir sur la page des
-                    <a href="{{ path('play') }}" title="{{ 'pages.play.title' | trans | capitalize }}">tables de jeu</a>
+                    <a href="{{ path('play') }}" title="{{ 'pages.play.title' | trans | capitalize }}">scénarios en attente de personnages</a>
                     !
                 </div>
             {% else %}
                 <div class="app_filters">
-                    <h2>{{ 'pages.user.games.title' | trans | capitalize }}</h2>
+                    <h2>Tu peux filtrer par jeu si tu veux <i class="fas fa-hand-point-right"></i></h2>
 
                     <div class="app_filters_controls">
                         <select name="tables_game" id="tables_game" class="app_filter_select">
@@ -60,9 +60,9 @@
                             </div>
 
                             <div>
-                                <p class="app_grid_item_info excerpt">
-                                    {{ scenario.shortDescription }}
-                                </p>
+                                <div class="app_grid_item_info excerpt">
+                                    {{ scenario.shortDescription | raw }}
+                                </div>
 
                                 <p class="app_grid_item_infos flex around">
                                     <strong>

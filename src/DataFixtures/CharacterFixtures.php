@@ -115,6 +115,36 @@ class CharacterFixtures extends Fixture implements OrderedFixtureInterface
             $this->addReference('character' . $z, $character);
         }
 
+        $zz = 1;
+        foreach ($tabCharac as list($a, $b, $c, $d, $e, $f, $g, $h, $i, $j, $k, $l, $m, $n, $o, $p)) {
+            $z++;
+            if ($zz > 4) {
+                $zz = 1;
+            }
+            $playerCharacter = new Character();
+            $playerCharacter->setName($a)
+                ->setAvatar($b)
+                ->setGender($c)
+                ->setGuidingHand($d)
+                ->setSize($e)
+                ->setWeight($f)
+                ->setDescription($g)
+                ->setAge($h)
+                ->setDistinctive($i)
+                ->setStory($j)
+                ->setIsPremade(false)
+                ->setAllegiance($l)
+                ->setHomeplace($m)
+                ->setBirthplace($n)
+                ->setCoinpurse($o)
+                ->setGame($this->getReference($p))
+                ->setUser($this->getReference('user' . $zz));
+            $manager->persist($playerCharacter);
+            $this->addReference('character' . $z, $playerCharacter);
+
+            $zz++;
+        }
+
         $manager->flush();
     }
 

@@ -9,7 +9,6 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Scenario|null find($id, $lockMode = null, $lockVersion = null)
  * @method Scenario|null findOneBy(array $criteria, array $orderBy = null)
- * @method Scenario[]    findAll()
  * @method Scenario[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ScenarioRepository extends ServiceEntityRepository
@@ -17,6 +16,11 @@ class ScenarioRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Scenario::class);
+    }
+
+    public function findAll()
+    {
+        return $this->findBy([], ['startAt' => 'ASC']);
     }
 
     // /**

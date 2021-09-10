@@ -1,0 +1,192 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ scenario.name }}{% endblock %}
+
+{% block body_class %}table{% endblock %}
+
+{% block body %}
+    <article>
+        <section>
+            <h1>{{ scenario.name }}</h1>
+
+            <div class="content">
+                {% include 'play/scenario/visio.html.twig' with {'scenario': scenario} %}
+
+                {% include 'play/scenario/controls/index.html.twig' with {'scenario': scenario, 'myCharacter': myCharacter} %}
+
+                <div class="app_modal on">
+                    <div class="app_modal_box">
+                        <button class="app_button app_modal_close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="app_modal_body">
+                            <h2 class="app_modal_title">{{ scenario.name }}
+                                <small>Résumé</small>
+                            </h2>
+                            {{ scenario.description | raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    <script defer>
+        window.addEventListener("DOMContentLoaded", () => {
+            const quitBtn = document.getElementById('quit')
+            quitBtn.addEventListener('click', event => {
+                event.preventDefault()
+                if (window.confirm('Tu veux VRAIMENT quitter la table de jeu ?')) {
+                    window.location.href = quitBtn.href
+                }
+            })
+
+            {% if myCharacter.name == 'MJ' %}
+            const endBtn = document.getElementById('end')
+            endBtn.addEventListener('click', event => {
+                event.preventDefault()
+                if (window.confirm('Tu veux VRAIMENT clôturer cette partie ?')) {
+                    window.location.href = endBtn.href
+                }
+            })
+            {% endif %}
+
+            {% if myCharacter.name == 'MJ' %}
+            const kickBtns = document.querySelectorAll('.kick')
+            for (const kickBtn of kickBtns) {
+                kickBtn.addEventListener('click', event => {
+                    event.preventDefault();
+                    if (window.confirm('Veux-tu VRAIMENT virer ' + event.target.dataset.charactername + ' de la table de jeu ?')) {
+                        console.log('Kicked ' + event.target.dataset.characterid)
+                    }
+                })
+            }
+            {% endif %}
+
+            const modalButtons = document.querySelectorAll('.modal')
+            for (const modalButton of modalButtons) {
+                modalButton.addEventListener('click', event => {
+                    event.preventDefault()
+                    const modalId = modalButton.dataset.modal
+                    const modal = document.getElementById(modalId)
+                    modal.style.display = 'flex'
+                })
+            }
+
+            const modalCloseButtons = document.querySelectorAll('.app_modal_close')
+            for (const modalCloseButton of modalCloseButtons) {
+                modalCloseButton.addEventListener('click', () => {
+                    modalCloseButton.parentNode.parentNode.style.display = 'none'
+                })
+            }
+
+            const toggleControlsBtn = document.getElementById('toggleControls')
+            toggleControlsBtn.addEventListener('click', event => {
+                event.preventDefault()
+                const controlsPanel = document.getElementById('controls')
+                const toggleIcon = document.getElementById('toggleIcon')
+                if (controlsPanel.classList.contains('on')) {
+                    controlsPanel.classList.remove('on')
+                    toggleIcon.classList.replace('fa-chevron-right', 'fa-chevron-left')
+                } else {
+                    controlsPanel.classList.add('on')
+                    toggleIcon.classList.replace('fa-chevron-left', 'fa-chevron-right')
+                }
+            })
+
+            let tableSet = {
+                {% for dice in scenario.game.gamesystem.diceset.dices %}
+                '{{ dice.faces }}': 0,
+                {% endfor %}
+            }
+
+            const dices = document.querySelectorAll('.dices > a > img')
+            const rollBtn = document.getElementById('rollDices')
+            let nbDicesOnTable = 0
+            for (dice of dices) {
+                dice.addEventListener('click', event => {
+                    const diceImg = event.target
+                    event.preventDefault()
+                    tableSet[diceImg.dataset.dicename] = (tableSet[diceImg.dataset.dicename] + 1) || 0
+                    nbDicesOnTable++
+                    const diceNb = diceImg.parentNode.querySelector('span')
+                    diceNb.innerHTML = tableSet[diceImg.dataset.dicename]
+                    if (nbDicesOnTable > 0) {
+                        rollBtn.classList.remove('hidden')
+                    }
+                })
+            }
+
+            const dicesNb = document.querySelectorAll('.dices > a > span')
+            for (diceNb of dicesNb) {
+                diceNb.addEventListener('click', event => {
+                    const diceImg = event.target.parentNode.querySelector('img')
+                    event.preventDefault()
+                    tableSet[diceImg.dataset.dicename] = tableSet[diceImg.dataset.dicename] - 1
+                    if (tableSet[diceImg.dataset.dicename] <= 0) {
+                        tableSet[diceImg.dataset.dicename] = 0
+                    }
+                    nbDicesOnTable--
+                    if (nbDicesOnTable <= 0) {
+                        nbDicesOnTable = 0
+                    }
+                    event.target.innerHTML = tableSet[diceImg.dataset.dicename]
+                    if (nbDicesOnTable == 0) {
+                        rollBtn.classList.add('hidden')
+                    }
+                })
+            }
+
+            rollBtn.addEventListener('click', event => {
+                const btn = event.target
+                if (!btn.classList.contains('hidden')) {
+                    const dicesToRoll = {}
+                    let dicesSum = 0
+                    for (const element in tableSet) {
+                        if (tableSet[element] > 0) {
+                            dicesToRoll['D' + element] = tableSet[element]
+                            for (let i = 1; i <= tableSet[element]; i++) {
+                                let total = 0
+                                if (parseInt(element) === 100) {
+                                    total = Math.floor(Math.random() * 100) + 1
+                                    total = Math.floor(total / 10) * 10
+                                } else {
+                                    total = Math.floor(Math.random() * parseInt(element)) + 1
+                                }
+                                console.log('rolling 1D' + element + '(' + i + '/' + tableSet[element] + ') = ' + total)
+                                dicesSum += total
+                            }
+                        }
+                    }
+
+                    const dicesResult = document.getElementById('dicesResult')
+                    let dicesStr = ''
+                    let i = 1;
+                    for (let key in dicesToRoll) {
+                        if (dicesToRoll.hasOwnProperty(key)) {
+                            dicesStr += dicesToRoll[key] + ' ' + key
+                            if (i < Object.keys(dicesToRoll).length) {
+                                dicesStr += ' <strong>+</strong> '
+                            }
+                            i++
+                        }
+                    }
+                    dicesResult.innerHTML = '<h3>Dernier lancer :</h3>' + dicesStr + ' <strong>=</strong> ' + '<strong>' + dicesSum + '</strong>'
+
+                    nbDicesOnTable = 0
+                    tableSet = {
+                        {% for dice in scenario.game.gamesystem.diceset.dices %}
+                        '{{ dice.faces }}': 0,
+                        {% endfor %}
+                    }
+                    for (const dice of dicesNb) {
+                        dice.innerHTML = 0
+                    }
+                    rollBtn.classList.add('hidden')
+                }
+            })
+        })
+    </script>
+{% endblock %}

@@ -130,48 +130,50 @@ EOF
         /**
          * Default Dices
          */
-        $dices = [
-            0 => [
-                'name' => 'D2',
-                'faces' => 2,
-            ],
-            1 => [
-                'name' => 'D4',
-                'faces' => 4,
-            ],
-            2 => [
-                'name' => 'D6',
-                'faces' => 6,
-            ],
-            3 => [
-                'name' => 'D8',
-                'faces' => 8,
-            ],
-            4 => [
-                'name' => 'D10',
-                'faces' => 10,
-            ],
-            5 => [
-                'name' => 'D12',
-                'faces' => 12,
-            ],
-            6 => [
-                'name' => 'D20',
-                'faces' => 20,
-            ],
-            7 => [
-                'name' => 'D100',
-                'faces' => 100,
-            ],
-        ];
-        foreach ($dices as $key => $dice) {
-            $newDice = new Dice();
-            $newDice->setName($dice['name'])
-                ->setFaces($dice['faces'])
-                ->addDiceset($diceset1)
-                ->addDiceset($diceset2);
-            $manager->persist($newDice);
-        }
+        $dice1 = new Dice();
+        $dice1->setName('D4')
+            ->setFaces(4)
+            ->addDiceset($diceset1);
+        $manager->persist($dice1);
+
+        $dice2 = new Dice();
+        $dice2->setName('D6')
+            ->setFaces(6)
+            ->addDiceset($diceset1)
+            ->addDiceset($diceset2);
+        $manager->persist($dice2);
+
+        $dice3 = new Dice();
+        $dice3->setName('D8')
+            ->setFaces(8)
+            ->addDiceset($diceset1);
+        $manager->persist($dice3);
+
+        $dice4 = new Dice();
+        $dice4->setName('D10')
+            ->setFaces(10)
+            ->addDiceset($diceset1)
+            ->addDiceset($diceset2);
+        $manager->persist($dice4);
+
+        $dice5 = new Dice();
+        $dice5->setName('D12')
+            ->setFaces(12)
+            ->addDiceset($diceset1)
+            ->addDiceset($diceset2);
+        $manager->persist($dice5);
+
+        $dice6 = new Dice();
+        $dice6->setName('D20')
+            ->setFaces(20)
+            ->addDiceset($diceset1);
+        $manager->persist($dice6);
+
+        $dice7 = new Dice();
+        $dice7->setName('D100')
+            ->setFaces(100)
+            ->addDiceset($diceset1);
+        $manager->persist($dice7);
 
         $manager->flush();
     }

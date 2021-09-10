@@ -30,7 +30,7 @@
                 {% endif %}
             {% else %}
                 <div class="app_filters">
-                    <h2>Tu peux filtrer par jeu si tu veux :</h2>
+                    <h2>Tu peux filtrer par jeu <i class="fas fa-hand-point-right"></i></h2>
 
                     <div class="app_filters_controls">
                         <select name="characters_game" id="characters_game" class="app_filter_select">
@@ -56,13 +56,21 @@
                                 <h4 class="app_grid_item_subtitle">{{ character.game.name }}</h4>
                             </div>
                             <div class="app_grid_item_body">
-                                <p class="app_grid_item_info excerpt">
+                                <div class="app_grid_item_info excerpt">
                                     {% if character.story %}
-                                        {{ character.story | length > 205 ? character.story | slice(0, 205) ~ '…' : character.story }}
+                                        {% if character.story | length > 205 %}
+                                            {{ character.story | slice(0, 205) | raw }}…
+                                        {% else %}
+                                            {{ character.story | raw }}
+                                        {% endif %}
                                     {% else %}
-                                        {{ character.description | length > 205 ? character.description | slice(0, 205) ~ '…' : character.description }}
+                                        {% if character.description | length > 205 %}
+                                            {{ character.description | slice(0, 205) | raw }}…
+                                        {% else %}
+                                            {{ character.description | raw }}
+                                        {% endif %}
                                     {% endif %}
-                                </p>
+                                </div>
                             </div>
                             <div class="app_grid_item_footer">
                                 <a href="{{ path('user.characters.edit', {'id': character.id}) }}" class="app_grid_item_footer_action button" title="Modifie ce personnage">

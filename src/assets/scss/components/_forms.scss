@@ -138,13 +138,30 @@
             text-align: center;
             color: $color-fg-primary;
             background-color: $color-bg-primary;
-            border: 2px solid $color-fg-primary;
+            border: none;
             border-radius: $border-radius-default;
-            box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
+            box-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) calc(#{$box-shadow-radius} / 2) $box-shadow-color;
+            transition: all 0.3s ease;
 
             &[required] + label:after {
                 content: "*";
                 color: red;
+            }
+
+            &:hover,
+            &:focus {
+                outline: none;
+                box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
+            }
+
+            &.disabled {
+                cursor: not-allowed;
+
+                &:hover,
+                &:focus {
+                    outline: none;
+                    box-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) calc(#{$box-shadow-radius} / 2) $box-shadow-color;
+                }
             }
 
             option {
@@ -182,6 +199,33 @@
 
             &.app_form_control {
                 cursor: pointer;
+            }
+        }
+
+        .cke {
+            order: 2;
+            border-radius: $border-radius-default;
+            box-shadow: calc(#{$box-shadow-x} / 2) calc(#{$box-shadow-y} / 2) calc(#{$box-shadow-radius} / 2) $box-shadow-color;
+            transition: all 0.3s ease;
+
+            &:hover,
+            &:focus,
+            &:active {
+                outline: none;
+                box-shadow: $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
+            }
+
+            .cke_inner {
+                border-radius: inherit;
+
+                .cke_top {
+                    border-top-left-radius: $border-radius-default;
+                    border-top-right-radius: $border-radius-default;
+                }
+
+                .cke_contents {
+                    border-radius: inherit;
+                }
             }
         }
     }

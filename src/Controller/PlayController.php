@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("/jouer-en-ligne")
+ * @Route("/joue-en-ligne")
  */
 class PlayController extends AbstractController
 {
@@ -69,20 +69,20 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/tes-tables-de-jeu", name="user.play.myscenarios")
+     * @Route("/tes-scenarios", name="user.play.myscenarios")
      */
     public function myScenarios(): Response
     {
-        $scenarios = $this->getDoctrine()->getRepository(Scenario::class)->findBy(['user' => $this->getUser()]);
+        $scenarios = $this->getDoctrine()->getRepository(Scenario::class)->findBy(['user' => $this->getUser()], ['startAt' => 'ASC']);
 
-        return $this->render('play/mytables.html.twig',
+        return $this->render('play/myscenarios.html.twig',
             [
                 'scenarios' => $scenarios,
             ]);
     }
 
     /**
-     * @Route("/creer-une-table/{gameId}", name="user.play.create")
+     * @Route("/cree-un-scenario/{gameId}", name="user.play.create")
      */
     public function create(GameRepository $gameRepository, Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, $gameId = null): Response
     {
@@ -102,7 +102,7 @@ class PlayController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $scenario->setStatus('waiting')
-                ->setDescription('<p>' . $scenario->getShortDescription() . '</p>')
+                ->setDescription($scenario->getShortDescription())
                 ->setGame($game)
                 ->setUser($this->getUser());
             $manager->persist($scenario);
@@ -129,7 +129,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/modifier-une-table/{id}", name="user.play.edit")
+     * @Route("/modifie-un-scenario/{id}", name="user.play.edit")
      */
     public function edit(Request $request, ValidatorInterface $validator, EntityManagerInterface $manager, Scenario $scenario)
     {
@@ -160,7 +160,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/supprimer-une-table/{id}", name="user.play.remove")
+     * @Route("/supprime-un-scenario/{id}", name="user.play.remove")
      */
     public function remove(EntityManagerInterface $manager, $id): Response
     {
@@ -170,7 +170,7 @@ class PlayController extends AbstractController
             $manager->remove($scenario);
             $manager->flush();
 
-            $this->addFlash('success', 'Ta table de jeu a été supprimée !');
+            $this->addFlash('success', 'Ton scénario a été supprimée !');
         } else {
             $this->addFlash('error', 'Hum… Erreur bizarre…');
         }
@@ -179,7 +179,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/inviter-des-joueurs/{id}", name="user.play.invite")
+     * @Route("/invite-des-joueurs/{id}", name="user.play.invite")
      */
     public function invite(Scenario $scenario): Response
     {
@@ -191,7 +191,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/postule-a-une-table/{id}", name="user.play.candidate")
+     * @Route("/postule-a-un-scenario/{id}", name="user.play.candidate")
      */
     public function candidate(Scenario $scenario): Response
     {
@@ -221,7 +221,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/rejoins-une-table/{id}/{characterId}", name="user.play.join")
+     * @Route("/rejoins-un-scenario/{id}/{characterId}", name="user.play.join")
      */
     public function join(EntityManagerInterface $manager, Scenario $scenario, $characterId): Response
     {
@@ -243,7 +243,7 @@ class PlayController extends AbstractController
                 if ($scenario->getScenarioCharacters()->contains($character)) {
                     $this->addFlash('warning', 'Ta candidature a déjà été envoyée au MJ ! Attends sa réponse…');
                 } else if (sizeof($scenario->getScenarioCharacters()) < 5) {
-                    $this->addFlash('danger', 'Cette table est pleine, désolé :(');
+                    $this->addFlash('danger', 'Ce scénario est plein de persos, désolé :(');
                 }
             }
         }
@@ -252,7 +252,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/quitte-une-table/{id}/{characterId}", name="user.play.leave")
+     * @Route("/quitte-un-scenario/{id}/{characterId}", name="user.play.leave")
      */
     public function leave(EntityManagerInterface $manager, Scenario $scenario, $characterId): Response
     {
@@ -266,7 +266,7 @@ class PlayController extends AbstractController
                     $manager->persist($scenario);
                     $manager->flush();
 
-                    $this->addFlash('warning', 'Tu as quitté la table de jeu.');
+                    $this->addFlash('warning', 'Tu as quitté le scénario.');
                 }
             }
         }
@@ -275,7 +275,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/rechercher-un-personnage/{scenarioId}/{characterName}/{deleteMode}/{acceptMode}", name="user.play.invite.search")
+     * @Route("/recherche-un-personnage/{scenarioId}/{characterName}/{deleteMode}/{acceptMode}", name="user.play.invite.search")
      */
     public function searchCharacter(Request $request, EntityManagerInterface $manager, $scenarioId, $characterName, $deleteMode = false, $acceptMode = false)
     {
@@ -286,39 +286,69 @@ class PlayController extends AbstractController
             ->where('c.name LIKE :characterName')
             ->orWhere('c.surname LIKE :characterName')
             ->orWhere("CONCAT(c.name, ' ' , c.surname) LIKE :characterName")
+            ->orWhere("CONCAT(u.firstname, ' ', u.lastname) LIKE :characterName")
+            ->orWhere('u.pseudo LIKE :characterName')
             ->andWhere('c.isPremade = 0')
             ->andWhere('c.game = :gameId')
             ->setParameter('characterName', '%' . $characterName . '%')
             ->setParameter('gameId', $scenario->getGame()->getId())
+            ->join('c.user', 'u')
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getResult();
 
         if ($character) {
-            if ($character->getUser()->getId() !== $this->getUser()->getId()) {
-                if ($deleteMode) {
-                    foreach ($scenario->getScenarioCharacters() as $scenarioCharacter) {
-                        if ($scenarioCharacter->getPersonnage()->getId() === $character->getId()) {
-                            /*$scenario->addCharacter($character);
-                            $manager->persist($scenario);
-                            $manager->flush();*/
+            if (is_array($character)) {
+                foreach ($character as $char) {
+                    if ($char->getUser()->getId() !== $this->getUser()->getId()) {
+                        if ($deleteMode) {
+                            $json[] = [
+                                [
+                                    'id' => $char->getId(),
+                                    'fullname' => $char->getFullname(),
+                                    'avatar' => $char->getAvatar(),
+                                    'username' => $char->getUser()->getFullname(),
+                                ],
+                            ];
+                        } else {
+                            if ($acceptMode) {
+                                $scenarioCharacter = $this->getDoctrine()->getRepository(ScenarioCharacter::class)->findOneBy(['personnage' => $char]);
+                                $scenarioCharacter->setIsAccepted(true);
+                                $manager->persist($scenarioCharacter);
+                                $manager->flush();
+
+                                $json[] = [
+                                    [
+                                        'id' => $char->getId(),
+                                        'fullname' => $char->getFullname(),
+                                        'avatar' => $char->getAvatar(),
+                                        'username' => $char->getUser()->getFullname(),
+                                    ],
+                                ];
+                            } else {
+                                $playerExists = false;
+                                foreach ($scenario->getScenarioCharacters() as $scenarioCharacter) {
+                                    if ($scenarioCharacter->getPersonnage()->getId() === $char->getId()) {
+                                        $playerExists = true;
+                                    }
+                                }
+
+                                if (!$playerExists) {
+                                    $json[] = [
+                                        [
+                                            'id' => $char->getId(),
+                                            'fullname' => $char->getFullname(),
+                                            'avatar' => $char->getAvatar(),
+                                            'username' => $char->getUser()->getFullname(),
+                                        ],
+                                    ];
+                                }
+                            }
                         }
                     }
-
-                    $json = [
-                        [
-                            'id' => $character->getId(),
-                            'fullname' => $character->getFullname(),
-                            'avatar' => $character->getAvatar(),
-                            'username' => $character->getUser()->getFullname(),
-                        ],
-                    ];
-                } else {
-                    if ($acceptMode) {
-                        $scenarioCharacter = $this->getDoctrine()->getRepository(ScenarioCharacter::class)->findOneBy(['personnage' => $character]);
-                        $scenarioCharacter->setIsAccepted(true);
-                        $manager->persist($scenarioCharacter);
-                        $manager->flush();
-
+                }
+            } else {
+                if ($character->getUser()->getId() !== $this->getUser()->getId()) {
+                    if ($deleteMode) {
                         $json = [
                             [
                                 'id' => $character->getId(),
@@ -328,14 +358,12 @@ class PlayController extends AbstractController
                             ],
                         ];
                     } else {
-                        $playerExists = false;
-                        foreach ($scenario->getScenarioCharacters() as $scenarioCharacter) {
-                            if ($scenarioCharacter->getPersonnage()->getId() === $character->getId()) {
-                                $playerExists = true;
-                            }
-                        }
+                        if ($acceptMode) {
+                            $scenarioCharacter = $this->getDoctrine()->getRepository(ScenarioCharacter::class)->findOneBy(['personnage' => $character]);
+                            $scenarioCharacter->setIsAccepted(true);
+                            $manager->persist($scenarioCharacter);
+                            $manager->flush();
 
-                        if (!$playerExists) {
                             $json = [
                                 [
                                     'id' => $character->getId(),
@@ -344,6 +372,24 @@ class PlayController extends AbstractController
                                     'username' => $character->getUser()->getFullname(),
                                 ],
                             ];
+                        } else {
+                            $playerExists = false;
+                            foreach ($scenario->getScenarioCharacters() as $scenarioCharacter) {
+                                if ($scenarioCharacter->getPersonnage()->getId() === $character->getId()) {
+                                    $playerExists = true;
+                                }
+                            }
+
+                            if (!$playerExists) {
+                                $json = [
+                                    [
+                                        'id' => $character->getId(),
+                                        'fullname' => $character->getFullname(),
+                                        'avatar' => $character->getAvatar(),
+                                        'username' => $character->getUser()->getFullname(),
+                                    ],
+                                ];
+                            }
                         }
                     }
                 }
@@ -354,7 +400,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/inviter-un-personnage/{id}/{characterId}", name="user.play.invite.character")
+     * @Route("/invite-un-personnage/{id}/{characterId}", name="user.play.invite.character")
      */
     public function inviteCharacter(EntityManagerInterface $manager, Scenario $scenario, $characterId)
     {
@@ -384,7 +430,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/virer-un-personnage/{id}/{characterId}", name="user.play.invite.characters")
+     * @Route("/vire-un-personnage/{id}/{characterId}", name="user.play.invite.characters")
      */
     public function removeCharacter(EntityManagerInterface $manager, Scenario $scenario, $characterId)
     {
@@ -400,7 +446,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/table-de-jeu/{id}", name="play.scenario")
+     * @Route("/scenario/{id}", name="play.scenario")
      */
     public function scenario(?Scenario $scenario): Response
     {
@@ -432,7 +478,7 @@ class PlayController extends AbstractController
             }
         }
 
-        return $this->render('play/table/index.html.twig',
+        return $this->render('play/scenario/index.html.twig',
             [
                 'scenario' => $scenario,
                 'myCharacter' => $myCharacter,

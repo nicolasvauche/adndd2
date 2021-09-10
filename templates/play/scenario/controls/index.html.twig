@@ -1,0 +1,17 @@
+<div id="controls" {% if myCharacter.name != 'MJ' %}class="player"{% endif %}>
+    <div class="toggle">
+        <a href="#" id="toggleControls" title="Ouvrir le menu">
+            <i id="toggleIcon" class="fas fa-chevron-left"></i>
+        </a>
+    </div>
+
+    <div class="top">
+        {% include 'play/scenario/controls/characters.html.twig' with {'scenario': scenario, 'myCharacter': myCharacter} %}
+    </div>
+
+    {% include 'play/scenario/controls/diceset/index.html.twig' with {'scenario': scenario} %}
+
+    <div class="bottom">
+        {% include 'play/scenario/controls/actions.html.twig' with {'myCharacter': myCharacter} %}
+    </div>
+</div>

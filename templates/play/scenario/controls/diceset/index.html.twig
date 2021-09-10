@@ -1,0 +1,15 @@
+<div id="diceset">
+    <h3 class="name">{{ scenario.game.gamesystem.diceset.name }}</h3>
+    <div class="dices">
+        {% for dice in scenario.game.gamesystem.diceset.dices %}
+            <a href="#" title="Ajoute un {{ dice.name }}">
+                <img src="{{ asset('assets/images/dices/' ~ dice.name | lower ~ '.png') }}" alt="{{ dice.name }}" data-diceid="{{ dice.id }}" data-dicename="{{ dice.faces }}" />
+                <span title="Enlève un {{ dice.name }}">0</span>
+            </a>
+        {% endfor %}
+        <div id="dicesResult">Clique sur les dés pour les sélectionner</div>
+    </div>
+    <p class="flex">
+        <button class="app_button cta hidden" id="rollDices">Lance les dés</button>
+    </p>
+</div>

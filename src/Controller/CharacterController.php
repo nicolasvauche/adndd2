@@ -108,7 +108,7 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/supprimer-un-personnage/{id}", name="user.characters.delete")
+     * @Route("/supprime-un-personnage/{id}", name="user.characters.delete")
      */
     public function delete(EntityManagerInterface $manager, $id): Response
     {

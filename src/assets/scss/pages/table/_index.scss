@@ -30,8 +30,7 @@
                 }
 
                 #visio {
-                    width: calc(100% - 2rem);
-                    padding: 1rem;
+                    width: 100%;
                     color: $color-bg-primary;
                     background-color: $color-black;
                     box-shadow: inset 4px 4px 16px #000000;
@@ -52,6 +51,7 @@
                         position: absolute;
                         left: 0;
                         top: 0;
+                        z-index: 9999;
                         width: 1.5rem;
                         height: 100%;
                         display: flex;
@@ -63,34 +63,26 @@
 
                     &.on {
                         padding-left: 1.75rem;
-                        flex: 0 0 80%;
+                        flex: 0 0 90%;
 
                         @include respond(sm) {
-                            flex: 0 0 50%;
+                            flex: 0 0 80%;
                         }
 
                         @include respond(md) {
-                            flex: 0 0 30%;
-                        }
-
-                        &.player {
-                            flex: 0 0 40%;
-
-                            @include respond(sm) {
-                                flex: 0 0 20%;
-                            }
-
-                            @include respond(md) {
-                                flex: 0 0 8rem;
-                            }
+                            flex: 0 0 45%;
                         }
                     }
 
                     & > .top {
                         display: grid;
-                        grid-template-columns: repeat(4, 1fr);
+                        grid-template-columns: repeat(5, 1fr);
                         grid-gap: 0.25rem;
                         justify-content: center;
+
+                        @include respond(sm) {
+
+                        }
                     }
 
                     &.player {
@@ -125,9 +117,15 @@
                             & .modal {
                                 img {
                                     margin-bottom: 0.25rem;
-                                    height: 5rem;
+                                    width: 4rem;
+                                    height: 4rem;
                                     object-fit: cover;
                                     object-position: top;
+
+                                    @include respond(sm) {
+                                        width: 6rem;
+                                        height: 6rem;
+                                    }
                                 }
                             }
                         }
@@ -141,20 +139,96 @@
                         }
 
                         .dices {
-                            display: grid;
-                            grid-template-columns: repeat(6, 1fr);
-                            grid-gap: 0.5rem;
+                            display: flex;
+                            flex-wrap: wrap;
+                            align-items: flex-end;
+                            justify-content: center;
+                            padding: 0.5rem;
+                            margin: 0 1rem 1.5rem;
+                            background-color: $color-bg-alt;
+                            box-shadow: inset $box-shadow-x $box-shadow-y $box-shadow-radius $box-shadow-color;
+                            border-radius: $border-radius-default;
+
+                            @include respond(sm) {
+                                padding: 1rem;
+                                margin: 0 2rem 1.5rem;
+                            }
 
                             a {
+                                flex: 1;
+                                display: block;
                                 margin: 0;
+
+                                img {
+                                    transform: rotate3d(0, 0, 0, 0deg) scale(0.75);
+                                    transition: all 0.2s ease;
+                                }
+
+                                @include respond(sm) {
+                                    margin: 0 0.5rem;
+                                }
+
+                                &:nth-child(1n) {
+                                    img {
+                                        &:hover {
+                                            transform: rotate3d(1, 1, 1, 15deg) scale(1);
+                                        }
+                                    }
+                                }
+
+                                &:nth-child(2n) {
+                                    img {
+                                        &:hover {
+                                            transform: rotate3d(-1, 2, 1, 15deg) scale(1);
+                                        }
+                                    }
+                                }
+
+                                &:nth-child(3n) {
+                                    img {
+                                        &:hover {
+                                            transform: rotate3d(1, -1, -1, 15deg);
+                                        }
+                                    }
+                                }
+
+                                & > span {
+                                    display: block;
+                                    margin-top: 0.5rem;
+                                    font-size: 1.5rem;
+                                    font-weight: bold;
+                                }
                             }
                         }
-                    }
 
-                    &.player {
-                        #diceset {
-                            .dices {
-                                grid-template-columns: repeat(3, 1fr);
+                        .app_button {
+                            &.cta {
+                                &.hidden {
+                                    opacity: 0;
+                                    cursor: default;
+                                }
+                            }
+                        }
+
+                        #dicesResult {
+                            margin-top: 1rem;
+                            width: 100%;
+                            font-family: $font-family-secondary;
+                            text-align: center;
+                            color: $color-bg-primary;
+
+                            h3 {
+                                text-align: center;
+                                color: $color-bg-secondary;
+                                text-shadow: none;
+                            }
+
+                            strong {
+                                color: $color-bg-secondary;
+
+                                &:last-child {
+                                    font-size: 1.5rem;
+                                }
                             }
                         }
                     }

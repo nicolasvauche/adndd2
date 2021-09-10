@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'pages.play.campaign.title' | trans | capitalize }}{% endblock %}
+
+{% block body_class %}play{% endblock %}
+
+{% block body %}
+    <article class="aside">
+        <section>
+            <h1>{{ 'pages.play.campaign.title' | trans | capitalize }}</h1>
+
+            <!-- Flash messages -->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    {% if loop.first %}
+                        <div class="app_alert {{ label }}">
+                            {{ message | trans }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+            <div class="app_filters">
+                <h2>Tu peux filtrer par jeu <i class="fas fa-hand-point-right"></i></h2>
+
+                <div class="app_filters_controls">
+                    <select name="tables_game" id="tables_game" class="app_filter_select">
+                        <option value="all">{{ 'pages.games.title' | trans | capitalize }}</option>
+                        {% for game in games %}
+                            <option value="{{ game.id }}">{{ game.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="app_grid three app_slider xs">
+                {% set campaignsIds = [] %}
+                {% for campaign in campaigns %}
+                    {% if campaign.scenarios | length > 0 %}
+                        {% for scenario in campaign.scenarios %}
+                            {% if scenario.user == app.user %}
+                                {% if campaign.id not in campaignsIds %}
+                                    <div class="campaign app_grid_item app_slider_item" data-gameid="{{ scenario.game.id }}">
+                                        <div class="app_grid_item_header">
+                                            <img src="{{ asset('assets/images/games/' ~ scenario.game.media) }}" alt="{{ scenario.game.name }}" class="app_grid_item_image" />
+                                            <h4 class="app_grid_item_subtitle sub">{{ scenario.campaign.name }}</h4>
+                                            <h3 class="app_grid_item_title">{{ scenario.game.name }}</h3>
+                                        </div>
+
+                                        <div class="app_grid_item_body app_grid_item_info excerpt">
+                                            {{ campaign.shortDescription | raw }}
+
+                                            <hr />
+
+                                            <h5>Scénarios :</h5>
+                                            {% for campaignScenario in campaign.scenarios %}
+                                                <p class="app_grid_item_info excerpt mb_0">{{ campaignScenario.name }}</p>
+                                            {% endfor %}
+                                        </div>
+
+                                        <div class="app_grid_item_footer">
+                                            <a href="{{ path('user.campaign.delete', {'id': campaign.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprimer cette campagne">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+
+                                            <a href="{{ path('user.campaign.edit', {'id': campaign.id}) }}" class="app_grid_item_footer_action button" title="{{ 'default.edit' | trans | capitalize }}">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% set campaignsIds = campaignsIds | merge([campaign.id]) %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        {% if campaign.id not in campaignsIds %}
+                            <div class="app_grid_item app_slider_item disabled">
+                                <div class="app_grid_item_header">
+                                    <img src="{{ asset('assets/images/games/' ~ campaign.game.media) }}" alt="{{ campaign.game.name }}" class="app_grid_item_image" />
+                                    <h4 class="app_grid_item_subtitle sub">{{ campaign.name }}</h4>
+                                    <h3 class="app_grid_item_title">{{ campaign.game.name }}</h3>
+                                </div>
+
+                                <div class="app_grid_item_body app_grid_item_info excerpt">
+                                    {{ campaign.shortDescription | raw }}
+                                    <hr />
+
+                                    <h5>Aucun scénario</h5>
+                                </div>
+
+                                <div class="app_grid_item_footer">
+                                    <a href="{{ path('user.campaign.delete', {'id': campaign.id}) }}" class="remove app_grid_item_footer_action button danger" title="Supprimer cette campagne">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+
+                                    <a href="{{ path('user.campaign.edit', {'id': campaign.id}) }}" class="app_grid_item_footer_action button" title="{{ 'default.edit' | trans | capitalize }}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            {% set campaignsIds = campaignsIds | merge([campaign.id]) %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+
+        <aside>
+            <h2>
+                {{ 'default.more' | trans | capitalize }}
+            </h2>
+
+            <a href="{{ path('user.campaign.create') }}" class="app_button">Nouvelle campagne</a>
+
+            <a href="{{ app.request.headers.get('referer') }}" class="app_button cta">retour</a>
+        </aside>
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    {% if campaigns | length > 0 %}
+        <script>
+            window.addEventListener("DOMContentLoaded", () => {
+                const campaignsThumbnails = document.querySelectorAll(('.campaign'))
+                const filterSelect = document.getElementById('tables_game')
+                filterSelect.addEventListener('change', event => {
+                    const gameId = filterSelect.value
+                    if (gameId === 'all') {
+                        for (const gameThumbnail of campaignsThumbnails) {
+                            gameThumbnail.style.display = 'flex'
+                        }
+                    } else {
+                        for (const gameThumbnail of campaignsThumbnails) {
+                            if (parseInt(gameThumbnail.dataset.gameid) !== parseInt(gameId)) {
+                                gameThumbnail.style.display = 'none'
+                            } else {
+                                gameThumbnail.style.display = 'flex'
+                            }
+                        }
+                    }
+                })
+
+                const removeButtons = document.querySelectorAll('.remove')
+                for (const removeButton of removeButtons) {
+                    removeButton.addEventListener('click', event => {
+                        event.preventDefault()
+                        if (window.confirm('Veux-tu VRAIMENT supprimer cette campagne ? Les scénarios resteront, mais se retrouveront orphelins ;(')) {
+                            let button = event.target
+
+                            if (button.tagName === 'I') {
+                                button = button.parentNode
+                            }
+
+                            window.location.href = button.href
+                        }
+                    })
+                }
+            })
+        </script>
+    {% endif %}
+{% endblock %}
