@@ -7,7 +7,7 @@
 {% block body %}
     <article class="aside">
         <section>
-            <h1>{{ 'pages.user.characters.sheet.title' | trans | capitalize }}</h1>
+            <h1>{{ character.name }} {{ character.surname }}</h1>
             {% include 'character/sheet/' ~ character.game.slug ~ '/index.html.twig' with {'character' : character} %}
         </section>
 
@@ -23,4 +23,80 @@
             </a>
         </aside>
     </article>
+{% endblock %}
+
+{% block javascripts %}
+    <script defer>
+        window.addEventListener("DOMContentLoaded", () => {
+            const magicRange = document.getElementById('magicRange')
+            const hitRange = document.getElementById('hitRange')
+            const healthRange = document.getElementById('healthRange')
+            const crazyRange = document.getElementById('crazyRange')
+            const pcrestRange = document.getElementById('pcrestRange')
+
+            const updateValue = (rangeInput) => {
+                let val = rangeInput.value
+                let type 
+
+                if (rangeInput.id === 'magicRange') {
+                    type = 'magic'
+                }
+                if (rangeInput.id === 'hitRange') {
+                    type = 'hit'
+                }
+                if (rangeInput.id === 'crazyRange') {
+                    type = 'crazy'
+                }
+                if (rangeInput.id === 'pcrestRange') {
+                    type = 'pcrest'
+                }
+                if (rangeInput.id === 'healthRange') {
+                    type = 'health'
+                }
+
+
+                if ((val == 0) && (type =='magic')) {
+                    val = "Inconscient (" + val + ")";
+                } 
+                if (((val == -1) || (val == 0) || (val == 1) || (val == 2) || (val == 3) || (val == 4)) && (type =='hit')) {
+                    val = "Inconscient (" + val + ")";
+                } 
+                if (val == -2) {
+                    val = "Mort (" + val + ")";
+                }                    
+                document.getElementById(type).innerHTML = val; 
+            }
+            
+            if (magicRange){
+                magicRange.addEventListener('input', (event) => {
+                    updateValue(event.target)
+                })
+            }
+            
+            if (hitRange){
+            hitRange.addEventListener('input', (event) => {
+                updateValue(event.target)
+            }) 
+            }
+
+            if (healthRange){
+                healthRange.addEventListener('input', (event) => {
+                    updateValue(event.target)
+                })
+            }
+
+            if(crazyRange){
+                crazyRange.addEventListener('input', (event) => {
+                updateValue(event.target)
+                })
+            }
+
+            if(pcrestRange){
+                pcrestRange.addEventListener('input', (event) => {
+                updateValue(event.target)
+                }) 
+            }
+        })
+    </script>
+
 {% endblock %}

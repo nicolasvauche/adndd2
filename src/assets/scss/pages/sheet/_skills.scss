@@ -1,0 +1,26 @@
+.skills{
+    .htitle{
+        text-align: left;
+        text-transform: uppercase;
+    }
+
+    .subtitle{
+        text-align: center;
+    }
+
+    .data_case{
+        text-align: left;
+        font-size: medium;
+    }
+
+    .data_case_skill{
+        display: flex;
+        justify-content: left;
+        align-items: left; 
+        font-size: larger;
+        color: $color-fg-primary;
+        font-weight: bold;    
+        font-family: $font-family-third;  
+        padding-left: 1rem;  
+    }
+}

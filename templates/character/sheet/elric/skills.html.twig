@@ -1,0 +1,18 @@
+<div class="skills app_grid one">
+    <div class=" htitle">
+        Compétences
+    </div>
+</div>
+
+<div class="skills app_grid two">
+<!-- Liste des skills du personnage -->
+    {% for characterSkillType in character.characterSkills %}
+        <!-- On affiche le skill et sa description -->
+        <div>
+            <div class="skills data_case_skill">
+                <input type="checkbox" /> &nbsp {{characterSkillType.skill.name }} ( {{characterSkillType.base }} % )
+            </div> 
+        </div>
+    {% endfor %}
+</div>
+

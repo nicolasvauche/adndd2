@@ -7,9 +7,26 @@
     </div>
 </div>
 
-{% for i in 1..2 %}
-<div class="weapon app_grid two">
-    <div class="weapon_info"></div>
-    <div class="weapon_info"></div>
-</div>
+{% set equipmentRest = '' %}
+{% for characterEquipment in character.equipments %}
+    {% if characterEquipment.equipmentType %}
+        <div class="weapon app_grid two">
+            <div class="weapon_info data_case">
+                {{ characterEquipment.name }}
+            </div>
+            <div class="weapon_info data_case">
+                {{ characterEquipment.damage }}
+            </div>        
+        </div>
+        {% set equipmentRest = loop.index %}
+    {% endif %}
 {% endfor %}
+
+{% if equipmentRest != 2 %}
+{% for i in equipmentRest..1 %}
+    <div class="weapon app_grid two">
+        <div class="weapon_info data_case"></div>
+        <div class="weapon_info data_case"></div>        
+    </div>
+{% endfor %}
+{% endif %}

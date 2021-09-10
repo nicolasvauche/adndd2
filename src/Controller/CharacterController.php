@@ -89,7 +89,12 @@ class CharacterController extends AbstractController
                 $specialty->addCharacter($character);
                 $manager->persist($specialty);
             }
-
+// Ajout des équipements par nouveau prétiré
+            foreach ($characterPremade->getEquipments() as $equipment) {
+                $equipment->addCharacter($character);
+                $manager->persist($equipment);
+            }
+// fin ajout
             $manager->persist($character);
 
             $manager->flush();

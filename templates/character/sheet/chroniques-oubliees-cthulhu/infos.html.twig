@@ -1,0 +1,82 @@
+<div class="character_infos">
+    <div class="image">
+        <div class="app_grid two">
+            <div>
+                <img src="{{ asset('assets/images/characters/' ~ character.avatar) }}" class="app_image" alt="{{ character.name }}" />
+            </div>
+
+            <div class="content">
+                <h2 class="character_gamename">{{ character.game.name }}</h2>
+                <div class="icons">
+                    <span>
+                        <i class="fas fa-{% if character.gender | lower == 'femme' %}venus{% else %}mars{% endif %}"></i>
+                        {{ character.gender | capitalize }}
+                    </span>
+                    <span>
+                        <i class="fas fa-hand-point-{% if character.guidingHand | lower == 'droitier' %}right{% else %}left{% endif %}"></i>
+                        {{ character.guidingHand | capitalize }}
+                    </span>
+
+                    <span>
+                        <i class="fas fa-text-height"></i>
+                        {{ character.size }}
+                    </span>
+                    <span>
+                        <i class="fas fa-weight-hanging"></i>
+                        {{ character.weight }}
+                    </span>
+                </div>
+                <p>
+                    <strong>{{ character.allegiance }}</strong>
+                </p>
+
+                {% if character.age %}
+                    <p>
+                        <strong>Age :</strong> {{ character.age }} ans
+                    </p>
+                {% endif %}
+
+                {% if character.birthplace %}
+                    <p>
+                        <strong>Origine :</strong> {{ character.birthplace }}
+                    </p>
+                {% endif %}
+
+                {% if character.homeplace %}
+                    <p>
+                        <strong>Habitat :</strong> {{ character.homeplace }}
+                    </p>
+                {% endif %}
+
+                {% if character.occupation %}
+                    <p>
+                        <strong>Occupation :</strong> {{ character.occupation }}
+                    </p>
+                {% endif %}
+
+                {% if character.relatives %}
+                    <p>
+                        <strong>Compagnons :</strong> {{ character.relatives }}
+                    </p>
+                {% endif %}
+
+                {% if character.description %}
+                    <p>
+                        <span><strong>Description:</strong></span>
+                        <blockquote>{{ character.description }}</blockquote>
+                    </p>                
+                {% endif %}
+
+                {% if character.distinctive %}
+                    <span>Signes distinctifs</span>
+                    <blockquote>{{ character.distinctive }}</blockquote>
+                {% endif %}
+
+                {% if character.notes %}
+                    <span>Notes</span>
+                    <blockquote>{{ character.notes }}</blockquote>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

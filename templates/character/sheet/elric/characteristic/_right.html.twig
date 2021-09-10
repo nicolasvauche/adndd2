@@ -1,0 +1,22 @@
+<div class="characteristic">
+    {% for characterCharacteristic in character.characterCharacteristics %}
+        {% if characterCharacteristic.characteristic.type == 'Base' %}
+            {% if characterCharacteristic.characteristic.shortname == 'DMG' %}        
+                    <div class="info htitle"> 
+                        {{ characterCharacteristic.characteristic.name }} : <span> {{ characterCharacteristic.base }} </span>
+                    </div>
+            {% else %}
+                {% if (characterCharacteristic.characteristic.shortname == 'JIDE') or (characterCharacteristic.characteristic.shortname == 'JLUCK') or (characterCharacteristic.characteristic.shortname == 'JDEX') or (characterCharacteristic.characteristic.shortname == 'JCHA') %}  
+                    <div class="app_grid two">
+                        <div class="otitle">
+                            {{ characterCharacteristic.characteristic.name }}
+                        </div>
+                        <div class="border_title data_case">
+                            {{ characterCharacteristic.base }} %
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>

@@ -16,11 +16,28 @@
         </div>
     {% endif %}
 {% endfor %}
+
 <div class="healthpoints">
-    <div class="health_info">
-        Points de vie restants:
+    <div class="htitle">
+        Points de vie restants: <span id="health" class="slide">50</span>
     </div>
+    <div class="htitle">
+        <input type="range" min="0" max="100" step="1" list="tickmarks" id="healthRange">
+            <datalist id="tickmarks">
+                <option value="0" label="Mort">
+                <option value="25">
+                <option value="50">
+                <option value="75">
+                <option value="100" label="Max">
+            </datalist>
+        </input>
+    </div>
+</div>
+<div class="healthpoints">
     <div class="health_info">
         Blessures graves:
     </div>
 </div>
+
+
+

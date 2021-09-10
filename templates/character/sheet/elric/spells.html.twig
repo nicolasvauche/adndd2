@@ -1,0 +1,18 @@
+<div class="skills app_grid one">
+    <div class="htitle">
+        sortilèges
+    </div>
+</div>
+
+<div class="htitle border_title app_grid">
+    {% for characterSpell in character.characterSpells %}
+        <div class="weapon data_case">
+            {{ characterSpell.spell.name }} ( {{ characterSpell.spell.effect }} ) ( {{ characterSpell.spell.spellType.name }} )
+        </div>
+    {% else %}
+        <div class="data_case">
+            Aucun
+        </div>    
+    {% endfor %}
+</div>
+

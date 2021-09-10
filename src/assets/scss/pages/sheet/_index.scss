@@ -10,6 +10,7 @@
                 font-weight: bold;
                 color: white;
                 background-color: #6b2b06;
+                text-transform: uppercase;
             }
 
             .htitle{
@@ -25,18 +26,25 @@
             }
 
             .data_case{
-                text-align: center;
                 font-size: 1.5rem;
                 font-weight: bold;
                 color: black;  
-                height: 100%;
-                font-family: candara;     
+                font-family: $font-family-third;   
+                display: flex;
+                justify-content: center;
+                align-items: center;  
             }
 
             @import 'healthpoints';
             @import 'level';
             @import 'attack';
             @import 'weapon';
+            @import 'defense';
+            @import 'shock';
+            @import 'skills';
+            @import 'characteristic';
+            @import 'magic';
+            @import 'equipment';
         }
     }
 }

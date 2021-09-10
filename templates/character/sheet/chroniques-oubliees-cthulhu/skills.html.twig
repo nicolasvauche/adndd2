@@ -1,0 +1,34 @@
+{% for characterSpecialty in character.specialties %}
+    <div class="skills app_grid one">
+        <div class=" htitle">
+            Capacités de {{ characterSpecialty.name }}
+        </div>
+    </div>
+{% endfor %}
+
+{% set SkillTypeTemp = '' %}
+{% set TabSkillType = [] %}
+
+<div class="skills border_title app_grid one">
+<!-- Liste des skills du personnage -->
+    {% for characterSkillType in character.characterSkills %}
+        <!-- On test si l'actuel nom du skilltype est égal au précédent -->
+        {% if SkillTypeTemp != characterSkillType.skill.skillType.name %}
+            <!-- On crée un titre pour chaque nouveau type de skill -->
+            {% set SkillTypeTemp = characterSkillType.skill.skillType.name %}
+            <div class="vtitle">
+                {{characterSkillType.skill.skillType.name }}
+            </div>
+        {% endif %}
+        <!-- Sinon on affiche le skill et sa description -->
+        <div>
+            <div class="htitle">
+                <input type="checkbox" /> {{characterSkillType.skill.name }}
+            </div> 
+            <div class="data_case_skill">
+                {{characterSkillType.skill.description }}
+            </div> 
+        </div>
+    {% endfor %}
+</div>
+

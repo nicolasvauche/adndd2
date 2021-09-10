@@ -1,0 +1,21 @@
+<div>
+    <div class="htitle">
+        Argent: 
+        <input type="number" value="{{ character.coinpurse }}" class="money" /> 
+        <i class="fas fa-dollar-sign"></i>   
+    </div>
+</div>
+
+<div class="skills app_grid one">
+    <div class="htitle">
+        équipement
+    </div>
+</div>
+
+<div class="htitle app_grid two border_title">
+    {% for characterEquipment in character.equipments %}
+        <div class="weapon_info data_case">
+            {{ characterEquipment.name }}
+        </div>
+    {% endfor %}
+</div>

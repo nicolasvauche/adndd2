@@ -34,6 +34,16 @@ class Specialty
      */
     private $characters;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $relative;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $straightline;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
@@ -104,6 +114,30 @@ class Specialty
     public function removeCharacter(Character $character): self
     {
         $this->characters->removeElement($character);
+
+        return $this;
+    }
+
+    public function getRelative(): ?string
+    {
+        return $this->relative;
+    }
+
+    public function setRelative(?string $relative): self
+    {
+        $this->relative = $relative;
+
+        return $this;
+    }
+
+    public function getStraightline(): ?string
+    {
+        return $this->straightline;
+    }
+
+    public function setStraightline(?string $straightline): self
+    {
+        $this->straightline = $straightline;
 
         return $this;
     }

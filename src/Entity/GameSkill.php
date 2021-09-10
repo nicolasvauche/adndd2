@@ -30,7 +30,7 @@ class GameSkill
     private $skill;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $base;
 
@@ -63,12 +63,12 @@ class GameSkill
         return $this;
     }
 
-    public function getBase(): ?int
+    public function getBase(): ?string
     {
         return $this->base;
     }
 
-    public function setBase(?int $base): self
+    public function setBase(?string $base): self
     {
         $this->base = $base;
 
