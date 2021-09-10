@@ -292,7 +292,7 @@ EOF,
     /**
      * @Route("/quitte-un-scenario/{id}/{characterId}", name="user.play.leave")
      */
-    public function leave(EntityManagerInterface $manager, Scenario $scenario, $characterId): Response
+    public function leave(EntityManagerInterface $manager, Scenario $scenario, MailerService $mailerService, $characterId): Response
     {
         $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
 
@@ -303,6 +303,43 @@ EOF,
                     $scenario->removeScenarioCharacter($scenarioCharacter);
                     $manager->persist($scenario);
                     $manager->flush();
+
+                    $mailerService->send(
+                        [
+                            'name' => $character->getFullname(),
+                            'email' => $character->getUser()->getEmail(),
+                            'subject' => 'Je quitte ton scénario : ' . $scenario->getName(),
+                            'message' =>
+                                <<<EOF
+<p>Bonjour Ô puissant MJ !</p>
+<p>
+    Je reviens vers toi afin de t'informer que je quitte ton scénario : {$scenario->getName()}<br />
+    Sans rancune, hein ;)
+</p>
+EOF,
+
+                            'htmlTemplate' => 'emails/play/leave/user.html.twig',
+                        ],
+                        'user');
+
+                    $mailerService->send(
+                        [
+                            'to' => $scenario->getUser()->getEmail(),
+                            'name' => $character->getFullname(),
+                            'email' => $character->getUser()->getEmail(),
+                            'subject' => 'On a quitté ton scénario : ' . $scenario->getName(),
+                            'message' =>
+                                <<<EOF
+<p>Salut à toi, MJ !</p>
+<p>
+    {$character->getFullname()}, personnage appartenant à {$character->getUser()->getFullname()}, vient de quitter ton scénario : {$scenario->getName()}<br />
+    On ne sait pas pourquoi, mais ce n'est sûrement rien de personnel :)
+</p>
+EOF,
+
+                            'htmlTemplate' => 'emails/play/leave/admin.html.twig',
+                        ],
+                        'admin');
 
                     $this->addFlash('warning', 'Tu as quitté le scénario.');
                 }

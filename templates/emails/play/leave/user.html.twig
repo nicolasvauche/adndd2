@@ -1,0 +1,89 @@
+{% apply inline_css %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=PT+Sans:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            color: #271002;
+            background-color: #fffaeb;
+        }
+
+        header {
+            position: relative;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1.5rem;
+            background-color: #6b2b06;
+            box-shadow: 0px 2px 0.5rem #271002;
+        }
+
+        main {
+            margin: -0.5rem 0 0;
+            padding: 2rem 1.5rem;
+            background-color: #ffeaae;
+        }
+
+        h1 {
+            margin: 0 0 2rem;
+            padding: 1.5rem 0.5rem;
+            font-family: "PT Sans", sans-serif;
+            font-size: 2rem;
+            text-transform: uppercase;
+            line-height: 2.5rem;
+            text-align: center;
+            color: #873608;
+            background-color: #fffaeb;
+            text-shadow: 1px 1px 1px rgba(39, 16, 2, 0.25);
+        }
+
+        p {
+            padding: 0.5rem 1.5rem;
+        }
+
+        a {
+            color: #155166;
+        }
+
+        blockquote {
+            padding: 1.5rem 0.5rem;
+            font-family: 'PT Sans', sans-serif;
+            color: #873608;
+            background-color: #fffaeb;
+        }
+
+        footer {
+            padding: 1rem 1.5rem;
+            font-family: 'PT Sans', sans-serif;
+            text-align: center;
+            color: #ffeaae;
+            background-color: #271002;
+        }
+    </style>
+
+    <header>
+        <a href="http://localhost:8080{{ path('home') }}" title="Aller sur le site">
+            <img src="http://localhost:8080{{ asset('assets/images/logo_adndd.png') }}" alt="{{ appConfig.getAppName() }}">
+        </a>
+    </header>
+
+    <main>
+        <h1>Salut, {{ mailData['name'] }} !</h1>
+
+        {{ mailData['message'] | raw }}
+    </main>
+
+    <footer>
+        <p>
+            À bientôt pour de nouvelles aventures :)
+            <br />
+            <a href="http://localhost:8080{{ path('home') }}" title="Aller sur le site">
+                <img src="http://localhost:8080{{ asset('assets/images/logo_adndd_full.png') }}" alt="{{ appConfig.getAppName() }}">
+            </a>
+            <br />
+            {{ appConfig.getAppAuthor() }}
+        </p>
+    </footer>
+{% endapply %}
