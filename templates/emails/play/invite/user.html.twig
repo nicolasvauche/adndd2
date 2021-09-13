@@ -70,20 +70,19 @@
     </header>
 
     <main>
-        <h1>Salut, MJ !</h1>
+        <h1>Salut, {{ mailData['name'] }}</h1>
 
         {{ mailData['message'] | raw }}
 
         <p>
-            Retrouve ton scénario sur la
-            <a href="http://localhost:8080{{ path('play') }}">page des jeux en attente</a> ou sur la
-            <a href="http://localhost:8080{{ path('user.play.myscenarios') }}">page de tes scénarios</a>.
+            Retrouve ce scénario sur la
+            <a href="http://localhost:8080{{ path('play') }}">page des jeux en attente</a>.
         </p>
     </main>
 
     <footer>
         <p>
-            Un perso de plus pour ton aventure ;)
+            Vivement que ça commence :)
             <br />
             <a href="http://localhost:8080{{ path('home') }}" title="Aller sur le site">
                 <img src="http://localhost:8080{{ asset('assets/images/logo_adndd_full.png') }}" alt="{{ appConfig.getAppName() }}">

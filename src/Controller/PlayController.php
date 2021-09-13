@@ -410,25 +410,6 @@ EOF,
                                     ],
                                     'user');
 
-                                $mailerService->send(
-                                    [
-                                        'to' => $scenario->getUser()->getEmail(),
-                                        'name' => $char->getFullname(),
-                                        'email' => $char->getUser()->getEmail(),
-                                        'subject' => 'Tu as accepté le perso ' . $char->getFullname() . ' dans ton scénario : ' . $scenario->getName(),
-                                        'message' =>
-                                            <<<EOF
-<p>Salut à toi, MJ !</p>
-<p>
-    Tu viens d'accepter la candidature de {$char->getFullname()}, personnage appartenant à {$char->getUser()->getFullname()} pour ton scénario : {$scenario->getName()}<br />
-    Le joueur a été prévenu par mail :)
-</p>
-EOF,
-
-                                        'htmlTemplate' => 'emails/play/accept/admin.html.twig',
-                                    ],
-                                    'admin');
-
                                 $json[] = [
                                     [
                                         'id' => $char->getId(),
@@ -496,25 +477,6 @@ EOF,
                                 ],
                                 'user');
 
-                            $mailerService->send(
-                                [
-                                    'to' => $scenario->getUser()->getEmail(),
-                                    'name' => $character->getFullname(),
-                                    'email' => $character->getUser()->getEmail(),
-                                    'subject' => 'Tu as accepté le perso ' . $character->getFullname() . ' dans ton scénario : ' . $scenario->getName(),
-                                    'message' =>
-                                        <<<EOF
-<p>Salut à toi, MJ !</p>
-<p>
-    Tu viens d'accepter la candidature de {$character->getFullname()}, personnage appartenant à {$character->getUser()->getFullname()} pour ton scénario : {$scenario->getName()}<br />
-    Le joueur a été prévenu par mail :)
-</p>
-EOF,
-
-                                    'htmlTemplate' => 'emails/play/accept/admin.html.twig',
-                                ],
-                                'admin');
-
                             $json = [
                                 [
                                     'id' => $character->getId(),
@@ -553,7 +515,7 @@ EOF,
     /**
      * @Route("/invite-un-personnage/{id}/{characterId}", name="user.play.invite.character")
      */
-    public function inviteCharacter(EntityManagerInterface $manager, Scenario $scenario, $characterId)
+    public function inviteCharacter(EntityManagerInterface $manager, MailerService $mailerService, Scenario $scenario, $characterId)
     {
         $json = [];
         $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
@@ -566,6 +528,25 @@ EOF,
             $scenario->addScenarioCharacter($scenarioCharacter);
             $manager->persist($scenario);
             $manager->flush();
+
+            $mailerService->send(
+                [
+                    'name' => $character->getFullname(),
+                    'email' => $character->getUser()->getEmail(),
+                    'subject' => 'Tu as été invité à jouer au scénario : ' . $scenario->getName(),
+                    'message' =>
+                        <<<EOF
+<p>Salut à toi, {$character->getFullname()} !</p>
+<p>
+    Excellente nouvelle !<br />
+    On vient de t'inviter à jouer au scénario {$scenario->getName()} !<br />
+    Tu peux jouer ;)
+</p>
+EOF,
+
+                    'htmlTemplate' => 'emails/play/invite/user.html.twig',
+                ],
+                'user');
 
             $json = [
                 [
