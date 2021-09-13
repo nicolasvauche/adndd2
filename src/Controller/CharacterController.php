@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Character;
 use App\Entity\CharacterCharacteristic;
+use App\Entity\Characteristic;
 use App\Entity\CharacterSkill;
 use App\Entity\CharacterSpell;
 use App\Form\CharacterType;
@@ -190,21 +191,32 @@ class CharacterController extends AbstractController
      */
     public function sheet(Character $character): Response
     {
+        $characterCharacteristics = $this->getDoctrine()->getRepository(CharacterCharacteristic::class)->findBy(['character' => $character]);
+        $healthPoints = 50;
+
+        foreach ($characterCharacteristics as $characterCharacteristic) {
+            if ($characterCharacteristic->getCharacteristic()->getShortname() === 'PV') {
+                $healthPoints = $characterCharacteristic->getBase();
+            }
+        }
+
         return $this->render('character/sheet/index.html.twig', [
             'character' => $character,
+            'healthPoints' => $healthPoints,
         ]);
     }
 
     /**
      * @Route("/modifier-caracteristique-base/{id}/{shortName}/{value}", name="user.characters.editRange")
      */
-    public function editRange (EntityManagerInterface $manager, Character $character, $shortName, $value)
+    public function editRange(EntityManagerInterface $manager, Character $character, $shortName, $value)
     {
-        $json = [];
+        $characterCharacteristics = $this->getDoctrine()->getRepository(CharacterCharacteristic::class)->findBy(['character' => $character]);
         $characteristic = null;
+        $json = [];
 
-        foreach ($character->getCharacterCharacteristics() as $characterCharacteristic) {
-            if ( $characterCharacteristic->getCharacteristic()->getShortName() == $shortName ){
+        foreach ($characterCharacteristics as $characterCharacteristic) {
+            if ($characterCharacteristic->getCharacteristic()->getShortname() === $shortName) {
                 $characteristic = $characterCharacteristic->getCharacteristic();
                 $characterCharacteristic->setBase($value);
                 $manager->persist($characterCharacteristic);
@@ -212,11 +224,9 @@ class CharacterController extends AbstractController
         }
         $manager->flush();
 
-       
+
         $json = [
-            [
-                'message' => 'La caractéristique ' . $characteristic->getName() . ' a été mise à ' . $value,
-            ],
+            'message' => 'La caractéristique ' . $characteristic->getName() . ' a été mise à ' . $value,
         ];
 
         return new JsonResponse($json);
