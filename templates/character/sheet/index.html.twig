@@ -54,7 +54,7 @@
                     type = 'health'
                 }
 
-
+// Spécificités
                 if ((val == 0) && (type =='magic')) {
                     val = "Inconscient (" + val + ")";
                 } 
@@ -63,39 +63,61 @@
                 } 
                 if (val == -2) {
                     val = "Mort (" + val + ")";
-                }                    
+                }                
+
+// Affichage    
                 document.getElementById(type).innerHTML = val; 
             }
-            
+ // ------------------------------------      Mis à jour sur le changement en local      ------------------------------------------  
             if (magicRange){
                 magicRange.addEventListener('input', (event) => {
                     updateValue(event.target)
                 })
-            }
-            
+            }           
             if (hitRange){
             hitRange.addEventListener('input', (event) => {
                 updateValue(event.target)
             }) 
             }
-
             if (healthRange){
                 healthRange.addEventListener('input', (event) => {
                     updateValue(event.target)
                 })
             }
-
-            if(crazyRange){
+            if (crazyRange){
                 crazyRange.addEventListener('input', (event) => {
                 updateValue(event.target)
                 })
             }
-
-            if(pcrestRange){
+            if (pcrestRange){
                 pcrestRange.addEventListener('input', (event) => {
                 updateValue(event.target)
                 }) 
             }
+// ----------------------------------------------------------------------------------------------------------
+
+// --------------------------------------               AJAX TIME                -----------------------------------
+
+            if (healthRange){
+                healthRange.addEventListener('change', (event) => {
+                    const xhttp = new XMLHttpRequest();
+
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState === 4 && this.status === 200) {
+                            console.log (this.response)
+                        } else {
+                            console.log ('KO')
+                        }
+                    }
+
+                    characterid = event.target.dataset.characterid 
+                    xhttp.open("POST", '/tes-personnages/modifier-caracteristique-base/' + characterid + '/HP/' + event.target.value, true);
+                    xhttp.send();
+                              
+                })
+            }
+
+// ---------------------------------------------------------------------------------------------------------------
         })
     </script>
 

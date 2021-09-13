@@ -22,7 +22,7 @@
         Points de vie restants: <span id="health" class="slide">50</span>
     </div>
     <div class="htitle">
-        <input type="range" min="0" max="100" step="1" list="tickmarks" id="healthRange">
+        <input type="range" min="0" max="100" step="1" list="tickmarks" id="healthRange" data-characterid="{{ character.id }}">
             <datalist id="tickmarks">
                 <option value="0" label="Mort">
                 <option value="25">

@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/tes-personnages")
@@ -193,4 +194,32 @@ class CharacterController extends AbstractController
             'character' => $character,
         ]);
     }
+
+    /**
+     * @Route("/modifier-caracteristique-base/{id}/{shortName}/{value}", name="user.characters.editRange")
+     */
+    public function editRange (EntityManagerInterface $manager, Character $character, $shortName, $value)
+    {
+        $json = [];
+        $characteristic = null;
+
+        foreach ($character->getCharacterCharacteristics() as $characterCharacteristic) {
+            if ( $characterCharacteristic->getCharacteristic()->getShortName() == $shortName ){
+                $characteristic = $characterCharacteristic->getCharacteristic();
+                $characterCharacteristic->setBase($value);
+                $manager->persist($characterCharacteristic);
+            }
+        }
+        $manager->flush();
+
+       
+        $json = [
+            [
+                'message' => 'La caractéristique ' . $characteristic->getName() . ' a été mise à ' . $value,
+            ],
+        ];
+
+        return new JsonResponse($json);
+    }
+
 }
