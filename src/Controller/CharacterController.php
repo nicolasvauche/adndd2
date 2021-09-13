@@ -225,9 +225,16 @@ class CharacterController extends AbstractController
         $manager->flush();
 
 
-        $json = [
-            'message' => 'La caractéristique ' . $characteristic->getName() . ' a été mise à ' . $value,
-        ];
+        if ($characteristic) {
+            $json = [
+                'message' => 'La caractéristique ' . $characteristic->getName() . ' a été mise à ' . $value,
+            ];
+        } else {
+            $json = [
+                'message' => "La caractéristique n'existe pas pour ce personnage :/ Ceci est très probablement dû un bug dans les fixtures des personnages joueurs par défaut…",
+            ];
+        }
+
 
         return new JsonResponse($json);
     }
