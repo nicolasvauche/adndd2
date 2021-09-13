@@ -8,6 +8,7 @@ use App\Entity\ScenarioCharacter;
 use App\Form\ScenarioType;
 use App\Repository\GameRepository;
 use App\Repository\ScenarioRepository;
+use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -223,7 +224,7 @@ class PlayController extends AbstractController
     /**
      * @Route("/rejoins-un-scenario/{id}/{characterId}", name="user.play.join")
      */
-    public function join(EntityManagerInterface $manager, Scenario $scenario, $characterId): Response
+    public function join(EntityManagerInterface $manager, MailerService $mailerService, Scenario $scenario, $characterId): Response
     {
         $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
 
@@ -237,6 +238,43 @@ class PlayController extends AbstractController
                 $scenario->addScenarioCharacter($scenarioCharacter);
                 $manager->persist($scenario);
                 $manager->flush();
+
+                $mailerService->send(
+                    [
+                        'name' => $character->getFullname(),
+                        'email' => $character->getUser()->getEmail(),
+                        'subject' => 'Je postule pour ton scénario : ' . $scenario->getName(),
+                        'message' =>
+                            <<<EOF
+<p>Bonjour Ô puissant MJ !</p>
+<p>
+    Je viens vers toi afin de te présenter mon humble candidature pour participer à ton scénario : {$scenario->getName()}<br />
+    M'accepteras-tu ? J'attends ta réponse, mon mignon ;)
+</p>
+EOF,
+
+                        'htmlTemplate' => 'emails/play/join/user.html.twig',
+                    ],
+                    'user');
+
+                $mailerService->send(
+                    [
+                        'to' => $scenario->getUser()->getEmail(),
+                        'name' => $character->getFullname(),
+                        'email' => $character->getUser()->getEmail(),
+                        'subject' => 'On vient de postuler pour ton scénario : ' . $scenario->getName(),
+                        'message' =>
+                            <<<EOF
+<p>Salut à toi, MJ !</p>
+<p>
+    {$character->getFullname()}, personnage appartenant à {$character->getUser()->getFullname()}, vient de te proposer sa candidature pour participer à ton scénario : {$scenario->getName()}<br />
+    L'accepteras-tu ? Il attend ta réponse, sois gentil ;)
+</p>
+EOF,
+
+                        'htmlTemplate' => 'emails/play/join/admin.html.twig',
+                    ],
+                    'admin');
 
                 $this->addFlash('success', 'Ta candidature a été envoyée au MJ. Attendons sa réponse…');
             } else {
@@ -254,7 +292,7 @@ class PlayController extends AbstractController
     /**
      * @Route("/quitte-un-scenario/{id}/{characterId}", name="user.play.leave")
      */
-    public function leave(EntityManagerInterface $manager, Scenario $scenario, $characterId): Response
+    public function leave(EntityManagerInterface $manager, MailerService $mailerService, Scenario $scenario, $characterId): Response
     {
         $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
 
@@ -265,6 +303,43 @@ class PlayController extends AbstractController
                     $scenario->removeScenarioCharacter($scenarioCharacter);
                     $manager->persist($scenario);
                     $manager->flush();
+
+                    $mailerService->send(
+                        [
+                            'name' => $character->getFullname(),
+                            'email' => $character->getUser()->getEmail(),
+                            'subject' => 'Je quitte ton scénario : ' . $scenario->getName(),
+                            'message' =>
+                                <<<EOF
+<p>Bonjour Ô puissant MJ !</p>
+<p>
+    Je reviens vers toi afin de t'informer que je quitte ton scénario : {$scenario->getName()}<br />
+    Sans rancune, hein ;)
+</p>
+EOF,
+
+                            'htmlTemplate' => 'emails/play/leave/user.html.twig',
+                        ],
+                        'user');
+
+                    $mailerService->send(
+                        [
+                            'to' => $scenario->getUser()->getEmail(),
+                            'name' => $character->getFullname(),
+                            'email' => $character->getUser()->getEmail(),
+                            'subject' => 'On a quitté ton scénario : ' . $scenario->getName(),
+                            'message' =>
+                                <<<EOF
+<p>Salut à toi, MJ !</p>
+<p>
+    {$character->getFullname()}, personnage appartenant à {$character->getUser()->getFullname()}, vient de quitter ton scénario : {$scenario->getName()}<br />
+    On ne sait pas pourquoi, mais ce n'est sûrement rien de personnel :)
+</p>
+EOF,
+
+                            'htmlTemplate' => 'emails/play/leave/admin.html.twig',
+                        ],
+                        'admin');
 
                     $this->addFlash('warning', 'Tu as quitté le scénario.');
                 }
@@ -277,7 +352,7 @@ class PlayController extends AbstractController
     /**
      * @Route("/recherche-un-personnage/{scenarioId}/{characterName}/{deleteMode}/{acceptMode}", name="user.play.invite.search")
      */
-    public function searchCharacter(Request $request, EntityManagerInterface $manager, $scenarioId, $characterName, $deleteMode = false, $acceptMode = false)
+    public function searchCharacter(Request $request, EntityManagerInterface $manager, MailerService $mailerService, $scenarioId, $characterName, $deleteMode = false, $acceptMode = false)
     {
         $json = [];
         $scenario = $this->getDoctrine()->getRepository(Scenario::class)->find($scenarioId);
@@ -315,6 +390,25 @@ class PlayController extends AbstractController
                                 $scenarioCharacter->setIsAccepted(true);
                                 $manager->persist($scenarioCharacter);
                                 $manager->flush();
+
+                                $mailerService->send(
+                                    [
+                                        'name' => $char->getFullname(),
+                                        'email' => $char->getUser()->getEmail(),
+                                        'subject' => 'Tu as rejoins le scénario : ' . $scenario->getName(),
+                                        'message' =>
+                                            <<<EOF
+<p>Salut {$char->getName()} !</p>
+<p>
+    Bonne nouvelle !<br />
+    Le MJ du scénario : {$scenario->getName()} a accepté ta candidature !<br />
+    C'est cool ;)
+</p>
+EOF,
+
+                                        'htmlTemplate' => 'emails/play/accept/user.html.twig',
+                                    ],
+                                    'user');
 
                                 $json[] = [
                                     [
@@ -364,6 +458,25 @@ class PlayController extends AbstractController
                             $manager->persist($scenarioCharacter);
                             $manager->flush();
 
+                            $mailerService->send(
+                                [
+                                    'name' => $character->getFullname(),
+                                    'email' => $character->getUser()->getEmail(),
+                                    'subject' => 'Tu as rejoins le scénario : ' . $scenario->getName(),
+                                    'message' =>
+                                        <<<EOF
+<p>Salut {$character->getName()} !</p>
+<p>
+    Bonne nouvelle !<br />
+    Le MJ du scénario : {$scenario->getName()} a accepté ta candidature !<br />
+    C'est cool ;)
+</p>
+EOF,
+
+                                    'htmlTemplate' => 'emails/play/accept/user.html.twig',
+                                ],
+                                'user');
+
                             $json = [
                                 [
                                     'id' => $character->getId(),
@@ -402,7 +515,7 @@ class PlayController extends AbstractController
     /**
      * @Route("/invite-un-personnage/{id}/{characterId}", name="user.play.invite.character")
      */
-    public function inviteCharacter(EntityManagerInterface $manager, Scenario $scenario, $characterId)
+    public function inviteCharacter(EntityManagerInterface $manager, MailerService $mailerService, Scenario $scenario, $characterId)
     {
         $json = [];
         $character = $this->getDoctrine()->getRepository(Character::class)->find($characterId);
@@ -415,6 +528,25 @@ class PlayController extends AbstractController
             $scenario->addScenarioCharacter($scenarioCharacter);
             $manager->persist($scenario);
             $manager->flush();
+
+            $mailerService->send(
+                [
+                    'name' => $character->getFullname(),
+                    'email' => $character->getUser()->getEmail(),
+                    'subject' => 'Tu as été invité à jouer au scénario : ' . $scenario->getName(),
+                    'message' =>
+                        <<<EOF
+<p>Salut à toi, {$character->getFullname()} !</p>
+<p>
+    Excellente nouvelle !<br />
+    On vient de t'inviter à jouer au scénario {$scenario->getName()} !<br />
+    Tu peux jouer ;)
+</p>
+EOF,
+
+                    'htmlTemplate' => 'emails/play/invite/user.html.twig',
+                ],
+                'user');
 
             $json = [
                 [

@@ -47,6 +47,13 @@
             color: #155166;
         }
 
+        blockquote {
+            padding: 1.5rem 0.5rem;
+            font-family: 'PT Sans', sans-serif;
+            color: #873608;
+            background-color: #fffaeb;
+        }
+
         footer {
             padding: 1rem 1.5rem;
             font-family: 'PT Sans', sans-serif;
@@ -63,24 +70,14 @@
     </header>
 
     <main>
-        <h1>Salut, {{ name }} !</h1>
+        <h1>Salut, {{ mailData['name'] }} !</h1>
 
-        <p>
-            Pour régénérer ton mot de passe, clique sur le lien ci-dessous :
-            <br />
-            <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
-        </p>
-
-        <p>
-            Mais fais vite !!
-            <br />
-            Ce lien expirera {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }} après son envoi.
-        </p>
+        {{ mailData['message'] | raw }}
     </main>
 
     <footer>
         <p>
-            On te souhaite de belles parties :)
+            À bientôt pour de nouvelles aventures :)
             <br />
             <a href="http://localhost:8080{{ path('home') }}" title="Aller sur le site">
                 <img src="http://localhost:8080{{ asset('assets/images/logo_adndd_full.png') }}" alt="{{ appConfig.getAppName() }}">
