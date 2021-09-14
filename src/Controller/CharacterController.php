@@ -193,24 +193,47 @@ class CharacterController extends AbstractController
     {
         $characterCharacteristics = $this->getDoctrine()->getRepository(CharacterCharacteristic::class)->findBy(['character' => $character]);
         $healthPoints = 50;
+        $hitPoints = 50;
+        $magicPoints = 50;
+        $crazyPoints = 50;
+        $pcRestPoints = 50;
 
         foreach ($characterCharacteristics as $characterCharacteristic) {
             if ($characterCharacteristic->getCharacteristic()->getShortname() === 'PV') {
                 $healthPoints = $characterCharacteristic->getBase();
+            }
+            if ($characterCharacteristic->getCharacteristic()->getShortname() === 'PI') {
+                $hitPoints = $characterCharacteristic->getBase();
+            }
+            if ($characterCharacteristic->getCharacteristic()->getShortname() === 'PM') {
+                $magicPoints = $characterCharacteristic->getBase();
+            }
+            if ($characterCharacteristic->getCharacteristic()->getShortname() === 'PF') {
+                $crazyPoints = $characterCharacteristic->getBase();
+            }
+            if ($characterCharacteristic->getCharacteristic()->getShortname() === 'PC') {
+                $pcRestPoints = $characterCharacteristic->getBase();
             }
         }
 
         return $this->render('character/sheet/index.html.twig', [
             'character' => $character,
             'healthPoints' => $healthPoints,
+            'hitPoints' => $hitPoints,
+            'magicPoints' => $magicPoints,
+            'crazyPoints' => $crazyPoints,
+            'pcRestPoints' => $pcRestPoints,
         ]);
     }
 
     /**
      * @Route("/modifier-caracteristique-base/{id}/{shortName}/{value}", name="user.characters.editRange")
      */
+
+
     public function editRange(EntityManagerInterface $manager, Character $character, $shortName, $value)
     {
+        
         $characterCharacteristics = $this->getDoctrine()->getRepository(CharacterCharacteristic::class)->findBy(['character' => $character]);
         $characteristic = null;
         $json = [];
@@ -220,23 +243,21 @@ class CharacterController extends AbstractController
                 $characteristic = $characterCharacteristic->getCharacteristic();
                 $characterCharacteristic->setBase($value);
                 $manager->persist($characterCharacteristic);
+
             }
         }
         $manager->flush();
 
-
         if ($characteristic) {
             $json = [
-                'message' => 'La caractéristique ' . $characteristic->getName() . ' a été mise à ' . $value,
+                'message' => "La caractéristique '" . $characteristic->getName() . "' a été mise à " . $value
             ];
         } else {
             $json = [
-                'message' => "La caractéristique n'existe pas pour ce personnage :/ Ceci est très probablement dû un bug dans les fixtures des personnages joueurs par défaut…",
+                'message' => "La caractéristique n'existe pas pour ce personnage : Ceci est très probablement dû un bug dans les fixtures des personnages joueurs par défaut…"
             ];
         }
 
-
         return new JsonResponse($json);
     }
-
 }

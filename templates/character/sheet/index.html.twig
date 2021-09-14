@@ -69,55 +69,116 @@
                 document.getElementById(type).innerHTML = val;
             }
             // ------------------------------------      Mis à jour sur le changement en local      ------------------------------------------
+                       
             if (magicRange) {
                 magicRange.addEventListener('input', (event) => {
                     updateValue(event.target)
                 })
-            }
-            if (hitRange) {
-                hitRange.addEventListener('input', (event) => {
-                    updateValue(event.target)
-                })
-            }
-            if (healthRange) {
-                healthRange.addEventListener('input', (event) => {
-                    updateValue(event.target)
-                })
-            }
-            if (crazyRange) {
-                crazyRange.addEventListener('input', (event) => {
-                    updateValue(event.target)
-                })
-            }
-            if (pcrestRange) {
-                pcrestRange.addEventListener('input', (event) => {
-                    updateValue(event.target)
-                })
-            }
-// ----------------------------------------------------------------------------------------------------------
 
-// --------------------------------------               AJAX TIME                -----------------------------------
-
-            if (healthRange) {
-                healthRange.addEventListener('change', (event) => {
+                magicRange.addEventListener('change', (event) => {
                     const xhttp = new XMLHttpRequest();
-
+                    
                     xhttp.onreadystatechange = function () {
-                        if (this.readyState === 4 && this.status === 200) {
+                        if (this.readyState === 4 && this.status === 200) {                   
                             const res = JSON.parse(this.responseText)
                             alert(res.message)
                         }
                     }
 
                     characterid = event.target.dataset.characterid
-                    xhttp.open("POST", '/tes-personnages/modifier-caracteristique-base/' + characterid + '/PV/' + event.target.value, true);
+                    console.log('/tes-personnages/modifier-caracteristique-base/' + characterid + '/PM/' + event.target.value)
+                    xhttp.open("GET", '/tes-personnages/modifier-caracteristique-base/' + characterid + '/PM/' + event.target.value, true);
                     xhttp.send();
-
                 })
             }
+// ---------------------------------------------------------------------------------------------------------------------------------
+            if (hitRange) {
+                hitRange.addEventListener('input', (event) => {
+                    updateValue(event.target)
+                })
 
-// ---------------------------------------------------------------------------------------------------------------
+                hitRange.addEventListener('change', (event) => {
+                    const xhttp = new XMLHttpRequest();
+                    
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState === 4 && this.status === 200) {                   
+                            const res = JSON.parse(this.responseText)
+                            alert(res.message)
+                        }
+                    }
+
+                    characterid = event.target.dataset.characterid
+                    console.log('/tes-personnages/modifier-caracteristique-base/' + characterid + '/PI/' + event.target.value)
+                    xhttp.open("GET", '/tes-personnages/modifier-caracteristique-base/' + characterid + '/PI/' + event.target.value, true);
+                    xhttp.send();
+                })
+            }
+// --------------------------------------------------------------------------------------------------------------------------------
+            if (healthRange) {
+                healthRange.addEventListener('input', (event) => {
+                    updateValue(event.target)                
+                })
+
+                healthRange.addEventListener('change', (event) => {
+                    const xhttp = new XMLHttpRequest();
+                    
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState === 4 && this.status === 200) {                   
+                            const res = JSON.parse(this.responseText)
+                            alert(res.message)
+                        }
+                    }
+
+                    characterid = event.target.dataset.characterid
+                    console.log('/tes-personnages/modifier-caracteristique-base/' + characterid + '/PV/' + event.target.value)
+                    xhttp.open("GET", '/tes-personnages/modifier-caracteristique-base/' + characterid + '/PV/' + event.target.value, true);
+                    xhttp.send();
+                })
+            }
+// ----------------------------------------------------------------------------------------------------------------------------
+            if (crazyRange) {
+                crazyRange.addEventListener('input', (event) => {
+                    updateValue(event.target)
+                })
+
+                crazyRange.addEventListener('change', (event) => {
+                    const xhttp = new XMLHttpRequest();
+                    
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState === 4 && this.status === 200) {                   
+                            const res = JSON.parse(this.responseText)
+                            alert(res.message)
+                        }
+                    }
+
+                    characterid = event.target.dataset.characterid
+                    console.log('/tes-personnages/modifier-caracteristique-base/' + characterid + '/PF/' + event.target.value)
+                    xhttp.open("GET", '/tes-personnages/modifier-caracteristique-base/' + characterid + '/PF/' + event.target.value, true);
+                    xhttp.send();
+                })
+            }
+// -------------------------------------------------------------------------------------------------------------------------
+            if (pcrestRange) {
+                pcrestRange.addEventListener('input', (event) => {
+                    updateValue(event.target)
+                })
+
+                pcrestRange.addEventListener('change', (event) => {
+                    const xhttp = new XMLHttpRequest();
+                    
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState === 4 && this.status === 200) {                   
+                            const res = JSON.parse(this.responseText)
+                            alert(res.message)
+                        }
+                    }
+
+                    characterid = event.target.dataset.characterid
+                    console.log('/tes-personnages/modifier-caracteristique-base/' + characterid + '/PC/' + event.target.value)
+                    xhttp.open("GET", '/tes-personnages/modifier-caracteristique-base/' + characterid + '/PC/' + event.target.value, true);
+                    xhttp.send();
+                })
+            }
         })
     </script>
-
 {% endblock %}
