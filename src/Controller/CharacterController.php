@@ -260,4 +260,35 @@ class CharacterController extends AbstractController
 
         return new JsonResponse($json);
     }
+
+
+    /**
+     * @Route("/modifier-argent/{id}/{value}", name="user.characters.editMoney")
+     */
+
+
+    public function editMoney(EntityManagerInterface $manager, Character $character, $value)
+    {
+        
+        //$character = $this->getDoctrine()->getRepository(Character::class)->findBy(['character' => $character]);
+        $json = [];
+
+
+        $character->setCoinPurse($value);
+        $manager->persist($character);
+
+        $manager->flush();
+
+        if ($character) {
+            $json = [
+                'message' => "La bourse a été mise à " . $value
+            ];
+        } else {
+            $json = [
+                'message' => "Pas de bourse pour ce personnage !"
+            ];
+        }
+
+        return new JsonResponse($json);
+    }
 }
