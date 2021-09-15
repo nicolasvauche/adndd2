@@ -3,11 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Character;
+use App\Entity\Specialty;
+use App\Repository\SpecialtyRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -57,16 +61,33 @@ class CharacterType extends AbstractType
                         'placeholder' => 'character.surname.placeholder',
                     ],
                 ])
-            ->add('birthplace', TextType::class,
-                [
-                    'required' => false,
-                    'label' => 'character.birthplace.label',
-                    'attr' => [
-                        'class' => 'app_form_control',
-                        'placeholder' => 'character.birthplace.placeholder',
-                    ],
-                ])
-            ->add('age', NumberType::class,
+            ->add('birthplace', ChoiceType::class, [
+                'required' => true,
+                'label' => 'character.birthplace.label',
+                'attr' => [
+                    'class' => 'app_form_control',
+                    'placeholder' => 'character.birthplace.placeholder',
+                ],
+                'choices'  => [
+                    'Argimiliar' => 'Argimiliar',
+                    'Dharijor' => 'Dharijor',
+                    'Dorel' => 'Dorel',
+                    'Filkhar' => 'Filkhar',
+                    'Ilmiora' => 'Ilmiora',
+                    "l'Ile des Cités Pourpres" => "l'Ile des Cités Pourpres",
+                    'Jharkor' => 'Jharkor',
+                    'Lormyr' => 'Lormyr',
+                    'Oin' => 'Oin',
+                    'Pikarayd' => 'Pikarayd',
+                    'Shazar' => 'Shazar',
+                    "le Désert des Soupirs" => "le Désert des Soupirs",
+                    'Tarkesh' => 'Tarkesh',
+                    'Vilmir' => 'Vilmir',
+                    'Yu' => 'Yu',
+                    "le Désert des Larmes" => "le Désert des Larmes",
+                ],
+            ])
+           ->add('age', NumberType::class,
                 [
                     'required' => false,
                     'label' => 'character.age.label',
@@ -76,13 +97,17 @@ class CharacterType extends AbstractType
                         'min' => 1,
                     ],
                 ])
-            ->add('gender', TextType::class,
+            ->add('gender', ChoiceType::class,
                 [
                     'required' => true,
                     'label' => 'character.gender.label',
                     'attr' => [
                         'class' => 'app_form_control',
                         'placeholder' => 'character.gender.placeholder',
+                    ],
+                    'choices' => [
+                        'Homme' => 'Homme',
+                        'Femme' => 'Femme',
                     ],
                 ])
             ->add('size', TextType::class,
@@ -103,13 +128,18 @@ class CharacterType extends AbstractType
                         'placeholder' => 'character.weight.placeholder',
                     ],
                 ])
-            ->add('guidingHand', TextType::class,
+            ->add('guidingHand', ChoiceType::class,
                 [
                     'required' => true,
                     'label' => 'character.guidingHand.label',
                     'attr' => [
                         'class' => 'app_form_control',
                         'placeholder' => 'character.guidingHand.placeholder',
+                    ],
+                    'choices' => [
+                        'Droitier' => 'Droitier',
+                        'Gaucher' => 'Gaucher',
+                        'Ambidextre' => 'Ambidextre',
                     ],
                 ])
             ->add('description', CKEditorType::class,
@@ -143,7 +173,24 @@ class CharacterType extends AbstractType
                         'placeholder' => 'character.homeplace.placeholder',
                     ],
                 ])
-            ->add('occupation', TextType::class,
+                ->add('occupation', EntityType::class,
+                [
+                    'class' => Specialty::class,
+                    'query_builder' => function (SpecialtyRepository $er) {
+
+                        return $er->createQueryBuilder('u')
+                            ->orderBy('u.name', 'ASC');
+                            
+                    },
+                    'choice_label' => 'name',
+                    'required' => true,
+                    'label' => 'character.occupation.label',
+                    'attr' => [
+                        'class' => 'app_form_control',
+                        'placeholder' => 'character.occupation.placeholder',
+                    ],
+                ])
+/*            ->add('occupation', TextType::class,
                 [
                     'required' => false,
                     'label' => 'character.occupation.label',
@@ -152,7 +199,7 @@ class CharacterType extends AbstractType
                         'placeholder' => 'character.occupation.placeholder',
                     ],
                 ])
-            ->add('story', CKEditorType::class,
+*/            ->add('story', CKEditorType::class,
                 [
                     'required' => false,
                     'label' => 'character.story.label',
