@@ -173,24 +173,7 @@ class CharacterType extends AbstractType
                         'placeholder' => 'character.homeplace.placeholder',
                     ],
                 ])
-                ->add('occupation', EntityType::class,
-                [
-                    'class' => Specialty::class,
-                    'query_builder' => function (SpecialtyRepository $er) {
-
-                        return $er->createQueryBuilder('u')
-                            ->orderBy('u.name', 'ASC');
-                            
-                    },
-                    'choice_label' => 'name',
-                    'required' => true,
-                    'label' => 'character.occupation.label',
-                    'attr' => [
-                        'class' => 'app_form_control',
-                        'placeholder' => 'character.occupation.placeholder',
-                    ],
-                ])
-/*            ->add('occupation', TextType::class,
+            ->add('occupation', TextType::class,
                 [
                     'required' => false,
                     'label' => 'character.occupation.label',
@@ -199,7 +182,7 @@ class CharacterType extends AbstractType
                         'placeholder' => 'character.occupation.placeholder',
                     ],
                 ])
-*/            ->add('story', CKEditorType::class,
+            ->add('story', CKEditorType::class,
                 [
                     'required' => false,
                     'label' => 'character.story.label',
@@ -221,15 +204,36 @@ class CharacterType extends AbstractType
                         'rows' => 5,
                     ],
                 ])
-            ->add('allegiance', TextType::class,
-                [
-                    'required' => false,
-                    'label' => 'character.allegiance.label',
-                    'attr' => [
-                        'class' => 'app_form_control',
-                        'placeholder' => 'character.allegiance.placeholder',
-                    ],
-                ])
+
+// --------------------------------------------------------------------------------------------------------------------------
+            ->add('chaos', TextType::class,
+            [
+                'required' => false,
+                'label' => 'character.chaos.label',
+                'attr' => [
+                    'class' => 'app_form_control',
+                    'placeholder' => 'character.chaos.placeholder',
+                ],
+            ])      
+            ->add('balance', TextType::class,
+            [
+                'required' => false,
+                'label' => 'character.balance.label',
+                'attr' => [
+                    'class' => 'app_form_control',
+                    'placeholder' => 'character.balance.placeholder',
+                ],
+            ])      
+            ->add('loi', TextType::class,
+            [
+                'required' => false,
+                'label' => 'character.loi.label',
+                'attr' => [
+                    'class' => 'app_form_control',
+                    'placeholder' => 'character.loi.placeholder',
+                ],
+            ])      
+// --------------------------------------------------------------------------------------------------------------------------              
             ->add('coinpurse', TextType::class,
                 [
                     'required' => true,
