@@ -55,7 +55,7 @@ class Equipment
     private $armorPoints;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $skillModifyer;
 
@@ -113,6 +113,21 @@ class Equipment
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $numberRound;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $clutter;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $damageNoPowerup;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $skillModifyerNoPowerup;
 
     public function __construct()
     {
@@ -209,12 +224,12 @@ class Equipment
         return $this;
     }
 
-    public function getSkillModifyer(): ?int
+    public function getSkillModifyer(): ?string
     {
         return $this->skillModifyer;
     }
 
-    public function setSkillModifyer(?int $skillModifyer): self
+    public function setSkillModifyer(?string $skillModifyer): self
     {
         $this->skillModifyer = $skillModifyer;
 
@@ -376,6 +391,42 @@ class Equipment
     public function setNumberRound(?string $numberRound): self
     {
         $this->numberRound = $numberRound;
+
+        return $this;
+    }
+
+    public function getClutter(): ?string
+    {
+        return $this->clutter;
+    }
+
+    public function setClutter(?string $clutter): self
+    {
+        $this->clutter = $clutter;
+
+        return $this;
+    }
+
+    public function getDamageNoPowerup(): ?string
+    {
+        return $this->damageNoPowerup;
+    }
+
+    public function setDamageNoPowerup(?string $damageNoPowerup): self
+    {
+        $this->damageNoPowerup = $damageNoPowerup;
+
+        return $this;
+    }
+
+    public function getSkillModifyerNoPowerup(): ?string
+    {
+        return $this->skillModifyerNoPowerup;
+    }
+
+    public function setSkillModifyerNoPowerup(?string $skillModifyerNoPowerup): self
+    {
+        $this->skillModifyerNoPowerup = $skillModifyerNoPowerup;
 
         return $this;
     }

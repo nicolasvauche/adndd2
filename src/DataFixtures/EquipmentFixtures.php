@@ -30,7 +30,8 @@ class EquipmentFixtures extends Fixture implements OrderedFixtureInterface
             'Arme de corps à corps', 
             "Arme d'impact",                            
             "Arme de fortune", 
-            "Bouclier",                           
+            "Bouclier", 
+            "Armure",                          
         ];
 
         foreach ($equipmenttypes as $key => $value) {
@@ -47,63 +48,67 @@ class EquipmentFixtures extends Fixture implements OrderedFixtureInterface
         $equipmenttype->setName($value);
         $manager->persist($equipmenttype);
 
-// ****************************************************************************************************************************
-
-        // Armes default Elric (Arme de contact + Arme de fortune + Bouclier)
+/**
+ * --------------------------------------------------------------------------------------------------------------------------------
+ * ---------------------------------------------------------------------------------------------------------------------------------
+ * --------------------------------------------------------------------------------------------------------------------------------
+*/
+        // Armes Elric (Arme de contact + Arme de fortune + Bouclier)
 
         $elricEquipments = [
-            ["Bagarre", 25, "1D3 + MD", 1, "", false, false, "", "", 0, $tabequipmenttypes[4]],
-            ["Bâton de combat", 25, "1D8 + MD", 2, "20", false, true, "9", "9", 50, $tabequipmenttypes[5]],
-            ["Cestus", 25, "1D3 + 2 + MD", 1, "10", false, true, "11", "7", 200, $tabequipmenttypes[5]],
-            ["Cimeterre", 15, "1D8 + 1 + MD", 1, "19", true, true, "8", "8", 225, $tabequipmenttypes[2]],
-            ["Dague", 25, "1D4 + 2 + MD", 1, "15", true, true, "4", "4", 100, $tabequipmenttypes[2]],
-            ["Poignard", 25, "1D4 + 2 + MD", 1, "15", true, true, "4", "4", 100, $tabequipmenttypes[4]],
-            ["Epée courte", 15, "1D6 + 1 + MD", 1, "20", true, true, "5", "5", 125, $tabequipmenttypes[2]],
-            ["Epée large", 15, "1D8 + 1 + MD", 1, "20", true, true, "9", "7", 250, $tabequipmenttypes[0]],
-            ["Epée longue", 05, "2D8 + MD", 2, "18", true, true, "14", "13", 750, $tabequipmenttypes[0]],
-            ["Faucheur", 15, "1D6 + 2 + MD", 1, "18", true, true, "8", "8", 230, $tabequipmenttypes[5]],
-            ["Fléau Morningstar", 10, "1D10 + 1 + MD", 2, "12", false, false, "11", "7", 300, $tabequipmenttypes[5]],
-            ["Gourdin de voleur", 25, "1D8 + MD", 1, "10", false, false, "7", "7", 0, $tabequipmenttypes[5]],
-            ["Grand marteau", 25, "1D10 + 3 + MD", 2, "15", true, true, "9", "9", 250, $tabequipmenttypes[5]],
-            ["Griffes de fer", 25, "1D4 + 1 + MD", 1, "10", false, true, "9", "9", 45, $tabequipmenttypes[5]],
-            ["Hache d'armes", 15, "1D8 + 2 + MD", 1, "15", true, true, "9", "9", 200, $tabequipmenttypes[0]],
-            ["Hache lormyrienne", 15, "3D6 + MD", 2, "25", true, true, "13", "9", 400, $tabequipmenttypes[0]],
-            ["Hache maritime", 15, "2D6 + 2 + MD", 2, "15", true, true, "11", "9", 45, $tabequipmenttypes[0]],
-            ["Lance courte", 15, "1D6 + 1 + MD", 3, "15", true, true, "7", "8", 50, $tabequipmenttypes[1]],
-            ["Lance de cavalerie", 15, "1D8 + 1 + MD", 1, "15", true, true, "9", "8", 175, $tabequipmenttypes[1]],
-            ["Lance longue", 15, "1D10 + 1 + MD", 2, "15", true, false, "11", "9", 100, $tabequipmenttypes[1]],
-            ["Lutte", 25, "Spécial", 2, "", false, false, "", "", 0, $tabequipmenttypes[4]],
-            ["Marteau de guerre", 25, "1D6 + 2 + MD", 1, "20", true, true, "11", "9", 200, $tabequipmenttypes[5]],
-            ["Masse légère", 25, "1D6 + 2 + MD", 1, "20", false, true, "7", "7", 75, $tabequipmenttypes[5]],
-            ["Masse lourde", 25, "1D8 + 2 + MD", 2, "20", false, true, "14", "9", 200, $tabequipmenttypes[5]],
-            ["Pique Filkharienne", 15, "1D10 + 2 + MD", 2, "15", true, true, "11", "7", 150, $tabequipmenttypes[1]],
-            ["Rapière", 15, "1D6 + 1 + MD", 1, "15", true, true, "7", "13", 400, $tabequipmenttypes[5]],
-            ["Sabre d'abordage", 15, "1D6 + 2 + MD", 1, "21", true, true, "8", "8", 175, $tabequipmenttypes[5]],
-            ["Trident", 15, "1D6 + 2 + MD", 3, "18", true, true, "10", "12", 100, $tabequipmenttypes[1]],
-            ["Assommoir", 25, "1D8 + 3 + MD", 2, "20", false, false, "13", "7", 12, $tabequipmenttypes[6]],
-            ["Bâton", 25, "1D6 + 1 + MD", 2, "15", false, false, "8", "6", 0, $tabequipmenttypes[6]],
-            ["Houlette", 25, "1D6 + 1 + MD", 2, "15", false, false, "8", "6", 0, $tabequipmenttypes[6]],
-            ["Chaîne", 10, "1D4 + MD / enchevêtrement", 3, "20", false, false, "8", "9", 10, $tabequipmenttypes[6]],
-            ["Couteau", 25, "1D6 + MD", 1, "12", true, true, "5", "5", 15, $tabequipmenttypes[6]],
-            ["Cognée", 15, "1D8 + 2 + MD", 2, "20", true, false, "8", "7", 20, $tabequipmenttypes[6]],
-            ["Faucille", 10, "1D6 + 1 + MD", 1, "12", true, false, "7", "9", 15, $tabequipmenttypes[6]],
-            ["Faux", 05, "2D6 + 1 + MD", 2, "20", true, false, "12", "10", 35, $tabequipmenttypes[6]],
-            ["Fléau à grain", 10, "1D6 + MD", 1, "7", false, false, "7", "6", 5, $tabequipmenttypes[6]],
-            ["Fouet", 05, "1D3 - 1 / enchevêtrement", 1, "4", false, false, "9", "10", 10, $tabequipmenttypes[6]],
-            ["Garot", 15, "strangulation", 2, "1", false, false, "8", "12", 0, $tabequipmenttypes[6]],
-            ["Gourdin", 25, "1D8 + MD", 2, "22", false, false, "9", "7", 0, $tabequipmenttypes[6]],
-            ["Hachette", 15, "1D6 + 1 + MD", 1, "12", true, false, "7", "9", 15, $tabequipmenttypes[6]],
-            ["Petit couteau", 25, "1D4 + MD", 1, "9", true, false, "4", "3", 10, $tabequipmenttypes[6]],
-            ["Trique", 25, "1D6 + MD", 1, "15", false, false, "7", "7", 20, $tabequipmenttypes[6]],
-            ["Tisonnier", 25, "1D6 + 1 + MD", 1, "20", false, true, "10", "6", 7, $tabequipmenttypes[6]],
-            ["Torche allumée", 10, "1D6 flamme", 1, "15", false, false, "6", "9", 0, $tabequipmenttypes[6]], 
-            ["Demi", 15, "Repousser + 1D2 + MD", 0, "15", false, true, "5", "7", 75, $tabequipmenttypes[7]],
-            ["Petit", 15, "Repousser + 1D3 + MD", 0, "20", false, true, "9", "9", 100, $tabequipmenttypes[7]],
-            ["Entier", 15, "Repousser + 1D4 + MD", 0, "22", false, true, "11", "9", 125, $tabequipmenttypes[7]],
-            ["Grand", 15, "Repousser", 0, "26", false, true, "12", "8", 150, $tabequipmenttypes[7]],
+            ["Bagarre", 25, "1D3 + MD", 1, "", false, false, "", "", 0, $tabequipmenttypes[4], "courte"],
+            ["Bâton de combat", 25, "1D8 + MD", 2, "20", false, true, "9", "9", 50, $tabequipmenttypes[5], "toutes"],
+            ["Cestus", 25, "1D3 + 2 + MD", 1, "10", false, true, "11", "7", 200, $tabequipmenttypes[5], "courte"],
+            ["Cimeterre", 15, "1D8 + 1 + MD", 1, "19", true, true, "8", "8", 225, $tabequipmenttypes[2],"moyenne"],
+            ["Dague", 25, "1D4 + 2 + MD", 1, "15", true, true, "4", "4", 100, $tabequipmenttypes[2], "courte"],
+            ["Poignard", 25, "1D4 + 2 + MD", 1, "15", true, true, "4", "4", 100, $tabequipmenttypes[4], "courte"],
+            ["Epée courte", 15, "1D6 + 1 + MD", 1, "20", true, true, "5", "5", 125, $tabequipmenttypes[2], "moyenne"],
+            ["Epée large", 15, "1D8 + 1 + MD", 1, "20", true, true, "9", "7", 250, $tabequipmenttypes[0],"moyenne"],
+            ["Epée longue", 05, "2D8 + MD", 2, "18", true, true, "14", "13", 750, $tabequipmenttypes[0], "toutes"],
+            ["Faucheur", 15, "1D6 + 2 + MD", 1, "18", true, true, "8", "8", 230, $tabequipmenttypes[5], "moyenne"],
+            ["Fléau Morningstar", 10, "1D10 + 1 + MD", 2, "12", false, false, "11", "7", 300, $tabequipmenttypes[5], "moyenne"],
+            ["Gourdin de voleur", 25, "1D8 + MD", 1, "10", false, false, "7", "7", 0, $tabequipmenttypes[5], "courte"],
+            ["Grand marteau", 25, "1D10 + 3 + MD", 2, "15", true, true, "9", "9", 250, $tabequipmenttypes[5], "longue"],
+            ["Griffes de fer", 25, "1D4 + 1 + MD", 1, "10", false, true, "9", "9", 45, $tabequipmenttypes[5], "courte"],
+            ["Hache d'armes", 15, "1D8 + 2 + MD", 1, "15", true, true, "9", "9", 200, $tabequipmenttypes[0], "moyenne"],
+            ["Hache lormyrienne", 15, "3D6 + MD", 2, "25", true, true, "13", "9", 400, $tabequipmenttypes[0], "longue"],
+            ["Hache maritime", 15, "2D6 + 2 + MD", 2, "15", true, true, "11", "9", 45, $tabequipmenttypes[0], "moyenne"],
+            ["Lance courte", 15, "1D6 + 1 + MD", 3, "15", true, true, "7", "8", 50, $tabequipmenttypes[1], "longue"],
+            ["Lance de cavalerie", 15, "1D8 + 1 + MD", 1, "15", true, true, "9", "8", 175, $tabequipmenttypes[1], "longue"],
+            ["Lance longue", 15, "1D10 + 1 + MD", 2, "15", true, false, "11", "9", 100, $tabequipmenttypes[1], "longue"],
+            ["Lutte", 25, "Spécial", 2, "", false, false, "", "", 0, $tabequipmenttypes[4], "courte"],
+            ["Marteau de guerre", 25, "1D6 + 2 + MD", 1, "20", true, true, "11", "9", 200, $tabequipmenttypes[5], "moyenne"],
+            ["Masse légère", 25, "1D6 + 2 + MD", 1, "20", false, true, "7", "7", 75, $tabequipmenttypes[5], "moyenne"],
+            ["Masse lourde", 25, "1D8 + 2 + MD", 2, "20", false, true, "14", "9", 200, $tabequipmenttypes[5], "moyenne"],
+            ["Pique Filkharienne", 15, "1D10 + 2 + MD", 2, "15", true, true, "11", "7", 150, $tabequipmenttypes[1], "longue"],
+            ["Rapière", 15, "1D6 + 1 + MD", 1, "15", true, true, "7", "13", 400, $tabequipmenttypes[5], "moyenne"],
+            ["Sabre d'abordage", 15, "1D6 + 2 + MD", 1, "21", true, true, "8", "8", 175, $tabequipmenttypes[5], "moyenne"],
+            ["Trident", 15, "1D6 + 2 + MD", 3, "18", true, true, "10", "12", 100, $tabequipmenttypes[1], "moyenne"],
+            ["Assommoir", 25, "1D8 + 3 + MD", 2, "20", false, false, "13", "7", 12, $tabequipmenttypes[6], "moyenne"],
+            ["Bâton", 25, "1D6 + 1 + MD", 2, "15", false, false, "8", "6", 0, $tabequipmenttypes[6], "longue"],
+            ["Houlette", 25, "1D6 + 1 + MD", 2, "15", false, false, "8", "6", 0, $tabequipmenttypes[6], "longue"],
+            ["Chaîne", 10, "1D4 + MD / enchevêtrement", 3, "20", false, false, "8", "9", 10, $tabequipmenttypes[6], "longue"],
+            ["Couteau", 25, "1D6 + MD", 1, "12", true, true, "5", "5", 15, $tabequipmenttypes[6],"courte"],
+            ["Cognée", 15, "1D8 + 2 + MD", 2, "20", true, false, "8", "7", 20, $tabequipmenttypes[6], "moyenne"],
+            ["Faucille", 10, "1D6 + 1 + MD", 1, "12", true, false, "7", "9", 15, $tabequipmenttypes[6], "courte"],
+            ["Faux", 05, "2D6 + 1 + MD", 2, "20", true, false, "12", "10", 35, $tabequipmenttypes[6], "longue"],
+            ["Fléau à grain", 10, "1D6 + MD", 1, "7", false, false, "7", "6", 5, $tabequipmenttypes[6], "moyenne"],
+            ["Fouet", 05, "1D3 - 1 / enchevêtrement", 1, "4", false, false, "9", "10", 10, $tabequipmenttypes[6], "longue"],
+            ["Garot", 15, "strangulation", 2, "1", false, false, "8", "12", 0, $tabequipmenttypes[6], "courte"],
+            ["Gourdin", 25, "1D8 + MD", 2, "22", false, false, "9", "7", 0, $tabequipmenttypes[6], "moyenne"],
+            ["Hachette", 15, "1D6 + 1 + MD", 1, "12", true, false, "7", "9", 15, $tabequipmenttypes[6], "courte"],
+            ["Petit couteau", 25, "1D4 + MD", 1, "9", true, false, "4", "3", 10, $tabequipmenttypes[6], "courte"],
+            ["Trique", 25, "1D6 + MD", 1, "15", false, false, "7", "7", 20, $tabequipmenttypes[6], "moyenne"],
+            ["Tisonnier", 25, "1D6 + 1 + MD", 1, "20", false, true, "10", "6", 7, $tabequipmenttypes[6], "moyenne"],
+            ["Torche allumée", 10, "1D6 flamme", 1, "15", false, false, "6", "9", 0, $tabequipmenttypes[6], "moyenne"], 
+
+            ["Demi", 15, "Repousser + 1D2 + MD", 0, "15", false, true, "5", "7", 75, $tabequipmenttypes[7], null], 
+            ["Petit", 15, "Repousser + 1D3 + MD", 0, "20", false, true, "9", "9", 100, $tabequipmenttypes[7], null],
+            ["Entier", 15, "Repousser + 1D4 + MD", 0, "22", false, true, "11", "9", 125, $tabequipmenttypes[7], null],
+            ["Grand", 15, "Repousser", 0, "26", false, true, "12", "8", 150, $tabequipmenttypes[7], null],
         ];
 
-        foreach ($elricEquipments as list($name, $base, $degat, $main, $structure, $empale, $pare, $fordex, $dexdex, $prix, $equiptype)) {
+        foreach ($elricEquipments as list($name, $base, $degat, $main, $structure, $empale, $pare, $fordex, $dexdex, $prix, $equiptype, $taille)) {
             $equipment = new Equipment();
             $equipment->setName($name)
                     ->setBase($base)
@@ -118,11 +123,12 @@ class EquipmentFixtures extends Fixture implements OrderedFixtureInterface
                     ->setDexdex($dexdex)
                     ->setPrice($prix)
                     ->addGame($this->getReference('game1'))
-                    ->setEquipmentType($equiptype);
+                    ->setEquipmentType($equiptype)
+                    ->setSize($taille);
             $manager->persist($equipment);
         } 
 
-        // Armes default Elric ( Arme de jet)
+        // Armes Elric ( Arme de jet)
 
         $elricArmeJet = [
             ["Arc de Mélniboné", 10, "2D6 + 1 + 1/2 MD", 200, 12, true, false, "11", "13", 750, $tabequipmenttypes[3], "1"],
@@ -159,9 +165,43 @@ class EquipmentFixtures extends Fixture implements OrderedFixtureInterface
             $manager->persist($equipment);
         } 
 
+        // Armes Elric ( Armure)
 
+        $elricArmure = [
+            ["Cuir et anneaux", "1D6 + 1", "1D6", "léger", "+/- 1", "25", "10", 2, 600, $tabequipmenttypes[8]],
+            ["Cuir et bois barbares", "1D8", "1D6", "léger", "non", "25", "10", 2, 400, $tabequipmenttypes[8]],
+            ["Cuir maritime", "1D6", "1D6 - 1", "léger", "non", "10", "-", 2, 300, $tabequipmenttypes[8]],
+            ["Cuir souple", "1D6 - 1", "1D6 - 1", "léger", "+/- 2", "-", "-", 2, 100, $tabequipmenttypes[8]],
+            ["Demi-plaques (torse)", "1D8 + 1", "1D8", "modéré", "+/- 1", "25", "10", 2, 675, $tabequipmenttypes[8]],
+            ["Demi-plaques et anneaux", "1D8 + 2", "1D8 + 1", "modéré", "+/- 1", "25", "25", 4, 750, $tabequipmenttypes[8]],
+            ["Plaques", "1D10 + 2", "1D10", "encombrant", "- 1", "50", "25", 5, 1000, $tabequipmenttypes[8]],
+            ["Plaques Melniboné", "1D10 + 6", "1D10 + 4", "modéré", "non", "25", "10", 5, null, $tabequipmenttypes[8]],
+            ["Plaques Pan Tang", "2D8 + 1", "2D8", "encombrant", "+/- 2", "50", "25", 5, 3000, $tabequipmenttypes[8]],      
+        ];
 
-        /**
+        foreach ($elricArmure as list($name, $degat, $degatsansheaume, $encombrement, $taille, $skillmodif, $skillmodifsansheaume, $tour, $prix, $equiptype)) {
+            $equipment = new Equipment();
+            $equipment->setName($name)
+                    ->setDamage($degat)
+                    ->setBase('0')
+                    ->setHealth('0')
+                    ->setRanged('0')
+                    ->setSize($taille)
+                    ->setSkillModifyer($skillmodif)
+                    ->setNumberRound($tour)
+                    ->setPrice($prix)
+                    ->setClutter($encombrement)
+                    ->setDamageNoPowerup($degatsansheaume)
+                    ->setSkillModifyerNoPowerup($skillmodifsansheaume)
+                    ->addGame($this->getReference('game1'))
+                    ->setEquipmentType($equiptype);
+            $manager->persist($equipment);
+        } 
+/**
+ * --------------------------------------------------------------------------------------------------------------------------------
+ * ---------------------------------------------------------------------------------------------------------------------------------
+ * --------------------------------------------------------------------------------------------------------------------------------
+
          * CO equipments
          */
 
@@ -191,19 +231,19 @@ class EquipmentFixtures extends Fixture implements OrderedFixtureInterface
         ];
 
         // Equipment CO simple character
-        foreach ($equipments as list($a, $b, $c, $d, $e, $f, $g, $h, $i, $j)) {
+        foreach ($equipments as list($name, $base, $damage, $hand, $health, $portee, $armorpoint, $skillmodif, $equiptype, $charact)) {
             $equipment = new Equipment();
-            $equipment->setName($a)
-                    ->setBase($b)
-                    ->setDamage($c)
-                    ->setHands($d)
-                    ->setHealth($e)
-                    ->setRanged($f)
-                    ->setArmorPoints($g)
-                    ->setSkillModifyer($h)
-                    ->setEquipmentType($i)
+            $equipment->setName($name)
+                    ->setBase($base)
+                    ->setDamage($damage)
+                    ->setHands($hand)
+                    ->setHealth($health)
+                    ->setRanged($portee)
+                    ->setArmorPoints($armorpoint)
+                    ->setSkillModifyer($skillmodif)
+                    ->setEquipmentType($equiptype)
                     ->addGame($this->getReference('game2'))
-                    ->addCharacter($this->getReference($j));
+                    ->addCharacter($this->getReference($charact));
             $manager->persist($equipment);
         } 
                 
