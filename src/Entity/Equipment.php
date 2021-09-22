@@ -74,6 +74,46 @@ class Equipment
      */
     private $characters;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $structure;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $size;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $impale;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $ward;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fordex;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $price;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $dexdex;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $numberRound;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
@@ -240,6 +280,102 @@ class Equipment
     public function removeCharacter(Character $character): self
     {
         $this->characters->removeElement($character);
+
+        return $this;
+    }
+
+    public function getStructure(): ?string
+    {
+        return $this->structure;
+    }
+
+    public function setStructure(?string $structure): self
+    {
+        $this->structure = $structure;
+
+        return $this;
+    }
+
+    public function getSize(): ?string
+    {
+        return $this->size;
+    }
+
+    public function setSize(?string $size): self
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    public function getImpale(): ?bool
+    {
+        return $this->impale;
+    }
+
+    public function setImpale(?bool $impale): self
+    {
+        $this->impale = $impale;
+
+        return $this;
+    }
+
+    public function getWard(): ?bool
+    {
+        return $this->ward;
+    }
+
+    public function setWard(?bool $ward): self
+    {
+        $this->ward = $ward;
+
+        return $this;
+    }
+
+    public function getFordex(): ?string
+    {
+        return $this->fordex;
+    }
+
+    public function setFordex(?string $fordex): self
+    {
+        $this->fordex = $fordex;
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?int $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getDexdex(): ?string
+    {
+        return $this->dexdex;
+    }
+
+    public function setDexdex(?string $dexdex): self
+    {
+        $this->dexdex = $dexdex;
+
+        return $this;
+    }
+
+    public function getNumberRound(): ?string
+    {
+        return $this->numberRound;
+    }
+
+    public function setNumberRound(?string $numberRound): self
+    {
+        $this->numberRound = $numberRound;
 
         return $this;
     }
