@@ -63,7 +63,13 @@
                         <h2 class="character_name">{{ character.name }} {{ character.surname }}</h2>
 
                         <p>
-                            <strong>{{ character.allegiance }}</strong>
+                            <strong>Chaos : {{ character.chaos }}</strong>
+                        </p>
+                        <p>
+                            <strong>Balance : {{ character.balance }}</strong>
+                        </p>
+                        <p>
+                            <strong>Loi : {{ character.loi }}</strong>
                         </p>
 
                         {% if character.age %}

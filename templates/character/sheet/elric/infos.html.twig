@@ -26,9 +26,13 @@
                         {{ character.weight }}
                     </span>
                 </div>
-                <p>
-                    <strong>{{ character.allegiance }}</strong>
-                </p>
+                        <div>
+                            <strong>Chaos : </strong> {{ character.chaos }}
+                            <br>
+                            <strong>Balance : </strong> {{ character.balance }}
+                            <br>
+                            <strong>Loi : </strong> {{ character.loi }}
+                        </div>
 
                 {% if character.age %}
                     <p>

@@ -110,10 +110,19 @@
                                 <label for="{{ form.birthplace.vars.id }}">{{ form.birthplace.vars.label | trans | capitalize }}</label>
                             </div>
                         </div>
-
                         <div class="app_form_group app_grid_item">
-                            {{ form_widget(form.allegiance) }}
-                            <label for="{{ form.allegiance.vars.id }}">{{ form.allegiance.vars.label | trans | capitalize }}</label>
+                            <label for="allegiance">Ses allégeances</label>
+                        </div>
+                        <div class="app_form_group app_grid_item app_grid three">
+                            <div>
+                                Chaos : {{ form_widget(form.chaos) }}
+                            </div>
+                            <div>
+                                Balance : {{ form_widget(form.balance) }}
+                            </div>
+                            <div>
+                                Loi : {{ form_widget(form.loi) }}
+                            </div>
                         </div>
 
                         <div class="app_grid two">
