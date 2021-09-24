@@ -4,7 +4,7 @@
             points de magie
         </div>
         <div class="htitle">
-            <input type="range" min="0" max="68" step="1" list="tickmarks" id="magicRange">
+            <input type="range" min="0" max="68" step="1" list="tickmarks" id="magicRange" data-characterid="{{ character.id }}" value="{{ magicPoints }}">
                 <datalist id="tickmarks">
                     <option value="0" label="Inconscient">
                     <option value="10">
@@ -18,7 +18,7 @@
             </input>
         </div>
         <div class="htitle">
-            <span id="magic" class="slide">34</span>
+            <span id="magic" class="slide">{{ magicPoints }}</span>
         </div>
     </div>
 
@@ -27,7 +27,7 @@
             points d'impact
         </div>
         <div class="htitle">
-            <input type="range" min="-2" max="68" step="1" list="tickmarks"  id="hitRange">
+            <input type="range" min="-2" max="68" step="1" list="tickmarks"  id="hitRange" data-characterid="{{ character.id }}" value="{{ hitPoints }}">
                 <datalist id="tickmarks">
                     <option value="-2" label="Mort">
                     <option value="10">
@@ -41,7 +41,7 @@
             </input>
         </div>
         <div class="htitle">
-            <span id="hit" class="slide">34</span>
+            <span id="hit" class="slide">{{ hitPoints }}</span>
         </div>
     </div>
 </div>

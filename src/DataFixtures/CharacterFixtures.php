@@ -53,8 +53,7 @@ class CharacterFixtures extends Fixture implements OrderedFixtureInterface
             confondre Maryse avec un h. De près, son joli minois met fin à l’illusion mais son regard déterminé et sa démarche volontaire confirment un caractère impétueux.',
                 '27', '', 'Pilote - Issue  d’une  famille  modeste  qui  a  quitté 
             l’Alsace pour rester française, Maryse rêvait d’aviation  et  de  records  en  admirant  les  appareils  militaires  en  vol.  Sans  diplôme  
-            et sans argent, elle a financé son brevet de 
-            pilote en devenant mécanicienne.', true, '', 'France', 'Alsace', '200', 'game2', null, null, null, null],
+            et sans argent, elle a financé son brevet de pilote en devenant mécanicienne.', true, '', 'France', 'Alsace', '200', 'game2', null, null, null, null],
 
 
             ['Lord Duncan Blight', 'duncan.jpg', 'Homme', 'Droitier', '1m81', '82kg', 'Duncan est un Homme de haute stature, à la mise soignée et aux manières distinguées, 

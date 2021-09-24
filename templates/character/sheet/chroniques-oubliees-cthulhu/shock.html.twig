@@ -20,10 +20,10 @@
 <div class="shock app_grid two">
     <div>
         <div class="htitle">
-            Points de folie: <span id="crazy" class="slide">50</span>
+            Points de folie: <span id="crazy" class="slide">{{ crazyPoints }}</span>
         </div>
         <div class="htitle">
-            <input type="range" min="0" max="100" step="1" list="tickmarks" id="crazyRange">
+            <input type="range" min="0" max="100" step="1" list="tickmarks" id="crazyRange" data-characterid="{{ character.id }}" value="{{ crazyPoints }}">
                 <datalist id="tickmarks">
                     <option value="0">
                     <option value="25">
@@ -36,10 +36,10 @@
     </div>
     <div>
         <div class="htitle">
-            PC restants: <span id="pcrest" class="slide">50</span>
+            PC restants: <span id="pcrest" class="slide">{{ pcRestPoints }}</span>
         </div>
         <div class="htitle">
-            <input type="range" min="0" max="100" step="1" list="tickmarks" id="pcrestRange">
+            <input type="range" min="0" max="100" step="1" list="tickmarks" id="pcrestRange" data-characterid="{{ character.id }}" value="{{ pcRestPoints }}">
                 <datalist id="tickmarks">
                     <option value="0">
                     <option value="25">
