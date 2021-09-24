@@ -61,7 +61,6 @@ class CharacteristicFixtures extends Fixture implements OrderedFixtureInterface
             ["Jet de Chance", "JLUCK", 'Base'],
             ["Jet de Dexterité", "JDEX", 'Base'],
             ["Jet de Charisme", "JCHA", 'Base'],
-            ["Point de vie", "HP", 'Base'],
             ["Taille", "TAI", 'Type'],
             ["Pouvoir", "POU", 'Type'],
             ["Apparence", "APP", 'Type'],

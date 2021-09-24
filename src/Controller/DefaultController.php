@@ -32,17 +32,21 @@ class DefaultController extends AbstractController
     {
         $mailerService->send(
             [
+                'name' => 'Monsieur Test',
                 'email' => 'nvauche@gmail.com',
                 'subject' => 'Test',
                 'message' => 'Test',
+                'htmlTemplate' => 'emails/test.html.twig',
             ],
             'user');
 
         $mailerService->send(
             [
+                'name' => 'Monsieur Test',
                 'email' => 'nvauche@gmail.com',
                 'subject' => 'Test',
                 'message' => 'Test',
+                'htmlTemplate' => 'emails/test.html.twig',
             ],
             'admin');
 

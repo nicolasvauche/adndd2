@@ -160,6 +160,21 @@ class Character
      */
     private $scenarioCharacters;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $chaos;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $balance;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $loi;
+
     public function __construct()
     {
         $this->characterSpells = new ArrayCollection();
@@ -623,6 +638,42 @@ class Character
                 $scenarioCharacter->setPersonnage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getChaos(): ?int
+    {
+        return $this->chaos;
+    }
+
+    public function setChaos(?int $chaos): self
+    {
+        $this->chaos = $chaos;
+
+        return $this;
+    }
+
+    public function getBalance(): ?int
+    {
+        return $this->balance;
+    }
+
+    public function setBalance(?int $balance): self
+    {
+        $this->balance = $balance;
+
+        return $this;
+    }
+
+    public function getLoi(): ?int
+    {
+        return $this->loi;
+    }
+
+    public function setLoi(?int $loi): self
+    {
+        $this->loi = $loi;
 
         return $this;
     }

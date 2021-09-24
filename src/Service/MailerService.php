@@ -29,7 +29,7 @@ class MailerService
                 //->bcc('bcc@example.com')
                 //->replyTo('fabien@example.com')
                 //->priority(Email::PRIORITY_HIGH)
-                ->subject('Ton message : ' . $mailData['subject'])
+                ->subject($mailData['subject'])
                 //->textTemplate('emails/contact/user.txt.twig')
                 ->htmlTemplate($mailData['htmlTemplate'])
                 ->context([
@@ -39,12 +39,12 @@ class MailerService
         } else {
             $email = (new TemplatedEmail())
                 ->from(new Address($this->globals->getAppEmail(), $this->globals->getAppAuthor()))
-                ->to(new Address($this->globals->getAppEmail(), $this->globals->getAppAuthor()))
+                ->to($mailData['to'] ? $mailData['to'] : new Address($this->globals->getAppEmail(), $this->globals->getAppAuthor()))
                 //->cc('cc@example.com')
                 //->bcc('bcc@example.com')
                 ->replyTo(new Address($mailData['email'], $mailData['name']))
                 //->priority(Email::PRIORITY_HIGH)
-                ->subject('Nouveau message : ' . $mailData['subject'])
+                ->subject($mailData['subject'])
                 //->textTemplate('emails/contact/user.txt.twig')
                 ->htmlTemplate($mailData['htmlTemplate'])
                 ->context([
