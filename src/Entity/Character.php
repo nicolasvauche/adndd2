@@ -626,4 +626,9 @@ class Character
 
         return $this;
     }
+
+    public function __toString()
+    {
+        $this->name;
+    }
 }

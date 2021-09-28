@@ -6,6 +6,7 @@ use App\Repository\EquipmentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EquipmentRepository::class)
@@ -16,46 +17,55 @@ class Equipment
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"show_equipment"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"show_equipment"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"show_equipment"})
      */
     private $base;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"show_equipment"})
      */
     private $damage;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $hands;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"show_equipment"})
      */
     private $health;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"show_equipment"})
      */
     private $ranged;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $armorPoints;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $skillModifyer;
 
@@ -76,56 +86,67 @@ class Equipment
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $structure;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $size;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $impale;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $ward;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $fordex;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $dexdex;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $numberRound;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $clutter;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $damageNoPowerup;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"show_equipment"})
      */
     private $skillModifyerNoPowerup;
 

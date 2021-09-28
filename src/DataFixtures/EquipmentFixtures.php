@@ -23,13 +23,13 @@ class EquipmentFixtures extends Fixture implements OrderedFixtureInterface
 
         $tabequipmenttypes = [];
         $equipmenttypes = [
-            'Arme tranchante', 
-            "Arme d'estoc", 
-            "Arme de taille et d'estoc", 
-            'Arme de jet', 
-            'Arme de corps à corps', 
-            "Arme d'impact",                            
-            "Arme de fortune", 
+            'Tranchante', 
+            "Estoc", 
+            "Taille et estoc", 
+            'Jet', 
+            'Corps à corps', 
+            "Impact",                            
+            "Fortune", 
             "Bouclier", 
             "Armure",                          
         ];

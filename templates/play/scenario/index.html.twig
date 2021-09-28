@@ -71,9 +71,68 @@
                     event.preventDefault()
                     const modalId = modalButton.dataset.modal
                     const modal = document.getElementById(modalId)
+
+                    if(modal.dataset.modaltype == 'equipment'){
+                        const xhttp = new XMLHttpRequest();
+                    
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState === 4 && this.status === 200) {                   
+                                const res = JSON.parse(this.responseText)
+                                const equipmentTabs = document.querySelector('#page-wrap .tabs')
+                                let i = 0
+                                console.log(res)
+                                for (equipmentType of res){
+                                    const typeDiv = document.createElement('div')
+                                    typeDiv.classList.add('tab')
+
+                                    const equipmentInput = document.createElement('input')
+                                    equipmentInput.type = 'radio'
+                                    equipmentInput.name = 'tab-group'
+                                    equipmentInput.id = 'tab-' + equipmentType.id
+                                    if (i === 0){
+                                        //equipmentInput.setAttribute('checked', 'checked')
+                                    }
+                                    typeDiv.appendChild(equipmentInput)
+
+                                    const equipmentLabel = document.createElement('label')
+                                    equipmentLabel.setAttribute('for', 'tab-' + equipmentType.id)
+                                    equipmentLabel.innerHTML = equipmentType.name
+                                    typeDiv.appendChild(equipmentLabel)
+
+                                    const equipmentContent = document.createElement('div')
+                                    equipmentContent.classList.add('content')
+                                    equipmentContent.id = 'content-' + equipmentType.id
+
+                                    const xhttp = new XMLHttpRequest();
+                                    
+                                    xhttp.onreadystatechange = function () {
+                                        if (this.readyState === 4 && this.status === 200) {                   
+                                            const res = JSON.parse(this.responseText)
+                                            for (equipment of res){
+                                                const equipmentName = document.createElement('p')
+                                                equipmentName.innerHTML = equipment.name
+                                                equipmentContent.appendChild(equipmentName)
+                                            }
+                                            typeDiv.appendChild(equipmentContent)
+                                            equipmentTabs.appendChild(typeDiv)
+                                        }
+                                    }
+
+                                    xhttp.open("GET", '/tes-personnages/equipements-par-type/' + equipmentType.id, true);
+                                    xhttp.send();
+                                    i++
+                                }
+                            }
+                        }
+
+                        xhttp.open("GET", '/tes-personnages/liste-des-equipements/' + {{ scenario.game.id }}, true);
+                        xhttp.send();
+                    }
+
                     modal.style.display = 'flex'
                 })
             }
+
 
             const modalCloseButtons = document.querySelectorAll('.app_modal_close')
             for (const modalCloseButton of modalCloseButtons) {

@@ -265,6 +265,15 @@
                             }
                         }
 
+                        &.equipment {
+                            margin-top: 0.25rem;
+                            color: $color-blue;
+
+                            i {
+                                font-size: 1.5rem;
+                            }
+                        }
+
                         &:hover {
                             color: $color-orange;
                         }

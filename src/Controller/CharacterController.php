@@ -6,6 +6,8 @@ use App\Entity\Character;
 use App\Entity\CharacterCharacteristic;
 use App\Entity\CharacterSkill;
 use App\Entity\CharacterSpell;
+use App\Entity\EquipmentType;
+use App\Entity\Equipment;
 use App\Form\CharacterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +16,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonDecode;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * @Route("/tes-personnages")
@@ -89,6 +96,13 @@ class CharacterController extends AbstractController
                 $specialty->addCharacter($character);
                 $manager->persist($specialty);
             }
+
+            foreach ($characterPremade->getEquipments() as $equipment) {
+                $equipment->addCharacter($character);
+                $manager->persist($equipment);
+            }
+
+
 // Ajout des équipements par nouveau prétiré
             foreach ($characterPremade->getEquipments() as $equipment) {
                 $equipment->addCharacter($character);
@@ -193,4 +207,36 @@ class CharacterController extends AbstractController
             'character' => $character,
         ]);
     }
+
+    
+    /**
+     * @Route("/liste-des-equipements/{gameId}", name="user.characters.equipment")
+     */
+
+    public function equipement($gameId)
+    {
+
+        $equipmentTypes = $this->getDoctrine()->getRepository(EquipmentType::class)->findAllByGame($gameId);
+
+        return new JsonResponse($equipmentTypes);
+    }
+
+    /**
+     * @Route("/equipements-par-type/{equipmentTypeId}", name="user.characters.equipment_type")
+     */
+
+    public function equipementType(SerializerInterface $serializer, $equipmentTypeId)
+    {
+
+        $equipments = $this->getDoctrine()->getRepository(Equipment::class)->findBy(['equipmentType' => $equipmentTypeId]);
+
+        $json = $serializer->serialize(
+            $equipments,
+            'json',
+            ['groups' => 'show_equipment']
+        );
+
+        return new JsonResponse(json_decode($json));
+    }
+     
 }

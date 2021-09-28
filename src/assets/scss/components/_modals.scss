@@ -81,3 +81,18 @@
         }
     }
 }
+
+&.table{
+    .app_modal{
+        .app_modal_box{
+    
+            @include respond(sm) {
+                width: calc(95% - 6rem);
+            }
+    
+            @include respond(md) {
+                width: calc(95% - 6rem);
+            }
+        }
+    }
+}
