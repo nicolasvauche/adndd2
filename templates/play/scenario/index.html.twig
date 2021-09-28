@@ -69,19 +69,23 @@
             for (const modalButton of modalButtons) {
                 modalButton.addEventListener('click', event => {
                     event.preventDefault()
+                    const characterId = event.target.dataset.characterid
                     const modalId = modalButton.dataset.modal
                     const modal = document.getElementById(modalId)
 
-                    if(modal.dataset.modaltype == 'equipment'){
+                    if (modal.dataset.modaltype == 'equipment') {
+                        const equipmentTabs = document.querySelector('#page-wrap .tabs')
+                        if (equipmentTabs) {
+                            equipmentTabs.innerHTML = ''
+                        }
+
                         const xhttp = new XMLHttpRequest();
-                    
+
                         xhttp.onreadystatechange = function () {
-                            if (this.readyState === 4 && this.status === 200) {                   
+                            if (this.readyState === 4 && this.status === 200) {
                                 const res = JSON.parse(this.responseText)
-                                const equipmentTabs = document.querySelector('#page-wrap .tabs')
                                 let i = 0
-                                console.log(res)
-                                for (equipmentType of res){
+                                for (equipmentType of res) {
                                     const typeDiv = document.createElement('div')
                                     typeDiv.classList.add('tab')
 
@@ -89,37 +93,25 @@
                                     equipmentInput.type = 'radio'
                                     equipmentInput.name = 'tab-group'
                                     equipmentInput.id = 'tab-' + equipmentType.id
-                                    if (i === 0){
-                                        //equipmentInput.setAttribute('checked', 'checked')
+                                    equipmentInput.dataset.typeid = equipmentType.id
+                                    if (i === 0) {
+                                        equipmentInput.setAttribute('checked', 'checked')
                                     }
+                                    equipmentInput.addEventListener('click', (event) => {
+                                        showContent(event.target, equipmentType, typeDiv, characterId)
+                                    })
                                     typeDiv.appendChild(equipmentInput)
 
                                     const equipmentLabel = document.createElement('label')
                                     equipmentLabel.setAttribute('for', 'tab-' + equipmentType.id)
                                     equipmentLabel.innerHTML = equipmentType.name
                                     typeDiv.appendChild(equipmentLabel)
+                                    equipmentTabs.appendChild(typeDiv)
 
-                                    const equipmentContent = document.createElement('div')
-                                    equipmentContent.classList.add('content')
-                                    equipmentContent.id = 'content-' + equipmentType.id
-
-                                    const xhttp = new XMLHttpRequest();
-                                    
-                                    xhttp.onreadystatechange = function () {
-                                        if (this.readyState === 4 && this.status === 200) {                   
-                                            const res = JSON.parse(this.responseText)
-                                            for (equipment of res){
-                                                const equipmentName = document.createElement('p')
-                                                equipmentName.innerHTML = equipment.name
-                                                equipmentContent.appendChild(equipmentName)
-                                            }
-                                            typeDiv.appendChild(equipmentContent)
-                                            equipmentTabs.appendChild(typeDiv)
-                                        }
+                                    if (i === 0) {
+                                        showContent(equipmentInput, equipmentType, typeDiv, characterId)
                                     }
 
-                                    xhttp.open("GET", '/tes-personnages/equipements-par-type/' + equipmentType.id, true);
-                                    xhttp.send();
                                     i++
                                 }
                             }
@@ -133,6 +125,35 @@
                 })
             }
 
+            const showContent = (elt, equipmentType, typeDiv, characterId) => {
+                const contentDiv = document.querySelector('.tab > .content')
+                if (contentDiv) {
+                    contentDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'
+                }
+                const equipmentContent = document.createElement('div')
+                equipmentContent.classList.add('content')
+                equipmentContent.id = 'content-' + equipmentType.id
+
+                const xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        const res = JSON.parse(this.responseText)
+                        for (equipment of res) {
+                            const equipmentName = document.createElement('p')
+                            equipmentName.innerHTML = equipment.name
+                            equipmentContent.appendChild(equipmentName)
+                        }
+                        if (contentDiv) {
+                            contentDiv.remove()
+                        }
+                        typeDiv.appendChild(equipmentContent)
+                    }
+                }
+
+                xhttp.open("GET", '/tes-personnages/equipements-par-type/' + elt.dataset.typeid + '/' + characterId, true);
+                xhttp.send();
+            }
 
             const modalCloseButtons = document.querySelectorAll('.app_modal_close')
             for (const modalCloseButton of modalCloseButtons) {

@@ -208,7 +208,7 @@ class CharacterController extends AbstractController
         ]);
     }
 
-    
+
     /**
      * @Route("/liste-des-equipements/{gameId}", name="user.characters.equipment")
      */
@@ -222,12 +222,11 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/equipements-par-type/{equipmentTypeId}", name="user.characters.equipment_type")
+     * @Route("/equipements-par-type/{equipmentTypeId}/{characterId}", name="user.characters.equipment_type")
      */
 
-    public function equipementType(SerializerInterface $serializer, $equipmentTypeId)
+    public function equipementType(SerializerInterface $serializer, $equipmentTypeId, $characterId)
     {
-
         $equipments = $this->getDoctrine()->getRepository(Equipment::class)->findBy(['equipmentType' => $equipmentTypeId]);
 
         $json = $serializer->serialize(
@@ -238,5 +237,5 @@ class CharacterController extends AbstractController
 
         return new JsonResponse(json_decode($json));
     }
-     
+
 }

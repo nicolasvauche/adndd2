@@ -1,63 +1,63 @@
-/*-----------------------------------------*/
-  #menu-tab {
-    /*background: white;*/
-    font-family: "trebuchet ms", geneva;
-    font-size: 11pt;
-    color: black;
-  }
-  
-  /*--------------Onglets--------------*/
-  
-  .tabs {
-    position: relative;
-    min-height: 480px; /* This part sucks */
-    clear: both;
-    margin: 25px 0;
-  }
-  .tab {
-    float: left;
-  }
-  .tab label {
-    background: rgba(170, 185, 185, 0.97);
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-left: -1px;
-    position: relative;
-    left: 1px;
-    border-radius: 10px 10px 0px 0px;
-    box-shadow: 3px -3px 6px rgba(0, 0, 0, 0.71);
-  }
-  .tab [type="radio"] {
-    display: none;
-  }
-  
-  /*--------------Contenu article onglet--------------*/
-  .content {
-    position: absolute;
-    top: 28px;
-    left: 0;
-    background: white;
-    right: 0;
-    bottom: 0;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 0px 10px 10px 10px;
-    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.41);
-    overflow: hidden;
-    overflow-y: auto;
-    margin-bottom: -20px;
-  }
-  
-  /*-------------Onglets actifs--------------*/
-  
-  [type="radio"]:checked ~ label {
-    background: white;
-    border-bottom: 1px solid white;
-    z-index: 2;
-  }
-  [type="radio"]:checked ~ label ~ .content {
-    z-index: 1;
-  }
-  [type="radio"]:checked ~ label ~ .content > * {
-    opacity: 1;
-  }
+.app_tabs {
+    .tabs {
+        position: relative;
+        min-height: 480px;
+        clear: both;
+        margin: 25px 0;
+
+        .tab {
+            float: left;
+
+            label {
+                font-family: $font-family-secondary;
+                font-weight: bold;
+
+                background: rgba(170, 185, 185, 0.97);
+                padding: 10px;
+                border: 1px solid #cccccc;
+                margin-left: -1px;
+                position: relative;
+                left: 1px;
+                border-radius: 10px 10px 0px 0px;
+                box-shadow: 3px -3px 6px rgba(0, 0, 0, 0.71);
+                cursor: pointer;
+            }
+
+            [type="radio"] {
+                display: none;
+
+                &:checked {
+                    & ~ label {
+                        background: white;
+                        border-bottom: 1px solid white;
+                        z-index: 2;
+
+                        & ~ .content {
+                            z-index: 1;
+
+                            & > * {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .content {
+                position: absolute;
+                top: 28px;
+                left: 0;
+                background: white;
+                right: 0;
+                bottom: 0;
+                padding: 20px;
+                border: 1px solid #cccccc;
+                border-radius: 0px 10px 10px 10px;
+                box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.41);
+                overflow: hidden;
+                overflow-y: auto;
+                margin-bottom: -20px;
+            }
+        }
+    }
+}

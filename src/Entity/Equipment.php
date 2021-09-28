@@ -81,6 +81,7 @@ class Equipment
 
     /**
      * @ORM\ManyToMany(targetEntity=Character::class, inversedBy="equipments")
+     * @Groups({"show_equipment"})
      */
     private $characters;
 
