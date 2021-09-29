@@ -11,10 +11,11 @@
             label {
                 font-family: $font-family-secondary;
                 font-weight: bold;
-                background: $color-bg-secondary;
+                background: $color-bg-altmenu;
+                color: $color-bg-primary;
                 padding: 10px;
                 margin-top: 1rem;
-                margin-left: -1px;
+                margin-left: 1rem;
                 position: relative;
                 left: 1rem;
                 border-radius: 10px 10px 10px 10px;
@@ -44,7 +45,7 @@
 
             .content {
                 position: absolute;
-                top: 28px;
+                top: 50px;
                 left: 0;
                 background: $color-bg-secondary;
                 right: 0;
