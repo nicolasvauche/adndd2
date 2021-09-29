@@ -210,15 +210,27 @@ class CharacterController extends AbstractController
 
 
     /**
-     * @Route("/liste-des-equipements/{gameId}", name="user.characters.equipment")
+     * @Route("/liste-des-equipements-jeu/{gameId}", name="user.characters.equipmentGame")
      */
 
-    public function equipement($gameId)
+    public function getEquipmentsGame($gameId)
     {
 
         $equipmentTypes = $this->getDoctrine()->getRepository(EquipmentType::class)->findAllByGame($gameId);
 
         return new JsonResponse($equipmentTypes);
+    }
+
+    /**
+     * @Route("/liste-des-equipements-personnage/{characterId}", name="user.characters.equipmentCharacter")
+     */
+
+    public function getEquipmentsCharacter($characterId)
+    {
+
+        $equipmentChar = $this->getDoctrine()->getRepository(Equipment::class)->findAllByCharacter($characterId);
+
+        return new JsonResponse($equipmentChar);
     }
 
     /**

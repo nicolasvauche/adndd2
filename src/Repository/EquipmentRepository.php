@@ -19,6 +19,20 @@ class EquipmentRepository extends ServiceEntityRepository
         parent::__construct($registry, Equipment::class);
     }
 
+    public function findAllByCharacter ($characterId){
+        $conn = $this->getEntityManager()
+        ->getConnection();
+
+        $sql = '
+        SELECT equipment.id
+        FROM equipment, equipment_character
+        WHERE equipment_character.character_id = ' . $characterId . '
+        AND equipment.id = equipment_character.equipment_id';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return Equipment[] Returns an array of Equipment objects
     //  */

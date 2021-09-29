@@ -34,6 +34,7 @@
 
 {% block javascripts %}
     <script defer>
+        let equipmentsCharacter = []
         window.addEventListener("DOMContentLoaded", () => {
             const quitBtn = document.getElementById('quit')
             quitBtn.addEventListener('click', event => {
@@ -66,13 +67,18 @@
             {% endif %}
 
             const modalButtons = document.querySelectorAll('.modal')
+
             for (const modalButton of modalButtons) {
                 modalButton.addEventListener('click', event => {
                     event.preventDefault()
                     const characterId = event.target.dataset.characterid
                     const modalId = modalButton.dataset.modal
                     const modal = document.getElementById(modalId)
+                    
+                    // On charge la liste des équipements du personnage (cf ligne 180)
+                    showEquipmentsCharacter(characterId)
 
+                    // Gestion de l'équipement dans la modale de la table de jeu
                     if (modal.dataset.modaltype == 'equipment') {
                         const equipmentTabs = document.querySelector('#page-wrap .tabs')
                         if (equipmentTabs) {
@@ -80,15 +86,17 @@
                         }
 
                         const xhttp = new XMLHttpRequest();
-
                         xhttp.onreadystatechange = function () {
                             if (this.readyState === 4 && this.status === 200) {
+
+                                // On récupére la liste des types d'équipement
                                 const res = JSON.parse(this.responseText)
                                 let i = 0
                                 for (equipmentType of res) {
                                     const typeDiv = document.createElement('div')
                                     typeDiv.classList.add('tab')
 
+                                    // On crée le système d'onglet avec un bouton radio
                                     const equipmentInput = document.createElement('input')
                                     equipmentInput.type = 'radio'
                                     equipmentInput.name = 'tab-group'
@@ -97,11 +105,14 @@
                                     if (i === 0) {
                                         equipmentInput.setAttribute('checked', 'checked')
                                     }
+
+                                    // Pour chaque type d'équipement, on affiche la liste des équipements
                                     equipmentInput.addEventListener('click', (event) => {
                                         showContent(event.target, equipmentType, typeDiv, characterId)
                                     })
                                     typeDiv.appendChild(equipmentInput)
 
+                                    // On crée le label des onglets
                                     const equipmentLabel = document.createElement('label')
                                     equipmentLabel.setAttribute('for', 'tab-' + equipmentType.id)
                                     equipmentLabel.innerHTML = equipmentType.name
@@ -114,18 +125,18 @@
 
                                     i++
                                 }
-                            }
+                            }       
                         }
-
-                        xhttp.open("GET", '/tes-personnages/liste-des-equipements/' + {{ scenario.game.id }}, true);
+                        xhttp.open("GET", '/tes-personnages/liste-des-equipements-jeu/' + {{ scenario.game.id }}, true);
                         xhttp.send();
                     }
-
                     modal.style.display = 'flex'
                 })
             }
 
+            // Fonction qui affiche la liste des équipements par type
             const showContent = (elt, equipmentType, typeDiv, characterId) => {
+
                 const contentDiv = document.querySelector('.tab > .content')
                 if (contentDiv) {
                     contentDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'
@@ -134,14 +145,24 @@
                 equipmentContent.classList.add('content')
                 equipmentContent.id = 'content-' + equipmentType.id
 
+                // Pour chaque type d'équipement, on affiche la liste des équipements
                 const xhttp = new XMLHttpRequest();
 
                 xhttp.onreadystatechange = function () {
                     if (this.readyState === 4 && this.status === 200) {
                         const res = JSON.parse(this.responseText)
                         for (equipment of res) {
+                            let equipmentCharacterOK = 0
                             const equipmentName = document.createElement('p')
-                            equipmentName.innerHTML = equipment.name
+                            // On test si l'équipement du jeu est détenu par le personnage
+                            for (equipmentCharacter of equipmentsCharacter) {
+                                if (equipmentCharacter == equipment.id) {
+                                    equipmentName.style.color = 'darkgreen';
+                                    equipmentName.style.fontSize = "20px";
+                                }
+                            }
+                            // On affiche l'équipement dans l'onglet
+                            equipmentName.innerHTML = equipment.name + ' (' + equipment.damage + ')'
                             equipmentContent.appendChild(equipmentName)
                         }
                         if (contentDiv) {
@@ -154,6 +175,26 @@
                 xhttp.open("GET", '/tes-personnages/equipements-par-type/' + elt.dataset.typeid + '/' + characterId, true);
                 xhttp.send();
             }
+
+            // Fonction qui retourne la liste des équipements détenus par un personnage
+            const showEquipmentsCharacter = (characterId) => {
+
+                // Pour chaque personnage, on affiche la liste des équipements
+                const xhttp2 = new XMLHttpRequest();
+                xhttp2.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        const resChar = JSON.parse(this.responseText)
+
+                        // le tableau 'equipmentsCharacter' contiendra tous les équipements du personnage
+                        for (equipment of resChar) {
+                            let newEquipmentCharacter = equipmentsCharacter.push(equipment.id);
+                        }
+                    }
+                }
+                xhttp2.open("GET", '/tes-personnages/liste-des-equipements-personnage/' + characterId, true);
+                xhttp2.send();              
+            }
+
 
             const modalCloseButtons = document.querySelectorAll('.app_modal_close')
             for (const modalCloseButton of modalCloseButtons) {

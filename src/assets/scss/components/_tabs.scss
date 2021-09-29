@@ -3,7 +3,7 @@
         position: relative;
         min-height: 480px;
         clear: both;
-        margin: 25px 0;
+        margin: 25px 10px;
 
         .tab {
             float: left;
@@ -11,15 +11,13 @@
             label {
                 font-family: $font-family-secondary;
                 font-weight: bold;
-
-                background: rgba(170, 185, 185, 0.97);
+                background: $color-bg-secondary;
                 padding: 10px;
-                border: 1px solid #cccccc;
+                margin-top: 1rem;
                 margin-left: -1px;
                 position: relative;
-                left: 1px;
-                border-radius: 10px 10px 0px 0px;
-                box-shadow: 3px -3px 6px rgba(0, 0, 0, 0.71);
+                left: 1rem;
+                border-radius: 10px 10px 10px 10px;
                 cursor: pointer;
             }
 
@@ -28,7 +26,8 @@
 
                 &:checked {
                     & ~ label {
-                        background: white;
+                        background: $color-blue;
+                        color: $color-bg-primary;
                         border-bottom: 1px solid white;
                         z-index: 2;
 
@@ -47,13 +46,11 @@
                 position: absolute;
                 top: 28px;
                 left: 0;
-                background: white;
+                background: $color-bg-secondary;
                 right: 0;
                 bottom: 0;
                 padding: 20px;
-                border: 1px solid #cccccc;
-                border-radius: 0px 10px 10px 10px;
-                box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.41);
+                border-radius: 10px 10px 10px 10px;
                 overflow: hidden;
                 overflow-y: auto;
                 margin-bottom: -20px;
