@@ -74,7 +74,7 @@
                     const characterId = event.target.dataset.characterid
                     const modalId = modalButton.dataset.modal
                     const modal = document.getElementById(modalId)
-                    
+
                     // On charge la liste des équipements du personnage (cf ligne 180)
                     showEquipmentsCharacter(characterId)
 
@@ -125,7 +125,7 @@
 
                                     i++
                                 }
-                            }       
+                            }
                         }
                         xhttp.open("GET", '/tes-personnages/liste-des-equipements-jeu/' + {{ scenario.game.id }}, true);
                         xhttp.send();
@@ -159,7 +159,7 @@
                         equipmentContent.appendChild(equipmentContentTitle)
                         // --------------------------------------------------------------------------------
                         const equipmentContentTabName = document.createElement('div')
-                        equipmentContentTabName.innerHTML = ''
+                        equipmentContentTabName.innerHTML = 'Nom'
                         equipmentContentTitle.appendChild(equipmentContentTabName)
 
                         const equipmentContentTabBase = document.createElement('div')
@@ -169,7 +169,7 @@
                         const equipmentContentTabDamage = document.createElement('div')
                         equipmentContentTabDamage.innerHTML = 'Dégâts'
                         equipmentContentTitle.appendChild(equipmentContentTabDamage)
-                        
+
                         const equipmentContentTabHands = document.createElement('div')
                         equipmentContentTabHands.innerHTML = 'Mains'
                         equipmentContentTitle.appendChild(equipmentContentTabHands)
@@ -199,16 +199,7 @@
                         equipmentContentTitle.appendChild(equipmentContentTabPrice)
                         // --------------------------------------------------------------------------------------------------
 
-
                         for (equipment of res) {
-                            const equipmentName = document.createElement('p')
-                            // On test si l'équipement du jeu est détenu par le personnage
-                            for (equipmentCharacter of equipmentsCharacter) {
-                                if (equipmentCharacter == equipment.id) {
-                                    equipmentName.style.color = 'darkgreen';
-                                    equipmentName.style.fontSize = "20px";
-                                }
-                            }
                             // On affiche l'équipement dans l'onglet
                             const equipmentContentName = document.createElement('div')
                             equipmentContentName.innerHTML = equipment.name
@@ -221,7 +212,7 @@
                             const equipmentContentDamage = document.createElement('div')
                             equipmentContentDamage.innerHTML = equipment.damage
                             equipmentContentTitle.appendChild(equipmentContentDamage)
-                            
+
                             const equipmentContentHands = document.createElement('div')
                             equipmentContentHands.innerHTML = equipment.hands
                             equipmentContentTitle.appendChild(equipmentContentHands)
@@ -250,8 +241,16 @@
                             equipmentContentPrice.innerHTML = equipment.price
                             equipmentContentTitle.appendChild(equipmentContentPrice)
 
-                            equipmentName.innerHTML = equipment.name + ' (' + equipment.damage + ')'
-                            equipmentContent.appendChild(equipmentName)
+                            /*equipmentName.innerHTML = equipment.name + ' (' + equipment.damage + ')'
+                            equipmentContent.appendChild(equipmentName)*/
+
+                            // On test si l'équipement du jeu est détenu par le personnage
+                            for (equipmentCharacter of equipmentsCharacter) {
+                                if (equipmentCharacter == equipment.id) {
+                                    equipmentContentName.style.color = 'darkgreen'
+                                    equipmentContentName.style.fontWeight = "bold"
+                                }
+                            }
                         }
 
                         if (contentDiv) {
@@ -281,7 +280,7 @@
                     }
                 }
                 xhttp2.open("GET", '/tes-personnages/liste-des-equipements-personnage/' + characterId, true);
-                xhttp2.send();              
+                xhttp2.send();
             }
 
 
