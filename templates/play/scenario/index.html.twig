@@ -148,11 +148,59 @@
                 // Pour chaque type d'équipement, on affiche la liste des équipements
                 const xhttp = new XMLHttpRequest();
 
+
                 xhttp.onreadystatechange = function () {
                     if (this.readyState === 4 && this.status === 200) {
                         const res = JSON.parse(this.responseText)
+
+                        // Titre du tableau
+                        const equipmentContentTitle = document.createElement('div')
+                        equipmentContentTitle.classList.add('app_grid', 'ten')
+                        equipmentContent.appendChild(equipmentContentTitle)
+                        // --------------------------------------------------------------------------------
+                        const equipmentContentTabName = document.createElement('div')
+                        equipmentContentTabName.innerHTML = ''
+                        equipmentContentTitle.appendChild(equipmentContentTabName)
+
+                        const equipmentContentTabBase = document.createElement('div')
+                        equipmentContentTabBase.innerHTML = 'Base'
+                        equipmentContentTitle.appendChild(equipmentContentTabBase)
+
+                        const equipmentContentTabDamage = document.createElement('div')
+                        equipmentContentTabDamage.innerHTML = 'Dégâts'
+                        equipmentContentTitle.appendChild(equipmentContentTabDamage)
+                        
+                        const equipmentContentTabHands = document.createElement('div')
+                        equipmentContentTabHands.innerHTML = 'Mains'
+                        equipmentContentTitle.appendChild(equipmentContentTabHands)
+
+                        const equipmentContentTabStructure = document.createElement('div')
+                        equipmentContentTabStructure.innerHTML = 'Structure'
+                        equipmentContentTitle.appendChild(equipmentContentTabStructure)
+
+                        const equipmentContentTabSize = document.createElement('div')
+                        equipmentContentTabSize.innerHTML = 'Taille'
+                        equipmentContentTitle.appendChild(equipmentContentTabSize)
+
+                        const equipmentContentTabImpale = document.createElement('div')
+                        equipmentContentTabImpale.innerHTML = 'Empale'
+                        equipmentContentTitle.appendChild(equipmentContentTabImpale)
+
+                        const equipmentContentTabWard = document.createElement('div')
+                        equipmentContentTabWard.innerHTML = 'Pare'
+                        equipmentContentTitle.appendChild(equipmentContentTabWard)
+
+                        const equipmentContentTabForDex = document.createElement('div')
+                        equipmentContentTabForDex.innerHTML = 'FOR/DEX'
+                        equipmentContentTitle.appendChild(equipmentContentTabForDex)
+
+                        const equipmentContentTabPrice = document.createElement('div')
+                        equipmentContentTabPrice.innerHTML = 'Prix'
+                        equipmentContentTitle.appendChild(equipmentContentTabPrice)
+                        // --------------------------------------------------------------------------------------------------
+
+
                         for (equipment of res) {
-                            let equipmentCharacterOK = 0
                             const equipmentName = document.createElement('p')
                             // On test si l'équipement du jeu est détenu par le personnage
                             for (equipmentCharacter of equipmentsCharacter) {
@@ -162,9 +210,50 @@
                                 }
                             }
                             // On affiche l'équipement dans l'onglet
+                            const equipmentContentName = document.createElement('div')
+                            equipmentContentName.innerHTML = equipment.name
+                            equipmentContentTitle.appendChild(equipmentContentName)
+
+                            const equipmentContentBase = document.createElement('div')
+                            equipmentContentBase.innerHTML = equipment.base
+                            equipmentContentTitle.appendChild(equipmentContentBase)
+
+                            const equipmentContentDamage = document.createElement('div')
+                            equipmentContentDamage.innerHTML = equipment.damage
+                            equipmentContentTitle.appendChild(equipmentContentDamage)
+                            
+                            const equipmentContentHands = document.createElement('div')
+                            equipmentContentHands.innerHTML = equipment.hands
+                            equipmentContentTitle.appendChild(equipmentContentHands)
+
+                            const equipmentContentStructure = document.createElement('div')
+                            equipmentContentStructure.innerHTML = equipment.structure
+                            equipmentContentTitle.appendChild(equipmentContentStructure)
+
+                            const equipmentContentSize = document.createElement('div')
+                            equipmentContentSize.innerHTML = equipment.size
+                            equipmentContentTitle.appendChild(equipmentContentSize)
+
+                            const equipmentContentImpale = document.createElement('div')
+                            equipmentContentImpale.innerHTML = equipment.impale
+                            equipmentContentTitle.appendChild(equipmentContentImpale)
+
+                            const equipmentContentWard = document.createElement('div')
+                            equipmentContentWard.innerHTML = equipment.ward
+                            equipmentContentTitle.appendChild(equipmentContentWard)
+
+                            const equipmentContentForDex = document.createElement('div')
+                            equipmentContentForDex.innerHTML = equipment.fordex + " / " + equipment.dexdex
+                            equipmentContentTitle.appendChild(equipmentContentForDex)
+
+                            const equipmentContentPrice = document.createElement('div')
+                            equipmentContentPrice.innerHTML = equipment.price
+                            equipmentContentTitle.appendChild(equipmentContentPrice)
+
                             equipmentName.innerHTML = equipment.name + ' (' + equipment.damage + ')'
                             equipmentContent.appendChild(equipmentName)
                         }
+
                         if (contentDiv) {
                             contentDiv.remove()
                         }

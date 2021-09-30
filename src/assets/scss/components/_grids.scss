@@ -36,6 +36,16 @@
         }
     }
 
+    &.ten {
+        @include respond(sm) {
+            grid-template-columns: repeat(10, 1fr);
+        }
+
+        @include respond(md) {
+            grid-template-columns: repeat(10, 1fr);
+        }
+    }
+
     &.five {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
