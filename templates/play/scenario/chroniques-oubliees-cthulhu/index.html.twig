@@ -74,7 +74,6 @@
                     const characterId = event.target.dataset.characterid
                     const modalId = modalButton.dataset.modal
                     const modal = document.getElementById(modalId)
-                    
 
 
                     // Gestion de l'équipement dans la modale de la table de jeu
@@ -151,8 +150,7 @@
                     if (this.readyState === 4 && this.status === 200) {
                         const res = JSON.parse(this.responseText)
 
-                        if (elt.dataset.typeid == 9)
-                        {
+                        if (elt.dataset.typeid == 9) {
                             // ***********************************************************************************************************
                             // ***********************************************************************************************************
                             // Titre du tableau pour les armures
@@ -163,14 +161,14 @@
                             equipmentContent.appendChild(equipmentContentTitle)
                             // --------------------------------------------------------------------------------
 
-                            const equipmentContentTabName = document.createElement('div')                        
+                            const equipmentContentTabName = document.createElement('div')
                             equipmentContentTitle.appendChild(equipmentContentTabName)
 
                             const equipmentContentTabDamage = document.createElement('div')
                             equipmentContentTabDamage.innerHTML = 'Abs.'
                             equipmentContentTabDamage.style.fontWeight = 'bold'
                             equipmentContentTitle.appendChild(equipmentContentTabDamage)
-                            
+
                             const equipmentContentTabDamageNo = document.createElement('div')
                             equipmentContentTabDamageNo.innerHTML = 'Abs. sans heaume'
                             equipmentContentTabDamageNo.style.fontWeight = 'bold'
@@ -215,12 +213,12 @@
                                 // Ajout / Suppression d'un équipement à un personnage
                                 equipmentContentName.addEventListener('click', event => {
                                     equipmentContentName.classList.toggle('equipChecked')
-                                    if (equipmentContentName.className == 'equipChecked'){
+                                    if (equipmentContentName.className == 'equipChecked') {
 
                                         const xhttp = new XMLHttpRequest();
-                    
+
                                         xhttp.onreadystatechange = function () {
-                                            if (this.readyState === 4 && this.status === 200) {                   
+                                            if (this.readyState === 4 && this.status === 200) {
                                                 const res = JSON.parse(this.responseText)
                                                 alert(res.message)
                                             }
@@ -229,27 +227,27 @@
                                         xhttp.open("GET", '/tes-personnages/ajouter-equipement/' + characterId + '/' + equipmentContentName.id + '/add', true);
                                         xhttp.send();
 
-                                    }else{
+                                    } else {
 
                                         const xhttp = new XMLHttpRequest();
-                    
+
                                         xhttp.onreadystatechange = function () {
-                                            if (this.readyState === 4 && this.status === 200) {                   
+                                            if (this.readyState === 4 && this.status === 200) {
                                                 const res = JSON.parse(this.responseText)
                                                 alert(res.message)
                                             }
                                         }
- 
+
                                         xhttp.open("GET", '/tes-personnages/ajouter-equipement/' + characterId + '/' + equipmentContentName.id + '/remove', true);
                                         xhttp.send();
                                     }
-                                })   
+                                })
                                 equipmentContentTitle.appendChild(equipmentContentName)
 
                                 const equipmentContentDamage = document.createElement('div')
                                 equipmentContentDamage.innerHTML = equipment.damage
                                 equipmentContentTitle.appendChild(equipmentContentDamage)
-                                
+
                                 const equipmentContentDamageNo = document.createElement('div')
                                 equipmentContentDamageNo.innerHTML = equipment.damageNoPowerup
                                 equipmentContentTitle.appendChild(equipmentContentDamageNo)
@@ -267,7 +265,7 @@
                                 equipmentContentTitle.appendChild(equipmentContentSkill)
 
                                 const equipmentContentSkillNo = document.createElement('div')
-                                equipmentContentSkillNo.innerHTML = equipment.skillModifyerNoPowerup +"%"
+                                equipmentContentSkillNo.innerHTML = equipment.skillModifyerNoPowerup + "%"
                                 equipmentContentTitle.appendChild(equipmentContentSkillNo)
 
                                 const equipmentContentRound = document.createElement('div')
@@ -285,9 +283,8 @@
                                     }
                                 }
                             }
-                        }else
-                            {
-                            if (elt.dataset.typeid == 4){
+                        } else {
+                            if (elt.dataset.typeid == 4) {
 
                                 // ***********************************************************************************************************
                                 // ***********************************************************************************************************
@@ -311,7 +308,7 @@
                                 equipmentContentTabDamage.innerHTML = 'Dégâts'
                                 equipmentContentTabDamage.style.fontWeight = 'bold'
                                 equipmentContentTitle.appendChild(equipmentContentTabDamage)
-                                
+
                                 const equipmentContentTabRange = document.createElement('div')
                                 equipmentContentTabRange.innerHTML = 'Portée'
                                 equipmentContentTabRange.style.fontWeight = 'bold'
@@ -356,7 +353,7 @@
                                     equipmentContentName.addEventListener('click', event => {
                                         console.log(equipmentContentName.id)
                                         equipmentContentName.classList.toggle('equipChecked')
-                                    })   
+                                    })
                                     equipmentContentTitle.appendChild(equipmentContentName)
 
                                     const equipmentContentBase = document.createElement('div')
@@ -366,7 +363,7 @@
                                     const equipmentContentDamage = document.createElement('div')
                                     equipmentContentDamage.innerHTML = equipment.damage
                                     equipmentContentTitle.appendChild(equipmentContentDamage)
-                                    
+
                                     const equipmentContentRange = document.createElement('div')
                                     equipmentContentRange.innerHTML = equipment.ranged
                                     equipmentContentTitle.appendChild(equipmentContentRange)
@@ -400,235 +397,233 @@
                                         if (equipmentCharacter == equipment.id) {
                                             equipmentContentName.classList.add('equipChecked')
                                         }
+                                    }
                                 }
-                            }
-                        // **************************************************************************************************************
-                        // **************************************************************************************************************
-                        }
-                        else{
-                            if (elt.dataset.typeid == 8){
-                                // Titre du tableau pour les boucliers
-                                const equipmentContentTitle = document.createElement('div')
-                                equipmentContentTitle.classList.add('app_grid', 'nine')
-                                equipmentContent.style.textAlign = 'center'
-                                equipmentContentTitle.style.textAlign = 'center'
-                                equipmentContent.appendChild(equipmentContentTitle)
-                                // --------------------------------------------------------------------------------
+                                // **************************************************************************************************************
+                                // **************************************************************************************************************
+                            } else {
+                                if (elt.dataset.typeid == 8) {
+                                    // Titre du tableau pour les boucliers
+                                    const equipmentContentTitle = document.createElement('div')
+                                    equipmentContentTitle.classList.add('app_grid', 'nine')
+                                    equipmentContent.style.textAlign = 'center'
+                                    equipmentContentTitle.style.textAlign = 'center'
+                                    equipmentContent.appendChild(equipmentContentTitle)
+                                    // --------------------------------------------------------------------------------
 
-                                const equipmentContentTabName = document.createElement('div')
-                                equipmentContentTitle.appendChild(equipmentContentTabName)
+                                    const equipmentContentTabName = document.createElement('div')
+                                    equipmentContentTitle.appendChild(equipmentContentTabName)
 
-                                const equipmentContentTabBase = document.createElement('div')
-                                equipmentContentTabBase.innerHTML = 'Base'
-                                equipmentContentTabBase.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabBase)
+                                    const equipmentContentTabBase = document.createElement('div')
+                                    equipmentContentTabBase.innerHTML = 'Base'
+                                    equipmentContentTabBase.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabBase)
 
-                                const equipmentContentTabDamage = document.createElement('div')
-                                equipmentContentTabDamage.innerHTML = 'Dégâts'
-                                equipmentContentTabDamage.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabDamage)
+                                    const equipmentContentTabDamage = document.createElement('div')
+                                    equipmentContentTabDamage.innerHTML = 'Dégâts'
+                                    equipmentContentTabDamage.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabDamage)
 
-                                const equipmentContentTabRange = document.createElement('div')
-                                equipmentContentTabRange.innerHTML = 'Portée'
-                                equipmentContentTabRange.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabRange)
-                                
-                                const equipmentContentTabStructure = document.createElement('div')
-                                equipmentContentTabStructure.innerHTML = 'Structure'
-                                equipmentContentTabStructure.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabStructure)
+                                    const equipmentContentTabRange = document.createElement('div')
+                                    equipmentContentTabRange.innerHTML = 'Portée'
+                                    equipmentContentTabRange.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabRange)
 
-                                const equipmentContentTabImpale = document.createElement('div')
-                                equipmentContentTabImpale.innerHTML = 'Empale'
-                                equipmentContentTabImpale.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabImpale)
+                                    const equipmentContentTabStructure = document.createElement('div')
+                                    equipmentContentTabStructure.innerHTML = 'Structure'
+                                    equipmentContentTabStructure.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabStructure)
 
-                                const equipmentContentTabWard = document.createElement('div')
-                                equipmentContentTabWard.innerHTML = 'Pare'
-                                equipmentContentTabWard.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabWard)
+                                    const equipmentContentTabImpale = document.createElement('div')
+                                    equipmentContentTabImpale.innerHTML = 'Empale'
+                                    equipmentContentTabImpale.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabImpale)
 
-                                const equipmentContentTabForDex = document.createElement('div')
-                                equipmentContentTabForDex.innerHTML = 'FOR / DEX'
-                                equipmentContentTabForDex.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabForDex)
+                                    const equipmentContentTabWard = document.createElement('div')
+                                    equipmentContentTabWard.innerHTML = 'Pare'
+                                    equipmentContentTabWard.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabWard)
 
-                                const equipmentContentTabPrice = document.createElement('div')
-                                equipmentContentTabPrice.innerHTML = 'Prix'
-                                equipmentContentTabPrice.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabPrice)
-                                // --------------------------------------------------------------------------------------------------  
+                                    const equipmentContentTabForDex = document.createElement('div')
+                                    equipmentContentTabForDex.innerHTML = 'FOR / DEX'
+                                    equipmentContentTabForDex.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabForDex)
 
-                                for (equipment of res) {
-                                    const equipmentContentName = document.createElement('div')
-                                    equipmentContentName.innerHTML = equipment.name
-                                    equipmentContentName.id = equipment.id
-                                    equipmentContentName.addEventListener('click', event => {
-                                        console.log(equipmentContentName.id)
-                                        equipmentContentName.classList.toggle('equipChecked')
-                                    })   
-                                    equipmentContentTitle.appendChild(equipmentContentName)
+                                    const equipmentContentTabPrice = document.createElement('div')
+                                    equipmentContentTabPrice.innerHTML = 'Prix'
+                                    equipmentContentTabPrice.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabPrice)
+                                    // --------------------------------------------------------------------------------------------------
 
-                                    const equipmentContentBase = document.createElement('div')
-                                    equipmentContentBase.innerHTML = equipment.base
-                                    equipmentContentTitle.appendChild(equipmentContentBase)
+                                    for (equipment of res) {
+                                        const equipmentContentName = document.createElement('div')
+                                        equipmentContentName.innerHTML = equipment.name
+                                        equipmentContentName.id = equipment.id
+                                        equipmentContentName.addEventListener('click', event => {
+                                            console.log(equipmentContentName.id)
+                                            equipmentContentName.classList.toggle('equipChecked')
+                                        })
+                                        equipmentContentTitle.appendChild(equipmentContentName)
 
-                                    const equipmentContentDamage = document.createElement('div')
-                                    equipmentContentDamage.innerHTML = equipment.damage
-                                    equipmentContentTitle.appendChild(equipmentContentDamage)
-                                  
+                                        const equipmentContentBase = document.createElement('div')
+                                        equipmentContentBase.innerHTML = equipment.base
+                                        equipmentContentTitle.appendChild(equipmentContentBase)
 
-                                    const equipmentContentRange = document.createElement('div')
-                                    equipmentContentRange.innerHTML = equipment.ranged
-                                    equipmentContentTitle.appendChild(equipmentContentRange)
+                                        const equipmentContentDamage = document.createElement('div')
+                                        equipmentContentDamage.innerHTML = equipment.damage
+                                        equipmentContentTitle.appendChild(equipmentContentDamage)
 
-                                    const equipmentContentStructure = document.createElement('div')
-                                    equipmentContentStructure.innerHTML = equipment.structure
-                                    equipmentContentTitle.appendChild(equipmentContentStructure)
 
-                                    const equipmentContentImpale = document.createElement('div')
-                                    equipmentContentImpale.innerHTML = equipment.impale
-                                    equipmentContentTitle.appendChild(equipmentContentImpale)
+                                        const equipmentContentRange = document.createElement('div')
+                                        equipmentContentRange.innerHTML = equipment.ranged
+                                        equipmentContentTitle.appendChild(equipmentContentRange)
 
-                                    const equipmentContentWard = document.createElement('div')
-                                    equipmentContentWard.innerHTML = equipment.ward
-                                    equipmentContentTitle.appendChild(equipmentContentWard)
+                                        const equipmentContentStructure = document.createElement('div')
+                                        equipmentContentStructure.innerHTML = equipment.structure
+                                        equipmentContentTitle.appendChild(equipmentContentStructure)
 
-                                    const equipmentContentForDex = document.createElement('div')
-                                    equipmentContentForDex.innerHTML = equipment.fordex + " / " + equipment.dexdex
-                                    equipmentContentTitle.appendChild(equipmentContentForDex)
+                                        const equipmentContentImpale = document.createElement('div')
+                                        equipmentContentImpale.innerHTML = equipment.impale
+                                        equipmentContentTitle.appendChild(equipmentContentImpale)
 
-                                    const equipmentContentPrice = document.createElement('div')
-                                    equipmentContentPrice.innerHTML = equipment.price
-                                    equipmentContentTitle.appendChild(equipmentContentPrice)
+                                        const equipmentContentWard = document.createElement('div')
+                                        equipmentContentWard.innerHTML = equipment.ward
+                                        equipmentContentTitle.appendChild(equipmentContentWard)
 
-                                    // On test si l'équipement du jeu est détenu par le personnage
-                                    for (equipmentCharacter of equipmentsCharacter) {
-                                        if (equipmentCharacter == equipment.id) {
-                                            equipmentContentName.classList.add('equipChecked')
+                                        const equipmentContentForDex = document.createElement('div')
+                                        equipmentContentForDex.innerHTML = equipment.fordex + " / " + equipment.dexdex
+                                        equipmentContentTitle.appendChild(equipmentContentForDex)
+
+                                        const equipmentContentPrice = document.createElement('div')
+                                        equipmentContentPrice.innerHTML = equipment.price
+                                        equipmentContentTitle.appendChild(equipmentContentPrice)
+
+                                        // On test si l'équipement du jeu est détenu par le personnage
+                                        for (equipmentCharacter of equipmentsCharacter) {
+                                            if (equipmentCharacter == equipment.id) {
+                                                equipmentContentName.classList.add('equipChecked')
+                                            }
+                                        }
+                                    }
+                                } else {
+
+                                    // ***********************************************************************************************************
+                                    // ***********************************************************************************************************
+                                    // Titre du tableau pour les autres types d'arme
+                                    const equipmentContentTitle = document.createElement('div')
+                                    equipmentContentTitle.classList.add('app_grid', 'ten')
+                                    equipmentContent.style.textAlign = 'center'
+                                    equipmentContentTitle.style.textAlign = 'center'
+                                    equipmentContent.appendChild(equipmentContentTitle)
+                                    // --------------------------------------------------------------------------------
+
+                                    const equipmentContentTabName = document.createElement('div')
+                                    equipmentContentTitle.appendChild(equipmentContentTabName)
+
+                                    const equipmentContentTabBase = document.createElement('div')
+                                    equipmentContentTabBase.innerHTML = 'Base'
+                                    equipmentContentTabBase.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabBase)
+
+                                    const equipmentContentTabDamage = document.createElement('div')
+                                    equipmentContentTabDamage.innerHTML = 'Dégâts'
+                                    equipmentContentTabDamage.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabDamage)
+
+                                    const equipmentContentTabHands = document.createElement('div')
+                                    equipmentContentTabHands.innerHTML = 'Mains'
+                                    equipmentContentTabHands.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabHands)
+
+                                    const equipmentContentTabStructure = document.createElement('div')
+                                    equipmentContentTabStructure.innerHTML = 'Structure'
+                                    equipmentContentTabStructure.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabStructure)
+
+                                    const equipmentContentTabSize = document.createElement('div')
+                                    equipmentContentTabSize.innerHTML = 'Taille'
+                                    equipmentContentTabSize.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabSize)
+
+                                    const equipmentContentTabImpale = document.createElement('div')
+                                    equipmentContentTabImpale.innerHTML = 'Empale'
+                                    equipmentContentTabImpale.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabImpale)
+
+                                    const equipmentContentTabWard = document.createElement('div')
+                                    equipmentContentTabWard.innerHTML = 'Pare'
+                                    equipmentContentTabWard.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabWard)
+
+                                    const equipmentContentTabForDex = document.createElement('div')
+                                    equipmentContentTabForDex.innerHTML = 'FOR / DEX'
+                                    equipmentContentTabForDex.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabForDex)
+
+                                    const equipmentContentTabPrice = document.createElement('div')
+                                    equipmentContentTabPrice.innerHTML = 'Prix'
+                                    equipmentContentTabPrice.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabPrice)
+                                    // --------------------------------------------------------------------------------------------------
+                                    // On affiche les équipements
+
+                                    for (equipment of res) {
+                                        const equipmentContentName = document.createElement('div')
+                                        equipmentContentName.innerHTML = equipment.name
+                                        equipmentContentName.id = equipment.id
+                                        equipmentContentName.addEventListener('click', event => {
+                                            console.log(equipmentContentName.id)
+                                            equipmentContentName.classList.toggle('equipChecked')
+                                        })
+                                        equipmentContentTitle.appendChild(equipmentContentName)
+
+                                        const equipmentContentBase = document.createElement('div')
+                                        equipmentContentBase.innerHTML = equipment.base
+                                        equipmentContentTitle.appendChild(equipmentContentBase)
+
+                                        const equipmentContentDamage = document.createElement('div')
+                                        equipmentContentDamage.innerHTML = equipment.damage
+                                        equipmentContentTitle.appendChild(equipmentContentDamage)
+
+                                        const equipmentContentHands = document.createElement('div')
+                                        equipmentContentHands.innerHTML = equipment.hands
+                                        equipmentContentTitle.appendChild(equipmentContentHands)
+
+                                        const equipmentContentStructure = document.createElement('div')
+                                        equipmentContentStructure.innerHTML = equipment.structure
+                                        equipmentContentTitle.appendChild(equipmentContentStructure)
+
+                                        const equipmentContentSize = document.createElement('div')
+                                        equipmentContentSize.innerHTML = equipment.size
+                                        equipmentContentTitle.appendChild(equipmentContentSize)
+
+                                        const equipmentContentImpale = document.createElement('div')
+                                        equipmentContentImpale.innerHTML = equipment.impale
+                                        equipmentContentTitle.appendChild(equipmentContentImpale)
+
+                                        const equipmentContentWard = document.createElement('div')
+                                        equipmentContentWard.innerHTML = equipment.ward
+                                        equipmentContentTitle.appendChild(equipmentContentWard)
+
+                                        const equipmentContentForDex = document.createElement('div')
+                                        equipmentContentForDex.innerHTML = equipment.fordex + " / " + equipment.dexdex
+                                        equipmentContentTitle.appendChild(equipmentContentForDex)
+
+                                        const equipmentContentPrice = document.createElement('div')
+                                        equipmentContentPrice.innerHTML = equipment.price
+                                        equipmentContentTitle.appendChild(equipmentContentPrice)
+
+                                        // On test si l'équipement du jeu est détenu par le personnage
+                                        for (equipmentCharacter of equipmentsCharacter) {
+                                            if (equipmentCharacter == equipment.id) {
+                                                equipmentContentName.classList.add('equipChecked')
+                                            }
                                         }
                                     }
                                 }
-                            }                        
-                            else{
-
-                                // ***********************************************************************************************************
-                                // ***********************************************************************************************************
-                                // Titre du tableau pour les autres types d'arme
-                                const equipmentContentTitle = document.createElement('div')
-                                equipmentContentTitle.classList.add('app_grid', 'ten')
-                                equipmentContent.style.textAlign = 'center'
-                                equipmentContentTitle.style.textAlign = 'center'
-                                equipmentContent.appendChild(equipmentContentTitle)
-                                // --------------------------------------------------------------------------------
-
-                                const equipmentContentTabName = document.createElement('div')
-                                equipmentContentTitle.appendChild(equipmentContentTabName)
-
-                                const equipmentContentTabBase = document.createElement('div')
-                                equipmentContentTabBase.innerHTML = 'Base'
-                                equipmentContentTabBase.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabBase)
-
-                                const equipmentContentTabDamage = document.createElement('div')
-                                equipmentContentTabDamage.innerHTML = 'Dégâts'
-                                equipmentContentTabDamage.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabDamage)
-                                
-                                const equipmentContentTabHands = document.createElement('div')
-                                equipmentContentTabHands.innerHTML = 'Mains'
-                                equipmentContentTabHands.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabHands)
-
-                                const equipmentContentTabStructure = document.createElement('div')
-                                equipmentContentTabStructure.innerHTML = 'Structure'
-                                equipmentContentTabStructure.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabStructure)
-
-                                const equipmentContentTabSize = document.createElement('div')
-                                equipmentContentTabSize.innerHTML = 'Taille'
-                                equipmentContentTabSize.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabSize)
-
-                                const equipmentContentTabImpale = document.createElement('div')
-                                equipmentContentTabImpale.innerHTML = 'Empale'
-                                equipmentContentTabImpale.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabImpale)
-
-                                const equipmentContentTabWard = document.createElement('div')
-                                equipmentContentTabWard.innerHTML = 'Pare'
-                                equipmentContentTabWard.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabWard)
-
-                                const equipmentContentTabForDex = document.createElement('div')
-                                equipmentContentTabForDex.innerHTML = 'FOR / DEX'
-                                equipmentContentTabForDex.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabForDex)
-
-                                const equipmentContentTabPrice = document.createElement('div')
-                                equipmentContentTabPrice.innerHTML = 'Prix'
-                                equipmentContentTabPrice.style.fontWeight = 'bold'
-                                equipmentContentTitle.appendChild(equipmentContentTabPrice)
-                                // --------------------------------------------------------------------------------------------------
-                                // On affiche les équipements
-
-                                for (equipment of res) {
-                                    const equipmentContentName = document.createElement('div')
-                                    equipmentContentName.innerHTML = equipment.name
-                                    equipmentContentName.id = equipment.id
-                                    equipmentContentName.addEventListener('click', event => {
-                                        console.log(equipmentContentName.id)
-                                        equipmentContentName.classList.toggle('equipChecked')
-                                    })   
-                                    equipmentContentTitle.appendChild(equipmentContentName)
-
-                                    const equipmentContentBase = document.createElement('div')
-                                    equipmentContentBase.innerHTML = equipment.base
-                                    equipmentContentTitle.appendChild(equipmentContentBase)
-
-                                    const equipmentContentDamage = document.createElement('div')
-                                    equipmentContentDamage.innerHTML = equipment.damage
-                                    equipmentContentTitle.appendChild(equipmentContentDamage)
-                                    
-                                    const equipmentContentHands = document.createElement('div')
-                                    equipmentContentHands.innerHTML = equipment.hands
-                                    equipmentContentTitle.appendChild(equipmentContentHands)
-
-                                    const equipmentContentStructure = document.createElement('div')
-                                    equipmentContentStructure.innerHTML = equipment.structure
-                                    equipmentContentTitle.appendChild(equipmentContentStructure)
-
-                                    const equipmentContentSize = document.createElement('div')
-                                    equipmentContentSize.innerHTML = equipment.size
-                                    equipmentContentTitle.appendChild(equipmentContentSize)
-
-                                    const equipmentContentImpale = document.createElement('div')
-                                    equipmentContentImpale.innerHTML = equipment.impale
-                                    equipmentContentTitle.appendChild(equipmentContentImpale)
-
-                                    const equipmentContentWard = document.createElement('div')
-                                    equipmentContentWard.innerHTML = equipment.ward
-                                    equipmentContentTitle.appendChild(equipmentContentWard)
-
-                                    const equipmentContentForDex = document.createElement('div')
-                                    equipmentContentForDex.innerHTML = equipment.fordex + " / " + equipment.dexdex
-                                    equipmentContentTitle.appendChild(equipmentContentForDex)
-
-                                    const equipmentContentPrice = document.createElement('div')
-                                    equipmentContentPrice.innerHTML = equipment.price
-                                    equipmentContentTitle.appendChild(equipmentContentPrice)
-
-                                    // On test si l'équipement du jeu est détenu par le personnage
-                                    for (equipmentCharacter of equipmentsCharacter) {
-                                        if (equipmentCharacter == equipment.id) {
-                                            equipmentContentName.classList.add('equipChecked')
-                                        }
-                                    }
-                                }
                             }
-                        }
-                        // **************************************************************************************************************
-                        // **************************************************************************************************************
+                            // **************************************************************************************************************
+                            // **************************************************************************************************************
                         }
                         if (contentDiv) {
                             contentDiv.remove()

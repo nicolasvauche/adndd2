@@ -610,7 +610,7 @@ EOF,
             }
         }
 
-        return $this->render('play/scenario/index.html.twig',
+        return $this->render('play/scenario/' . $scenario->getGame()->getSlug() . '/index.html.twig',
             [
                 'scenario' => $scenario,
                 'myCharacter' => $myCharacter,

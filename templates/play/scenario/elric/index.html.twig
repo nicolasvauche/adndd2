@@ -1,0 +1,777 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ scenario.name }}{% endblock %}
+
+{% block body_class %}table{% endblock %}
+
+{% block body %}
+    <article>
+        <section>
+            <h1>{{ scenario.name }}</h1>
+
+            <div class="content">
+                {% include 'play/scenario/visio.html.twig' with {'scenario': scenario} %}
+
+                {% include 'play/scenario/controls/index.html.twig' with {'scenario': scenario, 'myCharacter': myCharacter} %}
+
+                <div class="app_modal on">
+                    <div class="app_modal_box">
+                        <button class="app_button app_modal_close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="app_modal_body">
+                            <h2 class="app_modal_title">{{ scenario.name }}
+                                <small>Résumé</small>
+                            </h2>
+                            {{ scenario.description | raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    <script defer>
+        let equipmentsCharacter = []
+        window.addEventListener("DOMContentLoaded", () => {
+            const quitBtn = document.getElementById('quit')
+            quitBtn.addEventListener('click', event => {
+                event.preventDefault()
+                if (window.confirm('Tu veux VRAIMENT quitter la table de jeu ?')) {
+                    window.location.href = quitBtn.href
+                }
+            })
+
+            {% if myCharacter.name == 'MJ' %}
+            const endBtn = document.getElementById('end')
+            endBtn.addEventListener('click', event => {
+                event.preventDefault()
+                if (window.confirm('Tu veux VRAIMENT clôturer cette partie ?')) {
+                    window.location.href = endBtn.href
+                }
+            })
+            {% endif %}
+
+            {% if myCharacter.name == 'MJ' %}
+            const kickBtns = document.querySelectorAll('.kick')
+            for (const kickBtn of kickBtns) {
+                kickBtn.addEventListener('click', event => {
+                    event.preventDefault();
+                    if (window.confirm('Veux-tu VRAIMENT virer ' + event.target.dataset.charactername + ' de la table de jeu ?')) {
+                        console.log('Kicked ' + event.target.dataset.characterid)
+                    }
+                })
+            }
+            {% endif %}
+
+            const modalButtons = document.querySelectorAll('.modal')
+
+            for (const modalButton of modalButtons) {
+                modalButton.addEventListener('click', event => {
+                    event.preventDefault()
+                    const characterId = event.target.dataset.characterid
+                    const modalId = modalButton.dataset.modal
+                    const modal = document.getElementById(modalId)
+
+
+                    // Gestion de l'équipement dans la modale de la table de jeu
+                    if (modal.dataset.modaltype == 'equipment') {
+                        const equipmentTabs = document.querySelector('#page-wrap .tabs')
+                        if (equipmentTabs) {
+                            equipmentTabs.innerHTML = ''
+                        }
+
+                        const xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState === 4 && this.status === 200) {
+
+                                // On récupére la liste des types d'équipement
+                                const res = JSON.parse(this.responseText)
+                                let i = 0
+                                for (equipmentType of res) {
+                                    const typeDiv = document.createElement('div')
+                                    typeDiv.classList.add('tab')
+
+                                    // On crée le système d'onglet avec un bouton radio
+                                    const equipmentInput = document.createElement('input')
+                                    equipmentInput.type = 'radio'
+                                    equipmentInput.name = 'tab-group'
+                                    equipmentInput.id = 'tab-' + equipmentType.id
+                                    equipmentInput.dataset.typeid = equipmentType.id
+                                    if (i === 0) {
+                                        equipmentInput.setAttribute('checked', 'checked')
+                                    }
+
+                                    // Pour chaque type d'équipement, on affiche la liste des équipements
+                                    equipmentInput.addEventListener('click', (event) => {
+                                        showContent(event.target, equipmentType.id, typeDiv, characterId)
+                                    })
+                                    typeDiv.appendChild(equipmentInput)
+
+                                    // On crée le label des onglets
+                                    const equipmentLabel = document.createElement('label')
+                                    equipmentLabel.setAttribute('for', 'tab-' + equipmentType.id)
+                                    equipmentLabel.innerHTML = equipmentType.name
+                                    typeDiv.appendChild(equipmentLabel)
+                                    equipmentTabs.appendChild(typeDiv)
+
+                                    if (i === 0) {
+                                        showContent(equipmentInput, equipmentType.id, typeDiv, characterId)
+                                    }
+
+                                    i++
+                                }
+                            }
+                        }
+                        xhttp.open("GET", '/tes-personnages/liste-des-equipements-jeu/' + {{ scenario.game.id }}, true);
+                        xhttp.send();
+                    }
+                    modal.style.display = 'flex'
+                })
+            }
+
+            // Fonction qui affiche la liste des équipements par type
+            const showContent = (elt, equipmentType, typeDiv, characterId) => {
+
+                const contentDiv = document.querySelector('.tab > .content')
+                if (contentDiv) {
+                    contentDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'
+                }
+                const equipmentContent = document.createElement('div')
+                equipmentContent.classList.add('content')
+                equipmentContent.id = 'content-' + equipmentType
+
+                // Pour chaque type d'équipement, on affiche la liste des équipements
+                const xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        const res = JSON.parse(this.responseText)
+
+                        if (elt.dataset.typeid == 9) {
+                            // ***********************************************************************************************************
+                            // ***********************************************************************************************************
+                            // Titre du tableau pour les armures
+                            const equipmentContentTitle = document.createElement('div')
+                            equipmentContentTitle.classList.add('app_grid', 'nine')
+                            equipmentContent.style.textAlign = 'center'
+                            equipmentContentTitle.style.textAlign = 'center'
+                            equipmentContent.appendChild(equipmentContentTitle)
+                            // --------------------------------------------------------------------------------
+
+                            const equipmentContentTabName = document.createElement('div')
+                            equipmentContentTitle.appendChild(equipmentContentTabName)
+
+                            const equipmentContentTabDamage = document.createElement('div')
+                            equipmentContentTabDamage.innerHTML = 'Abs.'
+                            equipmentContentTabDamage.style.fontWeight = 'bold'
+                            equipmentContentTitle.appendChild(equipmentContentTabDamage)
+
+                            const equipmentContentTabDamageNo = document.createElement('div')
+                            equipmentContentTabDamageNo.innerHTML = 'Abs. sans heaume'
+                            equipmentContentTabDamageNo.style.fontWeight = 'bold'
+                            equipmentContentTitle.appendChild(equipmentContentTabDamageNo)
+
+                            const equipmentContentTabClutter = document.createElement('div')
+                            equipmentContentTabClutter.innerHTML = 'Enc.'
+                            equipmentContentTabClutter.style.fontWeight = 'bold'
+                            equipmentContentTitle.appendChild(equipmentContentTabClutter)
+
+                            const equipmentContentTabSize = document.createElement('div')
+                            equipmentContentTabSize.innerHTML = 'TAI'
+                            equipmentContentTabSize.style.fontWeight = 'bold'
+                            equipmentContentTitle.appendChild(equipmentContentTabSize)
+
+                            const equipmentContentTabSkill = document.createElement('div')
+                            equipmentContentTabSkill.innerHTML = 'Comp.'
+                            equipmentContentTabSkill.style.fontWeight = 'bold'
+                            equipmentContentTitle.appendChild(equipmentContentTabSkill)
+
+                            const equipmentContentTabSkillNo = document.createElement('div')
+                            equipmentContentTabSkillNo.innerHTML = 'Comp. sans heaume'
+                            equipmentContentTabSkillNo.style.fontWeight = 'bold'
+                            equipmentContentTitle.appendChild(equipmentContentTabSkillNo)
+
+                            const equipmentContentTabRound = document.createElement('div')
+                            equipmentContentTabRound.innerHTML = 'Tour'
+                            equipmentContentTabRound.style.fontWeight = 'bold'
+                            equipmentContentTitle.appendChild(equipmentContentTabRound)
+
+                            const equipmentContentTabPrice = document.createElement('div')
+                            equipmentContentTabPrice.innerHTML = 'Prix'
+                            equipmentContentTabPrice.style.fontWeight = 'bold'
+                            equipmentContentTitle.appendChild(equipmentContentTabPrice)
+                            // --------------------------------------------------------------------------------------------------  
+
+                            for (equipment of res) {
+                                const equipmentContentName = document.createElement('div')
+                                equipmentContentName.innerHTML = equipment.name
+                                equipmentContentName.id = equipment.id
+
+                                // Ajout / Suppression d'un équipement à un personnage
+                                equipmentContentName.addEventListener('click', event => {
+                                    equipmentContentName.classList.toggle('equipChecked')
+                                    if (equipmentContentName.className == 'equipChecked') {
+
+                                        const xhttp = new XMLHttpRequest();
+
+                                        xhttp.onreadystatechange = function () {
+                                            if (this.readyState === 4 && this.status === 200) {
+                                                const res = JSON.parse(this.responseText)
+                                                alert(res.message)
+                                            }
+                                        }
+
+                                        xhttp.open("GET", '/tes-personnages/ajouter-equipement/' + characterId + '/' + equipmentContentName.id + '/add', true);
+                                        xhttp.send();
+
+                                    } else {
+
+                                        const xhttp = new XMLHttpRequest();
+
+                                        xhttp.onreadystatechange = function () {
+                                            if (this.readyState === 4 && this.status === 200) {
+                                                const res = JSON.parse(this.responseText)
+                                                alert(res.message)
+                                            }
+                                        }
+
+                                        xhttp.open("GET", '/tes-personnages/ajouter-equipement/' + characterId + '/' + equipmentContentName.id + '/remove', true);
+                                        xhttp.send();
+                                    }
+                                })
+                                equipmentContentTitle.appendChild(equipmentContentName)
+
+                                const equipmentContentDamage = document.createElement('div')
+                                equipmentContentDamage.innerHTML = equipment.damage
+                                equipmentContentTitle.appendChild(equipmentContentDamage)
+
+                                const equipmentContentDamageNo = document.createElement('div')
+                                equipmentContentDamageNo.innerHTML = equipment.damageNoPowerup
+                                equipmentContentTitle.appendChild(equipmentContentDamageNo)
+
+                                const equipmentContentClutter = document.createElement('div')
+                                equipmentContentClutter.innerHTML = equipment.clutter
+                                equipmentContentTitle.appendChild(equipmentContentClutter)
+
+                                const equipmentContentSize = document.createElement('div')
+                                equipmentContentSize.innerHTML = equipment.size
+                                equipmentContentTitle.appendChild(equipmentContentSize)
+
+                                const equipmentContentSkill = document.createElement('div')
+                                equipmentContentSkill.innerHTML = equipment.skillModifyer + "%"
+                                equipmentContentTitle.appendChild(equipmentContentSkill)
+
+                                const equipmentContentSkillNo = document.createElement('div')
+                                equipmentContentSkillNo.innerHTML = equipment.skillModifyerNoPowerup + "%"
+                                equipmentContentTitle.appendChild(equipmentContentSkillNo)
+
+                                const equipmentContentRound = document.createElement('div')
+                                equipmentContentRound.innerHTML = equipment.numberRound
+                                equipmentContentTitle.appendChild(equipmentContentRound)
+
+                                const equipmentContentPrice = document.createElement('div')
+                                equipmentContentPrice.innerHTML = equipment.price
+                                equipmentContentTitle.appendChild(equipmentContentPrice)
+
+                                // On test si l'équipement du jeu est détenu par le personnage
+                                for (equipmentCharacter of equipmentsCharacter) {
+                                    if (equipmentCharacter == equipment.id) {
+                                        equipmentContentName.classList.add('equipChecked')
+                                    }
+                                }
+                            }
+                        } else {
+                            if (elt.dataset.typeid == 4) {
+
+                                // ***********************************************************************************************************
+                                // ***********************************************************************************************************
+                                // Titre du tableau pour les armes de jet
+                                const equipmentContentTitle = document.createElement('div')
+                                equipmentContentTitle.classList.add('app_grid', 'ten')
+                                equipmentContent.style.textAlign = 'center'
+                                equipmentContentTitle.style.textAlign = 'center'
+                                equipmentContent.appendChild(equipmentContentTitle)
+                                // --------------------------------------------------------------------------------
+
+                                const equipmentContentTabName = document.createElement('div')
+                                equipmentContentTitle.appendChild(equipmentContentTabName)
+
+                                const equipmentContentTabBase = document.createElement('div')
+                                equipmentContentTabBase.innerHTML = 'Base'
+                                equipmentContentTabBase.style.fontWeight = 'bold'
+                                equipmentContentTitle.appendChild(equipmentContentTabBase)
+
+                                const equipmentContentTabDamage = document.createElement('div')
+                                equipmentContentTabDamage.innerHTML = 'Dégâts'
+                                equipmentContentTabDamage.style.fontWeight = 'bold'
+                                equipmentContentTitle.appendChild(equipmentContentTabDamage)
+
+                                const equipmentContentTabRange = document.createElement('div')
+                                equipmentContentTabRange.innerHTML = 'Portée'
+                                equipmentContentTabRange.style.fontWeight = 'bold'
+                                equipmentContentTitle.appendChild(equipmentContentTabRange)
+
+                                const equipmentContentTabRound = document.createElement('div')
+                                equipmentContentTabRound.innerHTML = 'Tour'
+                                equipmentContentTabRound.style.fontWeight = 'bold'
+                                equipmentContentTitle.appendChild(equipmentContentTabRound)
+
+                                const equipmentContentTabStructure = document.createElement('div')
+                                equipmentContentTabStructure.innerHTML = 'Structure'
+                                equipmentContentTabStructure.style.fontWeight = 'bold'
+                                equipmentContentTitle.appendChild(equipmentContentTabStructure)
+
+                                const equipmentContentTabImpale = document.createElement('div')
+                                equipmentContentTabImpale.innerHTML = 'Empale'
+                                equipmentContentTabImpale.style.fontWeight = 'bold'
+                                equipmentContentTitle.appendChild(equipmentContentTabImpale)
+
+                                const equipmentContentTabWard = document.createElement('div')
+                                equipmentContentTabWard.innerHTML = 'Pare'
+                                equipmentContentTabWard.style.fontWeight = 'bold'
+                                equipmentContentTitle.appendChild(equipmentContentTabWard)
+
+                                const equipmentContentTabForDex = document.createElement('div')
+                                equipmentContentTabForDex.innerHTML = 'FOR / DEX'
+                                equipmentContentTabForDex.style.fontWeight = 'bold'
+                                equipmentContentTitle.appendChild(equipmentContentTabForDex)
+
+                                const equipmentContentTabPrice = document.createElement('div')
+                                equipmentContentTabPrice.innerHTML = 'Prix'
+                                equipmentContentTabPrice.style.fontWeight = 'bold'
+                                equipmentContentTitle.appendChild(equipmentContentTabPrice)
+                                // --------------------------------------------------------------------------------------------------
+                                // On affiche les équipements
+
+                                for (equipment of res) {
+                                    const equipmentContentName = document.createElement('div')
+                                    equipmentContentName.innerHTML = equipment.name
+                                    equipmentContentName.id = equipment.id
+                                    equipmentContentName.addEventListener('click', event => {
+                                        console.log(equipmentContentName.id)
+                                        equipmentContentName.classList.toggle('equipChecked')
+                                    })
+                                    equipmentContentTitle.appendChild(equipmentContentName)
+
+                                    const equipmentContentBase = document.createElement('div')
+                                    equipmentContentBase.innerHTML = equipment.base
+                                    equipmentContentTitle.appendChild(equipmentContentBase)
+
+                                    const equipmentContentDamage = document.createElement('div')
+                                    equipmentContentDamage.innerHTML = equipment.damage
+                                    equipmentContentTitle.appendChild(equipmentContentDamage)
+
+                                    const equipmentContentRange = document.createElement('div')
+                                    equipmentContentRange.innerHTML = equipment.ranged
+                                    equipmentContentTitle.appendChild(equipmentContentRange)
+
+                                    const equipmentContentRound = document.createElement('div')
+                                    equipmentContentRound.innerHTML = equipment.numberRound
+                                    equipmentContentTitle.appendChild(equipmentContentRound)
+
+                                    const equipmentContentStructure = document.createElement('div')
+                                    equipmentContentStructure.innerHTML = equipment.structure
+                                    equipmentContentTitle.appendChild(equipmentContentStructure)
+
+                                    const equipmentContentImpale = document.createElement('div')
+                                    equipmentContentImpale.innerHTML = equipment.impale
+                                    equipmentContentTitle.appendChild(equipmentContentImpale)
+
+                                    const equipmentContentWard = document.createElement('div')
+                                    equipmentContentWard.innerHTML = equipment.ward
+                                    equipmentContentTitle.appendChild(equipmentContentWard)
+
+                                    const equipmentContentForDex = document.createElement('div')
+                                    equipmentContentForDex.innerHTML = equipment.fordex + " / " + equipment.dexdex
+                                    equipmentContentTitle.appendChild(equipmentContentForDex)
+
+                                    const equipmentContentPrice = document.createElement('div')
+                                    equipmentContentPrice.innerHTML = equipment.price
+                                    equipmentContentTitle.appendChild(equipmentContentPrice)
+
+                                    // On test si l'équipement du jeu est détenu par le personnage
+                                    for (equipmentCharacter of equipmentsCharacter) {
+                                        if (equipmentCharacter == equipment.id) {
+                                            equipmentContentName.classList.add('equipChecked')
+                                        }
+                                    }
+                                }
+                                // **************************************************************************************************************
+                                // **************************************************************************************************************
+                            } else {
+                                if (elt.dataset.typeid == 8) {
+                                    // Titre du tableau pour les boucliers
+                                    const equipmentContentTitle = document.createElement('div')
+                                    equipmentContentTitle.classList.add('app_grid', 'nine')
+                                    equipmentContent.style.textAlign = 'center'
+                                    equipmentContentTitle.style.textAlign = 'center'
+                                    equipmentContent.appendChild(equipmentContentTitle)
+                                    // --------------------------------------------------------------------------------
+
+                                    const equipmentContentTabName = document.createElement('div')
+                                    equipmentContentTitle.appendChild(equipmentContentTabName)
+
+                                    const equipmentContentTabBase = document.createElement('div')
+                                    equipmentContentTabBase.innerHTML = 'Base'
+                                    equipmentContentTabBase.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabBase)
+
+                                    const equipmentContentTabDamage = document.createElement('div')
+                                    equipmentContentTabDamage.innerHTML = 'Dégâts'
+                                    equipmentContentTabDamage.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabDamage)
+
+                                    const equipmentContentTabRange = document.createElement('div')
+                                    equipmentContentTabRange.innerHTML = 'Portée'
+                                    equipmentContentTabRange.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabRange)
+
+                                    const equipmentContentTabStructure = document.createElement('div')
+                                    equipmentContentTabStructure.innerHTML = 'Structure'
+                                    equipmentContentTabStructure.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabStructure)
+
+                                    const equipmentContentTabImpale = document.createElement('div')
+                                    equipmentContentTabImpale.innerHTML = 'Empale'
+                                    equipmentContentTabImpale.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabImpale)
+
+                                    const equipmentContentTabWard = document.createElement('div')
+                                    equipmentContentTabWard.innerHTML = 'Pare'
+                                    equipmentContentTabWard.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabWard)
+
+                                    const equipmentContentTabForDex = document.createElement('div')
+                                    equipmentContentTabForDex.innerHTML = 'FOR / DEX'
+                                    equipmentContentTabForDex.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabForDex)
+
+                                    const equipmentContentTabPrice = document.createElement('div')
+                                    equipmentContentTabPrice.innerHTML = 'Prix'
+                                    equipmentContentTabPrice.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabPrice)
+                                    // --------------------------------------------------------------------------------------------------
+
+                                    for (equipment of res) {
+                                        const equipmentContentName = document.createElement('div')
+                                        equipmentContentName.innerHTML = equipment.name
+                                        equipmentContentName.id = equipment.id
+                                        equipmentContentName.addEventListener('click', event => {
+                                            console.log(equipmentContentName.id)
+                                            equipmentContentName.classList.toggle('equipChecked')
+                                        })
+                                        equipmentContentTitle.appendChild(equipmentContentName)
+
+                                        const equipmentContentBase = document.createElement('div')
+                                        equipmentContentBase.innerHTML = equipment.base
+                                        equipmentContentTitle.appendChild(equipmentContentBase)
+
+                                        const equipmentContentDamage = document.createElement('div')
+                                        equipmentContentDamage.innerHTML = equipment.damage
+                                        equipmentContentTitle.appendChild(equipmentContentDamage)
+
+
+                                        const equipmentContentRange = document.createElement('div')
+                                        equipmentContentRange.innerHTML = equipment.ranged
+                                        equipmentContentTitle.appendChild(equipmentContentRange)
+
+                                        const equipmentContentStructure = document.createElement('div')
+                                        equipmentContentStructure.innerHTML = equipment.structure
+                                        equipmentContentTitle.appendChild(equipmentContentStructure)
+
+                                        const equipmentContentImpale = document.createElement('div')
+                                        equipmentContentImpale.innerHTML = equipment.impale
+                                        equipmentContentTitle.appendChild(equipmentContentImpale)
+
+                                        const equipmentContentWard = document.createElement('div')
+                                        equipmentContentWard.innerHTML = equipment.ward
+                                        equipmentContentTitle.appendChild(equipmentContentWard)
+
+                                        const equipmentContentForDex = document.createElement('div')
+                                        equipmentContentForDex.innerHTML = equipment.fordex + " / " + equipment.dexdex
+                                        equipmentContentTitle.appendChild(equipmentContentForDex)
+
+                                        const equipmentContentPrice = document.createElement('div')
+                                        equipmentContentPrice.innerHTML = equipment.price
+                                        equipmentContentTitle.appendChild(equipmentContentPrice)
+
+                                        // On test si l'équipement du jeu est détenu par le personnage
+                                        for (equipmentCharacter of equipmentsCharacter) {
+                                            if (equipmentCharacter == equipment.id) {
+                                                equipmentContentName.classList.add('equipChecked')
+                                            }
+                                        }
+                                    }
+                                } else {
+
+                                    // ***********************************************************************************************************
+                                    // ***********************************************************************************************************
+                                    // Titre du tableau pour les autres types d'arme
+                                    const equipmentContentTitle = document.createElement('div')
+                                    equipmentContentTitle.classList.add('app_grid', 'ten')
+                                    equipmentContent.style.textAlign = 'center'
+                                    equipmentContentTitle.style.textAlign = 'center'
+                                    equipmentContent.appendChild(equipmentContentTitle)
+                                    // --------------------------------------------------------------------------------
+
+                                    const equipmentContentTabName = document.createElement('div')
+                                    equipmentContentTitle.appendChild(equipmentContentTabName)
+
+                                    const equipmentContentTabBase = document.createElement('div')
+                                    equipmentContentTabBase.innerHTML = 'Base'
+                                    equipmentContentTabBase.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabBase)
+
+                                    const equipmentContentTabDamage = document.createElement('div')
+                                    equipmentContentTabDamage.innerHTML = 'Dégâts'
+                                    equipmentContentTabDamage.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabDamage)
+
+                                    const equipmentContentTabHands = document.createElement('div')
+                                    equipmentContentTabHands.innerHTML = 'Mains'
+                                    equipmentContentTabHands.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabHands)
+
+                                    const equipmentContentTabStructure = document.createElement('div')
+                                    equipmentContentTabStructure.innerHTML = 'Structure'
+                                    equipmentContentTabStructure.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabStructure)
+
+                                    const equipmentContentTabSize = document.createElement('div')
+                                    equipmentContentTabSize.innerHTML = 'Taille'
+                                    equipmentContentTabSize.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabSize)
+
+                                    const equipmentContentTabImpale = document.createElement('div')
+                                    equipmentContentTabImpale.innerHTML = 'Empale'
+                                    equipmentContentTabImpale.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabImpale)
+
+                                    const equipmentContentTabWard = document.createElement('div')
+                                    equipmentContentTabWard.innerHTML = 'Pare'
+                                    equipmentContentTabWard.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabWard)
+
+                                    const equipmentContentTabForDex = document.createElement('div')
+                                    equipmentContentTabForDex.innerHTML = 'FOR / DEX'
+                                    equipmentContentTabForDex.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabForDex)
+
+                                    const equipmentContentTabPrice = document.createElement('div')
+                                    equipmentContentTabPrice.innerHTML = 'Prix'
+                                    equipmentContentTabPrice.style.fontWeight = 'bold'
+                                    equipmentContentTitle.appendChild(equipmentContentTabPrice)
+                                    // --------------------------------------------------------------------------------------------------
+                                    // On affiche les équipements
+
+                                    for (equipment of res) {
+                                        const equipmentContentName = document.createElement('div')
+                                        equipmentContentName.innerHTML = equipment.name
+                                        equipmentContentName.id = equipment.id
+                                        equipmentContentName.addEventListener('click', event => {
+                                            console.log(equipmentContentName.id)
+                                            equipmentContentName.classList.toggle('equipChecked')
+                                        })
+                                        equipmentContentTitle.appendChild(equipmentContentName)
+
+                                        const equipmentContentBase = document.createElement('div')
+                                        equipmentContentBase.innerHTML = equipment.base
+                                        equipmentContentTitle.appendChild(equipmentContentBase)
+
+                                        const equipmentContentDamage = document.createElement('div')
+                                        equipmentContentDamage.innerHTML = equipment.damage
+                                        equipmentContentTitle.appendChild(equipmentContentDamage)
+
+                                        const equipmentContentHands = document.createElement('div')
+                                        equipmentContentHands.innerHTML = equipment.hands
+                                        equipmentContentTitle.appendChild(equipmentContentHands)
+
+                                        const equipmentContentStructure = document.createElement('div')
+                                        equipmentContentStructure.innerHTML = equipment.structure
+                                        equipmentContentTitle.appendChild(equipmentContentStructure)
+
+                                        const equipmentContentSize = document.createElement('div')
+                                        equipmentContentSize.innerHTML = equipment.size
+                                        equipmentContentTitle.appendChild(equipmentContentSize)
+
+                                        const equipmentContentImpale = document.createElement('div')
+                                        equipmentContentImpale.innerHTML = equipment.impale
+                                        equipmentContentTitle.appendChild(equipmentContentImpale)
+
+                                        const equipmentContentWard = document.createElement('div')
+                                        equipmentContentWard.innerHTML = equipment.ward
+                                        equipmentContentTitle.appendChild(equipmentContentWard)
+
+                                        const equipmentContentForDex = document.createElement('div')
+                                        equipmentContentForDex.innerHTML = equipment.fordex + " / " + equipment.dexdex
+                                        equipmentContentTitle.appendChild(equipmentContentForDex)
+
+                                        const equipmentContentPrice = document.createElement('div')
+                                        equipmentContentPrice.innerHTML = equipment.price
+                                        equipmentContentTitle.appendChild(equipmentContentPrice)
+
+                                        // On test si l'équipement du jeu est détenu par le personnage
+                                        for (equipmentCharacter of equipmentsCharacter) {
+                                            if (equipmentCharacter == equipment.id) {
+                                                equipmentContentName.classList.add('equipChecked')
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            // **************************************************************************************************************
+                            // **************************************************************************************************************
+                        }
+                        if (contentDiv) {
+                            contentDiv.remove()
+                        }
+                        typeDiv.appendChild(equipmentContent)
+
+                        // On charge la liste des équipements du personnage (cf ligne 180)
+                        showEquipmentsCharacter(characterId)
+                    }
+                }
+
+                xhttp.open("GET", '/tes-personnages/equipements-par-type/' + elt.dataset.typeid + '/' + characterId, true);
+                xhttp.send();
+            }
+
+            // Fonction qui retourne la liste des équipements détenus par un personnage
+            const showEquipmentsCharacter = (characterId) => {
+                equipmentsCharacter = []
+                // Pour chaque personnage, on affiche la liste des équipements
+                const xhttp2 = new XMLHttpRequest();
+
+                xhttp2.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        const resChar = JSON.parse(this.responseText)
+
+                        // le tableau 'equipmentsCharacter' contiendra tous les équipements du personnage
+                        for (equipment of resChar) {
+                            let newEquipmentCharacter = equipmentsCharacter.push(equipment.id);
+                        }
+                    }
+                }
+                xhttp2.open("GET", '/tes-personnages/liste-des-equipements-personnage/' + characterId, true);
+                xhttp2.send();
+            }
+
+
+            const modalCloseButtons = document.querySelectorAll('.app_modal_close')
+            for (const modalCloseButton of modalCloseButtons) {
+                modalCloseButton.addEventListener('click', () => {
+                    modalCloseButton.parentNode.parentNode.style.display = 'none'
+                })
+            }
+
+            const toggleControlsBtn = document.getElementById('toggleControls')
+            toggleControlsBtn.addEventListener('click', event => {
+                event.preventDefault()
+                const controlsPanel = document.getElementById('controls')
+                const toggleIcon = document.getElementById('toggleIcon')
+                if (controlsPanel.classList.contains('on')) {
+                    controlsPanel.classList.remove('on')
+                    toggleIcon.classList.replace('fa-chevron-right', 'fa-chevron-left')
+                } else {
+                    controlsPanel.classList.add('on')
+                    toggleIcon.classList.replace('fa-chevron-left', 'fa-chevron-right')
+                }
+            })
+
+            let tableSet = {
+                {% for dice in scenario.game.gamesystem.diceset.dices %}
+                '{{ dice.faces }}': 0,
+                {% endfor %}
+            }
+
+            const dices = document.querySelectorAll('.dices > a > img')
+            const rollBtn = document.getElementById('rollDices')
+            let nbDicesOnTable = 0
+            for (dice of dices) {
+                dice.addEventListener('click', event => {
+                    const diceImg = event.target
+                    event.preventDefault()
+                    tableSet[diceImg.dataset.dicename] = (tableSet[diceImg.dataset.dicename] + 1) || 0
+                    nbDicesOnTable++
+                    const diceNb = diceImg.parentNode.querySelector('span')
+                    diceNb.innerHTML = tableSet[diceImg.dataset.dicename]
+                    if (nbDicesOnTable > 0) {
+                        rollBtn.classList.remove('hidden')
+                    }
+                })
+            }
+
+            const dicesNb = document.querySelectorAll('.dices > a > span')
+            for (diceNb of dicesNb) {
+                diceNb.addEventListener('click', event => {
+                    const diceImg = event.target.parentNode.querySelector('img')
+                    event.preventDefault()
+                    tableSet[diceImg.dataset.dicename] = tableSet[diceImg.dataset.dicename] - 1
+                    if (tableSet[diceImg.dataset.dicename] <= 0) {
+                        tableSet[diceImg.dataset.dicename] = 0
+                    }
+                    nbDicesOnTable--
+                    if (nbDicesOnTable <= 0) {
+                        nbDicesOnTable = 0
+                    }
+                    event.target.innerHTML = tableSet[diceImg.dataset.dicename]
+                    if (nbDicesOnTable == 0) {
+                        rollBtn.classList.add('hidden')
+                    }
+                })
+            }
+
+            rollBtn.addEventListener('click', event => {
+                const btn = event.target
+                if (!btn.classList.contains('hidden')) {
+                    const dicesToRoll = {}
+                    let dicesSum = 0
+                    for (const element in tableSet) {
+                        if (tableSet[element] > 0) {
+                            dicesToRoll['D' + element] = tableSet[element]
+                            for (let i = 1; i <= tableSet[element]; i++) {
+                                let total = 0
+                                if (parseInt(element) === 100) {
+                                    total = Math.floor(Math.random() * 100) + 1
+                                    total = Math.floor(total / 10) * 10
+                                } else {
+                                    total = Math.floor(Math.random() * parseInt(element)) + 1
+                                }
+                                console.log('rolling 1D' + element + '(' + i + '/' + tableSet[element] + ') = ' + total)
+                                dicesSum += total
+                            }
+                        }
+                    }
+
+                    const dicesResult = document.getElementById('dicesResult')
+                    let dicesStr = ''
+                    let i = 1;
+                    for (let key in dicesToRoll) {
+                        if (dicesToRoll.hasOwnProperty(key)) {
+                            dicesStr += dicesToRoll[key] + ' ' + key
+                            if (i < Object.keys(dicesToRoll).length) {
+                                dicesStr += ' <strong>+</strong> '
+                            }
+                            i++
+                        }
+                    }
+                    dicesResult.innerHTML = '<h3>Dernier lancer :</h3>' + dicesStr + ' <strong>=</strong> ' + '<strong>' + dicesSum + '</strong>'
+
+                    nbDicesOnTable = 0
+                    tableSet = {
+                        {% for dice in scenario.game.gamesystem.diceset.dices %}
+                        '{{ dice.faces }}': 0,
+                        {% endfor %}
+                    }
+                    for (const dice of dicesNb) {
+                        dice.innerHTML = 0
+                    }
+                    rollBtn.classList.add('hidden')
+                }
+            })
+        })
+    </script>
+{% endblock %}
