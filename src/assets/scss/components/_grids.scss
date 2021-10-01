@@ -36,16 +36,6 @@
         }
     }
 
-    &.ten {
-        @include respond(sm) {
-            grid-template-columns: repeat(10, 1fr);
-        }
-
-        @include respond(md) {
-            grid-template-columns: repeat(10, 1fr);
-        }
-    }
-
     &.five {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -106,6 +96,26 @@
 
         @include respond(md) {
             grid-template-columns: repeat(5, 1fr);
+        }
+    }
+
+    &.nine {
+        @include respond(sm) {
+            grid-template-columns: repeat(9, 1fr);
+        }
+
+        @include respond(md) {
+            grid-template-columns: repeat(9, 1fr);
+        }
+    }
+
+    &.ten {
+        @include respond(sm) {
+            grid-template-columns: repeat(10, 1fr);
+        }
+
+        @include respond(md) {
+            grid-template-columns: repeat(10, 1fr);
         }
     }
 

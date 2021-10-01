@@ -250,4 +250,31 @@ class CharacterController extends AbstractController
         return new JsonResponse(json_decode($json));
     }
 
+    /**
+     * @Route("/ajouter-equipement/{id}/{equipmentId}/{mode}", name="user.characters.addCharacterEquipment")
+     */
+
+    public function addCharacterEquipment(EntityManagerInterface $manager, Character $character, $equipmentId, $mode)
+    {
+
+        $equipment = $this->getDoctrine()->getRepository(Equipment::class)->find($equipmentId);
+
+        if ($mode == 'add'){
+            $character->addEquipment($equipment);
+            $json = [
+                'message' => "L'équipement a été ajouté",
+            ];
+        }else{
+            $character->removeEquipment($equipment);
+            $json = [
+                'message' => "L'équipement a été retiré",
+            ];
+        }
+
+        $manager->persist($character);
+        $manager->flush();
+
+
+        return new JsonResponse($json);
+    }
 }
